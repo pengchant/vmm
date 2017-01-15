@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.SectorMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Sector">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="deptname" jdbcType="VARCHAR" property="deptname" />
+    <result column="secflag" jdbcType="CHAR" property="secflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, deptname, secflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sector
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sector
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Sector">
+    insert into sector (id, deptname, secflag
+      )
+    values (#{id,jdbcType=INTEGER}, #{deptname,jdbcType=VARCHAR}, #{secflag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Sector">
+    insert into sector
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deptname != null">
+        deptname,
+      </if>
+      <if test="secflag != null">
+        secflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deptname != null">
+        #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="secflag != null">
+        #{secflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Sector">
+    update sector
+    <set>
+      <if test="deptname != null">
+        deptname = #{deptname,jdbcType=VARCHAR},
+      </if>
+      <if test="secflag != null">
+        secflag = #{secflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Sector">
+    update sector
+    set deptname = #{deptname,jdbcType=VARCHAR},
+      secflag = #{secflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

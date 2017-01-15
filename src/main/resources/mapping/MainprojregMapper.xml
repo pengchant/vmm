@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.MainprojregMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Mainprojreg">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ordersid" jdbcType="INTEGER" property="ordersid" />
+    <result column="mainitemid" jdbcType="INTEGER" property="mainitemid" />
+    <result column="regperson" jdbcType="CHAR" property="regperson" />
+    <result column="regtime" jdbcType="TIMESTAMP" property="regtime" />
+    <result column="spenttime" jdbcType="DOUBLE" property="spenttime" />
+    <result column="mainstatus" jdbcType="CHAR" property="mainstatus" />
+    <result column="haspassed" jdbcType="SMALLINT" property="haspassed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ordersid, mainitemid, regperson, regtime, spenttime, mainstatus, haspassed
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mainprojreg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mainprojreg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Mainprojreg">
+    insert into mainprojreg (id, ordersid, mainitemid, 
+      regperson, regtime, spenttime, 
+      mainstatus, haspassed)
+    values (#{id,jdbcType=INTEGER}, #{ordersid,jdbcType=INTEGER}, #{mainitemid,jdbcType=INTEGER}, 
+      #{regperson,jdbcType=CHAR}, #{regtime,jdbcType=TIMESTAMP}, #{spenttime,jdbcType=DOUBLE}, 
+      #{mainstatus,jdbcType=CHAR}, #{haspassed,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Mainprojreg">
+    insert into mainprojreg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ordersid != null">
+        ordersid,
+      </if>
+      <if test="mainitemid != null">
+        mainitemid,
+      </if>
+      <if test="regperson != null">
+        regperson,
+      </if>
+      <if test="regtime != null">
+        regtime,
+      </if>
+      <if test="spenttime != null">
+        spenttime,
+      </if>
+      <if test="mainstatus != null">
+        mainstatus,
+      </if>
+      <if test="haspassed != null">
+        haspassed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordersid != null">
+        #{ordersid,jdbcType=INTEGER},
+      </if>
+      <if test="mainitemid != null">
+        #{mainitemid,jdbcType=INTEGER},
+      </if>
+      <if test="regperson != null">
+        #{regperson,jdbcType=CHAR},
+      </if>
+      <if test="regtime != null">
+        #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spenttime != null">
+        #{spenttime,jdbcType=DOUBLE},
+      </if>
+      <if test="mainstatus != null">
+        #{mainstatus,jdbcType=CHAR},
+      </if>
+      <if test="haspassed != null">
+        #{haspassed,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Mainprojreg">
+    update mainprojreg
+    <set>
+      <if test="ordersid != null">
+        ordersid = #{ordersid,jdbcType=INTEGER},
+      </if>
+      <if test="mainitemid != null">
+        mainitemid = #{mainitemid,jdbcType=INTEGER},
+      </if>
+      <if test="regperson != null">
+        regperson = #{regperson,jdbcType=CHAR},
+      </if>
+      <if test="regtime != null">
+        regtime = #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spenttime != null">
+        spenttime = #{spenttime,jdbcType=DOUBLE},
+      </if>
+      <if test="mainstatus != null">
+        mainstatus = #{mainstatus,jdbcType=CHAR},
+      </if>
+      <if test="haspassed != null">
+        haspassed = #{haspassed,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Mainprojreg">
+    update mainprojreg
+    set ordersid = #{ordersid,jdbcType=INTEGER},
+      mainitemid = #{mainitemid,jdbcType=INTEGER},
+      regperson = #{regperson,jdbcType=CHAR},
+      regtime = #{regtime,jdbcType=TIMESTAMP},
+      spenttime = #{spenttime,jdbcType=DOUBLE},
+      mainstatus = #{mainstatus,jdbcType=CHAR},
+      haspassed = #{haspassed,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

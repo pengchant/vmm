@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.VehicleMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Vehicle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vehname" jdbcType="VARCHAR" property="vehname" />
+    <result column="carmodel" jdbcType="VARCHAR" property="carmodel" />
+    <result column="inspectiondate" jdbcType="TIMESTAMP" property="inspectiondate" />
+    <result column="milage" jdbcType="DOUBLE" property="milage" />
+    <result column="platenum" jdbcType="CHAR" property="platenum" />
+    <result column="vehflag" jdbcType="CHAR" property="vehflag" />
+    <result column="customerid" jdbcType="INTEGER" property="customerid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vehname, carmodel, inspectiondate, milage, platenum, vehflag, customerid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vehicle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Vehicle">
+    insert into vehicle (id, vehname, carmodel, 
+      inspectiondate, milage, platenum, 
+      vehflag, customerid)
+    values (#{id,jdbcType=INTEGER}, #{vehname,jdbcType=VARCHAR}, #{carmodel,jdbcType=VARCHAR}, 
+      #{inspectiondate,jdbcType=TIMESTAMP}, #{milage,jdbcType=DOUBLE}, #{platenum,jdbcType=CHAR}, 
+      #{vehflag,jdbcType=CHAR}, #{customerid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Vehicle">
+    insert into vehicle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vehname != null">
+        vehname,
+      </if>
+      <if test="carmodel != null">
+        carmodel,
+      </if>
+      <if test="inspectiondate != null">
+        inspectiondate,
+      </if>
+      <if test="milage != null">
+        milage,
+      </if>
+      <if test="platenum != null">
+        platenum,
+      </if>
+      <if test="vehflag != null">
+        vehflag,
+      </if>
+      <if test="customerid != null">
+        customerid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vehname != null">
+        #{vehname,jdbcType=VARCHAR},
+      </if>
+      <if test="carmodel != null">
+        #{carmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectiondate != null">
+        #{inspectiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="milage != null">
+        #{milage,jdbcType=DOUBLE},
+      </if>
+      <if test="platenum != null">
+        #{platenum,jdbcType=CHAR},
+      </if>
+      <if test="vehflag != null">
+        #{vehflag,jdbcType=CHAR},
+      </if>
+      <if test="customerid != null">
+        #{customerid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Vehicle">
+    update vehicle
+    <set>
+      <if test="vehname != null">
+        vehname = #{vehname,jdbcType=VARCHAR},
+      </if>
+      <if test="carmodel != null">
+        carmodel = #{carmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectiondate != null">
+        inspectiondate = #{inspectiondate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="milage != null">
+        milage = #{milage,jdbcType=DOUBLE},
+      </if>
+      <if test="platenum != null">
+        platenum = #{platenum,jdbcType=CHAR},
+      </if>
+      <if test="vehflag != null">
+        vehflag = #{vehflag,jdbcType=CHAR},
+      </if>
+      <if test="customerid != null">
+        customerid = #{customerid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Vehicle">
+    update vehicle
+    set vehname = #{vehname,jdbcType=VARCHAR},
+      carmodel = #{carmodel,jdbcType=VARCHAR},
+      inspectiondate = #{inspectiondate,jdbcType=TIMESTAMP},
+      milage = #{milage,jdbcType=DOUBLE},
+      platenum = #{platenum,jdbcType=CHAR},
+      vehflag = #{vehflag,jdbcType=CHAR},
+      customerid = #{customerid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 模糊查询用户和车牌号信息 -->
+  <select id="selectVehicleByKey" parameterType="String" resultType="com.javaweb.views.CustomerVehicle">
+  	select customer.id as customerid,
+	customer.numbering,customer.contactinfo,
+	vehicle.platenum,vehicle.carmodel,
+	vehicle.milage,vehicle.inspectiondate,
+	vehicle.vehflag
+	from customer LEFT JOIN
+	vehicle on(customer.id= vehicle.customerid) 
+	<where>
+		<if test="keyworld!=null and keyworld !=''">
+			and numbering like concat('%',#{keyworld},'%')
+			or contactinfo like concat('%',#{keyworld},'%')
+			or platenum like concat('%',#{keyworld},'%')
+		</if>
+	</where> 	
+  </select>
+</mapper>

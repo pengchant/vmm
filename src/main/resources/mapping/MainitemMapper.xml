@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.MainitemMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Mainitem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mainnumbering" jdbcType="CHAR" property="mainnumbering" />
+    <result column="projName" jdbcType="VARCHAR" property="projname" />
+    <result column="projcategoryid" jdbcType="INTEGER" property="projcategoryid" />
+    <result column="itemprice" jdbcType="DOUBLE" property="itemprice" />
+    <result column="mainflag" jdbcType="CHAR" property="mainflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mainnumbering, projName, projcategoryid, itemprice, mainflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mainitem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mainitem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Mainitem">
+    insert into mainitem (id, mainnumbering, projName, 
+      projcategoryid, itemprice, mainflag
+      )
+    values (#{id,jdbcType=INTEGER}, #{mainnumbering,jdbcType=CHAR}, #{projname,jdbcType=VARCHAR}, 
+      #{projcategoryid,jdbcType=INTEGER}, #{itemprice,jdbcType=DOUBLE}, #{mainflag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Mainitem">
+    insert into mainitem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mainnumbering != null">
+        mainnumbering,
+      </if>
+      <if test="projname != null">
+        projName,
+      </if>
+      <if test="projcategoryid != null">
+        projcategoryid,
+      </if>
+      <if test="itemprice != null">
+        itemprice,
+      </if>
+      <if test="mainflag != null">
+        mainflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainnumbering != null">
+        #{mainnumbering,jdbcType=CHAR},
+      </if>
+      <if test="projname != null">
+        #{projname,jdbcType=VARCHAR},
+      </if>
+      <if test="projcategoryid != null">
+        #{projcategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="itemprice != null">
+        #{itemprice,jdbcType=DOUBLE},
+      </if>
+      <if test="mainflag != null">
+        #{mainflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Mainitem">
+    update mainitem
+    <set>
+      <if test="mainnumbering != null">
+        mainnumbering = #{mainnumbering,jdbcType=CHAR},
+      </if>
+      <if test="projname != null">
+        projName = #{projname,jdbcType=VARCHAR},
+      </if>
+      <if test="projcategoryid != null">
+        projcategoryid = #{projcategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="itemprice != null">
+        itemprice = #{itemprice,jdbcType=DOUBLE},
+      </if>
+      <if test="mainflag != null">
+        mainflag = #{mainflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Mainitem">
+    update mainitem
+    set mainnumbering = #{mainnumbering,jdbcType=CHAR},
+      projName = #{projname,jdbcType=VARCHAR},
+      projcategoryid = #{projcategoryid,jdbcType=INTEGER},
+      itemprice = #{itemprice,jdbcType=DOUBLE},
+      mainflag = #{mainflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

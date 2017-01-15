@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.UserrightsMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Userrights">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="permissionid" jdbcType="INTEGER" property="permissionid" />
+    <result column="accountid" jdbcType="INTEGER" property="accountid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, permissionid, accountid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userrights
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userrights
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Userrights">
+    insert into userrights (id, permissionid, accountid
+      )
+    values (#{id,jdbcType=INTEGER}, #{permissionid,jdbcType=INTEGER}, #{accountid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Userrights">
+    insert into userrights
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="permissionid != null">
+        permissionid,
+      </if>
+      <if test="accountid != null">
+        accountid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="permissionid != null">
+        #{permissionid,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null">
+        #{accountid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Userrights">
+    update userrights
+    <set>
+      <if test="permissionid != null">
+        permissionid = #{permissionid,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null">
+        accountid = #{accountid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Userrights">
+    update userrights
+    set permissionid = #{permissionid,jdbcType=INTEGER},
+      accountid = #{accountid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

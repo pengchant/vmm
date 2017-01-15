@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.BalancesheetMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Balancesheet">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="settlementdate" jdbcType="TIMESTAMP" property="settlementdate" />
+    <result column="totalamount" jdbcType="DOUBLE" property="totalamount" />
+    <result column="settler" jdbcType="CHAR" property="settler" />
+    <result column="ordersid" jdbcType="INTEGER" property="ordersid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, settlementdate, totalamount, settler, ordersid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from balancesheet
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from balancesheet
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Balancesheet">
+    insert into balancesheet (id, settlementdate, totalamount, 
+      settler, ordersid)
+    values (#{id,jdbcType=INTEGER}, #{settlementdate,jdbcType=TIMESTAMP}, #{totalamount,jdbcType=DOUBLE}, 
+      #{settler,jdbcType=CHAR}, #{ordersid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Balancesheet">
+    insert into balancesheet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="settlementdate != null">
+        settlementdate,
+      </if>
+      <if test="totalamount != null">
+        totalamount,
+      </if>
+      <if test="settler != null">
+        settler,
+      </if>
+      <if test="ordersid != null">
+        ordersid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="settlementdate != null">
+        #{settlementdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalamount != null">
+        #{totalamount,jdbcType=DOUBLE},
+      </if>
+      <if test="settler != null">
+        #{settler,jdbcType=CHAR},
+      </if>
+      <if test="ordersid != null">
+        #{ordersid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Balancesheet">
+    update balancesheet
+    <set>
+      <if test="settlementdate != null">
+        settlementdate = #{settlementdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalamount != null">
+        totalamount = #{totalamount,jdbcType=DOUBLE},
+      </if>
+      <if test="settler != null">
+        settler = #{settler,jdbcType=CHAR},
+      </if>
+      <if test="ordersid != null">
+        ordersid = #{ordersid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Balancesheet">
+    update balancesheet
+    set settlementdate = #{settlementdate,jdbcType=TIMESTAMP},
+      totalamount = #{totalamount,jdbcType=DOUBLE},
+      settler = #{settler,jdbcType=CHAR},
+      ordersid = #{ordersid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

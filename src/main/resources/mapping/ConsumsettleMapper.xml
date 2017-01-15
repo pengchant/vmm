@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.ConsumsettleMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Consumsettle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ordernum" jdbcType="CHAR" property="ordernum" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="customername" jdbcType="CHAR" property="customername" />
+    <result column="carbrand" jdbcType="CHAR" property="carbrand" />
+    <result column="conntactinfo" jdbcType="CHAR" property="conntactinfo" />
+    <result column="contactadd" jdbcType="VARCHAR" property="contactadd" />
+    <result column="consumptotal" jdbcType="DOUBLE" property="consumptotal" />
+    <result column="offers" jdbcType="DOUBLE" property="offers" />
+    <result column="paid" jdbcType="DOUBLE" property="paid" />
+    <result column="manager" jdbcType="CHAR" property="manager" />
+    <result column="mananum" jdbcType="CHAR" property="mananum" />
+    <result column="settletime" jdbcType="TIMESTAMP" property="settletime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ordernum, createtime, customername, carbrand, conntactinfo, contactadd, consumptotal, 
+    offers, paid, manager, mananum, settletime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from consumsettle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from consumsettle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Consumsettle">
+    insert into consumsettle (id, ordernum, createtime, 
+      customername, carbrand, conntactinfo, 
+      contactadd, consumptotal, offers, 
+      paid, manager, mananum, settletime
+      )
+    values (#{id,jdbcType=INTEGER}, #{ordernum,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{customername,jdbcType=CHAR}, #{carbrand,jdbcType=CHAR}, #{conntactinfo,jdbcType=CHAR}, 
+      #{contactadd,jdbcType=VARCHAR}, #{consumptotal,jdbcType=DOUBLE}, #{offers,jdbcType=DOUBLE}, 
+      #{paid,jdbcType=DOUBLE}, #{manager,jdbcType=CHAR}, #{mananum,jdbcType=CHAR}, #{settletime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Consumsettle">
+    insert into consumsettle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ordernum != null">
+        ordernum,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="customername != null">
+        customername,
+      </if>
+      <if test="carbrand != null">
+        carbrand,
+      </if>
+      <if test="conntactinfo != null">
+        conntactinfo,
+      </if>
+      <if test="contactadd != null">
+        contactadd,
+      </if>
+      <if test="consumptotal != null">
+        consumptotal,
+      </if>
+      <if test="offers != null">
+        offers,
+      </if>
+      <if test="paid != null">
+        paid,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="mananum != null">
+        mananum,
+      </if>
+      <if test="settletime != null">
+        settletime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=CHAR},
+      </if>
+      <if test="carbrand != null">
+        #{carbrand,jdbcType=CHAR},
+      </if>
+      <if test="conntactinfo != null">
+        #{conntactinfo,jdbcType=CHAR},
+      </if>
+      <if test="contactadd != null">
+        #{contactadd,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptotal != null">
+        #{consumptotal,jdbcType=DOUBLE},
+      </if>
+      <if test="offers != null">
+        #{offers,jdbcType=DOUBLE},
+      </if>
+      <if test="paid != null">
+        #{paid,jdbcType=DOUBLE},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=CHAR},
+      </if>
+      <if test="mananum != null">
+        #{mananum,jdbcType=CHAR},
+      </if>
+      <if test="settletime != null">
+        #{settletime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Consumsettle">
+    update consumsettle
+    <set>
+      <if test="ordernum != null">
+        ordernum = #{ordernum,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customername != null">
+        customername = #{customername,jdbcType=CHAR},
+      </if>
+      <if test="carbrand != null">
+        carbrand = #{carbrand,jdbcType=CHAR},
+      </if>
+      <if test="conntactinfo != null">
+        conntactinfo = #{conntactinfo,jdbcType=CHAR},
+      </if>
+      <if test="contactadd != null">
+        contactadd = #{contactadd,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptotal != null">
+        consumptotal = #{consumptotal,jdbcType=DOUBLE},
+      </if>
+      <if test="offers != null">
+        offers = #{offers,jdbcType=DOUBLE},
+      </if>
+      <if test="paid != null">
+        paid = #{paid,jdbcType=DOUBLE},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=CHAR},
+      </if>
+      <if test="mananum != null">
+        mananum = #{mananum,jdbcType=CHAR},
+      </if>
+      <if test="settletime != null">
+        settletime = #{settletime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Consumsettle">
+    update consumsettle
+    set ordernum = #{ordernum,jdbcType=CHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      customername = #{customername,jdbcType=CHAR},
+      carbrand = #{carbrand,jdbcType=CHAR},
+      conntactinfo = #{conntactinfo,jdbcType=CHAR},
+      contactadd = #{contactadd,jdbcType=VARCHAR},
+      consumptotal = #{consumptotal,jdbcType=DOUBLE},
+      offers = #{offers,jdbcType=DOUBLE},
+      paid = #{paid,jdbcType=DOUBLE},
+      manager = #{manager,jdbcType=CHAR},
+      mananum = #{mananum,jdbcType=CHAR},
+      settletime = #{settletime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

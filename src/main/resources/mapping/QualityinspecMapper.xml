@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.QualityinspecMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Qualityinspec">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mainprojregid" jdbcType="INTEGER" property="mainprojregid" />
+    <result column="inspectperson" jdbcType="CHAR" property="inspectperson" />
+    <result column="jobnum" jdbcType="CHAR" property="jobnum" />
+    <result column="inspecttime" jdbcType="TIMESTAMP" property="inspecttime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mainprojregid, inspectperson, jobnum, inspecttime, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qualityinspec
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qualityinspec
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Qualityinspec">
+    insert into qualityinspec (id, mainprojregid, inspectperson, 
+      jobnum, inspecttime, remarks
+      )
+    values (#{id,jdbcType=INTEGER}, #{mainprojregid,jdbcType=INTEGER}, #{inspectperson,jdbcType=CHAR}, 
+      #{jobnum,jdbcType=CHAR}, #{inspecttime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Qualityinspec">
+    insert into qualityinspec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mainprojregid != null">
+        mainprojregid,
+      </if>
+      <if test="inspectperson != null">
+        inspectperson,
+      </if>
+      <if test="jobnum != null">
+        jobnum,
+      </if>
+      <if test="inspecttime != null">
+        inspecttime,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainprojregid != null">
+        #{mainprojregid,jdbcType=INTEGER},
+      </if>
+      <if test="inspectperson != null">
+        #{inspectperson,jdbcType=CHAR},
+      </if>
+      <if test="jobnum != null">
+        #{jobnum,jdbcType=CHAR},
+      </if>
+      <if test="inspecttime != null">
+        #{inspecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Qualityinspec">
+    update qualityinspec
+    <set>
+      <if test="mainprojregid != null">
+        mainprojregid = #{mainprojregid,jdbcType=INTEGER},
+      </if>
+      <if test="inspectperson != null">
+        inspectperson = #{inspectperson,jdbcType=CHAR},
+      </if>
+      <if test="jobnum != null">
+        jobnum = #{jobnum,jdbcType=CHAR},
+      </if>
+      <if test="inspecttime != null">
+        inspecttime = #{inspecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Qualityinspec">
+    update qualityinspec
+    set mainprojregid = #{mainprojregid,jdbcType=INTEGER},
+      inspectperson = #{inspectperson,jdbcType=CHAR},
+      jobnum = #{jobnum,jdbcType=CHAR},
+      inspecttime = #{inspecttime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

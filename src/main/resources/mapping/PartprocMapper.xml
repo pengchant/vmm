@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.PartprocMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Partproc">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="partcategoryname" jdbcType="VARCHAR" property="partcategoryname" />
+    <result column="partcategorycode" jdbcType="CHAR" property="partcategorycode" />
+    <result column="partname" jdbcType="VARCHAR" property="partname" />
+    <result column="partcode" jdbcType="CHAR" property="partcode" />
+    <result column="suppliercode" jdbcType="CHAR" property="suppliercode" />
+    <result column="suppliername" jdbcType="VARCHAR" property="suppliername" />
+    <result column="pruchdemand" jdbcType="DOUBLE" property="pruchdemand" />
+    <result column="pruchprice" jdbcType="DOUBLE" property="pruchprice" />
+    <result column="pruchernum" jdbcType="CHAR" property="pruchernum" />
+    <result column="prucher" jdbcType="CHAR" property="prucher" />
+    <result column="totalpurchase" jdbcType="DOUBLE" property="totalpurchase" />
+    <result column="purchstatus" jdbcType="CHAR" property="purchstatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, partcategoryname, partcategorycode, partname, partcode, suppliercode, suppliername, 
+    pruchdemand, pruchprice, pruchernum, prucher, totalpurchase, purchstatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partproc
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from partproc
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Partproc">
+    insert into partproc (id, partcategoryname, partcategorycode, 
+      partname, partcode, suppliercode, 
+      suppliername, pruchdemand, pruchprice, 
+      pruchernum, prucher, totalpurchase, 
+      purchstatus)
+    values (#{id,jdbcType=INTEGER}, #{partcategoryname,jdbcType=VARCHAR}, #{partcategorycode,jdbcType=CHAR}, 
+      #{partname,jdbcType=VARCHAR}, #{partcode,jdbcType=CHAR}, #{suppliercode,jdbcType=CHAR}, 
+      #{suppliername,jdbcType=VARCHAR}, #{pruchdemand,jdbcType=DOUBLE}, #{pruchprice,jdbcType=DOUBLE}, 
+      #{pruchernum,jdbcType=CHAR}, #{prucher,jdbcType=CHAR}, #{totalpurchase,jdbcType=DOUBLE}, 
+      #{purchstatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Partproc">
+    insert into partproc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partcategoryname != null">
+        partcategoryname,
+      </if>
+      <if test="partcategorycode != null">
+        partcategorycode,
+      </if>
+      <if test="partname != null">
+        partname,
+      </if>
+      <if test="partcode != null">
+        partcode,
+      </if>
+      <if test="suppliercode != null">
+        suppliercode,
+      </if>
+      <if test="suppliername != null">
+        suppliername,
+      </if>
+      <if test="pruchdemand != null">
+        pruchdemand,
+      </if>
+      <if test="pruchprice != null">
+        pruchprice,
+      </if>
+      <if test="pruchernum != null">
+        pruchernum,
+      </if>
+      <if test="prucher != null">
+        prucher,
+      </if>
+      <if test="totalpurchase != null">
+        totalpurchase,
+      </if>
+      <if test="purchstatus != null">
+        purchstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partcategoryname != null">
+        #{partcategoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="partcategorycode != null">
+        #{partcategorycode,jdbcType=CHAR},
+      </if>
+      <if test="partname != null">
+        #{partname,jdbcType=VARCHAR},
+      </if>
+      <if test="partcode != null">
+        #{partcode,jdbcType=CHAR},
+      </if>
+      <if test="suppliercode != null">
+        #{suppliercode,jdbcType=CHAR},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="pruchdemand != null">
+        #{pruchdemand,jdbcType=DOUBLE},
+      </if>
+      <if test="pruchprice != null">
+        #{pruchprice,jdbcType=DOUBLE},
+      </if>
+      <if test="pruchernum != null">
+        #{pruchernum,jdbcType=CHAR},
+      </if>
+      <if test="prucher != null">
+        #{prucher,jdbcType=CHAR},
+      </if>
+      <if test="totalpurchase != null">
+        #{totalpurchase,jdbcType=DOUBLE},
+      </if>
+      <if test="purchstatus != null">
+        #{purchstatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Partproc">
+    update partproc
+    <set>
+      <if test="partcategoryname != null">
+        partcategoryname = #{partcategoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="partcategorycode != null">
+        partcategorycode = #{partcategorycode,jdbcType=CHAR},
+      </if>
+      <if test="partname != null">
+        partname = #{partname,jdbcType=VARCHAR},
+      </if>
+      <if test="partcode != null">
+        partcode = #{partcode,jdbcType=CHAR},
+      </if>
+      <if test="suppliercode != null">
+        suppliercode = #{suppliercode,jdbcType=CHAR},
+      </if>
+      <if test="suppliername != null">
+        suppliername = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="pruchdemand != null">
+        pruchdemand = #{pruchdemand,jdbcType=DOUBLE},
+      </if>
+      <if test="pruchprice != null">
+        pruchprice = #{pruchprice,jdbcType=DOUBLE},
+      </if>
+      <if test="pruchernum != null">
+        pruchernum = #{pruchernum,jdbcType=CHAR},
+      </if>
+      <if test="prucher != null">
+        prucher = #{prucher,jdbcType=CHAR},
+      </if>
+      <if test="totalpurchase != null">
+        totalpurchase = #{totalpurchase,jdbcType=DOUBLE},
+      </if>
+      <if test="purchstatus != null">
+        purchstatus = #{purchstatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Partproc">
+    update partproc
+    set partcategoryname = #{partcategoryname,jdbcType=VARCHAR},
+      partcategorycode = #{partcategorycode,jdbcType=CHAR},
+      partname = #{partname,jdbcType=VARCHAR},
+      partcode = #{partcode,jdbcType=CHAR},
+      suppliercode = #{suppliercode,jdbcType=CHAR},
+      suppliername = #{suppliername,jdbcType=VARCHAR},
+      pruchdemand = #{pruchdemand,jdbcType=DOUBLE},
+      pruchprice = #{pruchprice,jdbcType=DOUBLE},
+      pruchernum = #{pruchernum,jdbcType=CHAR},
+      prucher = #{prucher,jdbcType=CHAR},
+      totalpurchase = #{totalpurchase,jdbcType=DOUBLE},
+      purchstatus = #{purchstatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

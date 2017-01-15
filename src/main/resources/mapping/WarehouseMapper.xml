@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.WarehouseMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Warehouse">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warehouseName" jdbcType="VARCHAR" property="warehousename" />
+    <result column="warehouseAdd" jdbcType="VARCHAR" property="warehouseadd" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="wareflag" jdbcType="CHAR" property="wareflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, warehouseName, warehouseAdd, remarks, wareflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from warehouse
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Warehouse">
+    insert into warehouse (id, warehouseName, warehouseAdd, 
+      remarks, wareflag)
+    values (#{id,jdbcType=INTEGER}, #{warehousename,jdbcType=VARCHAR}, #{warehouseadd,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{wareflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Warehouse">
+    insert into warehouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="warehousename != null">
+        warehouseName,
+      </if>
+      <if test="warehouseadd != null">
+        warehouseAdd,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="wareflag != null">
+        wareflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="warehousename != null">
+        #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseadd != null">
+        #{warehouseadd,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="wareflag != null">
+        #{wareflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Warehouse">
+    update warehouse
+    <set>
+      <if test="warehousename != null">
+        warehouseName = #{warehousename,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseadd != null">
+        warehouseAdd = #{warehouseadd,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="wareflag != null">
+        wareflag = #{wareflag,jdbcType=CHAR},
+      </if> 
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Warehouse">
+    update warehouse
+    set warehouseName = #{warehousename,jdbcType=VARCHAR},
+      warehouseAdd = #{warehouseadd,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      wareflag = #{wareflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

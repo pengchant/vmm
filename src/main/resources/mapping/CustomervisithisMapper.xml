@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.CustomervisithisMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Customervisithis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customername" jdbcType="CHAR" property="customername" />
+    <result column="contactinfo" jdbcType="CHAR" property="contactinfo" />
+    <result column="visittime" jdbcType="TIMESTAMP" property="visittime" />
+    <result column="servicecontent" jdbcType="VARCHAR" property="servicecontent" />
+    <result column="isnew" jdbcType="SMALLINT" property="isnew" />
+    <result column="customer" jdbcType="INTEGER" property="customer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customername, contactinfo, visittime, servicecontent, isnew, customer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customervisithis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customervisithis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Customervisithis">
+    insert into customervisithis (id, customername, contactinfo, 
+      visittime, servicecontent, isnew, 
+      customer)
+    values (#{id,jdbcType=INTEGER}, #{customername,jdbcType=CHAR}, #{contactinfo,jdbcType=CHAR}, 
+      #{visittime,jdbcType=TIMESTAMP}, #{servicecontent,jdbcType=VARCHAR}, #{isnew,jdbcType=SMALLINT}, 
+      #{customer,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Customervisithis">
+    insert into customervisithis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customername != null">
+        customername,
+      </if>
+      <if test="contactinfo != null">
+        contactinfo,
+      </if>
+      <if test="visittime != null">
+        visittime,
+      </if>
+      <if test="servicecontent != null">
+        servicecontent,
+      </if>
+      <if test="isnew != null">
+        isnew,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="visittime != null">
+        #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicecontent != null">
+        #{servicecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isnew != null">
+        #{isnew,jdbcType=SMALLINT},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Customervisithis">
+    update customervisithis
+    <set>
+      <if test="customername != null">
+        customername = #{customername,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        contactinfo = #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="visittime != null">
+        visittime = #{visittime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicecontent != null">
+        servicecontent = #{servicecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="isnew != null">
+        isnew = #{isnew,jdbcType=SMALLINT},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Customervisithis">
+    update customervisithis
+    set customername = #{customername,jdbcType=CHAR},
+      contactinfo = #{contactinfo,jdbcType=CHAR},
+      visittime = #{visittime,jdbcType=TIMESTAMP},
+      servicecontent = #{servicecontent,jdbcType=VARCHAR},
+      isnew = #{isnew,jdbcType=SMALLINT},
+      customer = #{customer,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

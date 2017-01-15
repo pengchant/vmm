@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.ProjcategoryMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Projcategory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="numbering" jdbcType="CHAR" property="numbering" />
+    <result column="projcateNum" jdbcType="CHAR" property="projcatenum" />
+    <result column="projname" jdbcType="VARCHAR" property="projname" />
+    <result column="catflag" jdbcType="CHAR" property="catflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, numbering, projcateNum, projname, catflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from projcategory
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from projcategory
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Projcategory">
+    insert into projcategory (id, numbering, projcateNum, 
+      projname, catflag)
+    values (#{id,jdbcType=INTEGER}, #{numbering,jdbcType=CHAR}, #{projcatenum,jdbcType=CHAR}, 
+      #{projname,jdbcType=VARCHAR}, #{catflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Projcategory">
+    insert into projcategory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="numbering != null">
+        numbering,
+      </if>
+      <if test="projcatenum != null">
+        projcateNum,
+      </if>
+      <if test="projname != null">
+        projname,
+      </if>
+      <if test="catflag != null">
+        catflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="numbering != null">
+        #{numbering,jdbcType=CHAR},
+      </if>
+      <if test="projcatenum != null">
+        #{projcatenum,jdbcType=CHAR},
+      </if>
+      <if test="projname != null">
+        #{projname,jdbcType=VARCHAR},
+      </if>
+      <if test="catflag != null">
+        #{catflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Projcategory">
+    update projcategory
+    <set>
+      <if test="numbering != null">
+        numbering = #{numbering,jdbcType=CHAR},
+      </if>
+      <if test="projcatenum != null">
+        projcateNum = #{projcatenum,jdbcType=CHAR},
+      </if>
+      <if test="projname != null">
+        projname = #{projname,jdbcType=VARCHAR},
+      </if>
+      <if test="catflag != null">
+        catflag = #{catflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Projcategory">
+    update projcategory
+    set numbering = #{numbering,jdbcType=CHAR},
+      projcateNum = #{projcatenum,jdbcType=CHAR},
+      projname = #{projname,jdbcType=VARCHAR},
+      catflag = #{catflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Customer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="numbering" jdbcType="CHAR" property="numbering" />
+    <result column="mailbox" jdbcType="CHAR" property="mailbox" />
+    <result column="contactinfo" jdbcType="CHAR" property="contactinfo" />
+    <result column="contactadd" jdbcType="CHAR" property="contactadd" />
+    <result column="idcard" jdbcType="CHAR" property="idcard" />
+    <result column="customerflag" jdbcType="CHAR" property="customerflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, numbering, mailbox, contactinfo, contactadd, idcard, customerflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Customer">
+    insert into customer (id, numbering, mailbox, 
+      contactinfo, contactadd, idcard, 
+      customerflag)
+    values (#{id,jdbcType=INTEGER}, #{numbering,jdbcType=CHAR}, #{mailbox,jdbcType=CHAR}, 
+      #{contactinfo,jdbcType=CHAR}, #{contactadd,jdbcType=CHAR}, #{idcard,jdbcType=CHAR}, 
+      #{customerflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="numbering != null">
+        numbering,
+      </if>
+      <if test="mailbox != null">
+        mailbox,
+      </if>
+      <if test="contactinfo != null">
+        contactinfo,
+      </if>
+      <if test="contactadd != null">
+        contactadd,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="customerflag != null">
+        customerflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="numbering != null">
+        #{numbering,jdbcType=CHAR},
+      </if>
+      <if test="mailbox != null">
+        #{mailbox,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="contactadd != null">
+        #{contactadd,jdbcType=CHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=CHAR},
+      </if>
+      <if test="customerflag != null">
+        #{customerflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Customer">
+    update customer
+    <set>
+      <if test="numbering != null">
+        numbering = #{numbering,jdbcType=CHAR},
+      </if>
+      <if test="mailbox != null">
+        mailbox = #{mailbox,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        contactinfo = #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="contactadd != null">
+        contactadd = #{contactadd,jdbcType=CHAR},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=CHAR},
+      </if>
+      <if test="customerflag != null">
+        customerflag = #{customerflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Customer">
+    update customer
+    set numbering = #{numbering,jdbcType=CHAR},
+      mailbox = #{mailbox,jdbcType=CHAR},
+      contactinfo = #{contactinfo,jdbcType=CHAR},
+      contactadd = #{contactadd,jdbcType=CHAR},
+      idcard = #{idcard,jdbcType=CHAR},
+      customerflag = #{customerflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

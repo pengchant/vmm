@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.MaterhisMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Materhis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="serialnumber" jdbcType="CHAR" property="serialnumber" />
+    <result column="customername" jdbcType="CHAR" property="customername" />
+    <result column="carname" jdbcType="CHAR" property="carname" />
+    <result column="mateialname" jdbcType="VARCHAR" property="mateialname" />
+    <result column="materialnum" jdbcType="DOUBLE" property="materialnum" />
+    <result column="unitprice" jdbcType="DOUBLE" property="unitprice" />
+    <result column="sum" jdbcType="DOUBLE" property="sum" />
+    <result column="checkintime" jdbcType="TIMESTAMP" property="checkintime" />
+    <result column="recipients" jdbcType="CHAR" property="recipients" />
+    <result column="receiver" jdbcType="CHAR" property="receiver" />
+    <result column="rectime" jdbcType="TIMESTAMP" property="rectime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, serialnumber, customername, carname, mateialname, materialnum, unitprice, sum, 
+    checkintime, recipients, receiver, rectime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from materhis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from materhis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Materhis">
+    insert into materhis (id, serialnumber, customername, 
+      carname, mateialname, materialnum, 
+      unitprice, sum, checkintime, 
+      recipients, receiver, rectime
+      )
+    values (#{id,jdbcType=INTEGER}, #{serialnumber,jdbcType=CHAR}, #{customername,jdbcType=CHAR}, 
+      #{carname,jdbcType=CHAR}, #{mateialname,jdbcType=VARCHAR}, #{materialnum,jdbcType=DOUBLE}, 
+      #{unitprice,jdbcType=DOUBLE}, #{sum,jdbcType=DOUBLE}, #{checkintime,jdbcType=TIMESTAMP}, 
+      #{recipients,jdbcType=CHAR}, #{receiver,jdbcType=CHAR}, #{rectime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Materhis">
+    insert into materhis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serialnumber != null">
+        serialnumber,
+      </if>
+      <if test="customername != null">
+        customername,
+      </if>
+      <if test="carname != null">
+        carname,
+      </if>
+      <if test="mateialname != null">
+        mateialname,
+      </if>
+      <if test="materialnum != null">
+        materialnum,
+      </if>
+      <if test="unitprice != null">
+        unitprice,
+      </if>
+      <if test="sum != null">
+        sum,
+      </if>
+      <if test="checkintime != null">
+        checkintime,
+      </if>
+      <if test="recipients != null">
+        recipients,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="rectime != null">
+        rectime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serialnumber != null">
+        #{serialnumber,jdbcType=CHAR},
+      </if>
+      <if test="customername != null">
+        #{customername,jdbcType=CHAR},
+      </if>
+      <if test="carname != null">
+        #{carname,jdbcType=CHAR},
+      </if>
+      <if test="mateialname != null">
+        #{mateialname,jdbcType=VARCHAR},
+      </if>
+      <if test="materialnum != null">
+        #{materialnum,jdbcType=DOUBLE},
+      </if>
+      <if test="unitprice != null">
+        #{unitprice,jdbcType=DOUBLE},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="checkintime != null">
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recipients != null">
+        #{recipients,jdbcType=CHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=CHAR},
+      </if>
+      <if test="rectime != null">
+        #{rectime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Materhis">
+    update materhis
+    <set>
+      <if test="serialnumber != null">
+        serialnumber = #{serialnumber,jdbcType=CHAR},
+      </if>
+      <if test="customername != null">
+        customername = #{customername,jdbcType=CHAR},
+      </if>
+      <if test="carname != null">
+        carname = #{carname,jdbcType=CHAR},
+      </if>
+      <if test="mateialname != null">
+        mateialname = #{mateialname,jdbcType=VARCHAR},
+      </if>
+      <if test="materialnum != null">
+        materialnum = #{materialnum,jdbcType=DOUBLE},
+      </if>
+      <if test="unitprice != null">
+        unitprice = #{unitprice,jdbcType=DOUBLE},
+      </if>
+      <if test="sum != null">
+        sum = #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="checkintime != null">
+        checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recipients != null">
+        recipients = #{recipients,jdbcType=CHAR},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=CHAR},
+      </if>
+      <if test="rectime != null">
+        rectime = #{rectime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Materhis">
+    update materhis
+    set serialnumber = #{serialnumber,jdbcType=CHAR},
+      customername = #{customername,jdbcType=CHAR},
+      carname = #{carname,jdbcType=CHAR},
+      mateialname = #{mateialname,jdbcType=VARCHAR},
+      materialnum = #{materialnum,jdbcType=DOUBLE},
+      unitprice = #{unitprice,jdbcType=DOUBLE},
+      sum = #{sum,jdbcType=DOUBLE},
+      checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      recipients = #{recipients,jdbcType=CHAR},
+      receiver = #{receiver,jdbcType=CHAR},
+      rectime = #{rectime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

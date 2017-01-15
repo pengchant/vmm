@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.PartstorageMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Partstorage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="partid" jdbcType="INTEGER" property="partid" />
+    <result column="warehouseid" jdbcType="INTEGER" property="warehouseid" />
+    <result column="detaillocation" jdbcType="VARCHAR" property="detaillocation" />
+    <result column="inventory" jdbcType="DOUBLE" property="inventory" />
+    <result column="storagetime" jdbcType="TIMESTAMP" property="storagetime" />
+    <result column="purchaser" jdbcType="CHAR" property="purchaser" />
+    <result column="contactinfo" jdbcType="CHAR" property="contactinfo" />
+    <result column="jobnumber" jdbcType="CHAR" property="jobnumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, partid, warehouseid, detaillocation, inventory, storagetime, purchaser, contactinfo, 
+    jobnumber, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partstorage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from partstorage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Partstorage">
+    insert into partstorage (id, partid, warehouseid, 
+      detaillocation, inventory, storagetime, 
+      purchaser, contactinfo, jobnumber, 
+      remarks)
+    values (#{id,jdbcType=INTEGER}, #{partid,jdbcType=INTEGER}, #{warehouseid,jdbcType=INTEGER}, 
+      #{detaillocation,jdbcType=VARCHAR}, #{inventory,jdbcType=DOUBLE}, #{storagetime,jdbcType=TIMESTAMP}, 
+      #{purchaser,jdbcType=CHAR}, #{contactinfo,jdbcType=CHAR}, #{jobnumber,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Partstorage">
+    insert into partstorage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partid != null">
+        partid,
+      </if>
+      <if test="warehouseid != null">
+        warehouseid,
+      </if>
+      <if test="detaillocation != null">
+        detaillocation,
+      </if>
+      <if test="inventory != null">
+        inventory,
+      </if>
+      <if test="storagetime != null">
+        storagetime,
+      </if>
+      <if test="purchaser != null">
+        purchaser,
+      </if>
+      <if test="contactinfo != null">
+        contactinfo,
+      </if>
+      <if test="jobnumber != null">
+        jobnumber,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partid != null">
+        #{partid,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseid != null">
+        #{warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="detaillocation != null">
+        #{detaillocation,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        #{inventory,jdbcType=DOUBLE},
+      </if>
+      <if test="storagetime != null">
+        #{storagetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaser != null">
+        #{purchaser,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="jobnumber != null">
+        #{jobnumber,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Partstorage">
+    update partstorage
+    <set>
+      <if test="partid != null">
+        partid = #{partid,jdbcType=INTEGER},
+      </if>
+      <if test="warehouseid != null">
+        warehouseid = #{warehouseid,jdbcType=INTEGER},
+      </if>
+      <if test="detaillocation != null">
+        detaillocation = #{detaillocation,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        inventory = #{inventory,jdbcType=DOUBLE},
+      </if>
+      <if test="storagetime != null">
+        storagetime = #{storagetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purchaser != null">
+        purchaser = #{purchaser,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        contactinfo = #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="jobnumber != null">
+        jobnumber = #{jobnumber,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Partstorage">
+    update partstorage
+    set partid = #{partid,jdbcType=INTEGER},
+      warehouseid = #{warehouseid,jdbcType=INTEGER},
+      detaillocation = #{detaillocation,jdbcType=VARCHAR},
+      inventory = #{inventory,jdbcType=DOUBLE},
+      storagetime = #{storagetime,jdbcType=TIMESTAMP},
+      purchaser = #{purchaser,jdbcType=CHAR},
+      contactinfo = #{contactinfo,jdbcType=CHAR},
+      jobnumber = #{jobnumber,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

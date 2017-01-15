@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.BustatusMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Bustatus">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="servicecode" jdbcType="CHAR" property="servicecode" />
+    <result column="statename" jdbcType="VARCHAR" property="statename" />
+    <result column="remarks" jdbcType="CHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, servicecode, statename, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bustatus
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bustatus
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Bustatus">
+    insert into bustatus (id, servicecode, statename, 
+      remarks)
+    values (#{id,jdbcType=INTEGER}, #{servicecode,jdbcType=CHAR}, #{statename,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Bustatus">
+    insert into bustatus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="servicecode != null">
+        servicecode,
+      </if>
+      <if test="statename != null">
+        statename,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="servicecode != null">
+        #{servicecode,jdbcType=CHAR},
+      </if>
+      <if test="statename != null">
+        #{statename,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Bustatus">
+    update bustatus
+    <set>
+      <if test="servicecode != null">
+        servicecode = #{servicecode,jdbcType=CHAR},
+      </if>
+      <if test="statename != null">
+        statename = #{statename,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Bustatus">
+    update bustatus
+    set servicecode = #{servicecode,jdbcType=CHAR},
+      statename = #{statename,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.PartusedMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Partused">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ordersid" jdbcType="INTEGER" property="ordersid" />
+    <result column="partid" jdbcType="INTEGER" property="partid" />
+    <result column="useamount" jdbcType="DOUBLE" property="useamount" />
+    <result column="applicant" jdbcType="CHAR" property="applicant" />
+    <result column="jobnumber" jdbcType="CHAR" property="jobnumber" />
+    <result column="concatinfo" jdbcType="CHAR" property="concatinfo" />
+    <result column="applicattime" jdbcType="TIMESTAMP" property="applicattime" />
+    <result column="registedspecnum" jdbcType="DOUBLE" property="registedspecnum" />
+    <result column="noreceivingnum" jdbcType="DOUBLE" property="noreceivingnum" />
+    <result column="receivednum" jdbcType="DOUBLE" property="receivednum" />
+    <result column="receivestatus" jdbcType="CHAR" property="receivestatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ordersid, partid, useamount, applicant, jobnumber, concatinfo, applicattime, 
+    registedspecnum, noreceivingnum, receivednum, receivestatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partused
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from partused
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Partused">
+    insert into partused (id, ordersid, partid, 
+      useamount, applicant, jobnumber, 
+      concatinfo, applicattime, registedspecnum, 
+      noreceivingnum, receivednum, receivestatus
+      )
+    values (#{id,jdbcType=INTEGER}, #{ordersid,jdbcType=INTEGER}, #{partid,jdbcType=INTEGER}, 
+      #{useamount,jdbcType=DOUBLE}, #{applicant,jdbcType=CHAR}, #{jobnumber,jdbcType=CHAR}, 
+      #{concatinfo,jdbcType=CHAR}, #{applicattime,jdbcType=TIMESTAMP}, #{registedspecnum,jdbcType=DOUBLE}, 
+      #{noreceivingnum,jdbcType=DOUBLE}, #{receivednum,jdbcType=DOUBLE}, #{receivestatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Partused">
+    insert into partused
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ordersid != null">
+        ordersid,
+      </if>
+      <if test="partid != null">
+        partid,
+      </if>
+      <if test="useamount != null">
+        useamount,
+      </if>
+      <if test="applicant != null">
+        applicant,
+      </if>
+      <if test="jobnumber != null">
+        jobnumber,
+      </if>
+      <if test="concatinfo != null">
+        concatinfo,
+      </if>
+      <if test="applicattime != null">
+        applicattime,
+      </if>
+      <if test="registedspecnum != null">
+        registedspecnum,
+      </if>
+      <if test="noreceivingnum != null">
+        noreceivingnum,
+      </if>
+      <if test="receivednum != null">
+        receivednum,
+      </if>
+      <if test="receivestatus != null">
+        receivestatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordersid != null">
+        #{ordersid,jdbcType=INTEGER},
+      </if>
+      <if test="partid != null">
+        #{partid,jdbcType=INTEGER},
+      </if>
+      <if test="useamount != null">
+        #{useamount,jdbcType=DOUBLE},
+      </if>
+      <if test="applicant != null">
+        #{applicant,jdbcType=CHAR},
+      </if>
+      <if test="jobnumber != null">
+        #{jobnumber,jdbcType=CHAR},
+      </if>
+      <if test="concatinfo != null">
+        #{concatinfo,jdbcType=CHAR},
+      </if>
+      <if test="applicattime != null">
+        #{applicattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registedspecnum != null">
+        #{registedspecnum,jdbcType=DOUBLE},
+      </if>
+      <if test="noreceivingnum != null">
+        #{noreceivingnum,jdbcType=DOUBLE},
+      </if>
+      <if test="receivednum != null">
+        #{receivednum,jdbcType=DOUBLE},
+      </if>
+      <if test="receivestatus != null">
+        #{receivestatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Partused">
+    update partused
+    <set>
+      <if test="ordersid != null">
+        ordersid = #{ordersid,jdbcType=INTEGER},
+      </if>
+      <if test="partid != null">
+        partid = #{partid,jdbcType=INTEGER},
+      </if>
+      <if test="useamount != null">
+        useamount = #{useamount,jdbcType=DOUBLE},
+      </if>
+      <if test="applicant != null">
+        applicant = #{applicant,jdbcType=CHAR},
+      </if>
+      <if test="jobnumber != null">
+        jobnumber = #{jobnumber,jdbcType=CHAR},
+      </if>
+      <if test="concatinfo != null">
+        concatinfo = #{concatinfo,jdbcType=CHAR},
+      </if>
+      <if test="applicattime != null">
+        applicattime = #{applicattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registedspecnum != null">
+        registedspecnum = #{registedspecnum,jdbcType=DOUBLE},
+      </if>
+      <if test="noreceivingnum != null">
+        noreceivingnum = #{noreceivingnum,jdbcType=DOUBLE},
+      </if>
+      <if test="receivednum != null">
+        receivednum = #{receivednum,jdbcType=DOUBLE},
+      </if>
+      <if test="receivestatus != null">
+        receivestatus = #{receivestatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Partused">
+    update partused
+    set ordersid = #{ordersid,jdbcType=INTEGER},
+      partid = #{partid,jdbcType=INTEGER},
+      useamount = #{useamount,jdbcType=DOUBLE},
+      applicant = #{applicant,jdbcType=CHAR},
+      jobnumber = #{jobnumber,jdbcType=CHAR},
+      concatinfo = #{concatinfo,jdbcType=CHAR},
+      applicattime = #{applicattime,jdbcType=TIMESTAMP},
+      registedspecnum = #{registedspecnum,jdbcType=DOUBLE},
+      noreceivingnum = #{noreceivingnum,jdbcType=DOUBLE},
+      receivednum = #{receivednum,jdbcType=DOUBLE},
+      receivestatus = #{receivestatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

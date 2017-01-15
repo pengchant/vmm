@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.AccessoryhisMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Accessoryhis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="recipients" jdbcType="CHAR" property="recipients" />
+    <result column="recijobnum" jdbcType="CHAR" property="recijobnum" />
+    <result column="contactinfo" jdbcType="CHAR" property="contactinfo" />
+    <result column="reciamount" jdbcType="DOUBLE" property="reciamount" />
+    <result column="recitime" jdbcType="TIMESTAMP" property="recitime" />
+    <result column="partusedid" jdbcType="INTEGER" property="partusedid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, recipients, recijobnum, contactinfo, reciamount, recitime, partusedid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from accessoryhis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from accessoryhis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Accessoryhis">
+    insert into accessoryhis (id, recipients, recijobnum, 
+      contactinfo, reciamount, recitime, 
+      partusedid)
+    values (#{id,jdbcType=INTEGER}, #{recipients,jdbcType=CHAR}, #{recijobnum,jdbcType=CHAR}, 
+      #{contactinfo,jdbcType=CHAR}, #{reciamount,jdbcType=DOUBLE}, #{recitime,jdbcType=TIMESTAMP}, 
+      #{partusedid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Accessoryhis">
+    insert into accessoryhis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="recipients != null">
+        recipients,
+      </if>
+      <if test="recijobnum != null">
+        recijobnum,
+      </if>
+      <if test="contactinfo != null">
+        contactinfo,
+      </if>
+      <if test="reciamount != null">
+        reciamount,
+      </if>
+      <if test="recitime != null">
+        recitime,
+      </if>
+      <if test="partusedid != null">
+        partusedid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="recipients != null">
+        #{recipients,jdbcType=CHAR},
+      </if>
+      <if test="recijobnum != null">
+        #{recijobnum,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="reciamount != null">
+        #{reciamount,jdbcType=DOUBLE},
+      </if>
+      <if test="recitime != null">
+        #{recitime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partusedid != null">
+        #{partusedid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Accessoryhis">
+    update accessoryhis
+    <set>
+      <if test="recipients != null">
+        recipients = #{recipients,jdbcType=CHAR},
+      </if>
+      <if test="recijobnum != null">
+        recijobnum = #{recijobnum,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        contactinfo = #{contactinfo,jdbcType=CHAR},
+      </if>
+      <if test="reciamount != null">
+        reciamount = #{reciamount,jdbcType=DOUBLE},
+      </if>
+      <if test="recitime != null">
+        recitime = #{recitime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partusedid != null">
+        partusedid = #{partusedid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Accessoryhis">
+    update accessoryhis
+    set recipients = #{recipients,jdbcType=CHAR},
+      recijobnum = #{recijobnum,jdbcType=CHAR},
+      contactinfo = #{contactinfo,jdbcType=CHAR},
+      reciamount = #{reciamount,jdbcType=DOUBLE},
+      recitime = #{recitime,jdbcType=TIMESTAMP},
+      partusedid = #{partusedid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

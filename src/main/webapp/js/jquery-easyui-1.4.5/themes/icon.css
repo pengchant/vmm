@@ -1,0 +1,3100 @@
+﻿/*直接把Css目前放在自己的项目中，在使用的页面引入icon.css文件*/
+.icon-blank{
+  background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-add{
+  background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-edit{
+  background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-clear{
+  background:url('icons/clear.png') no-repeat center center;
+}
+.icon-remove{
+  background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+  background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-cut{
+  background:url('icons/cut.png') no-repeat center center;
+}
+.icon-ok{
+  background:url('icons/ok.png') no-repeat center center;
+}
+.icon-no{
+  background:url('icons/no.png') no-repeat center center;
+}
+.icon-cancel{
+  background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-reload{
+  background:url('icons/reload.png') no-repeat center center;
+}
+.icon-search{
+  background:url('icons/search.png') no-repeat center center;
+}
+.icon-print{
+  background:url('icons/print.png') no-repeat center center;
+}
+.icon-help{
+  background:url('icons/help.png') no-repeat center center;
+}
+.icon-undo{
+  background:url('icons/undo.png') no-repeat center center;
+}
+.icon-redo{
+  background:url('icons/redo.png') no-repeat center center;
+}
+.icon-back{
+  background:url('icons/back.png') no-repeat center center;
+}
+.icon-sum{
+  background:url('icons/sum.png') no-repeat center center;
+}
+.icon-tip{
+  background:url('icons/tip.png') no-repeat center center;
+}
+.icon-filter{
+  background:url('icons/filter.png') no-repeat center center;
+}
+.icon-man{
+  background:url('icons/man.png') no-repeat center center;
+}
+.icon-lock{
+  background:url('icons/lock.png') no-repeat center center;
+}
+.icon-more{
+  background:url('icons/more.png') no-repeat center center;
+}
+
+
+.icon-mini-add{
+  background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+  background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+  background:url('icons/mini_refresh.png') no-repeat center center;
+}
+
+/****/
+.icon-large-picture{
+  background:url('icons/large_picture.png') no-repeat center center;
+}
+.icon-large-clipart{
+  background:url('icons/large_clipart.png') no-repeat center center;
+}
+.icon-large-shapes{
+  background:url('icons/large_shapes.png') no-repeat center center;
+}
+.icon-large-smartart{
+  background:url('icons/large_smartart.png') no-repeat center center;
+}
+.icon-large-chart{
+  background:url('icons/large_chart.png') no-repeat center center;
+}
+
+
+.icon-accept
+  {    background: url('icons/accept.png') no-repeat scroll center center transparent;
+}
+.icon-add
+  {    background: url('icons/add.png') no-repeat scroll center center transparent;
+}
+.icon-anchor
+  {    background: url('icons/anchor.png') no-repeat scroll center center transparent;
+}
+.icon-application
+  {    background: url('icons/application.png') no-repeat scroll center center transparent;
+}
+.icon-application_add
+  {    background: url('icons/application_add.png') no-repeat scroll center center transparent;
+}
+.icon-application_cascade
+  {    background: url('icons/application_cascade.png') no-repeat scroll center center transparent;
+}
+.icon-application_delete
+  {    background: url('icons/application_delete.png') no-repeat scroll center center transparent;
+}
+.icon-application_double
+  {    background: url('icons/application_double.png') no-repeat scroll center center transparent;
+}
+.icon-application_edit
+  {    background: url('icons/application_edit.png') no-repeat scroll center center transparent;
+}
+.icon-application_error
+  {    background: url('icons/application_error.png') no-repeat scroll center center transparent;
+}
+.icon-application_form
+  {    background: url('icons/application_form.png') no-repeat scroll center center transparent;
+}
+.icon-application_form_add
+  {    background: url('icons/application_form_add.png') no-repeat scroll center center transparent;
+}
+.icon-application_form_delete
+  {    background: url('icons/application_form_delete.png') no-repeat scroll center center transparent;
+}
+.icon-application_form_edit
+  {    background: url('icons/application_form_edit.png') no-repeat scroll center center transparent;
+}
+.icon-application_form_magnify
+  {    background: url('icons/application_form_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-application_get
+  {    background: url('icons/application_get.png') no-repeat scroll center center transparent;
+}
+.icon-application_go
+  {    background: url('icons/application_go.png') no-repeat scroll center center transparent;
+}
+.icon-application_home
+  {    background: url('icons/application_home.png') no-repeat scroll center center transparent;
+}
+.icon-application_key
+  {    background: url('icons/application_key.png') no-repeat scroll center center transparent;
+}
+.icon-application_lightning
+  {    background: url('icons/application_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-application_link
+  {    background: url('icons/application_link.png') no-repeat scroll center center transparent;
+}
+.icon-application_osx
+  {    background: url('icons/application_osx.png') no-repeat scroll center center transparent;
+}
+.icon-application_osx_terminal
+  {    background: url('icons/application_osx_terminal.png') no-repeat scroll center center transparent;
+}
+.icon-application_put
+  {    background: url('icons/application_put.png') no-repeat scroll center center transparent;
+}
+.icon-application_side_boxes
+  {    background: url('icons/application_side_boxes.png') no-repeat scroll center center transparent;
+}
+.icon-application_side_contract
+  {    background: url('icons/application_side_contract.png') no-repeat scroll center center transparent;
+}
+.icon-application_side_expand
+  {    background: url('icons/application_side_expand.png') no-repeat scroll center center transparent;
+}
+.icon-application_side_list
+  {    background: url('icons/application_side_list.png') no-repeat scroll center center transparent;
+}
+.icon-application_side_tree
+  {    background: url('icons/application_side_tree.png') no-repeat scroll center center transparent;
+}
+.icon-application_split
+  {    background: url('icons/application_split.png') no-repeat scroll center center transparent;
+}
+.icon-application_tile_horizontal
+  {    background: url('icons/application_tile_horizontal.png') no-repeat scroll center center transparent;
+}
+.icon-application_tile_vertical
+  {    background: url('icons/application_tile_vertical.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_columns
+  {    background: url('icons/application_view_columns.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_detail
+  {    background: url('icons/application_view_detail.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_gallery
+  {    background: url('icons/application_view_gallery.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_icons
+  {    background: url('icons/application_view_icons.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_list
+  {    background: url('icons/application_view_list.png') no-repeat scroll center center transparent;
+}
+.icon-application_view_tile
+  {    background: url('icons/application_view_tile.png') no-repeat scroll center center transparent;
+}
+.icon-application_xp
+  {    background: url('icons/application_xp.png') no-repeat scroll center center transparent;
+}
+.icon-application_xp_terminal
+  {    background: url('icons/application_xp_terminal.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_branch
+  {    background: url('icons/arrow_branch.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_divide
+  {    background: url('icons/arrow_divide.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_down
+  {    background: url('icons/arrow_down.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_in
+  {    background: url('icons/arrow_in.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_inout
+  {    background: url('icons/arrow_inout.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_join
+  {    background: url('icons/arrow_join.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_left
+  {    background: url('icons/arrow_left.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_merge
+  {    background: url('icons/arrow_merge.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_out
+  {    background: url('icons/arrow_out.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_redo
+  {    background: url('icons/arrow_redo.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_refresh
+  {    background: url('icons/arrow_refresh.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_refresh_small
+  {    background: url('icons/arrow_refresh_small.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_right
+  {    background: url('icons/arrow_right.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_rotate_anticlockwise
+  {    background: url('icons/arrow_rotate_anticlockwise.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_rotate_clockwise
+  {    background: url('icons/arrow_rotate_clockwise.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_switch
+  {    background: url('icons/arrow_switch.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_turn_left
+  {    background: url('icons/arrow_turn_left.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_turn_right
+  {    background: url('icons/arrow_turn_right.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_undo
+  {    background: url('icons/arrow_undo.png') no-repeat scroll center center transparent;
+}
+.icon-arrow_up
+  {    background: url('icons/arrow_up.png') no-repeat scroll center center transparent;
+}
+.icon-asterisk_orange
+  {    background: url('icons/asterisk_orange.png') no-repeat scroll center center transparent;
+}
+.icon-asterisk_yellow
+  {    background: url('icons/asterisk_yellow.png') no-repeat scroll center center transparent;
+}
+.icon-attach
+  {    background: url('icons/attach.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_add
+  {    background: url('icons/award_star_add.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_bronze_1
+  {    background: url('icons/award_star_bronze_1.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_bronze_2
+  {    background: url('icons/award_star_bronze_2.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_bronze_3
+  {    background: url('icons/award_star_bronze_3.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_delete
+  {    background: url('icons/award_star_delete.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_gold_1
+  {    background: url('icons/award_star_gold_1.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_gold_2
+  {    background: url('icons/award_star_gold_2.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_gold_3
+  {    background: url('icons/award_star_gold_3.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_silver_1
+  {    background: url('icons/award_star_silver_1.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_silver_2
+  {    background: url('icons/award_star_silver_2.png') no-repeat scroll center center transparent;
+}
+.icon-award_star_silver_3
+  {    background: url('icons/award_star_silver_3.png') no-repeat scroll center center transparent;
+}
+.icon-basket
+  {    background: url('icons/basket.png') no-repeat scroll center center transparent;
+}
+.icon-basket_add
+  {    background: url('icons/basket_add.png') no-repeat scroll center center transparent;
+}
+.icon-basket_delete
+  {    background: url('icons/basket_delete.png') no-repeat scroll center center transparent;
+}
+.icon-basket_edit
+  {    background: url('icons/basket_edit.png') no-repeat scroll center center transparent;
+}
+.icon-basket_error
+  {    background: url('icons/basket_error.png') no-repeat scroll center center transparent;
+}
+.icon-basket_go
+  {    background: url('icons/basket_go.png') no-repeat scroll center center transparent;
+}
+.icon-basket_put
+  {    background: url('icons/basket_put.png') no-repeat scroll center center transparent;
+}
+.icon-basket_remove
+  {    background: url('icons/basket_remove.png') no-repeat scroll center center transparent;
+}
+.icon-bell
+  {    background: url('icons/bell.png') no-repeat scroll center center transparent;
+}
+.icon-bell_add
+  {    background: url('icons/bell_add.png') no-repeat scroll center center transparent;
+}
+.icon-bell_delete
+  {    background: url('icons/bell_delete.png') no-repeat scroll center center transparent;
+}
+.icon-bell_error
+  {    background: url('icons/bell_error.png') no-repeat scroll center center transparent;
+}
+.icon-bell_go
+  {    background: url('icons/bell_go.png') no-repeat scroll center center transparent;
+}
+.icon-bell_link
+  {    background: url('icons/bell_link.png') no-repeat scroll center center transparent;
+}
+.icon-bin
+  {    background: url('icons/bin.png') no-repeat scroll center center transparent;
+}
+.icon-bin_closed
+  {    background: url('icons/bin_closed.png') no-repeat scroll center center transparent;
+}
+.icon-bin_empty
+  {    background: url('icons/bin_empty.png') no-repeat scroll center center transparent;
+}
+.icon-bomb
+  {    background: url('icons/bomb.png') no-repeat scroll center center transparent;
+}
+.icon-book
+  {    background: url('icons/book.png') no-repeat scroll center center transparent;
+}
+.icon-book_add
+  {    background: url('icons/book_add.png') no-repeat scroll center center transparent;
+}
+.icon-book_addresses
+  {    background: url('icons/book_addresses.png') no-repeat scroll center center transparent;
+}
+.icon-book_delete
+  {    background: url('icons/book_delete.png') no-repeat scroll center center transparent;
+}
+.icon-book_edit
+  {    background: url('icons/book_edit.png') no-repeat scroll center center transparent;
+}
+.icon-book_error
+  {    background: url('icons/book_error.png') no-repeat scroll center center transparent;
+}
+.icon-book_go
+  {    background: url('icons/book_go.png') no-repeat scroll center center transparent;
+}
+.icon-book_key
+  {    background: url('icons/book_key.png') no-repeat scroll center center transparent;
+}
+.icon-book_link
+  {    background: url('icons/book_link.png') no-repeat scroll center center transparent;
+}
+.icon-book_next
+  {    background: url('icons/book_next.png') no-repeat scroll center center transparent;
+}
+.icon-book_open
+  {    background: url('icons/book_open.png') no-repeat scroll center center transparent;
+}
+.icon-book_previous
+  {    background: url('icons/book_previous.png') no-repeat scroll center center transparent;
+}
+.icon-box
+  {    background: url('icons/box.png') no-repeat scroll center center transparent;
+}
+.icon-brick
+  {    background: url('icons/brick.png') no-repeat scroll center center transparent;
+}
+.icon-bricks
+  {    background: url('icons/bricks.png') no-repeat scroll center center transparent;
+}
+.icon-brick_add
+  {    background: url('icons/brick_add.png') no-repeat scroll center center transparent;
+}
+.icon-brick_delete
+  {    background: url('icons/brick_delete.png') no-repeat scroll center center transparent;
+}
+.icon-brick_edit
+  {    background: url('icons/brick_edit.png') no-repeat scroll center center transparent;
+}
+.icon-brick_error
+  {    background: url('icons/brick_error.png') no-repeat scroll center center transparent;
+}
+.icon-brick_go
+  {    background: url('icons/brick_go.png') no-repeat scroll center center transparent;
+}
+.icon-brick_link
+  {    background: url('icons/brick_link.png') no-repeat scroll center center transparent;
+}
+.icon-briefcase
+  {    background: url('icons/briefcase.png') no-repeat scroll center center transparent;
+}
+.icon-bug
+  {    background: url('icons/bug.png') no-repeat scroll center center transparent;
+}
+.icon-bug_add
+  {    background: url('icons/bug_add.png') no-repeat scroll center center transparent;
+}
+.icon-bug_delete
+  {    background: url('icons/bug_delete.png') no-repeat scroll center center transparent;
+}
+.icon-bug_edit
+  {    background: url('icons/bug_edit.png') no-repeat scroll center center transparent;
+}
+.icon-bug_error
+  {    background: url('icons/bug_error.png') no-repeat scroll center center transparent;
+}
+.icon-bug_go
+  {    background: url('icons/bug_go.png') no-repeat scroll center center transparent;
+}
+.icon-bug_link
+  {    background: url('icons/bug_link.png') no-repeat scroll center center transparent;
+}
+.icon-building
+  {    background: url('icons/building.png') no-repeat scroll center center transparent;
+}
+.icon-building_add
+  {    background: url('icons/building_add.png') no-repeat scroll center center transparent;
+}
+.icon-building_delete
+  {    background: url('icons/building_delete.png') no-repeat scroll center center transparent;
+}
+.icon-building_edit
+  {    background: url('icons/building_edit.png') no-repeat scroll center center transparent;
+}
+.icon-building_error
+  {    background: url('icons/building_error.png') no-repeat scroll center center transparent;
+}
+.icon-building_go
+  {    background: url('icons/building_go.png') no-repeat scroll center center transparent;
+}
+.icon-building_key
+  {    background: url('icons/building_key.png') no-repeat scroll center center transparent;
+}
+.icon-building_link
+  {    background: url('icons/building_link.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_add
+  {    background: url('icons/bullet_add.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_arrow_bottom
+  {    background: url('icons/bullet_arrow_bottom.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_arrow_down
+  {    background: url('icons/bullet_arrow_down.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_arrow_top
+  {    background: url('icons/bullet_arrow_top.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_arrow_up
+  {    background: url('icons/bullet_arrow_up.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_black
+  {    background: url('icons/bullet_black.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_blue
+  {    background: url('icons/bullet_blue.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_delete
+  {    background: url('icons/bullet_delete.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_disk
+  {    background: url('icons/bullet_disk.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_error
+  {    background: url('icons/bullet_error.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_feed
+  {    background: url('icons/bullet_feed.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_go
+  {    background: url('icons/bullet_go.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_green
+  {    background: url('icons/bullet_green.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_key
+  {    background: url('icons/bullet_key.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_orange
+  {    background: url('icons/bullet_orange.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_picture
+  {    background: url('icons/bullet_picture.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_pink
+  {    background: url('icons/bullet_pink.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_purple
+  {    background: url('icons/bullet_purple.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_red
+  {    background: url('icons/bullet_red.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_star
+  {    background: url('icons/bullet_star.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_toggle_minus
+  {    background: url('icons/bullet_toggle_minus.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_toggle_plus
+  {    background: url('icons/bullet_toggle_plus.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_white
+  {    background: url('icons/bullet_white.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_wrench
+  {    background: url('icons/bullet_wrench.png') no-repeat scroll center center transparent;
+}
+.icon-bullet_yellow
+  {    background: url('icons/bullet_yellow.png') no-repeat scroll center center transparent;
+}
+.icon-cake
+  {    background: url('icons/cake.png') no-repeat scroll center center transparent;
+}
+.icon-calculator
+  {    background: url('icons/calculator.png') no-repeat scroll center center transparent;
+}
+.icon-calculator_add
+  {    background: url('icons/calculator_add.png') no-repeat scroll center center transparent;
+}
+.icon-calculator_delete
+  {    background: url('icons/calculator_delete.png') no-repeat scroll center center transparent;
+}
+.icon-calculator_edit
+  {    background: url('icons/calculator_edit.png') no-repeat scroll center center transparent;
+}
+.icon-calculator_error
+  {    background: url('icons/calculator_error.png') no-repeat scroll center center transparent;
+}
+.icon-calculator_link
+  {    background: url('icons/calculator_link.png') no-repeat scroll center center transparent;
+}
+.icon-calendar
+  {    background: url('icons/calendar.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_add
+  {    background: url('icons/calendar_add.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_delete
+  {    background: url('icons/calendar_delete.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_edit
+  {    background: url('icons/calendar_edit.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_link
+  {    background: url('icons/calendar_link.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_view_day
+  {    background: url('icons/calendar_view_day.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_view_month
+  {    background: url('icons/calendar_view_month.png') no-repeat scroll center center transparent;
+}
+.icon-calendar_view_week
+  {    background: url('icons/calendar_view_week.png') no-repeat scroll center center transparent;
+}
+.icon-camera
+  {    background: url('icons/camera.png') no-repeat scroll center center transparent;
+}
+.icon-camera_add
+  {    background: url('icons/camera_add.png') no-repeat scroll center center transparent;
+}
+.icon-camera_delete
+  {    background: url('icons/camera_delete.png') no-repeat scroll center center transparent;
+}
+.icon-camera_edit
+  {    background: url('icons/camera_edit.png') no-repeat scroll center center transparent;
+}
+.icon-camera_error
+  {    background: url('icons/camera_error.png') no-repeat scroll center center transparent;
+}
+.icon-camera_go
+  {    background: url('icons/camera_go.png') no-repeat scroll center center transparent;
+}
+.icon-camera_link
+  {    background: url('icons/camera_link.png') no-repeat scroll center center transparent;
+}
+.icon-camera_small
+  {    background: url('icons/camera_small.png') no-repeat scroll center center transparent;
+}
+.icon-cancel
+  {    background: url('icons/cancel.png') no-repeat scroll center center transparent;
+}
+.icon-car
+  {    background: url('icons/car.png') no-repeat scroll center center transparent;
+}
+.icon-cart
+  {    background: url('icons/cart.png') no-repeat scroll center center transparent;
+}
+.icon-cart_add
+  {    background: url('icons/cart_add.png') no-repeat scroll center center transparent;
+}
+.icon-cart_delete
+  {    background: url('icons/cart_delete.png') no-repeat scroll center center transparent;
+}
+.icon-cart_edit
+  {    background: url('icons/cart_edit.png') no-repeat scroll center center transparent;
+}
+.icon-cart_error
+  {    background: url('icons/cart_error.png') no-repeat scroll center center transparent;
+}
+.icon-cart_go
+  {    background: url('icons/cart_go.png') no-repeat scroll center center transparent;
+}
+.icon-cart_put
+  {    background: url('icons/cart_put.png') no-repeat scroll center center transparent;
+}
+.icon-cart_remove
+  {    background: url('icons/cart_remove.png') no-repeat scroll center center transparent;
+}
+.icon-car_add
+  {    background: url('icons/car_add.png') no-repeat scroll center center transparent;
+}
+.icon-car_delete
+  {    background: url('icons/car_delete.png') no-repeat scroll center center transparent;
+}
+.icon-cd
+  {    background: url('icons/cd.png') no-repeat scroll center center transparent;
+}
+.icon-cd_add
+  {    background: url('icons/cd_add.png') no-repeat scroll center center transparent;
+}
+.icon-cd_burn
+  {    background: url('icons/cd_burn.png') no-repeat scroll center center transparent;
+}
+.icon-cd_delete
+  {    background: url('icons/cd_delete.png') no-repeat scroll center center transparent;
+}
+.icon-cd_edit
+  {    background: url('icons/cd_edit.png') no-repeat scroll center center transparent;
+}
+.icon-cd_eject
+  {    background: url('icons/cd_eject.png') no-repeat scroll center center transparent;
+}
+.icon-cd_go
+  {    background: url('icons/cd_go.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar
+  {    background: url('icons/chart_bar.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar_add
+  {    background: url('icons/chart_bar_add.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar_delete
+  {    background: url('icons/chart_bar_delete.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar_edit
+  {    background: url('icons/chart_bar_edit.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar_error
+  {    background: url('icons/chart_bar_error.png') no-repeat scroll center center transparent;
+}
+.icon-chart_bar_link
+  {    background: url('icons/chart_bar_link.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve
+  {    background: url('icons/chart_curve.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_add
+  {    background: url('icons/chart_curve_add.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_delete
+  {    background: url('icons/chart_curve_delete.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_edit
+  {    background: url('icons/chart_curve_edit.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_error
+  {    background: url('icons/chart_curve_error.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_go
+  {    background: url('icons/chart_curve_go.png') no-repeat scroll center center transparent;
+}
+.icon-chart_curve_link
+  {    background: url('icons/chart_curve_link.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line
+  {    background: url('icons/chart_line.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line_add
+  {    background: url('icons/chart_line_add.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line_delete
+  {    background: url('icons/chart_line_delete.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line_edit
+  {    background: url('icons/chart_line_edit.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line_error
+  {    background: url('icons/chart_line_error.png') no-repeat scroll center center transparent;
+}
+.icon-chart_line_link
+  {    background: url('icons/chart_line_link.png') no-repeat scroll center center transparent;
+}
+.icon-chart_organisation
+  {    background: url('icons/chart_organisation.png') no-repeat scroll center center transparent;
+}
+.icon-chart_organisation_add
+  {    background: url('icons/chart_organisation_add.png') no-repeat scroll center center transparent;
+}
+.icon-chart_organisation_delete
+  {    background: url('icons/chart_organisation_delete.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie
+  {    background: url('icons/chart_pie.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie_add
+  {    background: url('icons/chart_pie_add.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie_delete
+  {    background: url('icons/chart_pie_delete.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie_edit
+  {    background: url('icons/chart_pie_edit.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie_error
+  {    background: url('icons/chart_pie_error.png') no-repeat scroll center center transparent;
+}
+.icon-chart_pie_link
+  {    background: url('icons/chart_pie_link.png') no-repeat scroll center center transparent;
+}
+.icon-clock
+  {    background: url('icons/clock.png') no-repeat scroll center center transparent;
+}
+.icon-clock_add
+  {    background: url('icons/clock_add.png') no-repeat scroll center center transparent;
+}
+.icon-clock_delete
+  {    background: url('icons/clock_delete.png') no-repeat scroll center center transparent;
+}
+.icon-clock_edit
+  {    background: url('icons/clock_edit.png') no-repeat scroll center center transparent;
+}
+.icon-clock_error
+  {    background: url('icons/clock_error.png') no-repeat scroll center center transparent;
+}
+.icon-clock_go
+  {    background: url('icons/clock_go.png') no-repeat scroll center center transparent;
+}
+.icon-clock_link
+  {    background: url('icons/clock_link.png') no-repeat scroll center center transparent;
+}
+.icon-clock_pause
+  {    background: url('icons/clock_pause.png') no-repeat scroll center center transparent;
+}
+.icon-clock_play
+  {    background: url('icons/clock_play.png') no-repeat scroll center center transparent;
+}
+.icon-clock_red
+  {    background: url('icons/clock_red.png') no-repeat scroll center center transparent;
+}
+.icon-clock_stop
+  {    background: url('icons/clock_stop.png') no-repeat scroll center center transparent;
+}
+.icon-cog
+  {    background: url('icons/cog.png') no-repeat scroll center center transparent;
+}
+.icon-cog_add
+  {    background: url('icons/cog_add.png') no-repeat scroll center center transparent;
+}
+.icon-cog_delete
+  {    background: url('icons/cog_delete.png') no-repeat scroll center center transparent;
+}
+.icon-cog_edit
+  {    background: url('icons/cog_edit.png') no-repeat scroll center center transparent;
+}
+.icon-cog_error
+  {    background: url('icons/cog_error.png') no-repeat scroll center center transparent;
+}
+.icon-cog_go
+  {    background: url('icons/cog_go.png') no-repeat scroll center center transparent;
+}
+.icon-coins
+  {    background: url('icons/coins.png') no-repeat scroll center center transparent;
+}
+.icon-coins_add
+  {    background: url('icons/coins_add.png') no-repeat scroll center center transparent;
+}
+.icon-coins_delete
+  {    background: url('icons/coins_delete.png') no-repeat scroll center center transparent;
+}
+.icon-color_swatch
+  {    background: url('icons/color_swatch.png') no-repeat scroll center center transparent;
+}
+.icon-color_wheel
+  {    background: url('icons/color_wheel.png') no-repeat scroll center center transparent;
+}
+.icon-comment
+  {    background: url('icons/comment.png') no-repeat scroll center center transparent;
+}
+.icon-comments
+  {    background: url('icons/comments.png') no-repeat scroll center center transparent;
+}
+.icon-comments_add
+  {    background: url('icons/comments_add.png') no-repeat scroll center center transparent;
+}
+.icon-comments_delete
+  {    background: url('icons/comments_delete.png') no-repeat scroll center center transparent;
+}
+.icon-comment_add
+  {    background: url('icons/comment_add.png') no-repeat scroll center center transparent;
+}
+.icon-comment_delete
+  {    background: url('icons/comment_delete.png') no-repeat scroll center center transparent;
+}
+.icon-comment_edit
+  {    background: url('icons/comment_edit.png') no-repeat scroll center center transparent;
+}
+.icon-compress
+  {    background: url('icons/compress.png') no-repeat scroll center center transparent;
+}
+.icon-computer
+  {    background: url('icons/computer.png') no-repeat scroll center center transparent;
+}
+.icon-computer_add
+  {    background: url('icons/computer_add.png') no-repeat scroll center center transparent;
+}
+.icon-computer_delete
+  {    background: url('icons/computer_delete.png') no-repeat scroll center center transparent;
+}
+.icon-computer_edit
+  {    background: url('icons/computer_edit.png') no-repeat scroll center center transparent;
+}
+.icon-computer_error
+  {    background: url('icons/computer_error.png') no-repeat scroll center center transparent;
+}
+.icon-computer_go
+  {    background: url('icons/computer_go.png') no-repeat scroll center center transparent;
+}
+.icon-computer_key
+  {    background: url('icons/computer_key.png') no-repeat scroll center center transparent;
+}
+.icon-computer_link
+  {    background: url('icons/computer_link.png') no-repeat scroll center center transparent;
+}
+.icon-connect
+  {    background: url('icons/connect.png') no-repeat scroll center center transparent;
+}
+.icon-contrast
+  {    background: url('icons/contrast.png') no-repeat scroll center center transparent;
+}
+.icon-contrast_decrease
+  {    background: url('icons/contrast_decrease.png') no-repeat scroll center center transparent;
+}
+.icon-contrast_high
+  {    background: url('icons/contrast_high.png') no-repeat scroll center center transparent;
+}
+.icon-contrast_increase
+  {    background: url('icons/contrast_increase.png') no-repeat scroll center center transparent;
+}
+.icon-contrast_low
+  {    background: url('icons/contrast_low.png') no-repeat scroll center center transparent;
+}
+.icon-controller
+  {    background: url('icons/controller.png') no-repeat scroll center center transparent;
+}
+.icon-controller_add
+  {    background: url('icons/controller_add.png') no-repeat scroll center center transparent;
+}
+.icon-controller_delete
+  {    background: url('icons/controller_delete.png') no-repeat scroll center center transparent;
+}
+.icon-controller_error
+  {    background: url('icons/controller_error.png') no-repeat scroll center center transparent;
+}
+.icon-control_eject
+  {    background: url('icons/control_eject.png') no-repeat scroll center center transparent;
+}
+.icon-control_eject_blue
+  {    background: url('icons/control_eject_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_end
+  {    background: url('icons/control_end.png') no-repeat scroll center center transparent;
+}
+.icon-control_end_blue
+  {    background: url('icons/control_end_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_equalizer
+  {    background: url('icons/control_equalizer.png') no-repeat scroll center center transparent;
+}
+.icon-control_equalizer_blue
+  {    background: url('icons/control_equalizer_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_fastforward
+  {    background: url('icons/control_fastforward.png') no-repeat scroll center center transparent;
+}
+.icon-control_fastforward_blue
+  {    background: url('icons/control_fastforward_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_pause
+  {    background: url('icons/control_pause.png') no-repeat scroll center center transparent;
+}
+.icon-control_pause_blue
+  {    background: url('icons/control_pause_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_play
+  {    background: url('icons/control_play.png') no-repeat scroll center center transparent;
+}
+.icon-control_play_blue
+  {    background: url('icons/control_play_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_repeat
+  {    background: url('icons/control_repeat.png') no-repeat scroll center center transparent;
+}
+.icon-control_repeat_blue
+  {    background: url('icons/control_repeat_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_rewind
+  {    background: url('icons/control_rewind.png') no-repeat scroll center center transparent;
+}
+.icon-control_rewind_blue
+  {    background: url('icons/control_rewind_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_start
+  {    background: url('icons/control_start.png') no-repeat scroll center center transparent;
+}
+.icon-control_start_blue
+  {    background: url('icons/control_start_blue.png') no-repeat scroll center center transparent;
+}
+.icon-control_stop
+  {    background: url('icons/control_stop.png') no-repeat scroll center center transparent;
+}
+.icon-control_stop_blue
+  {    background: url('icons/control_stop_blue.png') no-repeat scroll center center transparent;
+}
+.icon-creditcards
+  {    background: url('icons/creditcards.png') no-repeat scroll center center transparent;
+}
+.icon-cross
+  {    background: url('icons/cross.png') no-repeat scroll center center transparent;
+}
+.icon-css
+  {    background: url('icons/css.png') no-repeat scroll center center transparent;
+}
+.icon-css_add
+  {    background: url('icons/css_add.png') no-repeat scroll center center transparent;
+}
+.icon-css_delete
+  {    background: url('icons/css_delete.png') no-repeat scroll center center transparent;
+}
+.icon-css_go
+  {    background: url('icons/css_go.png') no-repeat scroll center center transparent;
+}
+.icon-css_valid
+  {    background: url('icons/css_valid.png') no-repeat scroll center center transparent;
+}
+.icon-cup
+  {    background: url('icons/cup.png') no-repeat scroll center center transparent;
+}
+.icon-cup_add
+  {    background: url('icons/cup_add.png') no-repeat scroll center center transparent;
+}
+.icon-cup_delete
+  {    background: url('icons/cup_delete.png') no-repeat scroll center center transparent;
+}
+.icon-cup_edit
+  {    background: url('icons/cup_edit.png') no-repeat scroll center center transparent;
+}
+.icon-cup_error
+  {    background: url('icons/cup_error.png') no-repeat scroll center center transparent;
+}
+.icon-cup_go
+  {    background: url('icons/cup_go.png') no-repeat scroll center center transparent;
+}
+.icon-cup_key
+  {    background: url('icons/cup_key.png') no-repeat scroll center center transparent;
+}
+.icon-cup_link
+  {    background: url('icons/cup_link.png') no-repeat scroll center center transparent;
+}
+.icon-cursor
+  {    background: url('icons/cursor.png') no-repeat scroll center center transparent;
+}
+.icon-cut
+  {    background: url('icons/cut.png') no-repeat scroll center center transparent;
+}
+.icon-cut_red
+  {    background: url('icons/cut_red.png') no-repeat scroll center center transparent;
+}
+.icon-database
+  {    background: url('icons/database.png') no-repeat scroll center center transparent;
+}
+.icon-database_add
+  {    background: url('icons/database_add.png') no-repeat scroll center center transparent;
+}
+.icon-database_connect
+  {    background: url('icons/database_connect.png') no-repeat scroll center center transparent;
+}
+.icon-database_delete
+  {    background: url('icons/database_delete.png') no-repeat scroll center center transparent;
+}
+.icon-database_edit
+  {    background: url('icons/database_edit.png') no-repeat scroll center center transparent;
+}
+.icon-database_error
+  {    background: url('icons/database_error.png') no-repeat scroll center center transparent;
+}
+.icon-database_gear
+  {    background: url('icons/database_gear.png') no-repeat scroll center center transparent;
+}
+.icon-database_go
+  {    background: url('icons/database_go.png') no-repeat scroll center center transparent;
+}
+.icon-database_key
+  {    background: url('icons/database_key.png') no-repeat scroll center center transparent;
+}
+.icon-database_lightning
+  {    background: url('icons/database_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-database_link
+  {    background: url('icons/database_link.png') no-repeat scroll center center transparent;
+}
+.icon-database_refresh
+  {    background: url('icons/database_refresh.png') no-repeat scroll center center transparent;
+}
+.icon-database_save
+  {    background: url('icons/database_save.png') no-repeat scroll center center transparent;
+}
+.icon-database_table
+  {    background: url('icons/database_table.png') no-repeat scroll center center transparent;
+}
+.icon-date
+  {    background: url('icons/date.png') no-repeat scroll center center transparent;
+}
+.icon-date_add
+  {    background: url('icons/date_add.png') no-repeat scroll center center transparent;
+}
+.icon-date_delete
+  {    background: url('icons/date_delete.png') no-repeat scroll center center transparent;
+}
+.icon-date_edit
+  {    background: url('icons/date_edit.png') no-repeat scroll center center transparent;
+}
+.icon-date_error
+  {    background: url('icons/date_error.png') no-repeat scroll center center transparent;
+}
+.icon-date_go
+  {    background: url('icons/date_go.png') no-repeat scroll center center transparent;
+}
+.icon-date_link
+  {    background: url('icons/date_link.png') no-repeat scroll center center transparent;
+}
+.icon-date_magnify
+  {    background: url('icons/date_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-date_next
+  {    background: url('icons/date_next.png') no-repeat scroll center center transparent;
+}
+.icon-date_previous
+  {    background: url('icons/date_previous.png') no-repeat scroll center center transparent;
+}
+.icon-delete
+  {    background: url('icons/delete.png') no-repeat scroll center center transparent;
+}
+.icon-disconnect
+  {    background: url('icons/disconnect.png') no-repeat scroll center center transparent;
+}
+.icon-disk
+  {    background: url('icons/disk.png') no-repeat scroll center center transparent;
+}
+.icon-disk_multiple
+  {    background: url('icons/disk_multiple.png') no-repeat scroll center center transparent;
+}
+.icon-door
+  {    background: url('icons/door.png') no-repeat scroll center center transparent;
+}
+.icon-door_in
+  {    background: url('icons/door_in.png') no-repeat scroll center center transparent;
+}
+.icon-door_open
+  {    background: url('icons/door_open.png') no-repeat scroll center center transparent;
+}
+.icon-door_out
+  {    background: url('icons/door_out.png') no-repeat scroll center center transparent;
+}
+.icon-drink
+  {    background: url('icons/drink.png') no-repeat scroll center center transparent;
+}
+.icon-drink_empty
+  {    background: url('icons/drink_empty.png') no-repeat scroll center center transparent;
+}
+.icon-drive
+  {    background: url('icons/drive.png') no-repeat scroll center center transparent;
+}
+.icon-drive_add
+  {    background: url('icons/drive_add.png') no-repeat scroll center center transparent;
+}
+.icon-drive_burn
+  {    background: url('icons/drive_burn.png') no-repeat scroll center center transparent;
+}
+.icon-drive_cd
+  {    background: url('icons/drive_cd.png') no-repeat scroll center center transparent;
+}
+.icon-drive_cd_empty
+  {    background: url('icons/drive_cd_empty.png') no-repeat scroll center center transparent;
+}
+.icon-drive_delete
+  {    background: url('icons/drive_delete.png') no-repeat scroll center center transparent;
+}
+.icon-drive_disk
+  {    background: url('icons/drive_disk.png') no-repeat scroll center center transparent;
+}
+.icon-drive_edit
+  {    background: url('icons/drive_edit.png') no-repeat scroll center center transparent;
+}
+.icon-drive_error
+  {    background: url('icons/drive_error.png') no-repeat scroll center center transparent;
+}
+.icon-drive_go
+  {    background: url('icons/drive_go.png') no-repeat scroll center center transparent;
+}
+.icon-drive_key
+  {    background: url('icons/drive_key.png') no-repeat scroll center center transparent;
+}
+.icon-drive_link
+  {    background: url('icons/drive_link.png') no-repeat scroll center center transparent;
+}
+.icon-drive_magnify
+  {    background: url('icons/drive_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-drive_network
+  {    background: url('icons/drive_network.png') no-repeat scroll center center transparent;
+}
+.icon-drive_rename
+  {    background: url('icons/drive_rename.png') no-repeat scroll center center transparent;
+}
+.icon-drive_user
+  {    background: url('icons/drive_user.png') no-repeat scroll center center transparent;
+}
+.icon-drive_web
+  {    background: url('icons/drive_web.png') no-repeat scroll center center transparent;
+}
+.icon-dvd
+  {    background: url('icons/dvd.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_add
+  {    background: url('icons/dvd_add.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_delete
+  {    background: url('icons/dvd_delete.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_edit
+  {    background: url('icons/dvd_edit.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_error
+  {    background: url('icons/dvd_error.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_go
+  {    background: url('icons/dvd_go.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_key
+  {    background: url('icons/dvd_key.png') no-repeat scroll center center transparent;
+}
+.icon-dvd_link
+  {    background: url('icons/dvd_link.png') no-repeat scroll center center transparent;
+}
+.icon-email
+  {    background: url('icons/email.png') no-repeat scroll center center transparent;
+}
+.icon-email_add
+  {    background: url('icons/email_add.png') no-repeat scroll center center transparent;
+}
+.icon-email_attach
+  {    background: url('icons/email_attach.png') no-repeat scroll center center transparent;
+}
+.icon-email_delete
+  {    background: url('icons/email_delete.png') no-repeat scroll center center transparent;
+}
+.icon-email_edit
+  {    background: url('icons/email_edit.png') no-repeat scroll center center transparent;
+}
+.icon-email_error
+  {    background: url('icons/email_error.png') no-repeat scroll center center transparent;
+}
+.icon-email_go
+  {    background: url('icons/email_go.png') no-repeat scroll center center transparent;
+}
+.icon-email_link
+  {    background: url('icons/email_link.png') no-repeat scroll center center transparent;
+}
+.icon-email_open
+  {    background: url('icons/email_open.png') no-repeat scroll center center transparent;
+}
+.icon-email_open_image
+  {    background: url('icons/email_open_image.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_evilgrin
+  {    background: url('icons/emoticon_evilgrin.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_grin
+  {    background: url('icons/emoticon_grin.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_happy
+  {    background: url('icons/emoticon_happy.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_smile
+  {    background: url('icons/emoticon_smile.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_surprised
+  {    background: url('icons/emoticon_surprised.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_tongue
+  {    background: url('icons/emoticon_tongue.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_unhappy
+  {    background: url('icons/emoticon_unhappy.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_waii
+  {    background: url('icons/emoticon_waii.png') no-repeat scroll center center transparent;
+}
+.icon-emoticon_wink
+  {    background: url('icons/emoticon_wink.png') no-repeat scroll center center transparent;
+}
+.icon-error
+  {    background: url('icons/error.png') no-repeat scroll center center transparent;
+}
+.icon-error_add
+  {    background: url('icons/error_add.png') no-repeat scroll center center transparent;
+}
+.icon-error_delete
+  {    background: url('icons/error_delete.png') no-repeat scroll center center transparent;
+}
+.icon-error_go
+  {    background: url('icons/error_go.png') no-repeat scroll center center transparent;
+}
+.icon-exclamation
+  {    background: url('icons/exclamation.png') no-repeat scroll center center transparent;
+}
+.icon-eye
+  {    background: url('icons/eye.png') no-repeat scroll center center transparent;
+}
+.icon-feed
+  {    background: url('icons/feed.png') no-repeat scroll center center transparent;
+}
+.icon-feed_add
+  {    background: url('icons/feed_add.png') no-repeat scroll center center transparent;
+}
+.icon-feed_delete
+  {    background: url('icons/feed_delete.png') no-repeat scroll center center transparent;
+}
+.icon-feed_disk
+  {    background: url('icons/feed_disk.png') no-repeat scroll center center transparent;
+}
+.icon-feed_edit
+  {    background: url('icons/feed_edit.png') no-repeat scroll center center transparent;
+}
+.icon-feed_error
+  {    background: url('icons/feed_error.png') no-repeat scroll center center transparent;
+}
+.icon-feed_go
+  {    background: url('icons/feed_go.png') no-repeat scroll center center transparent;
+}
+.icon-feed_key
+  {    background: url('icons/feed_key.png') no-repeat scroll center center transparent;
+}
+.icon-feed_link
+  {    background: url('icons/feed_link.png') no-repeat scroll center center transparent;
+}
+.icon-feed_magnify
+  {    background: url('icons/feed_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-female
+  {    background: url('icons/female.png') no-repeat scroll center center transparent;
+}
+.icon-film
+  {    background: url('icons/film.png') no-repeat scroll center center transparent;
+}
+.icon-film_add
+  {    background: url('icons/film_add.png') no-repeat scroll center center transparent;
+}
+.icon-film_delete
+  {    background: url('icons/film_delete.png') no-repeat scroll center center transparent;
+}
+.icon-film_edit
+  {    background: url('icons/film_edit.png') no-repeat scroll center center transparent;
+}
+.icon-film_error
+  {    background: url('icons/film_error.png') no-repeat scroll center center transparent;
+}
+.icon-film_go
+  {    background: url('icons/film_go.png') no-repeat scroll center center transparent;
+}
+.icon-film_key
+  {    background: url('icons/film_key.png') no-repeat scroll center center transparent;
+}
+.icon-film_link
+  {    background: url('icons/film_link.png') no-repeat scroll center center transparent;
+}
+.icon-film_save
+  {    background: url('icons/film_save.png') no-repeat scroll center center transparent;
+}
+.icon-find
+  {    background: url('icons/find.png') no-repeat scroll center center transparent;
+}
+.icon-flag_blue
+  {    background: url('icons/flag_blue.png') no-repeat scroll center center transparent;
+}
+.icon-flag_green
+  {    background: url('icons/flag_green.png') no-repeat scroll center center transparent;
+}
+.icon-flag_orange
+  {    background: url('icons/flag_orange.png') no-repeat scroll center center transparent;
+}
+.icon-flag_pink
+  {    background: url('icons/flag_pink.png') no-repeat scroll center center transparent;
+}
+.icon-flag_purple
+  {    background: url('icons/flag_purple.png') no-repeat scroll center center transparent;
+}
+.icon-flag_red
+  {    background: url('icons/flag_red.png') no-repeat scroll center center transparent;
+}
+.icon-flag_yellow
+  {    background: url('icons/flag_yellow.png') no-repeat scroll center center transparent;
+}
+.icon-folder
+  {    background: url('icons/folder.png') no-repeat scroll center center transparent;
+}
+.icon-folder_add
+  {    background: url('icons/folder_add.png') no-repeat scroll center center transparent;
+}
+.icon-folder_bell
+  {    background: url('icons/folder_bell.png') no-repeat scroll center center transparent;
+}
+.icon-folder_brick
+  {    background: url('icons/folder_brick.png') no-repeat scroll center center transparent;
+}
+.icon-folder_bug
+  {    background: url('icons/folder_bug.png') no-repeat scroll center center transparent;
+}
+.icon-folder_camera
+  {    background: url('icons/folder_camera.png') no-repeat scroll center center transparent;
+}
+.icon-folder_database
+  {    background: url('icons/folder_database.png') no-repeat scroll center center transparent;
+}
+.icon-folder_delete
+  {    background: url('icons/folder_delete.png') no-repeat scroll center center transparent;
+}
+.icon-folder_edit
+  {    background: url('icons/folder_edit.png') no-repeat scroll center center transparent;
+}
+.icon-folder_error
+  {    background: url('icons/folder_error.png') no-repeat scroll center center transparent;
+}
+.icon-folder_explore
+  {    background: url('icons/folder_explore.png') no-repeat scroll center center transparent;
+}
+.icon-folder_feed
+  {    background: url('icons/folder_feed.png') no-repeat scroll center center transparent;
+}
+.icon-folder_find
+  {    background: url('icons/folder_find.png') no-repeat scroll center center transparent;
+}
+.icon-folder_go
+  {    background: url('icons/folder_go.png') no-repeat scroll center center transparent;
+}
+.icon-folder_heart
+  {    background: url('icons/folder_heart.png') no-repeat scroll center center transparent;
+}
+.icon-folder_image
+  {    background: url('icons/folder_image.png') no-repeat scroll center center transparent;
+}
+.icon-folder_key
+  {    background: url('icons/folder_key.png') no-repeat scroll center center transparent;
+}
+.icon-folder_lightbulb
+  {    background: url('icons/folder_lightbulb.png') no-repeat scroll center center transparent;
+}
+.icon-folder_link
+  {    background: url('icons/folder_link.png') no-repeat scroll center center transparent;
+}
+.icon-folder_magnify
+  {    background: url('icons/folder_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-folder_page
+  {    background: url('icons/folder_page.png') no-repeat scroll center center transparent;
+}
+.icon-folder_page_white
+  {    background: url('icons/folder_page_white.png') no-repeat scroll center center transparent;
+}
+.icon-folder_palette
+  {    background: url('icons/folder_palette.png') no-repeat scroll center center transparent;
+}
+.icon-folder_picture
+  {    background: url('icons/folder_picture.png') no-repeat scroll center center transparent;
+}
+.icon-folder_star
+  {    background: url('icons/folder_star.png') no-repeat scroll center center transparent;
+}
+.icon-folder_table
+  {    background: url('icons/folder_table.png') no-repeat scroll center center transparent;
+}
+.icon-folder_user
+  {    background: url('icons/folder_user.png') no-repeat scroll center center transparent;
+}
+.icon-folder_wrench
+  {    background: url('icons/folder_wrench.png') no-repeat scroll center center transparent;
+}
+.icon-font
+  {    background: url('icons/font.png') no-repeat scroll center center transparent;
+}
+.icon-font_add
+  {    background: url('icons/font_add.png') no-repeat scroll center center transparent;
+}
+.icon-font_delete
+  {    background: url('icons/font_delete.png') no-repeat scroll center center transparent;
+}
+.icon-font_go
+  {    background: url('icons/font_go.png') no-repeat scroll center center transparent;
+}
+.icon-group
+  {    background: url('icons/group.png') no-repeat scroll center center transparent;
+}
+.icon-group_add
+  {    background: url('icons/group_add.png') no-repeat scroll center center transparent;
+}
+.icon-group_delete
+  {    background: url('icons/group_delete.png') no-repeat scroll center center transparent;
+}
+.icon-group_edit
+  {    background: url('icons/group_edit.png') no-repeat scroll center center transparent;
+}
+.icon-group_error
+  {    background: url('icons/group_error.png') no-repeat scroll center center transparent;
+}
+.icon-group_gear
+  {    background: url('icons/group_gear.png') no-repeat scroll center center transparent;
+}
+.icon-group_go
+  {    background: url('icons/group_go.png') no-repeat scroll center center transparent;
+}
+.icon-group_key
+  {    background: url('icons/group_key.png') no-repeat scroll center center transparent;
+}
+.icon-group_link
+  {    background: url('icons/group_link.png') no-repeat scroll center center transparent;
+}
+.icon-heart
+  {    background: url('icons/heart.png') no-repeat scroll center center transparent;
+}
+.icon-heart_add
+  {    background: url('icons/heart_add.png') no-repeat scroll center center transparent;
+}
+.icon-heart_delete
+  {    background: url('icons/heart_delete.png') no-repeat scroll center center transparent;
+}
+.icon-help
+  {    background: url('icons/help.png') no-repeat scroll center center transparent;
+}
+.icon-hourglass
+  {    background: url('icons/hourglass.png') no-repeat scroll center center transparent;
+}
+.icon-hourglass_add
+  {    background: url('icons/hourglass_add.png') no-repeat scroll center center transparent;
+}
+.icon-hourglass_delete
+  {    background: url('icons/hourglass_delete.png') no-repeat scroll center center transparent;
+}
+.icon-hourglass_go
+  {    background: url('icons/hourglass_go.png') no-repeat scroll center center transparent;
+}
+.icon-hourglass_link
+  {    background: url('icons/hourglass_link.png') no-repeat scroll center center transparent;
+}
+.icon-house
+  {    background: url('icons/house.png') no-repeat scroll center center transparent;
+}
+.icon-house_go
+  {    background: url('icons/house_go.png') no-repeat scroll center center transparent;
+}
+.icon-house_link
+  {    background: url('icons/house_link.png') no-repeat scroll center center transparent;
+}
+.icon-html
+  {    background: url('icons/html.png') no-repeat scroll center center transparent;
+}
+.icon-html_add
+  {    background: url('icons/html_add.png') no-repeat scroll center center transparent;
+}
+.icon-html_delete
+  {    background: url('icons/html_delete.png') no-repeat scroll center center transparent;
+}
+.icon-html_go
+  {    background: url('icons/html_go.png') no-repeat scroll center center transparent;
+}
+.icon-html_valid
+  {    background: url('icons/html_valid.png') no-repeat scroll center center transparent;
+}
+.icon-image
+  {    background: url('icons/image.png') no-repeat scroll center center transparent;
+}
+.icon-images
+  {    background: url('icons/images.png') no-repeat scroll center center transparent;
+}
+.icon-image_add
+  {    background: url('icons/image_add.png') no-repeat scroll center center transparent;
+}
+.icon-image_delete
+  {    background: url('icons/image_delete.png') no-repeat scroll center center transparent;
+}
+.icon-image_edit
+  {    background: url('icons/image_edit.png') no-repeat scroll center center transparent;
+}
+.icon-image_link
+  {    background: url('icons/image_link.png') no-repeat scroll center center transparent;
+}
+.icon-information
+  {    background: url('icons/information.png') no-repeat scroll center center transparent;
+}
+.icon-ipod
+  {    background: url('icons/ipod.png') no-repeat scroll center center transparent;
+}
+.icon-ipod_cast
+  {    background: url('icons/ipod_cast.png') no-repeat scroll center center transparent;
+}
+.icon-ipod_cast_add
+  {    background: url('icons/ipod_cast_add.png') no-repeat scroll center center transparent;
+}
+.icon-ipod_cast_delete
+  {    background: url('icons/ipod_cast_delete.png') no-repeat scroll center center transparent;
+}
+.icon-ipod_sound
+  {    background: url('icons/ipod_sound.png') no-repeat scroll center center transparent;
+}
+.icon-joystick
+  {    background: url('icons/joystick.png') no-repeat scroll center center transparent;
+}
+.icon-joystick_add
+  {    background: url('icons/joystick_add.png') no-repeat scroll center center transparent;
+}
+.icon-joystick_delete
+  {    background: url('icons/joystick_delete.png') no-repeat scroll center center transparent;
+}
+.icon-joystick_error
+  {    background: url('icons/joystick_error.png') no-repeat scroll center center transparent;
+}
+.icon-key
+  {    background: url('icons/key.png') no-repeat scroll center center transparent;
+}
+.icon-keyboard
+  {    background: url('icons/keyboard.png') no-repeat scroll center center transparent;
+}
+.icon-keyboard_add
+  {    background: url('icons/keyboard_add.png') no-repeat scroll center center transparent;
+}
+.icon-keyboard_delete
+  {    background: url('icons/keyboard_delete.png') no-repeat scroll center center transparent;
+}
+.icon-keyboard_magnify
+  {    background: url('icons/keyboard_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-key_add
+  {    background: url('icons/key_add.png') no-repeat scroll center center transparent;
+}
+.icon-key_delete
+  {    background: url('icons/key_delete.png') no-repeat scroll center center transparent;
+}
+.icon-key_go
+  {    background: url('icons/key_go.png') no-repeat scroll center center transparent;
+}
+.icon-layers
+  {    background: url('icons/layers.png') no-repeat scroll center center transparent;
+}
+.icon-layout
+  {    background: url('icons/layout.png') no-repeat scroll center center transparent;
+}
+.icon-layout_add
+  {    background: url('icons/layout_add.png') no-repeat scroll center center transparent;
+}
+.icon-layout_content
+  {    background: url('icons/layout_content.png') no-repeat scroll center center transparent;
+}
+.icon-layout_delete
+  {    background: url('icons/layout_delete.png') no-repeat scroll center center transparent;
+}
+.icon-layout_edit
+  {    background: url('icons/layout_edit.png') no-repeat scroll center center transparent;
+}
+.icon-layout_error
+  {    background: url('icons/layout_error.png') no-repeat scroll center center transparent;
+}
+.icon-layout_header
+  {    background: url('icons/layout_header.png') no-repeat scroll center center transparent;
+}
+.icon-layout_link
+  {    background: url('icons/layout_link.png') no-repeat scroll center center transparent;
+}
+.icon-layout_sidebar
+  {    background: url('icons/layout_sidebar.png') no-repeat scroll center center transparent;
+}
+.icon-lightbulb
+  {    background: url('icons/lightbulb.png') no-repeat scroll center center transparent;
+}
+.icon-lightbulb_add
+  {    background: url('icons/lightbulb_add.png') no-repeat scroll center center transparent;
+}
+.icon-lightbulb_delete
+  {    background: url('icons/lightbulb_delete.png') no-repeat scroll center center transparent;
+}
+.icon-lightbulb_off
+  {    background: url('icons/lightbulb_off.png') no-repeat scroll center center transparent;
+}
+.icon-lightning
+  {    background: url('icons/lightning.png') no-repeat scroll center center transparent;
+}
+.icon-lightning_add
+  {    background: url('icons/lightning_add.png') no-repeat scroll center center transparent;
+}
+.icon-lightning_delete
+  {    background: url('icons/lightning_delete.png') no-repeat scroll center center transparent;
+}
+.icon-lightning_go
+  {    background: url('icons/lightning_go.png') no-repeat scroll center center transparent;
+}
+.icon-link
+  {    background: url('icons/link.png') no-repeat scroll center center transparent;
+}
+.icon-link_add
+  {    background: url('icons/link_add.png') no-repeat scroll center center transparent;
+}
+.icon-link_break
+  {    background: url('icons/link_break.png') no-repeat scroll center center transparent;
+}
+.icon-link_delete
+  {    background: url('icons/link_delete.png') no-repeat scroll center center transparent;
+}
+.icon-link_edit
+  {    background: url('icons/link_edit.png') no-repeat scroll center center transparent;
+}
+.icon-link_error
+  {    background: url('icons/link_error.png') no-repeat scroll center center transparent;
+}
+.icon-link_go
+  {    background: url('icons/link_go.png') no-repeat scroll center center transparent;
+}
+.icon-lock
+  {    background: url('icons/lock.png') no-repeat scroll center center transparent;
+}
+.icon-lock_add
+  {    background: url('icons/lock_add.png') no-repeat scroll center center transparent;
+}
+.icon-lock_break
+  {    background: url('icons/lock_break.png') no-repeat scroll center center transparent;
+}
+.icon-lock_delete
+  {    background: url('icons/lock_delete.png') no-repeat scroll center center transparent;
+}
+.icon-lock_edit
+  {    background: url('icons/lock_edit.png') no-repeat scroll center center transparent;
+}
+.icon-lock_go
+  {    background: url('icons/lock_go.png') no-repeat scroll center center transparent;
+}
+.icon-lock_open
+  {    background: url('icons/lock_open.png') no-repeat scroll center center transparent;
+}
+.icon-lorry
+  {    background: url('icons/lorry.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_add
+  {    background: url('icons/lorry_add.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_delete
+  {    background: url('icons/lorry_delete.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_error
+  {    background: url('icons/lorry_error.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_flatbed
+  {    background: url('icons/lorry_flatbed.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_go
+  {    background: url('icons/lorry_go.png') no-repeat scroll center center transparent;
+}
+.icon-lorry_link
+  {    background: url('icons/lorry_link.png') no-repeat scroll center center transparent;
+}
+.icon-magifier_zoom_out
+  {    background: url('icons/magifier_zoom_out.png') no-repeat scroll center center transparent;
+}
+.icon-magnifier
+  {    background: url('icons/magnifier.png') no-repeat scroll center center transparent;
+}
+.icon-magnifier_zoom_in
+  {    background: url('icons/magnifier_zoom_in.png') no-repeat scroll center center transparent;
+}
+.icon-male
+  {    background: url('icons/male.png') no-repeat scroll center center transparent;
+}
+.icon-map
+  {    background: url('icons/map.png') no-repeat scroll center center transparent;
+}
+.icon-map_add
+  {    background: url('icons/map_add.png') no-repeat scroll center center transparent;
+}
+.icon-map_delete
+  {    background: url('icons/map_delete.png') no-repeat scroll center center transparent;
+}
+.icon-map_edit
+  {    background: url('icons/map_edit.png') no-repeat scroll center center transparent;
+}
+.icon-map_go
+  {    background: url('icons/map_go.png') no-repeat scroll center center transparent;
+}
+.icon-map_magnify
+  {    background: url('icons/map_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-medal_bronze_1
+  {    background: url('icons/medal_bronze_1.png') no-repeat scroll center center transparent;
+}
+.icon-medal_bronze_2
+  {    background: url('icons/medal_bronze_2.png') no-repeat scroll center center transparent;
+}
+.icon-medal_bronze_3
+  {    background: url('icons/medal_bronze_3.png') no-repeat scroll center center transparent;
+}
+.icon-medal_bronze_add
+  {    background: url('icons/medal_bronze_add.png') no-repeat scroll center center transparent;
+}
+.icon-medal_bronze_delete
+  {    background: url('icons/medal_bronze_delete.png') no-repeat scroll center center transparent;
+}
+.icon-medal_gold_1
+  {    background: url('icons/medal_gold_1.png') no-repeat scroll center center transparent;
+}
+.icon-medal_gold_2
+  {    background: url('icons/medal_gold_2.png') no-repeat scroll center center transparent;
+}
+.icon-medal_gold_3
+  {    background: url('icons/medal_gold_3.png') no-repeat scroll center center transparent;
+}
+.icon-medal_gold_add
+  {    background: url('icons/medal_gold_add.png') no-repeat scroll center center transparent;
+}
+.icon-medal_gold_delete
+  {    background: url('icons/medal_gold_delete.png') no-repeat scroll center center transparent;
+}
+.icon-medal_silver_1
+  {    background: url('icons/medal_silver_1.png') no-repeat scroll center center transparent;
+}
+.icon-medal_silver_2
+  {    background: url('icons/medal_silver_2.png') no-repeat scroll center center transparent;
+}
+.icon-medal_silver_3
+  {    background: url('icons/medal_silver_3.png') no-repeat scroll center center transparent;
+}
+.icon-medal_silver_add
+  {    background: url('icons/medal_silver_add.png') no-repeat scroll center center transparent;
+}
+.icon-medal_silver_delete
+  {    background: url('icons/medal_silver_delete.png') no-repeat scroll center center transparent;
+}
+.icon-money
+  {    background: url('icons/money.png') no-repeat scroll center center transparent;
+}
+.icon-money_add
+  {    background: url('icons/money_add.png') no-repeat scroll center center transparent;
+}
+.icon-money_delete
+  {    background: url('icons/money_delete.png') no-repeat scroll center center transparent;
+}
+.icon-money_dollar
+  {    background: url('icons/money_dollar.png') no-repeat scroll center center transparent;
+}
+.icon-money_euro
+  {    background: url('icons/money_euro.png') no-repeat scroll center center transparent;
+}
+.icon-money_pound
+  {    background: url('icons/money_pound.png') no-repeat scroll center center transparent;
+}
+.icon-money_yen
+  {    background: url('icons/money_yen.png') no-repeat scroll center center transparent;
+}
+.icon-monitor
+  {    background: url('icons/monitor.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_add
+  {    background: url('icons/monitor_add.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_delete
+  {    background: url('icons/monitor_delete.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_edit
+  {    background: url('icons/monitor_edit.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_error
+  {    background: url('icons/monitor_error.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_go
+  {    background: url('icons/monitor_go.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_lightning
+  {    background: url('icons/monitor_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-monitor_link
+  {    background: url('icons/monitor_link.png') no-repeat scroll center center transparent;
+}
+.icon-mouse
+  {    background: url('icons/mouse.png') no-repeat scroll center center transparent;
+}
+.icon-mouse_add
+  {    background: url('icons/mouse_add.png') no-repeat scroll center center transparent;
+}
+.icon-mouse_delete
+  {    background: url('icons/mouse_delete.png') no-repeat scroll center center transparent;
+}
+.icon-mouse_error
+  {    background: url('icons/mouse_error.png') no-repeat scroll center center transparent;
+}
+.icon-music
+  {    background: url('icons/music.png') no-repeat scroll center center transparent;
+}
+.icon-new
+  {    background: url('icons/new.png') no-repeat scroll center center transparent;
+}
+.icon-newspaper
+  {    background: url('icons/newspaper.png') no-repeat scroll center center transparent;
+}
+.icon-newspaper_add
+  {    background: url('icons/newspaper_add.png') no-repeat scroll center center transparent;
+}
+.icon-newspaper_delete
+  {    background: url('icons/newspaper_delete.png') no-repeat scroll center center transparent;
+}
+.icon-newspaper_go
+  {    background: url('icons/newspaper_go.png') no-repeat scroll center center transparent;
+}
+.icon-newspaper_link
+  {    background: url('icons/newspaper_link.png') no-repeat scroll center center transparent;
+}
+.icon-note
+  {    background: url('icons/note.png') no-repeat scroll center center transparent;
+}
+.icon-note_add
+  {    background: url('icons/note_add.png') no-repeat scroll center center transparent;
+}
+.icon-note_delete
+  {    background: url('icons/note_delete.png') no-repeat scroll center center transparent;
+}
+.icon-note_edit
+  {    background: url('icons/note_edit.png') no-repeat scroll center center transparent;
+}
+.icon-note_error
+  {    background: url('icons/note_error.png') no-repeat scroll center center transparent;
+}
+.icon-note_go
+  {    background: url('icons/note_go.png') no-repeat scroll center center transparent;
+}
+.icon-overlays
+  {    background: url('icons/overlays.png') no-repeat scroll center center transparent;
+}
+.icon-package
+  {    background: url('icons/package.png') no-repeat scroll center center transparent;
+}
+.icon-package_add
+  {    background: url('icons/package_add.png') no-repeat scroll center center transparent;
+}
+.icon-package_delete
+  {    background: url('icons/package_delete.png') no-repeat scroll center center transparent;
+}
+.icon-package_go
+  {    background: url('icons/package_go.png') no-repeat scroll center center transparent;
+}
+.icon-package_green
+  {    background: url('icons/package_green.png') no-repeat scroll center center transparent;
+}
+.icon-package_link
+  {    background: url('icons/package_link.png') no-repeat scroll center center transparent;
+}
+.icon-page
+  {    background: url('icons/page.png') no-repeat scroll center center transparent;
+}
+.icon-page_add
+  {    background: url('icons/page_add.png') no-repeat scroll center center transparent;
+}
+.icon-page_attach
+  {    background: url('icons/page_attach.png') no-repeat scroll center center transparent;
+}
+.icon-page_code
+  {    background: url('icons/page_code.png') no-repeat scroll center center transparent;
+}
+.icon-page_copy
+  {    background: url('icons/page_copy.png') no-repeat scroll center center transparent;
+}
+.icon-page_delete
+  {    background: url('icons/page_delete.png') no-repeat scroll center center transparent;
+}
+.icon-page_edit
+  {    background: url('icons/page_edit.png') no-repeat scroll center center transparent;
+}
+.icon-page_error
+  {    background: url('icons/page_error.png') no-repeat scroll center center transparent;
+}
+.icon-page_excel
+  {    background: url('icons/page_excel.png') no-repeat scroll center center transparent;
+}
+.icon-page_find
+  {    background: url('icons/page_find.png') no-repeat scroll center center transparent;
+}
+.icon-page_gear
+  {    background: url('icons/page_gear.png') no-repeat scroll center center transparent;
+}
+.icon-page_go
+  {    background: url('icons/page_go.png') no-repeat scroll center center transparent;
+}
+.icon-page_green
+  {    background: url('icons/page_green.png') no-repeat scroll center center transparent;
+}
+.icon-page_key
+  {    background: url('icons/page_key.png') no-repeat scroll center center transparent;
+}
+.icon-page_lightning
+  {    background: url('icons/page_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-page_link
+  {    background: url('icons/page_link.png') no-repeat scroll center center transparent;
+}
+.icon-page_paintbrush
+  {    background: url('icons/page_paintbrush.png') no-repeat scroll center center transparent;
+}
+.icon-page_paste
+  {    background: url('icons/page_paste.png') no-repeat scroll center center transparent;
+}
+.icon-page_red
+  {    background: url('icons/page_red.png') no-repeat scroll center center transparent;
+}
+.icon-page_refresh
+  {    background: url('icons/page_refresh.png') no-repeat scroll center center transparent;
+}
+.icon-page_save
+  {    background: url('icons/page_save.png') no-repeat scroll center center transparent;
+}
+.icon-page_white
+  {    background: url('icons/page_white.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_acrobat
+  {    background: url('icons/page_white_acrobat.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_actionscript
+  {    background: url('icons/page_white_actionscript.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_add
+  {    background: url('icons/page_white_add.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_c
+  {    background: url('icons/page_white_c.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_camera
+  {    background: url('icons/page_white_camera.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_cd
+  {    background: url('icons/page_white_cd.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_code
+  {    background: url('icons/page_white_code.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_code_red
+  {    background: url('icons/page_white_code_red.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_coldfusion
+  {    background: url('icons/page_white_coldfusion.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_compressed
+  {    background: url('icons/page_white_compressed.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_copy
+  {    background: url('icons/page_white_copy.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_cplusplus
+  {    background: url('icons/page_white_cplusplus.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_csharp
+  {    background: url('icons/page_white_csharp.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_cup
+  {    background: url('icons/page_white_cup.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_database
+  {    background: url('icons/page_white_database.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_delete
+  {    background: url('icons/page_white_delete.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_dvd
+  {    background: url('icons/page_white_dvd.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_edit
+  {    background: url('icons/page_white_edit.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_error
+  {    background: url('icons/page_white_error.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_excel
+  {    background: url('icons/page_white_excel.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_find
+  {    background: url('icons/page_white_find.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_flash
+  {    background: url('icons/page_white_flash.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_freehand
+  {    background: url('icons/page_white_freehand.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_gear
+  {    background: url('icons/page_white_gear.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_get
+  {    background: url('icons/page_white_get.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_go
+  {    background: url('icons/page_white_go.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_h
+  {    background: url('icons/page_white_h.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_horizontal
+  {    background: url('icons/page_white_horizontal.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_key
+  {    background: url('icons/page_white_key.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_lightning
+  {    background: url('icons/page_white_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_link
+  {    background: url('icons/page_white_link.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_magnify
+  {    background: url('icons/page_white_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_medal
+  {    background: url('icons/page_white_medal.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_office
+  {    background: url('icons/page_white_office.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_paint
+  {    background: url('icons/page_white_paint.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_paintbrush
+  {    background: url('icons/page_white_paintbrush.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_paste
+  {    background: url('icons/page_white_paste.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_php
+  {    background: url('icons/page_white_php.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_picture
+  {    background: url('icons/page_white_picture.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_powerpoint
+  {    background: url('icons/page_white_powerpoint.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_put
+  {    background: url('icons/page_white_put.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_ruby
+  {    background: url('icons/page_white_ruby.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_stack
+  {    background: url('icons/page_white_stack.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_star
+  {    background: url('icons/page_white_star.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_swoosh
+  {    background: url('icons/page_white_swoosh.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_text
+  {    background: url('icons/page_white_text.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_text_width
+  {    background: url('icons/page_white_text_width.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_tux
+  {    background: url('icons/page_white_tux.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_vector
+  {    background: url('icons/page_white_vector.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_visualstudio
+  {    background: url('icons/page_white_visualstudio.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_width
+  {    background: url('icons/page_white_width.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_word
+  {    background: url('icons/page_white_word.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_world
+  {    background: url('icons/page_white_world.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_wrench
+  {    background: url('icons/page_white_wrench.png') no-repeat scroll center center transparent;
+}
+.icon-page_white_zip
+  {    background: url('icons/page_white_zip.png') no-repeat scroll center center transparent;
+}
+.icon-page_word
+  {    background: url('icons/page_word.png') no-repeat scroll center center transparent;
+}
+.icon-page_world
+  {    background: url('icons/page_world.png') no-repeat scroll center center transparent;
+}
+.icon-paintbrush
+  {    background: url('icons/paintbrush.png') no-repeat scroll center center transparent;
+}
+.icon-paintcan
+  {    background: url('icons/paintcan.png') no-repeat scroll center center transparent;
+}
+.icon-palette
+  {    background: url('icons/palette.png') no-repeat scroll center center transparent;
+}
+.icon-paste_plain
+  {    background: url('icons/paste_plain.png') no-repeat scroll center center transparent;
+}
+.icon-paste_word
+  {    background: url('icons/paste_word.png') no-repeat scroll center center transparent;
+}
+.icon-pencil
+  {    background: url('icons/pencil.png') no-repeat scroll center center transparent;
+}
+.icon-pencil_add
+  {    background: url('icons/pencil_add.png') no-repeat scroll center center transparent;
+}
+.icon-pencil_delete
+  {    background: url('icons/pencil_delete.png') no-repeat scroll center center transparent;
+}
+.icon-pencil_go
+  {    background: url('icons/pencil_go.png') no-repeat scroll center center transparent;
+}
+.icon-phone
+  {    background: url('icons/phone.png') no-repeat scroll center center transparent;
+}
+.icon-phone_add
+  {    background: url('icons/phone_add.png') no-repeat scroll center center transparent;
+}
+.icon-phone_delete
+  {    background: url('icons/phone_delete.png') no-repeat scroll center center transparent;
+}
+.icon-phone_sound
+  {    background: url('icons/phone_sound.png') no-repeat scroll center center transparent;
+}
+.icon-photo
+  {    background: url('icons/photo.png') no-repeat scroll center center transparent;
+}
+.icon-photos
+  {    background: url('icons/photos.png') no-repeat scroll center center transparent;
+}
+.icon-photo_add
+  {    background: url('icons/photo_add.png') no-repeat scroll center center transparent;
+}
+.icon-photo_delete
+  {    background: url('icons/photo_delete.png') no-repeat scroll center center transparent;
+}
+.icon-photo_link
+  {    background: url('icons/photo_link.png') no-repeat scroll center center transparent;
+}
+.icon-picture
+  {    background: url('icons/picture.png') no-repeat scroll center center transparent;
+}
+.icon-pictures
+  {    background: url('icons/pictures.png') no-repeat scroll center center transparent;
+}
+.icon-picture_add
+  {    background: url('icons/picture_add.png') no-repeat scroll center center transparent;
+}
+.icon-picture_delete
+  {    background: url('icons/picture_delete.png') no-repeat scroll center center transparent;
+}
+.icon-picture_edit
+  {    background: url('icons/picture_edit.png') no-repeat scroll center center transparent;
+}
+.icon-picture_empty
+  {    background: url('icons/picture_empty.png') no-repeat scroll center center transparent;
+}
+.icon-picture_error
+  {    background: url('icons/picture_error.png') no-repeat scroll center center transparent;
+}
+.icon-picture_go
+  {    background: url('icons/picture_go.png') no-repeat scroll center center transparent;
+}
+.icon-picture_key
+  {    background: url('icons/picture_key.png') no-repeat scroll center center transparent;
+}
+.icon-picture_link
+  {    background: url('icons/picture_link.png') no-repeat scroll center center transparent;
+}
+.icon-picture_save
+  {    background: url('icons/picture_save.png') no-repeat scroll center center transparent;
+}
+.icon-pilcrow
+  {    background: url('icons/pilcrow.png') no-repeat scroll center center transparent;
+}
+.icon-pill
+  {    background: url('icons/pill.png') no-repeat scroll center center transparent;
+}
+.icon-pill_add
+  {    background: url('icons/pill_add.png') no-repeat scroll center center transparent;
+}
+.icon-pill_delete
+  {    background: url('icons/pill_delete.png') no-repeat scroll center center transparent;
+}
+.icon-pill_go
+  {    background: url('icons/pill_go.png') no-repeat scroll center center transparent;
+}
+.icon-plugin
+  {    background: url('icons/plugin.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_add
+  {    background: url('icons/plugin_add.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_delete
+  {    background: url('icons/plugin_delete.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_disabled
+  {    background: url('icons/plugin_disabled.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_edit
+  {    background: url('icons/plugin_edit.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_error
+  {    background: url('icons/plugin_error.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_go
+  {    background: url('icons/plugin_go.png') no-repeat scroll center center transparent;
+}
+.icon-plugin_link
+  {    background: url('icons/plugin_link.png') no-repeat scroll center center transparent;
+}
+.icon-printer
+  {    background: url('icons/printer.png') no-repeat scroll center center transparent;
+}
+.icon-printer_add
+  {    background: url('icons/printer_add.png') no-repeat scroll center center transparent;
+}
+.icon-printer_delete
+  {    background: url('icons/printer_delete.png') no-repeat scroll center center transparent;
+}
+.icon-printer_empty
+  {    background: url('icons/printer_empty.png') no-repeat scroll center center transparent;
+}
+.icon-printer_error
+  {    background: url('icons/printer_error.png') no-repeat scroll center center transparent;
+}
+.icon-rainbow
+  {    background: url('icons/rainbow.png') no-repeat scroll center center transparent;
+}
+.icon-report
+  {    background: url('icons/report.png') no-repeat scroll center center transparent;
+}
+.icon-report_add
+  {    background: url('icons/report_add.png') no-repeat scroll center center transparent;
+}
+.icon-report_delete
+  {    background: url('icons/report_delete.png') no-repeat scroll center center transparent;
+}
+.icon-report_disk
+  {    background: url('icons/report_disk.png') no-repeat scroll center center transparent;
+}
+.icon-report_edit
+  {    background: url('icons/report_edit.png') no-repeat scroll center center transparent;
+}
+.icon-report_go
+  {    background: url('icons/report_go.png') no-repeat scroll center center transparent;
+}
+.icon-report_key
+  {    background: url('icons/report_key.png') no-repeat scroll center center transparent;
+}
+.icon-report_link
+  {    background: url('icons/report_link.png') no-repeat scroll center center transparent;
+}
+.icon-report_magnify
+  {    background: url('icons/report_magnify.png') no-repeat scroll center center transparent;
+}
+.icon-report_picture
+  {    background: url('icons/report_picture.png') no-repeat scroll center center transparent;
+}
+.icon-report_user
+  {    background: url('icons/report_user.png') no-repeat scroll center center transparent;
+}
+.icon-report_word
+  {    background: url('icons/report_word.png') no-repeat scroll center center transparent;
+}
+.icon-resultset_first
+  {    background: url('icons/resultset_first.png') no-repeat scroll center center transparent;
+}
+.icon-resultset_last
+  {    background: url('icons/resultset_last.png') no-repeat scroll center center transparent;
+}
+.icon-resultset_next
+  {    background: url('icons/resultset_next.png') no-repeat scroll center center transparent;
+}
+.icon-resultset_previous
+  {    background: url('icons/resultset_previous.png') no-repeat scroll center center transparent;
+}
+.icon-rosette
+  {    background: url('icons/rosette.png') no-repeat scroll center center transparent;
+}
+.icon-rss
+  {    background: url('icons/rss.png') no-repeat scroll center center transparent;
+}
+.icon-rss_add
+  {    background: url('icons/rss_add.png') no-repeat scroll center center transparent;
+}
+.icon-rss_delete
+  {    background: url('icons/rss_delete.png') no-repeat scroll center center transparent;
+}
+.icon-rss_go
+  {    background: url('icons/rss_go.png') no-repeat scroll center center transparent;
+}
+.icon-rss_valid
+  {    background: url('icons/rss_valid.png') no-repeat scroll center center transparent;
+}
+.icon-ruby
+  {    background: url('icons/ruby.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_add
+  {    background: url('icons/ruby_add.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_delete
+  {    background: url('icons/ruby_delete.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_gear
+  {    background: url('icons/ruby_gear.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_get
+  {    background: url('icons/ruby_get.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_go
+  {    background: url('icons/ruby_go.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_key
+  {    background: url('icons/ruby_key.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_link
+  {    background: url('icons/ruby_link.png') no-repeat scroll center center transparent;
+}
+.icon-ruby_put
+  {    background: url('icons/ruby_put.png') no-repeat scroll center center transparent;
+}
+.icon-script
+  {    background: url('icons/script.png') no-repeat scroll center center transparent;
+}
+.icon-script_add
+  {    background: url('icons/script_add.png') no-repeat scroll center center transparent;
+}
+.icon-script_code
+  {    background: url('icons/script_code.png') no-repeat scroll center center transparent;
+}
+.icon-script_code_red
+  {    background: url('icons/script_code_red.png') no-repeat scroll center center transparent;
+}
+.icon-script_delete
+  {    background: url('icons/script_delete.png') no-repeat scroll center center transparent;
+}
+.icon-script_edit
+  {    background: url('icons/script_edit.png') no-repeat scroll center center transparent;
+}
+.icon-script_error
+  {    background: url('icons/script_error.png') no-repeat scroll center center transparent;
+}
+.icon-script_gear
+  {    background: url('icons/script_gear.png') no-repeat scroll center center transparent;
+}
+.icon-script_go
+  {    background: url('icons/script_go.png') no-repeat scroll center center transparent;
+}
+.icon-script_key
+  {    background: url('icons/script_key.png') no-repeat scroll center center transparent;
+}
+.icon-script_lightning
+  {    background: url('icons/script_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-script_link
+  {    background: url('icons/script_link.png') no-repeat scroll center center transparent;
+}
+.icon-script_palette
+  {    background: url('icons/script_palette.png') no-repeat scroll center center transparent;
+}
+.icon-script_save
+  {    background: url('icons/script_save.png') no-repeat scroll center center transparent;
+}
+.icon-server
+  {    background: url('icons/server.png') no-repeat scroll center center transparent;
+}
+.icon-server_add
+  {    background: url('icons/server_add.png') no-repeat scroll center center transparent;
+}
+.icon-server_chart
+  {    background: url('icons/server_chart.png') no-repeat scroll center center transparent;
+}
+.icon-server_compressed
+  {    background: url('icons/server_compressed.png') no-repeat scroll center center transparent;
+}
+.icon-server_connect
+  {    background: url('icons/server_connect.png') no-repeat scroll center center transparent;
+}
+.icon-server_database
+  {    background: url('icons/server_database.png') no-repeat scroll center center transparent;
+}
+.icon-server_delete
+  {    background: url('icons/server_delete.png') no-repeat scroll center center transparent;
+}
+.icon-server_edit
+  {    background: url('icons/server_edit.png') no-repeat scroll center center transparent;
+}
+.icon-server_error
+  {    background: url('icons/server_error.png') no-repeat scroll center center transparent;
+}
+.icon-server_go
+  {    background: url('icons/server_go.png') no-repeat scroll center center transparent;
+}
+.icon-server_key
+  {    background: url('icons/server_key.png') no-repeat scroll center center transparent;
+}
+.icon-server_lightning
+  {    background: url('icons/server_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-server_link
+  {    background: url('icons/server_link.png') no-repeat scroll center center transparent;
+}
+.icon-server_uncompressed
+  {    background: url('icons/server_uncompressed.png') no-repeat scroll center center transparent;
+}
+.icon-shading
+  {    background: url('icons/shading.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_bottom
+  {    background: url('icons/shape_align_bottom.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_center
+  {    background: url('icons/shape_align_center.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_left
+  {    background: url('icons/shape_align_left.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_middle
+  {    background: url('icons/shape_align_middle.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_right
+  {    background: url('icons/shape_align_right.png') no-repeat scroll center center transparent;
+}
+.icon-shape_align_top
+  {    background: url('icons/shape_align_top.png') no-repeat scroll center center transparent;
+}
+.icon-shape_flip_horizontal
+  {    background: url('icons/shape_flip_horizontal.png') no-repeat scroll center center transparent;
+}
+.icon-shape_flip_vertical
+  {    background: url('icons/shape_flip_vertical.png') no-repeat scroll center center transparent;
+}
+.icon-shape_group
+  {    background: url('icons/shape_group.png') no-repeat scroll center center transparent;
+}
+.icon-shape_handles
+  {    background: url('icons/shape_handles.png') no-repeat scroll center center transparent;
+}
+.icon-shape_move_back
+  {    background: url('icons/shape_move_back.png') no-repeat scroll center center transparent;
+}
+.icon-shape_move_backwards
+  {    background: url('icons/shape_move_backwards.png') no-repeat scroll center center transparent;
+}
+.icon-shape_move_forwards
+  {    background: url('icons/shape_move_forwards.png') no-repeat scroll center center transparent;
+}
+.icon-shape_move_front
+  {    background: url('icons/shape_move_front.png') no-repeat scroll center center transparent;
+}
+.icon-shape_rotate_anticlockwise
+  {    background: url('icons/shape_rotate_anticlockwise.png') no-repeat scroll center center transparent;
+}
+.icon-shape_rotate_clockwise
+  {    background: url('icons/shape_rotate_clockwise.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square
+  {    background: url('icons/shape_square.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_add
+  {    background: url('icons/shape_square_add.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_delete
+  {    background: url('icons/shape_square_delete.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_edit
+  {    background: url('icons/shape_square_edit.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_error
+  {    background: url('icons/shape_square_error.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_go
+  {    background: url('icons/shape_square_go.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_key
+  {    background: url('icons/shape_square_key.png') no-repeat scroll center center transparent;
+}
+.icon-shape_square_link
+  {    background: url('icons/shape_square_link.png') no-repeat scroll center center transparent;
+}
+.icon-shape_ungroup
+  {    background: url('icons/shape_ungroup.png') no-repeat scroll center center transparent;
+}
+.icon-shield
+  {    background: url('icons/shield.png') no-repeat scroll center center transparent;
+}
+.icon-shield_add
+  {    background: url('icons/shield_add.png') no-repeat scroll center center transparent;
+}
+.icon-shield_delete
+  {    background: url('icons/shield_delete.png') no-repeat scroll center center transparent;
+}
+.icon-shield_go
+  {    background: url('icons/shield_go.png') no-repeat scroll center center transparent;
+}
+.icon-sitemap
+  {    background: url('icons/sitemap.png') no-repeat scroll center center transparent;
+}
+.icon-sitemap_color
+  {    background: url('icons/sitemap_color.png') no-repeat scroll center center transparent;
+}
+.icon-sound
+  {    background: url('icons/sound.png') no-repeat scroll center center transparent;
+}
+.icon-sound_add
+  {    background: url('icons/sound_add.png') no-repeat scroll center center transparent;
+}
+.icon-sound_delete
+  {    background: url('icons/sound_delete.png') no-repeat scroll center center transparent;
+}
+.icon-sound_low
+  {    background: url('icons/sound_low.png') no-repeat scroll center center transparent;
+}
+.icon-sound_mute
+  {    background: url('icons/sound_mute.png') no-repeat scroll center center transparent;
+}
+.icon-sound_none
+  {    background: url('icons/sound_none.png') no-repeat scroll center center transparent;
+}
+.icon-spellcheck
+  {    background: url('icons/spellcheck.png') no-repeat scroll center center transparent;
+}
+.icon-sport_8ball
+  {    background: url('icons/sport_8ball.png') no-repeat scroll center center transparent;
+}
+.icon-sport_basketball
+  {    background: url('icons/sport_basketball.png') no-repeat scroll center center transparent;
+}
+.icon-sport_football
+  {    background: url('icons/sport_football.png') no-repeat scroll center center transparent;
+}
+.icon-sport_golf
+  {    background: url('icons/sport_golf.png') no-repeat scroll center center transparent;
+}
+.icon-sport_raquet
+  {    background: url('icons/sport_raquet.png') no-repeat scroll center center transparent;
+}
+.icon-sport_shuttlecock
+  {    background: url('icons/sport_shuttlecock.png') no-repeat scroll center center transparent;
+}
+.icon-sport_soccer
+  {    background: url('icons/sport_soccer.png') no-repeat scroll center center transparent;
+}
+.icon-sport_tennis
+  {    background: url('icons/sport_tennis.png') no-repeat scroll center center transparent;
+}
+.icon-star
+  {    background: url('icons/star.png') no-repeat scroll center center transparent;
+}
+.icon-status_away
+  {    background: url('icons/status_away.png') no-repeat scroll center center transparent;
+}
+.icon-status_busy
+  {    background: url('icons/status_busy.png') no-repeat scroll center center transparent;
+}
+.icon-status_offline
+  {    background: url('icons/status_offline.png') no-repeat scroll center center transparent;
+}
+.icon-status_online
+  {    background: url('icons/status_online.png') no-repeat scroll center center transparent;
+}
+.icon-stop
+  {    background: url('icons/stop.png') no-repeat scroll center center transparent;
+}
+.icon-style
+  {    background: url('icons/style.png') no-repeat scroll center center transparent;
+}
+.icon-style_add
+  {    background: url('icons/style_add.png') no-repeat scroll center center transparent;
+}
+.icon-style_delete
+  {    background: url('icons/style_delete.png') no-repeat scroll center center transparent;
+}
+.icon-style_edit
+  {    background: url('icons/style_edit.png') no-repeat scroll center center transparent;
+}
+.icon-style_go
+  {    background: url('icons/style_go.png') no-repeat scroll center center transparent;
+}
+.icon-sum
+  {    background: url('icons/sum.png') no-repeat scroll center center transparent;
+}
+.icon-tab
+  {    background: url('icons/tab.png') no-repeat scroll center center transparent;
+}
+.icon-table
+  {    background: url('icons/table.png') no-repeat scroll center center transparent;
+}
+.icon-table_add
+  {    background: url('icons/table_add.png') no-repeat scroll center center transparent;
+}
+.icon-table_delete
+  {    background: url('icons/table_delete.png') no-repeat scroll center center transparent;
+}
+.icon-table_edit
+  {    background: url('icons/table_edit.png') no-repeat scroll center center transparent;
+}
+.icon-table_error
+  {    background: url('icons/table_error.png') no-repeat scroll center center transparent;
+}
+.icon-table_gear
+  {    background: url('icons/table_gear.png') no-repeat scroll center center transparent;
+}
+.icon-table_go
+  {    background: url('icons/table_go.png') no-repeat scroll center center transparent;
+}
+.icon-table_key
+  {    background: url('icons/table_key.png') no-repeat scroll center center transparent;
+}
+.icon-table_lightning
+  {    background: url('icons/table_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-table_link
+  {    background: url('icons/table_link.png') no-repeat scroll center center transparent;
+}
+.icon-table_multiple
+  {    background: url('icons/table_multiple.png') no-repeat scroll center center transparent;
+}
+.icon-table_refresh
+  {    background: url('icons/table_refresh.png') no-repeat scroll center center transparent;
+}
+.icon-table_relationship
+  {    background: url('icons/table_relationship.png') no-repeat scroll center center transparent;
+}
+.icon-table_row_delete
+  {    background: url('icons/table_row_delete.png') no-repeat scroll center center transparent;
+}
+.icon-table_row_insert
+  {    background: url('icons/table_row_insert.png') no-repeat scroll center center transparent;
+}
+.icon-table_save
+  {    background: url('icons/table_save.png') no-repeat scroll center center transparent;
+}
+.icon-table_sort
+  {    background: url('icons/table_sort.png') no-repeat scroll center center transparent;
+}
+.icon-tab_add
+  {    background: url('icons/tab_add.png') no-repeat scroll center center transparent;
+}
+.icon-tab_delete
+  {    background: url('icons/tab_delete.png') no-repeat scroll center center transparent;
+}
+.icon-tab_edit
+  {    background: url('icons/tab_edit.png') no-repeat scroll center center transparent;
+}
+.icon-tab_go
+  {    background: url('icons/tab_go.png') no-repeat scroll center center transparent;
+}
+.icon-tag
+  {    background: url('icons/tag.png') no-repeat scroll center center transparent;
+}
+.icon-tag_blue
+  {    background: url('icons/tag_blue.png') no-repeat scroll center center transparent;
+}
+.icon-tag_blue_add
+  {    background: url('icons/tag_blue_add.png') no-repeat scroll center center transparent;
+}
+.icon-tag_blue_delete
+  {    background: url('icons/tag_blue_delete.png') no-repeat scroll center center transparent;
+}
+.icon-tag_blue_edit
+  {    background: url('icons/tag_blue_edit.png') no-repeat scroll center center transparent;
+}
+.icon-tag_green
+  {    background: url('icons/tag_green.png') no-repeat scroll center center transparent;
+}
+.icon-tag_orange
+  {    background: url('icons/tag_orange.png') no-repeat scroll center center transparent;
+}
+.icon-tag_pink
+  {    background: url('icons/tag_pink.png') no-repeat scroll center center transparent;
+}
+.icon-tag_purple
+  {    background: url('icons/tag_purple.png') no-repeat scroll center center transparent;
+}
+.icon-tag_red
+  {    background: url('icons/tag_red.png') no-repeat scroll center center transparent;
+}
+.icon-tag_yellow
+  {    background: url('icons/tag_yellow.png') no-repeat scroll center center transparent;
+}
+.icon-telephone
+  {    background: url('icons/telephone.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_add
+  {    background: url('icons/telephone_add.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_delete
+  {    background: url('icons/telephone_delete.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_edit
+  {    background: url('icons/telephone_edit.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_error
+  {    background: url('icons/telephone_error.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_go
+  {    background: url('icons/telephone_go.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_key
+  {    background: url('icons/telephone_key.png') no-repeat scroll center center transparent;
+}
+.icon-telephone_link
+  {    background: url('icons/telephone_link.png') no-repeat scroll center center transparent;
+}
+.icon-television
+  {    background: url('icons/television.png') no-repeat scroll center center transparent;
+}
+.icon-television_add
+  {    background: url('icons/television_add.png') no-repeat scroll center center transparent;
+}
+.icon-television_delete
+  {    background: url('icons/television_delete.png') no-repeat scroll center center transparent;
+}
+.icon-textfield
+  {    background: url('icons/textfield.png') no-repeat scroll center center transparent;
+}
+.icon-textfield_add
+  {    background: url('icons/textfield_add.png') no-repeat scroll center center transparent;
+}
+.icon-textfield_delete
+  {    background: url('icons/textfield_delete.png') no-repeat scroll center center transparent;
+}
+.icon-textfield_key
+  {    background: url('icons/textfield_key.png') no-repeat scroll center center transparent;
+}
+.icon-textfield_rename
+  {    background: url('icons/textfield_rename.png') no-repeat scroll center center transparent;
+}
+.icon-text_align_center
+  {    background: url('icons/text_align_center.png') no-repeat scroll center center transparent;
+}
+.icon-text_align_justify
+  {    background: url('icons/text_align_justify.png') no-repeat scroll center center transparent;
+}
+.icon-text_align_left
+  {    background: url('icons/text_align_left.png') no-repeat scroll center center transparent;
+}
+.icon-text_align_right
+  {    background: url('icons/text_align_right.png') no-repeat scroll center center transparent;
+}
+.icon-text_allcaps
+  {    background: url('icons/text_allcaps.png') no-repeat scroll center center transparent;
+}
+.icon-text_bold
+  {    background: url('icons/text_bold.png') no-repeat scroll center center transparent;
+}
+.icon-text_columns
+  {    background: url('icons/text_columns.png') no-repeat scroll center center transparent;
+}
+.icon-text_dropcaps
+  {    background: url('icons/text_dropcaps.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_1
+  {    background: url('icons/text_heading_1.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_2
+  {    background: url('icons/text_heading_2.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_3
+  {    background: url('icons/text_heading_3.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_4
+  {    background: url('icons/text_heading_4.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_5
+  {    background: url('icons/text_heading_5.png') no-repeat scroll center center transparent;
+}
+.icon-text_heading_6
+  {    background: url('icons/text_heading_6.png') no-repeat scroll center center transparent;
+}
+.icon-text_horizontalrule
+  {    background: url('icons/text_horizontalrule.png') no-repeat scroll center center transparent;
+}
+.icon-text_indent
+  {    background: url('icons/text_indent.png') no-repeat scroll center center transparent;
+}
+.icon-text_indent_remove
+  {    background: url('icons/text_indent_remove.png') no-repeat scroll center center transparent;
+}
+.icon-text_italic
+  {    background: url('icons/text_italic.png') no-repeat scroll center center transparent;
+}
+.icon-text_kerning
+  {    background: url('icons/text_kerning.png') no-repeat scroll center center transparent;
+}
+.icon-text_letterspacing
+  {    background: url('icons/text_letterspacing.png') no-repeat scroll center center transparent;
+}
+.icon-text_letter_omega
+  {    background: url('icons/text_letter_omega.png') no-repeat scroll center center transparent;
+}
+.icon-text_linespacing
+  {    background: url('icons/text_linespacing.png') no-repeat scroll center center transparent;
+}
+.icon-text_list_bullets
+  {    background: url('icons/text_list_bullets.png') no-repeat scroll center center transparent;
+}
+.icon-text_list_numbers
+  {    background: url('icons/text_list_numbers.png') no-repeat scroll center center transparent;
+}
+.icon-text_lowercase
+  {    background: url('icons/text_lowercase.png') no-repeat scroll center center transparent;
+}
+.icon-text_padding_bottom
+  {    background: url('icons/text_padding_bottom.png') no-repeat scroll center center transparent;
+}
+.icon-text_padding_left
+  {    background: url('icons/text_padding_left.png') no-repeat scroll center center transparent;
+}
+.icon-text_padding_right
+  {    background: url('icons/text_padding_right.png') no-repeat scroll center center transparent;
+}
+.icon-text_padding_top
+  {    background: url('icons/text_padding_top.png') no-repeat scroll center center transparent;
+}
+.icon-text_replace
+  {    background: url('icons/text_replace.png') no-repeat scroll center center transparent;
+}
+.icon-text_signature
+  {    background: url('icons/text_signature.png') no-repeat scroll center center transparent;
+}
+.icon-text_smallcaps
+  {    background: url('icons/text_smallcaps.png') no-repeat scroll center center transparent;
+}
+.icon-text_strikethrough
+  {    background: url('icons/text_strikethrough.png') no-repeat scroll center center transparent;
+}
+.icon-text_subscript
+  {    background: url('icons/text_subscript.png') no-repeat scroll center center transparent;
+}
+.icon-text_superscript
+  {    background: url('icons/text_superscript.png') no-repeat scroll center center transparent;
+}
+.icon-text_underline
+  {    background: url('icons/text_underline.png') no-repeat scroll center center transparent;
+}
+.icon-text_uppercase
+  {    background: url('icons/text_uppercase.png') no-repeat scroll center center transparent;
+}
+.icon-thumb_down
+  {    background: url('icons/thumb_down.png') no-repeat scroll center center transparent;
+}
+.icon-thumb_up
+  {    background: url('icons/thumb_up.png') no-repeat scroll center center transparent;
+}
+.icon-tick
+  {    background: url('icons/tick.png') no-repeat scroll center center transparent;
+}
+.icon-time
+  {    background: url('icons/time.png') no-repeat scroll center center transparent;
+}
+.icon-timeline_marker
+  {    background: url('icons/timeline_marker.png') no-repeat scroll center center transparent;
+}
+.icon-time_add
+  {    background: url('icons/time_add.png') no-repeat scroll center center transparent;
+}
+.icon-time_delete
+  {    background: url('icons/time_delete.png') no-repeat scroll center center transparent;
+}
+.icon-time_go
+  {    background: url('icons/time_go.png') no-repeat scroll center center transparent;
+}
+.icon-transmit
+  {    background: url('icons/transmit.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_add
+  {    background: url('icons/transmit_add.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_blue
+  {    background: url('icons/transmit_blue.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_delete
+  {    background: url('icons/transmit_delete.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_edit
+  {    background: url('icons/transmit_edit.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_error
+  {    background: url('icons/transmit_error.png') no-repeat scroll center center transparent;
+}
+.icon-transmit_go
+  {    background: url('icons/transmit_go.png') no-repeat scroll center center transparent;
+}
+.icon-tux
+  {    background: url('icons/tux.png') no-repeat scroll center center transparent;
+}
+.icon-user
+  {    background: url('icons/user.png') no-repeat scroll center center transparent;
+}
+.icon-user_add
+  {    background: url('icons/user_add.png') no-repeat scroll center center transparent;
+}
+.icon-user_comment
+  {    background: url('icons/user_comment.png') no-repeat scroll center center transparent;
+}
+.icon-user_delete
+  {    background: url('icons/user_delete.png') no-repeat scroll center center transparent;
+}
+.icon-user_edit
+  {    background: url('icons/user_edit.png') no-repeat scroll center center transparent;
+}
+.icon-user_female
+  {    background: url('icons/user_female.png') no-repeat scroll center center transparent;
+}
+.icon-user_go
+  {    background: url('icons/user_go.png') no-repeat scroll center center transparent;
+}
+.icon-user_gray
+  {    background: url('icons/user_gray.png') no-repeat scroll center center transparent;
+}
+.icon-user_green
+  {    background: url('icons/user_green.png') no-repeat scroll center center transparent;
+}
+.icon-user_orange
+  {    background: url('icons/user_orange.png') no-repeat scroll center center transparent;
+}
+.icon-user_red
+  {    background: url('icons/user_red.png') no-repeat scroll center center transparent;
+}
+.icon-user_suit
+  {    background: url('icons/user_suit.png') no-repeat scroll center center transparent;
+}
+.icon-vcard
+  {    background: url('icons/vcard.png') no-repeat scroll center center transparent;
+}
+.icon-vcard_add
+  {    background: url('icons/vcard_add.png') no-repeat scroll center center transparent;
+}
+.icon-vcard_delete
+  {    background: url('icons/vcard_delete.png') no-repeat scroll center center transparent;
+}
+.icon-vcard_edit
+  {    background: url('icons/vcard_edit.png') no-repeat scroll center center transparent;
+}
+.icon-vector
+  {    background: url('icons/vector.png') no-repeat scroll center center transparent;
+}
+.icon-vector_add
+  {    background: url('icons/vector_add.png') no-repeat scroll center center transparent;
+}
+.icon-vector_delete
+  {    background: url('icons/vector_delete.png') no-repeat scroll center center transparent;
+}
+.icon-wand
+  {    background: url('icons/wand.png') no-repeat scroll center center transparent;
+}
+.icon-weather_clouds
+  {    background: url('icons/weather_clouds.png') no-repeat scroll center center transparent;
+}
+.icon-weather_cloudy
+  {    background: url('icons/weather_cloudy.png') no-repeat scroll center center transparent;
+}
+.icon-weather_lightning
+  {    background: url('icons/weather_lightning.png') no-repeat scroll center center transparent;
+}
+.icon-weather_rain
+  {    background: url('icons/weather_rain.png') no-repeat scroll center center transparent;
+}
+.icon-weather_snow
+  {    background: url('icons/weather_snow.png') no-repeat scroll center center transparent;
+}
+.icon-weather_sun
+  {    background: url('icons/weather_sun.png') no-repeat scroll center center transparent;
+}
+.icon-webcam
+  {    background: url('icons/webcam.png') no-repeat scroll center center transparent;
+}
+.icon-webcam_add
+  {    background: url('icons/webcam_add.png') no-repeat scroll center center transparent;
+}
+.icon-webcam_delete
+  {    background: url('icons/webcam_delete.png') no-repeat scroll center center transparent;
+}
+.icon-webcam_error
+  {    background: url('icons/webcam_error.png') no-repeat scroll center center transparent;
+}
+.icon-world
+  {    background: url('icons/world.png') no-repeat scroll center center transparent;
+}
+.icon-world_add
+  {    background: url('icons/world_add.png') no-repeat scroll center center transparent;
+}
+.icon-world_delete
+  {    background: url('icons/world_delete.png') no-repeat scroll center center transparent;
+}
+.icon-world_edit
+  {    background: url('icons/world_edit.png') no-repeat scroll center center transparent;
+}
+.icon-world_go
+  {    background: url('icons/world_go.png') no-repeat scroll center center transparent;
+}
+.icon-world_link
+  {    background: url('icons/world_link.png') no-repeat scroll center center transparent;
+}
+.icon-wrench
+  {    background: url('icons/wrench.png') no-repeat scroll center center transparent;
+}
+.icon-wrench_orange
+  {    background: url('icons/wrench_orange.png') no-repeat scroll center center transparent;
+}
+.icon-xhtml
+  {    background: url('icons/xhtml.png') no-repeat scroll center center transparent;
+}
+.icon-xhtml_add
+  {    background: url('icons/xhtml_add.png') no-repeat scroll center center transparent;
+}
+.icon-xhtml_delete
+  {    background: url('icons/xhtml_delete.png') no-repeat scroll center center transparent;
+}
+.icon-xhtml_go
+  {    background: url('icons/xhtml_go.png') no-repeat scroll center center transparent;
+}
+.icon-xhtml_valid
+  {    background: url('icons/xhtml_valid.png') no-repeat scroll center center transparent;
+}
+.icon-zoom
+  {    background: url('icons/zoom.png') no-repeat scroll center center transparent;
+}
+.icon-zoom_in
+  {    background: url('icons/zoom_in.png') no-repeat scroll center center transparent;
+}
+.icon-zoom_out
+  {    background: url('icons/zoom_out.png') no-repeat scroll center center transparent;
+}

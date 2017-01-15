@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaweb.dao.SupplierMapper">
+  <resultMap id="BaseResultMap" type="com.javaweb.entity.Supplier">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="supplierName" jdbcType="VARCHAR" property="suppliername" />
+    <result column="contacts" jdbcType="CHAR" property="contacts" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="contactInfo" jdbcType="VARCHAR" property="contactinfo" />
+    <result column="fax" jdbcType="CHAR" property="fax" />
+    <result column="mailbox" jdbcType="CHAR" property="mailbox" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="postcode" jdbcType="CHAR" property="postcode" />
+    <result column="bankaccount" jdbcType="CHAR" property="bankaccount" />
+    <result column="suppflag" jdbcType="CHAR" property="suppflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, supplierName, contacts, phone, contactInfo, fax, mailbox, address, postcode, 
+    bankaccount, suppflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javaweb.entity.Supplier">
+    insert into supplier (id, supplierName, contacts, 
+      phone, contactInfo, fax, 
+      mailbox, address, postcode, 
+      bankaccount, suppflag)
+    values (#{id,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, #{contacts,jdbcType=CHAR}, 
+      #{phone,jdbcType=CHAR}, #{contactinfo,jdbcType=VARCHAR}, #{fax,jdbcType=CHAR}, 
+      #{mailbox,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{postcode,jdbcType=CHAR}, 
+      #{bankaccount,jdbcType=CHAR}, #{suppflag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Supplier">
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="suppliername != null">
+        supplierName,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="contactinfo != null">
+        contactInfo,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="mailbox != null">
+        mailbox,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="bankaccount != null">
+        bankaccount,
+      </if>
+      <if test="suppflag != null">
+        suppflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null">
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        #{contactinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=CHAR},
+      </if>
+      <if test="mailbox != null">
+        #{mailbox,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=CHAR},
+      </if>
+      <if test="bankaccount != null">
+        #{bankaccount,jdbcType=CHAR},
+      </if>
+      <if test="suppflag != null">
+        #{suppflag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Supplier">
+    update supplier
+    <set>
+      <if test="suppliername != null">
+        supplierName = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        contacts = #{contacts,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="contactinfo != null">
+        contactInfo = #{contactinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=CHAR},
+      </if>
+      <if test="mailbox != null">
+        mailbox = #{mailbox,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=CHAR},
+      </if>
+      <if test="bankaccount != null">
+        bankaccount = #{bankaccount,jdbcType=CHAR},
+      </if>
+      <if test="suppflag != null">
+        suppflag = #{suppflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Supplier">
+    update supplier
+    set supplierName = #{suppliername,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=CHAR},
+      phone = #{phone,jdbcType=CHAR},
+      contactInfo = #{contactinfo,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=CHAR},
+      mailbox = #{mailbox,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=CHAR},
+      bankaccount = #{bankaccount,jdbcType=CHAR},
+      suppflag = #{suppflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
