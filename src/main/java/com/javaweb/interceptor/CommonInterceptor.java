@@ -38,8 +38,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			String url = properties.getProperty("ignoredurl");
 			if(url!=null){
 				ignoredURL = url.split(",");
-			}			 
-			logger.info("配置忽略的url有-->"+url);
+			}			 			 
 		} catch (IOException e) {	 
 			logger.error(e.toString());
 		}finally {
@@ -61,11 +60,9 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		logger.info("进入url拦截方法......");
 		boolean flag = false;
 		String url = request.getRequestURL().toString(); 
-		url = url.substring(StringUtils.getCharacterPosition(url)); 
-		logger.info("获取到的url为:"+url);
+		url = url.substring(StringUtils.getCharacterPosition(url)); 	 
 		// 比较忽略的string数组
-		for(String s:ignoredURL){
-			logger.info("匹配的url-->"+s);
+		for(String s:ignoredURL){			 
 			if(url.equals(s)){
 				flag = true;
 				break;
