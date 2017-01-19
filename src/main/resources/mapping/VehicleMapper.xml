@@ -24,11 +24,11 @@
     delete from vehicle
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Vehicle">
-    insert into vehicle (id, vehname, carmodel, 
+  <insert id="insert" parameterType="com.javaweb.entity.Vehicle"  useGeneratedKeys="true" keyProperty="id">
+    insert into vehicle (vehname, carmodel, 
       inspectiondate, milage, platenum, 
       vehflag, customerid)
-    values (#{id,jdbcType=INTEGER}, #{vehname,jdbcType=VARCHAR}, #{carmodel,jdbcType=VARCHAR}, 
+    values (#{vehname,jdbcType=VARCHAR}, #{carmodel,jdbcType=VARCHAR}, 
       #{inspectiondate,jdbcType=TIMESTAMP}, #{milage,jdbcType=DOUBLE}, #{platenum,jdbcType=CHAR}, 
       #{vehflag,jdbcType=CHAR}, #{customerid,jdbcType=INTEGER})
   </insert>
@@ -132,7 +132,7 @@
 	customer.numbering,customer.contactinfo,
 	vehicle.platenum,vehicle.carmodel,
 	vehicle.milage,vehicle.inspectiondate,
-	vehicle.vehflag
+	vehicle.vehflag,customer.contactadd,vehicle.vehname
 	from customer LEFT JOIN
 	vehicle on(customer.id= vehicle.customerid) 
 	<where>
@@ -143,4 +143,5 @@
 		</if>
 	</where> 	
   </select>
+  
 </mapper>

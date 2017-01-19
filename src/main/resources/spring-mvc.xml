@@ -20,12 +20,13 @@
 	</mvc:annotation-driven>
 	
 	<!-- 配置登录拦截器,查看是否已经登录 -->
-	<mvc:interceptors>
+	<!--  <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean id="commonInterceptor" class="com.javaweb.interceptor.CommonInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+	-->
 	
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.javaweb.controller" />

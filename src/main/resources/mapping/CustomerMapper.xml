@@ -23,11 +23,11 @@
     delete from customer
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Customer">
-    insert into customer (id, numbering, mailbox, 
+  <insert id="insert" parameterType="com.javaweb.entity.Customer" useGeneratedKeys="true" keyProperty="id">
+    insert into customer (numbering, mailbox, 
       contactinfo, contactadd, idcard, 
       customerflag)
-    values (#{id,jdbcType=INTEGER}, #{numbering,jdbcType=CHAR}, #{mailbox,jdbcType=CHAR}, 
+    values (#{numbering,jdbcType=CHAR}, #{mailbox,jdbcType=CHAR}, 
       #{contactinfo,jdbcType=CHAR}, #{contactadd,jdbcType=CHAR}, #{idcard,jdbcType=CHAR}, 
       #{customerflag,jdbcType=CHAR})
   </insert>
@@ -114,4 +114,14 @@
       customerflag = #{customerflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 模糊查询用户的信息 -->
+  <select id="selectCustomerByKey" parameterType="string" resultMap="BaseResultMap">
+  	select *
+	from customer
+	where customer.customerflag='1'	
+	<if test="keyworld!=null and keyworld!=''">
+		and customer.numbering like concat('%',#{keyworld},'%')
+	</if>
+  </select>
 </mapper>

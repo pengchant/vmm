@@ -26,7 +26,7 @@ public class BaseController {
 	 */
 	@SuppressWarnings({ "unused" })
 	public String responseResult(Object object){
-		JSONObject jsonObject = null;
+		JSONObject jsonObject = new JSONObject();
 		if(jsonObject!=null){
 			logger.info("后端返回的对象:{}",object);
 			JsonConfig jsonConfig = new JsonConfig();
@@ -52,7 +52,7 @@ public class BaseController {
      * @return 输出成功的JSON格式数据
      */
 	public String responseSuccess(Object obj){
-		JSONObject jsonObj = null;
+		JSONObject jsonObj = new JSONObject();
 		if(obj != null){
 		    logger.info("后端返回对象：{}", obj);
 		    JsonConfig jsonConfig = new JsonConfig(); 
@@ -72,7 +72,7 @@ public class BaseController {
 	 * @return 输出成功的JSON格式数据
 	 */
 	public String responseArraySuccess(Object obj){
-		JSONArray jsonObj = null;
+		JSONArray jsonObj = new JSONArray();
 		if(obj != null){
 			logger.info("后端返回对象：{}", obj);
 			JsonConfig jsonConfig = new JsonConfig();
@@ -90,7 +90,7 @@ public class BaseController {
      * @return 输出成功的JSON格式数据
      */
 	public String responseSuccess(Object obj, String msg){
-		JSONObject jsonObj = null;
+		JSONObject jsonObj = new JSONObject();
 		if(obj != null){
 		    logger.info("后端返回对象：{}", obj);
 		    JsonConfig jsonConfig = new JsonConfig(); 

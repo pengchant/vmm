@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.dao.DaoFactory;
+import com.javaweb.entity.Customer;
+import com.javaweb.entity.Vehicle;
 import com.javaweb.service.IVehicleMaintence;
 import com.javaweb.views.CustomerVehicle;
 
@@ -28,8 +30,8 @@ public class VehicleMaintence implements IVehicleMaintence {
 	/**
 	 * 关键字查询用户的信息和汽车的信息
 	 */
-	public List<CustomerVehicle> queryUserVehiByKeyWorld(String keyworld) {
-		logger.info("-->进入根据关键字查询用户的车型和自己的相关信息");
+	@Override
+	public List<CustomerVehicle> queryUserVehiByKeyWorld(String keyworld) {		 
 		List<CustomerVehicle> customerVehicles = null;
 		try {
 			customerVehicles = daoFactory.getVehicleMapper().selectVehicleByKey(keyworld);
@@ -38,5 +40,51 @@ public class VehicleMaintence implements IVehicleMaintence {
 		}
 		return customerVehicles; 
 	}
+
+	/**
+	 * 关键字模糊查询用户的信息
+	 */
+	@Override
+	public List<Customer> queryCustomerByKey(String keyworld) {
+		List<Customer> customers = null;
+		try {
+			customers = daoFactory.getCustomerMapper().selectCustomerByKey(keyworld);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return customers;
+	}
+
+	/**
+	 * 添加用户和车辆的信息
+	 */
+	@Override
+	public boolean addUserVehicleInfo(Customer customer, Vehicle vehicle) {
+		boolean flag = false;
+		if(vehicle!=null&&customer!=null){
+			try {
+				// 先判断是否是新用户	
+				// 如果是老用户
+				if (customer.getId() != null
+						&& daoFactory.getCustomerMapper().selectByPrimaryKey(customer.getId()) != null) {
+					// 添加汽车信息
+					vehicle.setCustomerid(customer.getId());
+				} else {// 如果是新用户
+					int customerId = daoFactory.getCustomerMapper().insert(customer);
+					vehicle.setCustomerid(customerId);
+				}
+				daoFactory.getVehicleMapper().insert(vehicle);
+				flag = true;
+			} catch (Exception e) {
+				logger.error(e.toString());
+				flag = false;
+			}
+		}else{
+			flag = false;
+		} 
+		return flag;
+	}
+	
+	
 
 }

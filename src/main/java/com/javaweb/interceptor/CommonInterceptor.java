@@ -86,7 +86,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			logger.info("hisURL:"+url);
 			// 设置上一个访问的url
 			request.setAttribute("hisURL", url);	 
-			request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);			 
+			response.sendRedirect("/vmms/");			 
 		}
 		return flag;
 	}

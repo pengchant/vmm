@@ -25,6 +25,46 @@
             border-left:none;
         }
     </style>
+    <script type="text/javascript">
+    	$(function(){
+    		$(".readonly").textbox("readonly",true); 
+    		
+    		// 定义表格下拉框的效果
+    		$("#cc").combogrid({
+    			panelWidth:562,
+                idField:'platenum',
+                textField:'numbering',
+                mode:'remote',
+                url:'${pageContext.request.contextPath}/vehicle/getUserVehBykey.html',
+                columns:[[
+                    {field:'customerid',title:'用户编号',width:50,hidden:true},
+                    {field:'numbering',title:'用户名',width:100,align:'center'},
+                    {field:'contactinfo',title:'手机号',width:120,align:'center'},
+                    {field:'platenum',title:'车牌号',width:130,align:'center'},
+                    {field:'vehname',title:'品牌',width:100,align:'center'},
+                    {field:'carmodel',title:'车型',width:100,align:'center',},
+                    {field:'milage',title:'行驶里程数',width:100,hidden:true},
+                    {field:'inspectiondate',title:'年检日期',width:100,hidden:true},
+                    {field:'vehflag',title:'发动机号',width:100,hidden:true},
+                    {field:'contactadd',title:'联系地址',width:100,hidden:true}
+                ]],
+    			onSelect:function(index,row){
+    				console.log(index,row);
+    				// 设置选中
+    				$("#cc").combogrid("setValue",row.platenum);
+    				// 赋值
+    				$("#numbering").textbox("setValue",row.numbering);
+    				$("#contactinfo").textbox("setValue",row.contactinfo);
+    				$("#platenum").textbox("setValue",row.platenum);
+    				$("#carmodel").textbox("setValue",row.vehname+row.carmodel);
+    				$("#milage").textbox("setValue",row.milage);
+    				$("#inspectiondate").datebox("setValue",row.inspectiondate);
+    				$("#vehflag").textbox("setValue",row.vehflag);
+    				$("#contactadd").textbox("setValue",row.contactadd);
+    			}
+    		});
+    	});
+    </script>
 </head>
 <body style="margin:0px;padding:0px;">
         <div class="easyui-panel" border="false"
@@ -35,23 +75,11 @@
                         <td style="text-align: left;">
                             <label>请选择用户</label>
                             <!-- 如果不是首次登记 -->
-                            <select prompt="请输入用户名/手机号/车牌号" id="cc" class="easyui-combogrid" name="dept"
-                                    style="width:250px;height:30px;"
-                                    data-options="
-                panelWidth:450,
-                idField:'code',
-                textField:'name',
-                url:'datagrid_data.json',
-                columns:[[
-                    {field:'id',title:'用户编号',width:60},
-                    {field:'col4',title:'用户名',width:100},
-                    {field:'name',title:'手机号',width:100},
-                    {field:'addr',title:'车牌号',width:120}
-                ]]
-            "></select>
+                            <select prompt="请输入用户名/手机号/车牌号" id="cc" name="dept"
+                                    style="width:300px;height:30px;"></select>
                         </td>
                         <td style="text-align: right;">
-                            <a href="#" class="easyui-linkbutton" style="height:30px;" iconCls="icon-add">添加新用户</a>&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/index/dis.html?url=/vmm/detail/addUser.jsp" class="easyui-linkbutton" style="height:30px;" iconCls="icon-add">添加新用户</a>&nbsp;&nbsp;
                             <a href="#" class="easyui-linkbutton" style="height:30px;" iconCls="icon-building_error">暂存</a>&nbsp;&nbsp;
                             <a href="#" class="easyui-linkbutton" style="height:30px;" iconCls="icon-building_go">保存</a>
                         </td>
@@ -64,44 +92,38 @@
                     <tr>
                         <td>用户名</td>
                         <td>
-                            <input prompt="请输入用户名"  class="easyui-textbox" style="height:30px;">
+                            <input id="numbering" name="numbering" prompt="用户姓名"  class="easyui-textbox readonly" style="height:30px;">
                         </td>
                         <td>
-                            电话
+                            	电话
                         </td>
                         <td>
-                            <input prompt="请输入电话" class="easyui-textbox" style="height:30px;">
+                            <input id="contactinfo" name="contactinfo" prompt="用户电话" class="easyui-textbox readonly" style="height:30px;">
                         </td>
                         <td>车牌号</td>
                         <td>
-                            <select id="pn" class="easyui-combobox" name="dept" style="height:30px;width:150px;">
-                                <option value="aa">aitem1</option>
-                                <option>bitem2</option>
-                                <option>bitem3</option>
-                                <option>ditem4</option>
-                                <option>eitem5</option>
-                            </select>
+                        	<input id="platenum" name="platenum" prompt="用户车牌号" class="easyui-textbox readonly" style="height:30px;">                            
                         </td>
                         <td>
-                            车型
+                            	车型
                         </td>
                         <td>
-                            <input prompt="请输入车型" class="easyui-textbox" style="height:30px;">
+                            <input id="carmodel" name="platenum" prompt="用户车型" class="easyui-textbox readonly" style="height:30px;">
                         </td>
                     </tr>
                     <tr>
                         <td >行驶里程数</td>
                         <td >
-                            <input prompt="请输入行驶里程数" class="easyui-textbox" style="height:30px;">
+                            <input id="milage" name="milage" prompt="用户行驶里程数" class="easyui-textbox readonly" style="height:30px;">
                         </td>
-                        <td >保险日期</td>
+                        <td >年检日期</td>
                         <td>
-                            <input style="height:30px;" prompt="请选择保险日期" class="easyui-datebox" name="birthday"
+                            <input id="inspectiondate" name="inspectiondate" style="height:30px;" prompt="保险日期" class="easyui-datebox" name="birthday"
                                    data-options="required:true,showSeconds:false" value="3/4/2010 2:3" style="width:150px">
                         </td>
                         <td>发动机号</td>
                         <td>
-                            <input prompt="请输入发动机号" class="easyui-textbox" style="height:30px;">
+                            <input id="vehflag" name="vehflag"  prompt="用户发动机号" class="easyui-textbox readonly" style="height:30px;">
                         </td>
                         <td>查看旧件</td>
                         <td>
@@ -124,13 +146,13 @@
                         <td>联系地址</td>
                         <td colspan="4">
                             <!-- 联系地址 -->
-                            <input prompt="请输入车主联系地址" class="easyui-textbox" style="height:30px;width:90%;"/>
+                            <input id="contactadd" name="contactadd" prompt="车主联系地址" readonly class="easyui-textbox readonly" style="height:30px;width:90%;"/>
                         </td>
                     </tr>
                     <tr>
                         <td>预计交付时间</td>
                         <td>
-                            <input id="dd" value="3/4/2010 2:3" type="text" class="easyui-datebox" style="height:30px;"/>
+                            <input id="dd" value="3/4/2010 2:3" type="text" class="easyui-datetimebox" style="height:30px;"/>
                         </td>
                         <td>选择保修的内容</td>
                         <td colspan="5">
@@ -162,7 +184,7 @@
                             <script>
                                 $(function(){
                                     $('#te').texteditor({
-
+										
                                     });
                                 });
                             </script>
@@ -291,8 +313,6 @@
                     </tr>
                 </table>
             </div>
-        </div>
-
-
+        </div> 
 </body>
 </html>

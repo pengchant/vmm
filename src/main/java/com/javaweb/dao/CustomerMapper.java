@@ -1,5 +1,9 @@
 package com.javaweb.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.javaweb.entity.Customer;
 
 public interface CustomerMapper {
@@ -14,4 +18,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+    
+    List<Customer> selectCustomerByKey(@Param("keyworld")String keyworld);
 }

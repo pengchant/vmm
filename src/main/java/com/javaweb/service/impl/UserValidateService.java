@@ -1,6 +1,7 @@
 package com.javaweb.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,8 @@ public class UserValidateService implements IUserValidateService {
 
 	/**
 	 * 根据账号里面的username和password查询用户的信息
-	 */	 
+	 */
+	@Override
 	public LoginBean userislawable(Account account) {
 		if (account == null) {
 			return null;
@@ -49,7 +51,8 @@ public class UserValidateService implements IUserValidateService {
 
 	/**
 	 * 查询用户所有的权限
-	 */	 
+	 */
+	@Override
 	public AccrodingPanel queryUserPrivleges(Account account) {
 		// 先获取到用户所有的权限
 		if (account == null) {

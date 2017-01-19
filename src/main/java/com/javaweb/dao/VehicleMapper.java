@@ -2,6 +2,8 @@ package com.javaweb.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.javaweb.entity.Vehicle;
 import com.javaweb.views.CustomerVehicle;
 
@@ -18,6 +20,6 @@ public interface VehicleMapper {
 
     int updateByPrimaryKey(Vehicle record);
     
-    List<CustomerVehicle> selectVehicleByKey(String keyworld);
+    List<CustomerVehicle> selectVehicleByKey(@Param("keyworld")String keyworld);
     
 }

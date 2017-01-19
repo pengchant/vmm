@@ -98,13 +98,13 @@
                                         <form id="ff" method="post">
                                             <div> 
                                                 <input id="account" class="easyui-textbox" name="accountnumber"
-                                                       data-options="iconCls:'icon-man',prompt:'请输入用户名'" value="<%=name %>"
+                                                       data-options="iconCls:'icon-man',prompt:'请输入用户名'" value="20130501140"
                                                        style="width:240px;height:30px;">
                                                <a id="dd" href="#" title="用户的账号不能为空" class="easyui-tooltip"></a>
                                             </div>
                                             <div style="margin-top: 20px;">
                                                 <input id="passwords" class="easyui-textbox" name="passwords" type="password"
-                                                       data-options="iconCls:'icon-lock',prompt:'请输入密码'" value="<%=password %>"
+                                                       data-options="iconCls:'icon-lock',prompt:'请输入密码'" value="xzit001"
                                                        style="width:240px;height:30px;">
                                             </div>
                                             <div style="margin-top: 10px;" style="text-align:left;" >
