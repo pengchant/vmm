@@ -46,7 +46,8 @@ public class VehicleMaintenceController extends BaseController {
 	@ResponseBody
 	public String queryCustomAndVehByKey(HttpServletRequest request,Model model){	
 		String qString= request.getParameter("q")!=null?request.getParameter("q").toString():"";
-		List<CustomerVehicle> customerVehicles = serviceFactory.getVehicleMaintence().queryUserVehiByKeyWorld(qString);		 	
+		List<CustomerVehicle> customerVehicles = serviceFactory.getVehicleMaintence().queryUserVehiByKeyWorld(qString);
+		logger.info("查询到所有的用户信息为:-->"+JSON.toJSONString(customerVehicles));
 		return JSON.toJSONString(customerVehicles);
 	}
 	
