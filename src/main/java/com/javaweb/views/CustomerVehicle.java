@@ -6,7 +6,7 @@ package com.javaweb.views;
  * @author cp
  *
  */
-public class CustomerVehicle {	
+public class CustomerVehicle {
 	private String customerid;// 客户表编号
 	private String numbering;// 客户名称
 	private String contactinfo;// 联系方式
@@ -17,8 +17,7 @@ public class CustomerVehicle {
 	private String inspectiondate;// 年检日期
 	private String vehflag;// 发动机型号
 	private String contactadd;// 联系的地址
-	
- 
+
 	public String getVehname() {
 		return vehname;
 	}
@@ -98,7 +97,5 @@ public class CustomerVehicle {
 	public void setVehflag(String vehflag) {
 		this.vehflag = vehflag;
 	}
-
- 
 
 }
