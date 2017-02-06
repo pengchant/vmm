@@ -70,8 +70,8 @@ public class VehicleMaintence implements IVehicleMaintence {
 					// 添加汽车信息
 					vehicle.setCustomerid(customer.getId());
 				} else {// 如果是新用户
-					int customerId = daoFactory.getCustomerMapper().insert(customer);
-					vehicle.setCustomerid(customerId);
+					daoFactory.getCustomerMapper().insert(customer);
+					vehicle.setCustomerid(customer.getId());
 				}
 				daoFactory.getVehicleMapper().insert(vehicle);
 				flag = true;

@@ -31,7 +31,10 @@
 					<tr>
 						<td class="tabLeft" style="width: 100px;"><label
 							for="numbering">用户名:</label></td>
-						<td><input id="numbering" class="easyui-combobox"
+						<td>
+						<%-- 用户编号的隐藏域 --%>
+						<input type="text" id="customerid" name="customerid" value=""/>
+						<input id="numbering" class="easyui-combobox"
 						 name="numbering" prompt="请输入用户名" 
 						style="height: 30px; width: 230px;"	
 						data-options="
@@ -46,6 +49,7 @@
 						},
 						onSelect : function(record) {
 							console.log(record);
+							$('#customerid').val(record.id);
 							// 设置值
 							$('#mailbox').textbox('setValue',
 								record.mailbox);
@@ -57,6 +61,8 @@
 								record.idcard);
 						},
 						onChange : function(newValue, oldValue) {
+						    $('#numbering').combobox('setValue',$('#numbering').combobox('getText'));
+						    $('#customerid').val('');
 							$('#mailbox').textbox('setValue', '');
 							$('#contactinfo').textbox('setValue', '');
 							$('#contactadd').textbox('setValue', '');
