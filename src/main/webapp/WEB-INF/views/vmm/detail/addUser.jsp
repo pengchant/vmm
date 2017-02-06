@@ -33,7 +33,7 @@
 							for="numbering">用户名:</label></td>
 						<td>
 						<%-- 用户编号的隐藏域 --%>
-						<input type="text" id="customerid" name="customerid" value=""/>
+						<input type="hidden" id="customerid" name="customerid" value=""/>
 						<input id="numbering" class="easyui-combobox"
 						 name="numbering" prompt="请输入用户名" 
 						style="height: 30px; width: 230px;"	

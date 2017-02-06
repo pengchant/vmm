@@ -16,6 +16,7 @@ import com.javaweb.views.CustomerVehicle;
 
 /**
  * 汽车维系的服务
+ * 
  * @author cp
  *
  */
@@ -23,22 +24,22 @@ import com.javaweb.views.CustomerVehicle;
 public class VehicleMaintence implements IVehicleMaintence {
 
 	private static final Logger logger = LoggerFactory.getLogger(VehicleMaintence.class);
-	
+
 	@Resource
 	private DaoFactory daoFactory;
-	
+
 	/**
 	 * 关键字查询用户的信息和汽车的信息
 	 */
 	@Override
-	public List<CustomerVehicle> queryUserVehiByKeyWorld(String keyworld) {		 
+	public List<CustomerVehicle> queryUserVehiByKeyWorld(String keyworld) {
 		List<CustomerVehicle> customerVehicles = null;
 		try {
 			customerVehicles = daoFactory.getVehicleMapper().selectVehicleByKey(keyworld);
 		} catch (Exception e) {
 			logger.error(e.toString());
 		}
-		return customerVehicles; 
+		return customerVehicles;
 	}
 
 	/**
@@ -61,9 +62,9 @@ public class VehicleMaintence implements IVehicleMaintence {
 	@Override
 	public boolean addUserVehicleInfo(Customer customer, Vehicle vehicle) {
 		boolean flag = false;
-		if(vehicle!=null&&customer!=null){
+		if (vehicle != null && customer != null) {
 			try {
-				// 先判断是否是新用户	
+				// 先判断是否是新用户
 				// 如果是老用户
 				if (customer.getId() != null
 						&& daoFactory.getCustomerMapper().selectByPrimaryKey(customer.getId()) != null) {
@@ -71,20 +72,17 @@ public class VehicleMaintence implements IVehicleMaintence {
 					vehicle.setCustomerid(customer.getId());
 				} else {// 如果是新用户
 					daoFactory.getCustomerMapper().insert(customer);
+					logger.info("获取到用户的编号为:"+customer.getId());
 					vehicle.setCustomerid(customer.getId());
 				}
 				daoFactory.getVehicleMapper().insert(vehicle);
 				flag = true;
 			} catch (Exception e) {
 				logger.error(e.toString());
-				flag = false;
+
 			}
-		}else{
-			flag = false;
-		} 
+		}
 		return flag;
 	}
-	
-	
 
 }

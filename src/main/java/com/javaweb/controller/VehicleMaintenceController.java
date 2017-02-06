@@ -101,11 +101,18 @@ public class VehicleMaintenceController extends BaseController {
 				vehicle.setVehname(customerVehicle.getVehname());
 				vehicle.setCarmodel(customerVehicle.getCarmodel());
 				vehicle.setInspectiondate(new SimpleDateFormat("yyyy-MM-dd").parse(customerVehicle.getInspectiondate()));
+				vehicle.setMilage(StringUtils.getDoubleValue(customerVehicle.getMilage(), 0));
+				vehicle.setPlatenum(customerVehicle.getPlatenum());
+				vehicle.setVehflag(customerVehicle.getVehflag());
+				// 插入到数据库中
+				boolean flag = serviceFactory.getVehicleMaintence().addUserVehicleInfo(customer, vehicle);
+				logger.info("添加用户及其车辆信息是否成功?"+flag);
+				return flag?responseSuccess(null, "添加用户"+customerVehicle.getNumbering()+"信息成功"):responseFail("添加用户"+customerVehicle.getNumbering()+"信息失败");
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
 			}
 		}
-		return responseFail("添加用户" + customerVehicle.getNumbering() + "信息失败!");
+		return responseFail("添加用户" + customerVehicle.getNumbering() + "异常!");
 	}
 
 }
