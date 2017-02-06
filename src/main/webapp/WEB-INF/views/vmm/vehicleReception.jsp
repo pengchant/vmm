@@ -487,5 +487,23 @@
 			});
 		}
 	</script>
+	<%-- 双击用户信息 --%>
+	<script type="text/javascript">
+		$(function(){
+			// 绑定双击事件
+			$("#tt").datagrid({
+				'onDblClickRow':function(index,row){ 
+					console.log(row);
+				 	//赋值
+					$("#currentUser").textbox("setValue",row.numbering);
+					$("#customerid").val(row.customerid);
+					$("#vehiclenum").textbox("setValue",row.platenum);
+					$("#vehicleid").val(row.vehicleid);
+					// 隐藏掉模态框
+					$('#chooseUser').window('close');
+				}
+			});
+		});
+	</script>
 </div>
 </html>
