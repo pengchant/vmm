@@ -95,11 +95,11 @@ public class BaseController {
 		    logger.info("后端返回对象：{}", obj);
 		    JsonConfig jsonConfig = new JsonConfig(); 
 		    jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
-		    jsonObj = JSONObject.fromObject(obj, jsonConfig);
-		    logger.info("后端返回数据：" + jsonObj);
-		    jsonObj.element(HttpConstants.RESPONSE_RESULT_FLAG_ISERROR, false);
-		    jsonObj.element(HttpConstants.SERVICE_RESPONSE_RESULT_MSG, msg);
+		    jsonObj = JSONObject.fromObject(obj, jsonConfig); 
 		}
+		logger.info("后端返回数据：" + jsonObj);
+	    jsonObj.element(HttpConstants.RESPONSE_RESULT_FLAG_ISERROR, false);
+	    jsonObj.element(HttpConstants.SERVICE_RESPONSE_RESULT_MSG, msg);
 		logger.info("输出结果：{}", jsonObj.toString());
 		return jsonObj.toString();
 	}
