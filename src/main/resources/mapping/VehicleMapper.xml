@@ -130,7 +130,7 @@
   <select id="selectVehicleByKey" parameterType="String" resultType="com.javaweb.views.CustomerVehicle">
   	select customer.id as customerid,
 	customer.numbering,customer.contactinfo,
-	vehicle.platenum,vehicle.carmodel,
+	vehicle.platenum,vehicle.carmodel,vehicle.id as vehicleid,
 	vehicle.milage,vehicle.inspectiondate,
 	vehicle.vehflag,customer.contactadd,vehicle.vehname
 	from customer LEFT JOIN

@@ -131,9 +131,9 @@ public class VehicleMaintenceController extends BaseController {
 	@RequestMapping("/getUserAndVehBykeyPg")
 	@ResponseBody
 	public String queryCusAndVehByKeyPaged(HttpServletRequest request, Model model,
-			@RequestParam("keyWorld") String key, @RequestParam("page") Integer page,
-			@RequestParam("rows") Integer rows) {
-		
+			@RequestParam(value="keyWorld",defaultValue="") String key,
+			@RequestParam(value="page",defaultValue="1") Integer page,
+			@RequestParam(value="rows",defaultValue="10") Integer rows) { 
 		return responseSuccess(serviceFactory.getVehicleMaintence().queryUserVehicelByPage(key, page, rows));
 	}
 

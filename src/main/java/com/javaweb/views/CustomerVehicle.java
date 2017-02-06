@@ -15,12 +15,23 @@ public class CustomerVehicle {
 	private String idcard;// 身份证号码
 	private String customerFlag;// 用户标识
 
+	private String vehicleid;// 汽车的编号
 	private String vehname;// 车名
 	private String carmodel;// 车型
 	private String inspectiondate;// 年检日期
 	private String milage;// 行驶里程数
 	private String platenum;// 车牌号
 	private String vehflag;// 发动机型号
+
+	
+	
+	public String getVehicleid() {
+		return vehicleid;
+	}
+
+	public void setVehicleid(String vehicleid) {
+		this.vehicleid = vehicleid;
+	}
 
 	public String getMailbox() {
 		return mailbox;
