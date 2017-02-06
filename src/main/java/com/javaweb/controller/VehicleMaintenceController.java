@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -100,19 +101,40 @@ public class VehicleMaintenceController extends BaseController {
 				vehicle.setCustomerid(customerid);
 				vehicle.setVehname(customerVehicle.getVehname());
 				vehicle.setCarmodel(customerVehicle.getCarmodel());
-				vehicle.setInspectiondate(new SimpleDateFormat("yyyy-MM-dd").parse(customerVehicle.getInspectiondate()));
+				vehicle.setInspectiondate(
+						new SimpleDateFormat("yyyy-MM-dd").parse(customerVehicle.getInspectiondate()));
 				vehicle.setMilage(StringUtils.getDoubleValue(customerVehicle.getMilage(), 0));
 				vehicle.setPlatenum(customerVehicle.getPlatenum());
 				vehicle.setVehflag(customerVehicle.getVehflag());
 				// 插入到数据库中
 				boolean flag = serviceFactory.getVehicleMaintence().addUserVehicleInfo(customer, vehicle);
-				logger.info("添加用户及其车辆信息是否成功?"+flag);
-				return flag?responseSuccess(null, "添加用户"+customerVehicle.getNumbering()+"信息成功"):responseFail("添加用户"+customerVehicle.getNumbering()+"信息失败");
+				logger.info("添加用户及其车辆信息是否成功?" + flag);
+				return flag ? responseSuccess(null, "添加用户" + customerVehicle.getNumbering() + "信息成功")
+						: responseFail("添加用户" + customerVehicle.getNumbering() + "信息失败");
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
 			}
 		}
 		return responseFail("添加用户" + customerVehicle.getNumbering() + "异常!");
+	}
+
+	/**
+	 * 分页查询用户和车辆的信息
+	 * 
+	 * @param request
+	 * @param model
+	 * @param key
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@RequestMapping("/getUserAndVehBykeyPg")
+	@ResponseBody
+	public String queryCusAndVehByKeyPaged(HttpServletRequest request, Model model,
+			@RequestParam("keyWorld") String key, @RequestParam("page") Integer page,
+			@RequestParam("rows") Integer rows) {
+		
+		return responseSuccess(serviceFactory.getVehicleMaintence().queryUserVehicelByPage(key, page, rows));
 	}
 
 }

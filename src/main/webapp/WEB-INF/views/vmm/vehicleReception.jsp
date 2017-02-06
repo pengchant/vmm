@@ -443,6 +443,24 @@
 <div id="chooseUser" class="easyui-window" title="选择用户"
 	style="width: 700px; height: 600px; display: none;"
 	data-options="modal: true,closed:true,collapsible:false,minimizable:false,maximizable:false">
-	
+	<%--分页展示用户的信息 --%>
+	 <table id="tt" class="easyui-datagrid" fit="true"
+			url="${pageContext.request.contextPath}/vehicle/getUserAndVehBykeyPg.html"
+			title="DataGrid with Toolbar" iconCls="icon-save"
+			toolbar="#tb" pagination="true">
+		<thead>
+			<tr> 
+				<th field="customerid" width="100">编号</th>
+				<th field="numbering" width="200" >用户名</th>
+	  			<th field="platenum" width="200"  >汽车牌号</th>
+	  			<th field="vehname" width="150" >汽车品牌</th>
+	  			<th field="carmodel" width="150" >汽车型号</th>
+	  			<th field="milage" width="150">行驶里程数</th>
+	  			<th field="inspectiondate" width="150" >年检日期</th>
+	  			<th field="veflag" width="150" >发动机编号</th>
+	  			<th field="contactadd" width="150">联系地址</th> 
+			</tr>
+		</thead>
+	</table>
 </div>
 </html>

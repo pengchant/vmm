@@ -8,10 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.IVehicleMaintence;
+import com.javaweb.utils.BeanUtil;
+import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 
 /**
@@ -83,6 +86,21 @@ public class VehicleMaintence implements IVehicleMaintence {
 			}
 		}
 		return flag;
+	}
+
+	/**
+	 * 分页查询用户和车辆的信息
+	 * @param keyworld		关键字
+	 * @param pageNo		页数
+	 * @param pageSize		分页的大小
+	 * @return				返回分页后的数据
+	 */
+	@Override
+	public PagedResult<CustomerVehicle> queryUserVehicelByPage(String keyworld, Integer pageNo, Integer pageSize) {
+		pageNo = pageNo == null?1:pageNo;
+		pageSize = pageSize == null?10:pageSize;
+		PageHelper.startPage(pageNo,pageSize);
+		return BeanUtil.topagedResult(daoFactory.getVehicleMapper().selectVehicleByKey(keyworld)); 
 	}
 
 }

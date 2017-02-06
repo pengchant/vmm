@@ -2,26 +2,26 @@ package com.javaweb.utils;
 
 import java.util.List;
 
-public class PagedResult<T>  extends BaseEntity{
- 
+public class PagedResult<T> extends BaseEntity {
+
 	private static final long serialVersionUID = 1L;
-	
-	private List<T> dataList;// 数据
-	
+
+	private List<T> rows;// 数据
+
 	private long pageNo;// 当前页
-	
+
 	private long pageSize;// 条数
-	
+
 	private long total;// 总条数
-	
+
 	private long pages;// 总的页数
 
-	public List<T> getDataList() {
-		return dataList;
+	public List<T> getRows() {
+		return rows;
 	}
 
-	public void setDataList(List<T> dataList) {
-		this.dataList = dataList;
+	public void setRows(List<T> rows) {
+		this.rows = rows;
 	}
 
 	public long getPageNo() {
@@ -55,6 +55,5 @@ public class PagedResult<T>  extends BaseEntity{
 	public void setPages(long pages) {
 		this.pages = pages;
 	}
-	
-	
+
 }
