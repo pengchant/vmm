@@ -1,7 +1,9 @@
 package com.javaweb.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.Null;
@@ -134,25 +136,33 @@ public class VehicleMaintence implements IVehicleMaintence {
 	public List<EasyUITreeNode> queryUserSectorInEUI() {
 		// 1.获取所有的用户以及部门的数据
 		List<UserSector> userSectors = daoFactory.getUserinfoMapper().selectAllUserByDep();
+		// 定义set集合用于记录已经添加过的部门
+		Set<String> addedSector = new HashSet<String>();
 		if(userSectors!=null){
 			// 2.定义结果集
 			List<EasyUITreeNode> easyUITreeNodes =new ArrayList<>();
 			// 3.解析数据
 			for(UserSector dept:userSectors){
-				// 部门的大类
-				EasyUITreeNode sectorNode = new EasyUITreeNode(dept.getSectorid(), dept.getDeptname(),"icon-tag_orange", "closed", false, null, null);
-				// 4.获取部门下所有的员工
-				for(UserSector user:userSectors){
-					// 判断部门的编号是否与用户的部门编号相同
-					boolean isEqual = StringUtils.equals(dept.getSectorid(), user.getSectorid());
-					if(isEqual){
-						// 5.把匹配到的添加到当前easyui父节点下
-						EasyUITreeNode userNode = new EasyUITreeNode(user.getUserid(), user.getUsername(),"icon-user", null, false, null, null);
-						sectorNode.pushChildrenNode(userNode);
+				boolean hasAdded = addedSector.contains(dept.getSectorid());
+				// 判断是否已经添加过,如果没有添加
+				if(!hasAdded){					
+					// 部门的大类
+					EasyUITreeNode sectorNode = new EasyUITreeNode(dept.getSectorid(), dept.getDeptname(),"icon-tag_orange", "open", false, null, null);
+					// 4.获取部门下所有的员工
+					for(UserSector user:userSectors){
+						// 判断部门的编号是否与用户的部门编号相同
+						boolean isEqual = StringUtils.equals(dept.getSectorid(), user.getSectorid());
+						if(isEqual){
+							// 5.把匹配到的添加到当前easyui父节点下
+							EasyUITreeNode userNode = new EasyUITreeNode(user.getUserid(), user.getUsername(),"icon-user", null, false, null, null);
+							sectorNode.pushChildrenNode(userNode);
+						}
 					}
+					// 6.最后把所有部门的节点添加到easyuiTreeNodes中
+					easyUITreeNodes.add(sectorNode); 
+					// 添加到已经添加过的历史记录中
+					addedSector.add(dept.getSectorid());
 				}
-				// 6.最后把所有部门的节点添加到easyuiTreeNodes中
-				easyUITreeNodes.add(sectorNode);
 			}
 			logger.info("获取到所有的用户的信息为-->"+JSON.toJSONString(easyUITreeNodes));
 			return easyUITreeNodes;

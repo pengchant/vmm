@@ -186,8 +186,7 @@
 					   				   let $container = $("#allProjCategory");
 					   				   // 先清空
 					   				   $container.empty();
-					   				   let str = '';
-					   				   console.log(data);
+					   				   let str = '';					   				 
 					   				   $.each(data, function(i,item){
 					   					   str +='<span>'+item.projname+'</span><input type="checkbox" value="'+item.id+'" />&nbsp;&nbsp;';
 					   				   });
@@ -212,66 +211,43 @@
 				</tr>
 				<tr>
 					<td>维修人员指派</td>
-					<td colspan="7" style="height: 180px; padding: 0px;">
-						<div class="easyui-layout" fit="true" border="false">
-							<div region="west" title="维修人员指派" collapsible="false"
-								iconCls="icon-calendar_edit"
-								style="width: 180px; border-top: none; border-bottom: none; border-left: none;"
-								split="true">
-								<%-- 维修人员树状图 --%>
-								<ul class="userselecting"  id="weixiu"> 
-								</ul>
-							</div>
-							<div region="center"
-								style="border-top: none; border-right: none; border-bottom: none;">
-								<table class="easyui-datagrid" title="已选维修人员" fit="true"
+					<td rowspan="2" style="width:200px;height:400px;padding:0px;">
+						<div class="easyui-panel" title="选择员工" border="false" fit="true" iconCls="icon-group_add">
+							<%-- 质检人员树状图 --%>
+						<ul class="userselecting" id="zhijian"> 
+						</ul>
+						</div>
+					</td>
+					<td colspan="7" style="height: 200px; padding: 0px;"> 
+								<table class="easyui-datagrid" title="已选维修人员" fit="true" 
 									border="false" iconCls="icon-comments_add"
 									data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
 									<thead>
 										<tr>
-											<th data-options="field:'itemid',width:50">编号</th>
-											<th data-options="field:'productid',width:100">员工工号</th>
-											<th data-options="field:'listprice',width:100">员工姓名</th>
-											<th data-options="field:'unitcost',width:200">联系方式</th>
-											<th data-options="field:'attr1',width:100">当前任务数量</th>
-											<th data-options="field:'attr1',width:50">操作</th>
+											<th data-options="field:'itemid',width:100">编号</th>
+											<th data-options="field:'productid',width:150">员工工号</th>
+											<th data-options="field:'listprice',width:150">员工姓名</th> 
+											<th data-options="field:'attr1',width:200">操作</th>
 										</tr>
 									</thead>
-								</table>
-							</div>
-						</div>
+								</table> 
 					</td> 
 				</tr> 
 				<tr>
 					<td>质检人员指派</td>
-					<td colspan="7" style="height: 180px; padding: 0px;">
-						<div class="easyui-layout" fit="true" border="false">
-							<div region="west" title="质检人员指派" collapsible="false"
-								iconCls="icon-calendar_edit"
-								style="width: 180px; border-top: none; border-bottom: none; border-left: none;"
-								split="true">
-								<%-- 质检人员树状图 --%>
-								<ul class="userselecting" id="zhijian"> 
-								</ul>
-							</div>
-							<div region="center"
-								style="border-top: none; border-right: none; border-bottom: none;">
-								<table class="easyui-datagrid" title="已选质检员工" fit="true"
+					<td colspan="7" style="height: 200px; padding: 0px;"> 
+								<table id="selectedZhijian" class="easyui-datagrid" title="已选质检员工" fit="true"
 									border="false" iconCls="icon-comments_add"
 									data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
 									<thead>
 										<tr>
-											<th data-options="field:'itemid',width:50">编号</th>
-											<th data-options="field:'productid',width:100">员工工号</th>
-											<th data-options="field:'listprice',width:100">员工姓名</th>
-											<th data-options="field:'unitcost',width:200">联系方式</th>
-											<th data-options="field:'attr1',width:100">当前任务数量</th>
-											<th data-options="field:'attr1',width:50">操作</th>
+											<th data-options="field:'itemid',width:100">编号</th>
+											<th data-options="field:'productid',width:150">员工工号</th>
+											<th data-options="field:'listprice',width:150">员工姓名</th> 
+											<th data-options="field:'attr1',width:200">操作</th>
 										</tr>
 									</thead>
-								</table>
-							</div>
-						</div>
+								</table>  
 					</td>
 				</tr>
 				<tr>
@@ -289,7 +265,7 @@
 <%-- 选择用户 --%>
 <script type="text/javascript">
 	$(function(){
-		 
+		
 	});
 </script>
 
@@ -395,17 +371,48 @@
 </div>
 <script type="text/javascript">
 	$(function() {   
-				
+		
+		// 定义用户的对象
+		function User(userid,username){
+			let object = new Object();
+			object.userid = userid;
+			object.username = username;
+			return object;
+		}
+		
+		/**
+		* 选中的对象
+		*/
+		var selected;
+		
 		// 获取用户的json字符串
 		(function loadUser(){ 
 			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.html',function(data){ 
 				// 加载用户信息
 				$('.userselecting').tree({
+					dnd:true,
 					data:data,
-					lines:true
+					lines:true,
+					onStartDrag:function(node){
+						// 把值赋值给user公共变量
+						selected = new User(node.id,node.text); 
+						console.log("开始拖动"); 
+					},
+					onStopDrag:function(node){
+						// 清空
+						selected = '';
+						console.log("结束拖动");
+					}
 				});
 			}); 
 		})();
+		
+		// 设置可以被放置
+		$("#selectedWeixiu").droppable({
+			onDrop:function(e,source){// 放置
+				console.log("获取到的用户的编号和姓名为:",selected.userid,selected.username);
+			}
+		});
 		 
 		// 重填
 		$("#resetform").click(function() {
