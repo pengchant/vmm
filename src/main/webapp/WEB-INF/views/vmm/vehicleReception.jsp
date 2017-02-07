@@ -278,9 +278,7 @@
 	}
 	
 	$(function() {   
-		
-		
-		
+		 
 		// 定义用户的对象
 		function User(userid,username){
 			let object = new Object();
