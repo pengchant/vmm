@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
 import com.javaweb.utils.MyErrorPrinter;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
+import com.javaweb.views.EasyUITreeNode;
 
 /**
  * 汽车修理模块控制器
@@ -108,8 +110,15 @@ public class VehicleMaintenceController extends BaseController {
 				vehicle.setVehflag(customerVehicle.getVehflag());
 				// 插入到数据库中
 				boolean flag = serviceFactory.getVehicleMaintence().addUserVehicleInfo(customer, vehicle);
+				logger.info("用户的编号-->"+customer.getId(),"汽车的编号-->"+vehicle.getId());
+				
+				// 将插入到数据库中的数据返回给前台
+				customerVehicle.setCustomerid(String.valueOf(customer.getId()));
+				customerVehicle.setVehicleid(String.valueOf(vehicle.getId()));
+				
 				logger.info("添加用户及其车辆信息是否成功?" + flag);
-				return flag ? responseSuccess(null, "添加用户" + customerVehicle.getNumbering() + "信息成功")
+				// 返回插入的结果，如果成功，就返回插入成功之后的数据
+				return flag ? responseSuccess(customerVehicle, "添加用户" + customerVehicle.getNumbering() + "信息成功")
 						: responseFail("添加用户" + customerVehicle.getNumbering() + "信息失败");
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
@@ -137,4 +146,31 @@ public class VehicleMaintenceController extends BaseController {
 		return responseSuccess(serviceFactory.getVehicleMaintence().queryUserVehicelByPage(key, page, rows));
 	}
 
+	/**
+	 * 查询所有的维修大类
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/getAllMainCategory")
+	@ResponseBody
+	public String queryMainProjCat(HttpServletRequest request,Model model){
+		List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryProjCategory();		 
+		return (projcategories==null)?responseFail("对不起暂时未曾查询到保修类别，请稍后重试"):responseArraySuccess(projcategories);
+	}
+	
+	/**
+	 * 查询所有的用户信息
+	 * @return
+	 */
+	@RequestMapping("/getAllUserDept")
+	@ResponseBody
+	public String queryAllUser(){
+		List<EasyUITreeNode> easyUITreeNodes = serviceFactory.getVehicleMaintence().queryUserSectorInEUI();
+		if(easyUITreeNodes!=null){
+			return JSON.toJSONString(easyUITreeNodes);
+		}
+		return responseFail("加载用户失败!");
+	}
+	
 }

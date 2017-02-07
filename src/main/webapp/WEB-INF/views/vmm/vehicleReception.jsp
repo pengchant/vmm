@@ -135,7 +135,9 @@
 						<input type="text" id="customerid" name="customerid"/>
 						<span>当前的汽车牌号</span>
 						<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
-						<input type="text" id="vehicleid" name="vehicleid"/>						
+						<input type="text" id="vehicleid" name="vehicleid"/>
+						<a href="#" class="easyui-linkbutton" onclick="" style="height:30px;" 
+						  iconCls="icon-tag_blue_delete">清除用户</a>											
 						 <a href="#" class="easyui-linkbutton"
 						style="height: 30px;" iconCls="icon-building_go">保存</a>
 					</td>
@@ -171,15 +173,31 @@
 					<td><input id="dd" value="3/4/2010 2:3" type="text"
 						class="easyui-datetimebox" style="height: 30px;" /></td>
 					<td>选择保修的内容</td>
-					<td colspan="3"><span>维护</span><input type="checkbox"
-						checked="checked" value="1" />&nbsp;&nbsp; <span>故障修理</span><input
-						type="checkbox" checked="checked" value="2" />&nbsp;&nbsp; <span>返修</span><input
-						type="checkbox" checked="checked" value="3" />&nbsp;&nbsp; <span>事故维修</span><input
-						type="checkbox" checked="checked" value="4" />&nbsp;&nbsp; <span>其他</span><input
-						type="checkbox" checked="checked" value="5" /> <span>返修</span><input
-						type="checkbox" checked="checked" value="6" />&nbsp;&nbsp; <span>事故维修</span><input
-						type="checkbox" checked="checked" value="7" />&nbsp;&nbsp; <span>其他</span><input
-						type="checkbox" checked="checked" value="8" /></td>
+					<td colspan="3">
+					   <%-- 所有维修的类别 --%>
+					   <div id="allProjCategory"> 
+					   </div>
+					   <%-- 所有维修类别加载维修项目 --%>
+					   <script type="text/javascript">
+					   		$(function(){ 
+					   		    // 文档加载完毕后
+					   			$.getJSON("${pageContext.request.contextPath}/vehicle/getAllMainCategory.html",
+					   				function(data){
+					   				   let $container = $("#allProjCategory");
+					   				   // 先清空
+					   				   $container.empty();
+					   				   let str = '';
+					   				   console.log(data);
+					   				   $.each(data, function(i,item){
+					   					   str +='<span>'+item.projname+'</span><input type="checkbox" value="'+item.id+'" />&nbsp;&nbsp;';
+					   				   });
+					   				   // 添加到容器中
+					   				   $container.append(str);
+					   		    }); 
+					   		});
+					   </script> 
+					   <%-- 所有维修类别加载维修项目结束 --%>
+					</td>
 				</tr>
 				<tr>
 					<td>随车物品</td>
@@ -200,24 +218,8 @@
 								iconCls="icon-calendar_edit"
 								style="width: 180px; border-top: none; border-bottom: none; border-left: none;"
 								split="true">
-								<ul class="easyui-tree">
-									<li><span>汽车修理厂</span>
-										<ul>
-											<li data-options="state:'closed'"><span>修理部</span>
-												<ul>
-													<li><span>Friend</span></li>
-													<li><span>Wife</span></li>
-													<li><span>Company</span></li>
-												</ul></li>
-											<li><span>质检部</span>
-												<ul>
-													<li>Intel</li>
-													<li>Java</li>
-													<li>Microsoft Office</li>
-													<li>Games</li>
-												</ul></li>
-
-										</ul></li>
+								<%-- 维修人员树状图 --%>
+								<ul class="userselecting"  id="weixiu"> 
 								</ul>
 							</div>
 							<div region="center"
@@ -238,9 +240,8 @@
 								</table>
 							</div>
 						</div>
-					</td>
-
-				</tr>
+					</td> 
+				</tr> 
 				<tr>
 					<td>质检人员指派</td>
 					<td colspan="7" style="height: 180px; padding: 0px;">
@@ -249,24 +250,8 @@
 								iconCls="icon-calendar_edit"
 								style="width: 180px; border-top: none; border-bottom: none; border-left: none;"
 								split="true">
-								<ul class="easyui-tree">
-									<li><span>汽车修理厂</span>
-										<ul>
-											<li data-options="state:'closed'"><span>修理部</span>
-												<ul>
-													<li><span>Friend</span></li>
-													<li><span>Wife</span></li>
-													<li><span>Company</span></li>
-												</ul></li>
-											<li><span>质检部</span>
-												<ul>
-													<li>Intel</li>
-													<li>Java</li>
-													<li>Microsoft Office</li>
-													<li>Games</li>
-												</ul></li>
-
-										</ul></li>
+								<%-- 质检人员树状图 --%>
+								<ul class="userselecting" id="zhijian"> 
 								</ul>
 							</div>
 							<div region="center"
@@ -301,6 +286,13 @@
 	
 	</div>
 </body>
+<%-- 选择用户 --%>
+<script type="text/javascript">
+	$(function(){
+		 
+	});
+</script>
+
 <%-- 添加用户模态框 --%>
 <div id="addUser" class="easyui-window" title="添加新用户"
 	style="width: 740px; height: 480px; display: none;"
@@ -402,7 +394,19 @@
 	</form>
 </div>
 <script type="text/javascript">
-	$(function() {
+	$(function() {   
+				
+		// 获取用户的json字符串
+		(function loadUser(){ 
+			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.html',function(data){ 
+				// 加载用户信息
+				$('.userselecting').tree({
+					data:data,
+					lines:true
+				});
+			}); 
+		})();
+		 
 		// 重填
 		$("#resetform").click(function() {
 			console.log("重置");
@@ -441,6 +445,11 @@
 		                $.messager.alert('操作提示',
 		                    obj.errorMsg + "!",
 		                    'info');
+		                // 把数据填充到当前用户中去
+		                $("#currentUser").textbox("setValue",obj.numbering);
+						$("#customerid").val(obj.customerid);
+						$("#vehiclenum").textbox("setValue",obj.platenum);
+						$("#vehicleid").val(obj.vehicleid);
 		            }
 		        });
 		    });

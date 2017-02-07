@@ -1,5 +1,7 @@
 package com.javaweb.dao;
 
+import java.util.List;
+
 import com.javaweb.entity.Projcategory;
 
 public interface ProjcategoryMapper {
@@ -14,4 +16,6 @@ public interface ProjcategoryMapper {
     int updateByPrimaryKeySelective(Projcategory record);
 
     int updateByPrimaryKey(Projcategory record);
+    
+    List<Projcategory> selectAll();
 }

@@ -1,130 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javaweb.dao.UserinfoMapper">
-  <resultMap id="BaseResultMap" type="com.javaweb.entity.Userinfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="CHAR" property="username" />
-    <result column="jobnumber" jdbcType="CHAR" property="jobnumber" />
-    <result column="concatinfo" jdbcType="CHAR" property="concatinfo" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="entrytime" jdbcType="TIMESTAMP" property="entrytime" />
-    <result column="userflag" jdbcType="CHAR" property="userflag" />
-    <result column="sectorid" jdbcType="INTEGER" property="sectorid" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, username, jobnumber, concatinfo, address, entrytime, userflag, sectorid
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from userinfo
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from userinfo
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Userinfo">
-    insert into userinfo (id, username, jobnumber, 
-      concatinfo, address, entrytime, 
-      userflag, sectorid)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=CHAR}, #{jobnumber,jdbcType=CHAR}, 
-      #{concatinfo,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{entrytime,jdbcType=TIMESTAMP}, 
-      #{userflag,jdbcType=CHAR}, #{sectorid,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.javaweb.entity.Userinfo">
-    insert into userinfo
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="jobnumber != null">
-        jobnumber,
-      </if>
-      <if test="concatinfo != null">
-        concatinfo,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="entrytime != null">
-        entrytime,
-      </if>
-      <if test="userflag != null">
-        userflag,
-      </if>
-      <if test="sectorid != null">
-        sectorid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=CHAR},
-      </if>
-      <if test="jobnumber != null">
-        #{jobnumber,jdbcType=CHAR},
-      </if>
-      <if test="concatinfo != null">
-        #{concatinfo,jdbcType=CHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="entrytime != null">
-        #{entrytime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userflag != null">
-        #{userflag,jdbcType=CHAR},
-      </if>
-      <if test="sectorid != null">
-        #{sectorid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Userinfo">
-    update userinfo
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=CHAR},
-      </if>
-      <if test="jobnumber != null">
-        jobnumber = #{jobnumber,jdbcType=CHAR},
-      </if>
-      <if test="concatinfo != null">
-        concatinfo = #{concatinfo,jdbcType=CHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="entrytime != null">
-        entrytime = #{entrytime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userflag != null">
-        userflag = #{userflag,jdbcType=CHAR},
-      </if>
-      <if test="sectorid != null">
-        sectorid = #{sectorid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Userinfo">
-    update userinfo
-    set username = #{username,jdbcType=CHAR},
-      jobnumber = #{jobnumber,jdbcType=CHAR},
-      concatinfo = #{concatinfo,jdbcType=CHAR},
-      address = #{address,jdbcType=VARCHAR},
-      entrytime = #{entrytime,jdbcType=TIMESTAMP},
-      userflag = #{userflag,jdbcType=CHAR},
-      sectorid = #{sectorid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
- 
-   
+	<resultMap id="BaseResultMap" type="com.javaweb.entity.Userinfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="CHAR" property="username" />
+		<result column="jobnumber" jdbcType="CHAR" property="jobnumber" />
+		<result column="concatinfo" jdbcType="CHAR" property="concatinfo" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="entrytime" jdbcType="TIMESTAMP" property="entrytime" />
+		<result column="userflag" jdbcType="CHAR" property="userflag" />
+		<result column="sectorid" jdbcType="INTEGER" property="sectorid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, username, jobnumber, concatinfo, address, entrytime, userflag,
+		sectorid
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from userinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from userinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.javaweb.entity.Userinfo">
+		insert into userinfo (id, username, jobnumber,
+		concatinfo, address, entrytime,
+		userflag, sectorid)
+		values (#{id,jdbcType=INTEGER}, #{username,jdbcType=CHAR},
+		#{jobnumber,jdbcType=CHAR},
+		#{concatinfo,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{entrytime,jdbcType=TIMESTAMP},
+		#{userflag,jdbcType=CHAR}, #{sectorid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.javaweb.entity.Userinfo">
+		insert into userinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="jobnumber != null">
+				jobnumber,
+			</if>
+			<if test="concatinfo != null">
+				concatinfo,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="entrytime != null">
+				entrytime,
+			</if>
+			<if test="userflag != null">
+				userflag,
+			</if>
+			<if test="sectorid != null">
+				sectorid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=CHAR},
+			</if>
+			<if test="jobnumber != null">
+				#{jobnumber,jdbcType=CHAR},
+			</if>
+			<if test="concatinfo != null">
+				#{concatinfo,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="entrytime != null">
+				#{entrytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userflag != null">
+				#{userflag,jdbcType=CHAR},
+			</if>
+			<if test="sectorid != null">
+				#{sectorid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Userinfo">
+		update userinfo
+		<set>
+			<if test="username != null">
+				username = #{username,jdbcType=CHAR},
+			</if>
+			<if test="jobnumber != null">
+				jobnumber = #{jobnumber,jdbcType=CHAR},
+			</if>
+			<if test="concatinfo != null">
+				concatinfo = #{concatinfo,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="entrytime != null">
+				entrytime = #{entrytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userflag != null">
+				userflag = #{userflag,jdbcType=CHAR},
+			</if>
+			<if test="sectorid != null">
+				sectorid = #{sectorid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Userinfo">
+		update userinfo
+		set username = #{username,jdbcType=CHAR},
+		jobnumber = #{jobnumber,jdbcType=CHAR},
+		concatinfo = #{concatinfo,jdbcType=CHAR},
+		address = #{address,jdbcType=VARCHAR},
+		entrytime = #{entrytime,jdbcType=TIMESTAMP},
+		userflag = #{userflag,jdbcType=CHAR},
+		sectorid = #{sectorid,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询所有的员工的信息，包括部门 -->
+	<select id="selectAllUserByDep" resultType="com.javaweb.views.UserSector">
+		select sector.id as sectorid,
+		sector.deptname,
+		userinfo.id as userid,
+		userinfo.username
+		from sector LEFT JOIN
+		userinfo on(sector.id=userinfo.sectorid)
+		where userinfo.userflag='1'
+		and sector.secflag='1';
+	</select>
+
 </mapper>

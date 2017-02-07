@@ -90,4 +90,9 @@
       catflag = #{catflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询所有的维修大类 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from projcategory
+  </select>
 </mapper>

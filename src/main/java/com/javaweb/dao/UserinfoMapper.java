@@ -1,6 +1,9 @@
 package com.javaweb.dao;
 
+import java.util.List;
+
 import com.javaweb.entity.Userinfo;
+import com.javaweb.views.UserSector;
 
 public interface UserinfoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,5 +18,6 @@ public interface UserinfoMapper {
 
     int updateByPrimaryKey(Userinfo record);
     
+    List<UserSector> selectAllUserByDep();
     
 }

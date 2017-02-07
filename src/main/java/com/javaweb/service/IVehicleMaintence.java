@@ -3,9 +3,11 @@ package com.javaweb.service;
 import java.util.List;
 
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
+import com.javaweb.views.EasyUITreeNode;
  
 
 /**
@@ -45,4 +47,15 @@ public interface IVehicleMaintence {
 	 * @return				返回分页后的数据
 	 */
 	PagedResult<CustomerVehicle> queryUserVehicelByPage(String keyworld,Integer pageNo,Integer pageSize);
+	
+	/**
+	 * 获取所有的维修的大类
+	 * @return
+	 */
+	List<Projcategory> queryProjCategory();
+	
+	/**
+	 * 获取easyui的树形目录
+	 */
+	List<EasyUITreeNode> queryUserSectorInEUI();
 }
