@@ -221,7 +221,7 @@
 					<td colspan="7" style="height: 200px; padding: 0px;"> 
 								<table class="easyui-datagrid" title="已选维修人员" fit="true" 
 									border="false" iconCls="icon-comments_add"
-									data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+									data-options="singleSelect:true,url:'datagrid_data1.json',method:'get'">
 									<thead>
 										<tr>
 											<th data-options="field:'itemid',width:100">编号</th>
@@ -238,7 +238,7 @@
 					<td colspan="7" style="height: 200px; padding: 0px;"> 
 								<table id="selectedZhijian" class="easyui-datagrid" title="已选质检员工" fit="true"
 									border="false" iconCls="icon-comments_add"
-									data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+									data-options="singleSelect:true,url:'datagrid_data1.json',method:'get'">
 									<thead>
 										<tr>
 											<th data-options="field:'itemid',width:100">编号</th>
