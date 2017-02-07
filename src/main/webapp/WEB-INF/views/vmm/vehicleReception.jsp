@@ -37,6 +37,7 @@
 .myinput {
 	width: 230px;
 }
+ 
 </style>
 <script type="text/javascript">
 	$(function() { 
@@ -219,35 +220,43 @@
 						</div>
 					</td>
 					<td colspan="7" style="height: 200px; padding: 0px;"> 
-								<table class="easyui-datagrid" title="已选维修人员" fit="true" 
-									border="false" iconCls="icon-comments_add"
-									data-options="singleSelect:true,url:'datagrid_data1.json',method:'get'">
-									<thead>
-										<tr>
-											<th data-options="field:'itemid',width:100">编号</th>
-											<th data-options="field:'productid',width:150">员工工号</th>
-											<th data-options="field:'listprice',width:150">员工姓名</th> 
-											<th data-options="field:'attr1',width:200">操作</th>
-										</tr>
-									</thead>
-								</table> 
+						<div id="selectedWeixiu" style="width:100%;height:100%;padding:0px;">
+							<table id="tbWeixiu" class="easyui-datagrid selectingTable"  title="已选维修人员" fit="true" 
+							 iconCls="icon-comments_add" border="false"
+							data-options="singleSelect:true">
+								<thead>
+									<tr>
+										<th data-options="field:'id',width:100,formatter:function(value,row,index){
+											return (index+1);
+										}" >编号</th>
+										<th data-options="field:'userid',width:150">员工工号</th>
+										<th data-options="field:'username',width:150">员工姓名</th> 
+										<th data-options="field:'operator',width:200,formatter:myformatter">操作</th>
+									</tr>
+								</thead>
+							</table>
+						</div> 
 					</td> 
 				</tr> 
 				<tr>
 					<td>质检人员指派</td>
 					<td colspan="7" style="height: 200px; padding: 0px;"> 
-								<table id="selectedZhijian" class="easyui-datagrid" title="已选质检员工" fit="true"
-									border="false" iconCls="icon-comments_add"
-									data-options="singleSelect:true,url:'datagrid_data1.json',method:'get'">
-									<thead>
-										<tr>
-											<th data-options="field:'itemid',width:100">编号</th>
-											<th data-options="field:'productid',width:150">员工工号</th>
-											<th data-options="field:'listprice',width:150">员工姓名</th> 
-											<th data-options="field:'attr1',width:200">操作</th>
-										</tr>
-									</thead>
-								</table>  
+						<div id="selectedZhijian" style="width:100%;height:100%;padding:0px;">						
+							<table id="tbZhijian" class="easyui-datagrid selectingTable" title="已选质检员工" fit="true"
+								border="false" iconCls="icon-comments_add"
+								data-options="singleSelect:true">
+								<thead>
+									<tr>
+										<th data-options="field:'id',width:100,formatter:function(value,row,index){
+											return (index+1);
+										}" >编号</th>
+										<th data-options="field:'userid',width:150">员工工号</th>
+										<th data-options="field:'username',width:150">员工姓名</th> 
+										<th data-options="field:'operator',width:200,formatter:myformatter">操作</th>
+									</tr>
+								</thead>
+							</table>  
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -261,13 +270,125 @@
 		</div>
 	
 	</div>
-</body>
-<%-- 选择用户 --%>
+</body> 
+
 <script type="text/javascript">
-	$(function(){
+	function myformatter(value,row,index){
+		return '<a href="#" style="text-decoration:none;color:red;" iconCls="icon-delete">删除</a>';
+	}
+	
+	$(function() {   
 		
+		
+		
+		// 定义用户的对象
+		function User(userid,username){
+			let object = new Object();
+			object.userid = userid;
+			object.username = username;
+			return object;
+		}
+		 
+		
+		/**
+		* 选中的对象
+		*/
+		var selected;
+		
+		// 获取用户的json字符串
+		(function loadUser(){ 
+			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.html',function(data){ 
+				// 加载用户信息
+				$('.userselecting').tree({
+					dnd:true,
+					data:data,
+					lines:true,
+					onStartDrag:function(node){ 
+						// 把值赋值给user公共变量
+						selected = new User(node.id,node.text);  
+					},
+					onStopDrag:function(node){
+						// 清空
+						selected = ''; 
+					}
+				});
+			}); 
+		})();
+		
+		// 设置可以被放置
+		$("#selectedWeixiu").droppable({
+			onDrop:function(e,source){// 放置
+				console.log("维修员-->获取到的用户的编号和姓名为:",selected.userid,selected.username);			 
+				// 放到datagrid中
+				$('#tbWeixiu').datagrid('appendRow',{					 
+					userid: selected.userid,
+					username: selected.username
+				});
+			}
+		});
+		
+		// 将拖拽的内容放到datagrid中去
+		$('#selectedZhijian').droppable({
+			onDrop:function(e,source){// 放置
+				console.log("质检员-->获取到的用户的编号和姓名为:",selected.userid,selected.username);
+				// 放到datagrid中
+				$('#tbZhijian').datagrid('appendRow',{					 
+					userid: selected.userid,
+					username: selected.username
+				});
+			}
+		});
+		
+		 
+		// 重填
+		$("#resetform").click(function() {
+			console.log("重置");
+			// 重置
+			$("#ff").form("reset");
+		});
+
+		// 提交
+		$("#submitform").click(
+		    function() {
+		        console.log("-->提交表单");
+		        $.messager.progress();
+		        $('#ff').form('submit', {
+		            url: "${pageContext.request.contextPath}/vehicle/addUser.html",
+		            onSubmit: function() {
+		                var isValid = $('#ff')
+		                    .form('validate');
+		                console.log(isValid);
+		                if (!isValid) {
+		                    $.messager
+		                        .progress('close');
+		                }
+		                return isValid;
+		            },
+		            success: function(data) {
+		                let  obj = JSON.parse(data);
+		                // 关闭进度条
+		                $.messager
+		                    .progress('close');
+		                // 关闭模态框
+		                $("#addUser").window(
+		                    'close');
+		                // 重置
+		                $("#ff").form("reset");
+		                // 提示添加成功
+		                $.messager.alert('操作提示',
+		                    obj.errorMsg + "!",
+		                    'info');
+		                // 把数据填充到当前用户中去
+		                $("#currentUser").textbox("setValue",obj.numbering);
+						$("#customerid").val(obj.customerid);
+						$("#vehiclenum").textbox("setValue",obj.platenum);
+						$("#vehicleid").val(obj.vehicleid);
+		            }
+		        });
+		    });
 	});
 </script>
+
 
 <%-- 添加用户模态框 --%>
 <div id="addUser" class="easyui-window" title="添加新用户"
@@ -369,99 +490,6 @@
 		</table>
 	</form>
 </div>
-<script type="text/javascript">
-	$(function() {   
-		
-		// 定义用户的对象
-		function User(userid,username){
-			let object = new Object();
-			object.userid = userid;
-			object.username = username;
-			return object;
-		}
-		
-		/**
-		* 选中的对象
-		*/
-		var selected;
-		
-		// 获取用户的json字符串
-		(function loadUser(){ 
-			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.html',function(data){ 
-				// 加载用户信息
-				$('.userselecting').tree({
-					dnd:true,
-					data:data,
-					lines:true,
-					onStartDrag:function(node){
-						// 把值赋值给user公共变量
-						selected = new User(node.id,node.text); 
-						console.log("开始拖动"); 
-					},
-					onStopDrag:function(node){
-						// 清空
-						selected = '';
-						console.log("结束拖动");
-					}
-				});
-			}); 
-		})();
-		
-		// 设置可以被放置
-		$("#selectedWeixiu").droppable({
-			onDrop:function(e,source){// 放置
-				console.log("获取到的用户的编号和姓名为:",selected.userid,selected.username);
-			}
-		});
-		 
-		// 重填
-		$("#resetform").click(function() {
-			console.log("重置");
-			// 重置
-			$("#ff").form("reset");
-		});
-
-		// 提交
-		$("#submitform").click(
-		    function() {
-		        console.log("-->提交表单");
-		        $.messager.progress();
-		        $('#ff').form('submit', {
-		            url: "${pageContext.request.contextPath}/vehicle/addUser.html",
-		            onSubmit: function() {
-		                var isValid = $('#ff')
-		                    .form('validate');
-		                console.log(isValid);
-		                if (!isValid) {
-		                    $.messager
-		                        .progress('close');
-		                }
-		                return isValid;
-		            },
-		            success: function(data) {
-		                let  obj = JSON.parse(data);
-		                // 关闭进度条
-		                $.messager
-		                    .progress('close');
-		                // 关闭模态框
-		                $("#addUser").window(
-		                    'close');
-		                // 重置
-		                $("#ff").form("reset");
-		                // 提示添加成功
-		                $.messager.alert('操作提示',
-		                    obj.errorMsg + "!",
-		                    'info');
-		                // 把数据填充到当前用户中去
-		                $("#currentUser").textbox("setValue",obj.numbering);
-						$("#customerid").val(obj.customerid);
-						$("#vehiclenum").textbox("setValue",obj.platenum);
-						$("#vehicleid").val(obj.vehicleid);
-		            }
-		        });
-		    });
-	});
-</script>
 <%--选择用户模态框 --%>
 <div id="chooseUser" class="easyui-window" title="选择用户"
 	style="width: 1000px; height: 420px; display: none;"
