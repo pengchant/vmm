@@ -19,6 +19,25 @@ public class UserSector {
 	// 用户的名称
 	private String username;
 	
+	// 工号
+	private String jobnumber;
+	
+	// 联系方式
+	private String concatinfo;
+	 
+	public String getJobnumber() {
+		return jobnumber;
+	}
+	public void setJobnumber(String jobnumber) {
+		this.jobnumber = jobnumber;
+	}
+	 
+	public String getConcatinfo() {
+		return concatinfo;
+	}
+	public void setConcatinfo(String concatinfo) {
+		this.concatinfo = concatinfo;
+	}
 	public String getSectorid() {
 		return sectorid;
 	}

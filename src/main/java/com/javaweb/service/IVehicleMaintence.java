@@ -3,6 +3,8 @@ package com.javaweb.service;
 import java.util.List;
 
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Orders;
+import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.utils.PagedResult;
@@ -58,4 +60,12 @@ public interface IVehicleMaintence {
 	 * 获取easyui的树形目录
 	 */
 	List<EasyUITreeNode> queryUserSectorInEUI();
+	
+	/**
+	 * 接单操作
+	 * @param orders			订单信息
+	 * @param personallocates	人员分配信息
+	 * @return
+	 */
+	boolean newOrderList(Orders orders,List<Personallocate> personallocates);
 }

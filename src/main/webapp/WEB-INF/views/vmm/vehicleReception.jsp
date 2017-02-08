@@ -37,8 +37,14 @@
 .myinput {
 	width: 230px;
 }
+
+#selectedZhijian td,#selectedWeixiu td{
+	border:dotted 1px #e6e6e6 !important;
+}
  
 </style>
+
+<%-- 接收订单的js部分 --%>
 <script type="text/javascript">
 	$(function() { 
 		// 定义表格下拉框的效果
@@ -114,6 +120,15 @@
 			$('#tt').datagrid('reload');
 			$("#chooseUser").window('open');
 		});
+		
+		// 清除选择的用户
+		$("#clearSelectedCustomer").click(function(){
+			//赋值
+			$("#currentUser").textbox("setValue",'');
+			$("#customerid").val('');
+			$("#vehiclenum").textbox("setValue",'');
+			$("#vehicleid").val('');
+		});
 	});
 </script>
 </head>
@@ -121,177 +136,300 @@
 	<div class="easyui-panel" border="false" iconCls="icon-application"
 		style="width: 100%; padding: 10px;">
 		
-		<!-- 表单的头部内容部分 -->
-		<div style="padding-top: 5px; padding-bottom: 10px;">
-			<table style="width: 100%; height: 100%;">
-				<tr>
-					<td style="text-align: left;"><a class="easyui-linkbutton"
-						iconCls="icon-add" id="openAddUser">新建用户</a>&nbsp;&nbsp; <a
-						class="easyui-linkbutton" iconCls="icon-search"
-						id="openChooseUser">选择用户</a>  
-                    </td>
-					<td style="text-align: right;">
-						<span>当前选择的用户:</span>
-						<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="当前选择的用户" id="currentUser"/>
-						<input type="text" id="customerid" name="customerid"/>
-						<span>当前的汽车牌号</span>
-						<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
-						<input type="text" id="vehicleid" name="vehicleid"/>
-						<a href="#" class="easyui-linkbutton" onclick="" style="height:30px;" 
-						  iconCls="icon-tag_blue_delete">清除用户</a>											
-						 <a href="#" class="easyui-linkbutton"
-						style="height: 30px;" iconCls="icon-building_go">保存</a>
-					</td>
-				</tr>
-			</table> 
-		</div>
-		
-		<!-- 主要的表单内容部分 -->
-		<div class="easyui-panel form_cont" border="false">
-			<table class="main_table" cellpadding="0" cellspacing="0">
-				<tr>
-					<td style="width: 100px;">行驶里程数</td>
-					<td><input id="milage" name="milage" prompt="用户行驶里程数"
-						class="easyui-textbox" style="height: 30px;"></td>
-					<td>年检日期</td>
-					<td><input id="inspectiondate" name="inspectiondate"
-						style="height: 30px;" prompt="保险日期" class="easyui-datebox"
-						name="birthday" data-options="required:true,showSeconds:false"
-						value="3/4/2010 2:3" style="width:150px;"></td>
-					<td>查看旧件</td>
-					<td><input type="radio" name="jiujian" />是&nbsp; <input
-						type="radio" name="jiujian" checked="checked" />否</td>
-					<td>检查备胎</td>
-					<td><input type="radio" name="beitai" />是&nbsp; <input
-						type="radio" name="beitai" checked="checked" />否</td>
-
-				</tr>
-				<tr>
-					<td>清洁车辆</td>
-					<td><input type="radio" name="qingjie" />是&nbsp; <input
-						type="radio" name="qingjie" checked="checked" />否</td>
-					<td>预计交付时间</td>
-					<td><input id="dd" value="3/4/2010 2:3" type="text"
-						class="easyui-datetimebox" style="height: 30px;" /></td>
-					<td>选择保修的内容</td>
-					<td colspan="3">
-					   <%-- 所有维修的类别 --%>
-					   <div id="allProjCategory"> 
-					   </div>
-					   <%-- 所有维修类别加载维修项目 --%>
-					   <script type="text/javascript">
-					   		$(function(){ 
-					   		    // 文档加载完毕后
-					   			$.getJSON("${pageContext.request.contextPath}/vehicle/getAllMainCategory.html",
-					   				function(data){
-					   				   let $container = $("#allProjCategory");
-					   				   // 先清空
-					   				   $container.empty();
-					   				   let str = '';					   				 
-					   				   $.each(data, function(i,item){
-					   					   str +='<span>'+item.projname+'</span><input type="checkbox" value="'+item.id+'" />&nbsp;&nbsp;';
-					   				   });
-					   				   // 添加到容器中
-					   				   $container.append(str);
-					   		    }); 
-					   		});
-					   </script> 
-					   <%-- 所有维修类别加载维修项目结束 --%>
-					</td>
-				</tr>
-				<tr>
-					<td>随车物品</td>
-					<td><input prompt="请输入随车物品" class="easyui-textbox"
-						style="height: 30px;"></td>
-					<td>贵重物品</td>
-					<td><input prompt="请输入贵重物品" class="easyui-textbox"
-						style="height: 30px;"></td>
-					<td>车主描述故障状况</td>
-					<td colspan="3"><input prompt="请输入车主描述的故障情况"
-						class="easyui-textbox" style="height: 30px; width: 90%"></td>
-				</tr>
-				<tr>
-					<td>维修人员指派</td>
-					<td rowspan="2" style="width:200px;height:400px;padding:0px;">
-						<div class="easyui-panel" title="选择员工" border="false" fit="true" iconCls="icon-group_add">
-							<%-- 质检人员树状图 --%>
-						<ul class="userselecting" id="zhijian"> 
-						</ul>
-						</div>
-					</td>
-					<td colspan="7" style="height: 200px; padding: 0px;"> 
-						<div id="selectedWeixiu" style="width:100%;height:100%;padding:0px;">
-							<table id="tbWeixiu" class="easyui-datagrid selectingTable"  title="已选维修人员" fit="true" 
-							 iconCls="icon-comments_add" border="false"
-							data-options="singleSelect:true">
-								<thead>
-									<tr>
-										<th data-options="field:'id',width:100,formatter:function(value,row,index){
-											return (index+1);
-										}" >编号</th>
-										<th data-options="field:'userid',width:150">员工工号</th>
-										<th data-options="field:'username',width:150">员工姓名</th> 
-										<th data-options="field:'operator',width:200,formatter:myformatter">操作</th>
-									</tr>
-								</thead>
-							</table>
-						</div> 
-					</td> 
-				</tr> 
-				<tr>
-					<td>质检人员指派</td>
-					<td colspan="7" style="height: 200px; padding: 0px;"> 
-						<div id="selectedZhijian" style="width:100%;height:100%;padding:0px;">						
-							<table id="tbZhijian" class="easyui-datagrid selectingTable" title="已选质检员工" fit="true"
-								border="false" iconCls="icon-comments_add"
+		<%-- 页面的form表单部分 --%>
+		<form method="post" action="${pageContext.request.contextPath}/vehicle/receptOrder.html"  id="fmOrderRecept" style="width:100%;height:100%;padding:0px;">
+			<!-- 表单的头部内容部分 -->
+			<div style="padding-top: 5px; padding-bottom: 10px;">
+				<table style="width: 100%; height: 100%;">
+					<tr>
+						<td style="text-align: left;"><a class="easyui-linkbutton"
+							iconCls="icon-add" id="openAddUser">新建用户</a>&nbsp;&nbsp; <a
+							class="easyui-linkbutton" iconCls="icon-search"
+							id="openChooseUser">选择用户</a>  
+	                    </td>
+						<td style="text-align: right;">
+							<span>当前选择的用户:</span>
+							<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="当前选择的用户" id="currentUser"/>
+							
+							<%-- orders.customerid --%>
+							<input type="text" id="customerid" name="orders.customerid" />
+							
+							<span>当前的汽车牌号</span>
+							<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
+							
+							<%-- orders.vehicleid --%>
+							<input type="text" id="vehicleid" name="orders.vehicleid"/>
+							
+							<a href="#" class="easyui-linkbutton" style="height:30px;" 
+							  iconCls="icon-tag_blue_delete" id="clearSelectedCustomer">清除用户</a>											
+							 <a href="#" class="easyui-linkbutton"
+							style="height: 30px;" iconCls="icon-building_go">保存</a>
+						</td>
+					</tr>
+				</table> 
+			</div>
+			<!-- 表单头部内容结束 -->
+			
+			<!-- 主要的表单内容部分 -->
+			<div class="easyui-panel form_cont" border="false">
+				<table class="main_table" cellpadding="0" cellspacing="0">
+					<%-- 基础信息部分 --%>
+					<tr>
+						<td style="width: 80px;">行驶里程数</td>
+						<td>
+							<%-- orders.miles --%>
+							<input id="milage" name="orders.miles" prompt="用户行驶里程数"
+							class="easyui-textbox" style="height: 30px;" />
+							
+						</td>
+						<td>随车物品</td>
+						<td>
+							<%-- orders.caritems --%>
+							<input prompt="请输入随车物品" name="orders.caritems" class="easyui-textbox"
+							style="height: 30px;" />
+							
+						</td>
+						<td>贵重物品</td>
+						<td>
+							<%-- orders.valuableobj --%>
+							<input prompt="请输入贵重物品" name="orders.valuableobj" class="easyui-textbox"
+							style="height: 30px;" />
+							
+						</td>
+						<td>车主描述故障状况</td>
+						<td>
+							<%-- orders.ownerdescribtion --%>
+						    <input prompt="请输入车主描述的故障情况"
+							class="easyui-textbox" name="orders.ownerdescribtion" style="height: 30px;">
+						
+						</td> 
+					</tr> 
+					<tr>
+						<td style="width: 80px;">清洁车辆</td>
+						<td>
+							<%-- orders.ifclean --%>
+							<input type="radio" name="orders.ifclean" value="1" />是&nbsp; <input
+							type="radio" name="orders.ifclean" checked="checked" value="0" />否
+							
+						</td>
+						<td style="width: 80px;">查看旧件</td>
+						<td> 
+							<%-- orders.ifused --%>
+							<input type="radio" name="orders.ifused" value="1" />是&nbsp; <input
+							type="radio" name="orders.ifused" checked="checked" value="0" />否
+							
+						</td> 
+						<td style="width: 80px;">检查备胎</td>
+						<td>
+							<%-- orders.ifcheckspare --%>
+							<input type="radio" name="orders.ifcheckspare" value="1" />是&nbsp; <input
+							type="radio" name="orders.ifcheckspare" checked="checked" value="0"  />否
+						</td>
+						<td style="width: 80px;">预计交付时间</td>
+						<td>
+							<%-- orders.esdeliverytime--%>
+							<input id="dd" value="3/4/2010 2:3" type="text"
+							class="easyui-datetimebox" name="orders.esdeliverytime" style="height: 30px;" /></td>
+						 
+					</tr>
+					
+					<tr>
+						<td>保修内容</td>
+						<td colspan="7">
+						   <%-- 所有维修的类别 --%>
+						   <div id="allProjCategory"> 
+						   		<%-- orders.warrcontent --%>
+						   </div>
+						   <%-- 所有维修类别加载维修项目 --%>
+						   <script type="text/javascript">
+						   		$(function(){ 
+						   		    // 文档加载完毕后
+						   			$.getJSON("${pageContext.request.contextPath}/vehicle/getAllMainCategory.html",
+						   				function(data){
+						   				   let $container = $("#allProjCategory");
+						   				   // 先清空
+						   				   $container.empty();
+						   				   let str = '';					   				 
+						   				   $.each(data, function(i,item){
+						   					   str +='<span>'+item.projname+'</span><input name="orders.warrcontent" type="checkbox" value="'+item.id+'" />&nbsp;&nbsp;';
+						   				   });
+						   				   // 添加到容器中
+						   				   $container.append(str);
+						   		    }); 
+						   		});
+						   </script> 
+						   <%-- 所有维修类别加载维修项目结束 --%>
+						</td>
+					</tr>
+					
+					<%-- 指派人员部分 --%>
+					<tr>
+						<td>维修人员指派</td>
+						<td rowspan="2" style="width:200px;height:400px;padding:0px;">
+							<div class="easyui-panel" title="选择员工" border="false" fit="true" iconCls="icon-group_add">
+								<%-- 质检人员树状图 --%>
+							<ul class="userselecting" id="zhijian"> 
+							</ul>
+							</div>
+						</td>
+						<td colspan="8" style="height: 200px; padding: 0px;"> 
+							<div id="selectedWeixiu" style="width:100%;height:100%;padding:0px;">
+								<table id="tbWeixiu" class="easyui-datagrid selectingTable"  title="已选维修人员" fit="true" 
+								 iconCls="icon-comments_add" border="false"
 								data-options="singleSelect:true">
-								<thead>
-									<tr>
-										<th data-options="field:'id',width:100,formatter:function(value,row,index){
-											return (index+1);
-										}" >编号</th>
-										<th data-options="field:'userid',width:150">员工工号</th>
-										<th data-options="field:'username',width:150">员工姓名</th> 
-										<th data-options="field:'operator',width:200,formatter:myformatter">操作</th>
-									</tr>
-								</thead>
-							</table>  
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="8" style="background-color: #d8ecff;"><a
-						class="easyui-linkbutton" iconCls="icon-ok"
-						style="width: 120px; height: 30px;">提交</a>&nbsp;&nbsp;&nbsp; <a
-						class="easyui-linkbutton" iconCls="icon-building_error"
-						style="width: 120px; height: 30px;">取消</a></td>
-				</tr>
-			</table>
-		</div>
-	
+									<thead>
+										<tr>
+											<th data-options="field:'id',width:100,formatter:function(value,row,index){
+												return (index+1);
+											}" >编号</th>
+											<th data-options="field:'jobnumber',width:100">工号</th>
+											<th data-options="field:'userid',width:100">员工编号</th>
+											<th data-options="field:'username',width:100">员工姓名</th>
+											<th data-options="field:'concatinfo',width:120">联系方式</th> 
+											<th data-options="field:'operator',width:100,formatter:myformatter_wx">操作</th>
+										</tr>
+									</thead>
+								</table>
+							</div> 
+						</td> 
+					</tr> 
+					<tr>
+						<td>质检人员指派</td>
+						<td colspan="8" style="height: 200px; padding: 0px;"> 
+							<div id="selectedZhijian" style="width:100%;height:100%;padding:0px;">						
+								<table id="tbZhijian" class="easyui-datagrid selectingTable" title="已选质检员工" fit="true"
+									border="false" iconCls="icon-comments_add"
+									data-options="singleSelect:true">
+									<thead>
+										<tr>
+											<th data-options="field:'id',width:100,formatter:function(value,row,index){
+												return (index+1);
+											}" >编号</th>
+											<th data-options="field:'jobnumber',width:100">工号</th>
+											<th data-options="field:'userid',width:100">员工编号</th>
+											<th data-options="field:'username',width:100">员工姓名</th>
+											<th data-options="field:'concatinfo',width:120">联系方式</th> 
+											<th data-options="field:'operator',width:100,formatter:myformatter_zj">操作</th>
+										</tr>
+									</thead>
+								</table>  
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="10" style="background-color: #d8ecff;"><a
+							class="easyui-linkbutton" iconCls="icon-ok"
+							style="width: 120px; height: 30px;" id="subOrderList">提交</a>&nbsp;&nbsp;&nbsp; <a
+							class="easyui-linkbutton" iconCls="icon-building_error"
+							style="width: 120px; height: 30px;">取消</a></td>
+					</tr>
+				</table>
+			</div>
+		    <!-- 主要表单内容部分 -->
+		</form> 
 	</div>
 </body> 
 
-<script type="text/javascript">
-	function myformatter(value,row,index){
-		return '<a href="#" style="text-decoration:none;color:red;" iconCls="icon-delete">删除</a>';
+
+<%-- 页面的js部分 --%>
+<script type="text/javascript"> 
+/**
+* 选中的对象
+*/
+var selected;
+
+/**
+* 定义维修人员列表
+*/
+var weixiuArray = new Array();
+
+/**
+* 定义质检人员列表
+*/
+var zhijianArray = new Array();
+	
+	
+	function myformatter_wx(value,row,index){ 
+		return '<a href="#" style="color:red;" onclick="deleteSelected('+index+',1,\''+row.username+'\',\''+row.userid+'\')">删除</a>';
 	}
 	
+	function myformatter_zj(value,row,index){ 
+		return '<a href="#" style="color:red;" onclick="deleteSelected('+index+',2,\''+row.username+'\')">删除</a>';
+	}
+	
+	 
+	// 删除已经选择的 
+	function deleteSelected(index,which,username,userid){
+		let type = (which=='2')?'质检员':'维修员';
+		let $container = (which=='2')?$('#tbZhijian'):$('#tbWeixiu');
+		$.messager.confirm('操作提示', '你确定要删除已选择的'+type+'【'+username+'】这条记录吗?', function(r){
+			if (r){
+				 $container.datagrid('deleteRow',index);	 
+				 // 删除数组中对应的数据
+				 $container.datagrid('loadData', { total: 0, rows: [] }); 
+				 var changedArray = deleteArray((which==2)?zhijianArray:weixiuArray,userid);
+				 $container.datagrid({data:changedArray}); 
+				 $.messager.show({
+						title:'提示',
+						msg:'删除  '+type+' 【'+username+'】成功!',
+						timeout:1000,
+						showType:'slide'
+				});
+			}
+		});
+	}
+	
+	// 删除质检和维修中数组中的人员
+	function deleteArray(myarray,value){
+		for(var i=0,n=myarray.length;i<n;i++){
+			if(myarray[i].userid==value){
+				myarray.splice(i,1); 
+				return myarray;
+			}
+		}  
+		return myarray;
+	}
+	 
+	// 添加质检或者维修人员
+	function pushUser(myarray,user){
+		for(var i=0,n=myarray.length;i<n;i++){
+			if(myarray[i].userid==user.userid){
+				 return;
+			}
+		}  
+		myarray.push(user);
+	}
+	
+	/**
+	* jquery的写法，等待文档所有加载完毕
+	*/
 	$(function() {   
+		
+		// 提交表单信息
+		$("#subOrderList").click(function(){
+			$('#fmOrderRecept').form('submit', {
+			    url:"${pageContext.request.contextPath}/vehicle/receptOrder.html",
+			    onSubmit: function(){
+			        return true;
+			    },
+			    success:function(data){
+			        alert(data)
+			    }
+			});
+			 
+		});
 		 
+		
 		// 定义用户的对象
-		function User(userid,username){
+		function User(userid,username,jobnumber,concatinfo){
 			let object = new Object();
 			object.userid = userid;
 			object.username = username;
+			object.jobnumber = jobnumber;
+			object.concatinfo = concatinfo;
 			return object;
-		}
-		 
+		} 
 		
-		/**
-		* 选中的对象
-		*/
-		var selected;
 		
 		// 获取用户的json字符串
 		(function loadUser(){ 
@@ -301,41 +439,72 @@
 					dnd:true,
 					data:data,
 					lines:true,
-					onStartDrag:function(node){ 
+					onStartDrag:function(node){  
 						// 把值赋值给user公共变量
-						selected = new User(node.id,node.text);  
+						selected = new User(node.id,node.text,node.attributes.jobnumber,node.attributes.concatinfo);  
 					},
 					onStopDrag:function(node){
 						// 清空
 						selected = ''; 
-					}
+					}  
 				});
 			}); 
 		})();
 		
 		// 设置可以被放置
 		$("#selectedWeixiu").droppable({
-			onDrop:function(e,source){// 放置
-				console.log("维修员-->获取到的用户的编号和姓名为:",selected.userid,selected.username);			 
-				// 放到datagrid中
-				$('#tbWeixiu').datagrid('appendRow',{					 
-					userid: selected.userid,
-					username: selected.username
-				});
+			onDrop:function(e,source){// 放置 	 
+				var f = isDragged($('#tbWeixiu'),selected.userid);
+				if(f){
+					$.messager.alert('操作提示','您已经添加了维修员【'+selected.username+'】不能重复添加!','info');
+				}else if(selected.userid==null){
+					$.messager.alert('操作提示','您选择的节点有误!','info');
+				}else{
+					appendDragging($('#tbWeixiu'),selected);  
+					// 放到数组中去
+					pushUser(weixiuArray,selected); 
+				}
 			}
 		});
 		
 		// 将拖拽的内容放到datagrid中去
 		$('#selectedZhijian').droppable({
-			onDrop:function(e,source){// 放置
-				console.log("质检员-->获取到的用户的编号和姓名为:",selected.userid,selected.username);
-				// 放到datagrid中
-				$('#tbZhijian').datagrid('appendRow',{					 
-					userid: selected.userid,
-					username: selected.username
-				});
+			onDrop:function(e,source){// 放置  
+				var f = isDragged($('#tbZhijian'),selected.userid);
+				if(f){
+					$.messager.alert('操作提示','您已经添加了质检人员【'+selected.username+'】不能重复添加!','info');
+				}else if(selected.userid==null){
+					$.messager.alert('操作提示','您选择的节点有误!','info');
+				}else{
+					appendDragging($('#tbZhijian'),selected); 
+					// 放到数组中去
+					pushUser(zhijianArray,selected); 
+				}
 			}
 		});
+		
+		// 将获取到的select填充到目标容器中
+		function appendDragging($container,user){
+			$container.datagrid('appendRow',{					 
+				userid: user.userid,
+				username: user.username,
+				jobnumber:user.jobnumber,
+				concatinfo:user.concatinfo
+			});
+		}
+		
+		// 判断datagrid中是否存在某记录(根据实体类的id来判断用户id)
+		function isDragged($container,id){
+			var rows = $container.datagrid('getRows');
+			for(var i=0,n=rows.length;i<n;i++){
+				if(rows[i].userid==id){
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		
 		
 		 
 		// 重填
@@ -386,7 +555,6 @@
 		    });
 	});
 </script>
-
 
 <%-- 添加用户模态框 --%>
 <div id="addUser" class="easyui-window" title="添加新用户"
@@ -488,6 +656,7 @@
 		</table>
 	</form>
 </div>
+
 <%--选择用户模态框 --%>
 <div id="chooseUser" class="easyui-window" title="选择用户"
 	style="width: 1000px; height: 420px; display: none;"
@@ -534,8 +703,7 @@
 		$(function(){
 			// 绑定双击事件
 			$("#tt").datagrid({
-				'onDblClickRow':function(index,row){ 
-					console.log(row);
+				'onDblClickRow':function(index,row){ 					 
 				 	//赋值
 					$("#currentUser").textbox("setValue",row.numbering);
 					$("#customerid").val(row.customerid);
@@ -548,4 +716,6 @@
 		});
 	</script>
 </div>
+
+ 
 </html>

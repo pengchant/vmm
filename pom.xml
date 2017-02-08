@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>xzit.edu.cn</groupId>
-  <artifactId>vmm</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>vmm Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <properties>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>xzit.edu.cn</groupId>
+	<artifactId>vmm</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>vmm Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
 		<!-- spring版本号 -->
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<!-- mybatis版本号 -->
@@ -82,12 +82,12 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>4.0.5.RELEASE</version>
-        </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.0.5.RELEASE</version>
+		</dependency>
 
 		<!-- mybatis核心包 -->
 		<dependency>
@@ -154,13 +154,13 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-			 
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		
+
 		<!-- log end -->
 		<!-- 映入JSON -->
 		<dependency>
@@ -226,8 +226,8 @@
 			<artifactId>spring-webflow</artifactId>
 			<version>2.4.4.RELEASE</version>
 		</dependency>
-		
-			<!-- jdoconvertor -->
+
+		<!-- jdoconvertor -->
 		<dependency>
 			<groupId>com.artofsolving</groupId>
 			<artifactId>jodconverter</artifactId>
@@ -239,8 +239,9 @@
 			<artifactId>cos</artifactId>
 			<version>09May2002</version>
 		</dependency>
+ 
 	</dependencies>
-  <build>
-    <finalName>vmm</finalName>
-  </build>
+	<build>
+		<finalName>vmm</finalName>
+	</build>
 </project>

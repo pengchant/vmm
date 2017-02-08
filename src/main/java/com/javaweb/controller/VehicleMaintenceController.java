@@ -1,18 +1,24 @@
 package com.javaweb.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +32,7 @@ import com.javaweb.utils.MyErrorPrinter;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.OrderList;
 
 /**
  * 汽车修理模块控制器
@@ -38,6 +45,13 @@ import com.javaweb.views.EasyUITreeNode;
 @RequestMapping("/vehicle")
 public class VehicleMaintenceController extends BaseController {
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(VehicleMaintenceController.class);
 
 	@Autowired
@@ -110,12 +124,12 @@ public class VehicleMaintenceController extends BaseController {
 				vehicle.setVehflag(customerVehicle.getVehflag());
 				// 插入到数据库中
 				boolean flag = serviceFactory.getVehicleMaintence().addUserVehicleInfo(customer, vehicle);
-				logger.info("用户的编号-->"+customer.getId(),"汽车的编号-->"+vehicle.getId());
-				
+				logger.info("用户的编号-->" + customer.getId(), "汽车的编号-->" + vehicle.getId());
+
 				// 将插入到数据库中的数据返回给前台
 				customerVehicle.setCustomerid(String.valueOf(customer.getId()));
 				customerVehicle.setVehicleid(String.valueOf(vehicle.getId()));
-				
+
 				logger.info("添加用户及其车辆信息是否成功?" + flag);
 				// 返回插入的结果，如果成功，就返回插入成功之后的数据
 				return flag ? responseSuccess(customerVehicle, "添加用户" + customerVehicle.getNumbering() + "信息成功")
@@ -140,37 +154,59 @@ public class VehicleMaintenceController extends BaseController {
 	@RequestMapping("/getUserAndVehBykeyPg")
 	@ResponseBody
 	public String queryCusAndVehByKeyPaged(HttpServletRequest request, Model model,
-			@RequestParam(value="keyWorld",defaultValue="") String key,
-			@RequestParam(value="page",defaultValue="1") Integer page,
-			@RequestParam(value="rows",defaultValue="10") Integer rows) { 
+			@RequestParam(value = "keyWorld", defaultValue = "") String key,
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "rows", defaultValue = "10") Integer rows) {
 		return responseSuccess(serviceFactory.getVehicleMaintence().queryUserVehicelByPage(key, page, rows));
 	}
 
 	/**
 	 * 查询所有的维修大类
+	 * 
 	 * @param request
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/getAllMainCategory")
 	@ResponseBody
-	public String queryMainProjCat(HttpServletRequest request,Model model){
-		List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryProjCategory();		 
-		return (projcategories==null)?responseFail("对不起暂时未曾查询到保修类别，请稍后重试"):responseArraySuccess(projcategories);
+	public String queryMainProjCat(HttpServletRequest request, Model model) {
+		List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryProjCategory();
+		return (projcategories == null) ? responseFail("对不起暂时未曾查询到保修类别，请稍后重试") : responseArraySuccess(projcategories);
 	}
-	
+
 	/**
 	 * 查询所有的用户信息
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/getAllUserDept")
 	@ResponseBody
-	public String queryAllUser(){
+	public String queryAllUser() {
 		List<EasyUITreeNode> easyUITreeNodes = serviceFactory.getVehicleMaintence().queryUserSectorInEUI();
-		if(easyUITreeNodes!=null){
+		if (easyUITreeNodes != null) {
 			return JSON.toJSONString(easyUITreeNodes);
 		}
 		return responseFail("加载用户失败!");
 	}
-	
+
+	/**
+	 * 接单操作
+	 * 
+	 * @param request
+	 * @param orderList
+	 * @return
+	 */
+	@RequestMapping(value="/receptOrder",method=RequestMethod.POST)
+	@ResponseBody
+	public String receptOrders(OrderList orderList) {
+		logger.info("获取到的订单的信息为:"+JSON.toJSONString(orderList));
+//		boolean flag = false;
+//		if (orderList != null && orderList.getOrders() != null && orderList.getPersonallocates() != null) {
+//			flag = serviceFactory.getVehicleMaintence().newOrderList(orderList.getOrders(),
+//					orderList.getPersonallocates());
+//			return flag?responseSuccess(null, "添加用户信息成功!"):responseFail("添加订单失败!");
+//		}
+		return responseFail("添加订单失败!");
+	}
+
 }

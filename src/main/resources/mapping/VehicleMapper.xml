@@ -141,7 +141,8 @@
 			or contactinfo like concat('%',#{keyworld},'%')
 			or platenum like concat('%',#{keyworld},'%')
 		</if>
-	</where> 	
+	</where>  
+	order  by  customerid desc
   </select>
   
 </mapper>

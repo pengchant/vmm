@@ -44,7 +44,7 @@
     delete from orders
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Orders">
+  <insert id="insert" parameterType="com.javaweb.entity.Orders" useGeneratedKeys="true" keyProperty="id">
     insert into orders (id, numbering, customerid, 
       vehicleid, miles, ifused, 
       ifcheckspare, ifclean, esdeliverytime, 

@@ -134,7 +134,9 @@
 		select sector.id as sectorid,
 		sector.deptname,
 		userinfo.id as userid,
-		userinfo.username
+		userinfo.username,
+		userinfo.jobnumber,
+		userinfo.concatinfo
 		from sector LEFT JOIN
 		userinfo on(sector.id=userinfo.sectorid)
 		where userinfo.userflag='1'
