@@ -149,16 +149,27 @@
 	                    </td>
 						<td style="text-align: right;">
 							<span>当前选择的用户:</span>
-							<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="当前选择的用户" id="currentUser"/>
+							<input class="easyui-textbox" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false" style="width:100px;height:30px;" readonly="true" prompt="当前选择的用户" id="currentUser"/>
 							
 							<%-- orders.customerid --%>
 							<input type="text" id="customerid" name="orders.customerid" />
 							
 							<span>当前的汽车牌号</span>
-							<input class="easyui-textbox" style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
+							<input class="easyui-textbox" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false"  style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
 							
 							<%-- orders.vehicleid --%>
 							<input type="text" id="vehicleid" name="orders.vehicleid"/>
+							
+							<%-- customername --%>
+							<input type="text" name="customername" id="customername" value=""/>
+							
+							<%-- customerphone --%>
+							<input type="text" name="customerphone" id="customerphone" value=""/>
+							
+							<%-- isNew --%>
+							<input type="text" name="isNew" id="isNew" />
 							
 							<a href="#" class="easyui-linkbutton" style="height:30px;" 
 							  iconCls="icon-tag_blue_delete" id="clearSelectedCustomer">清除用户</a>											
@@ -178,28 +189,32 @@
 						<td style="width: 80px;">行驶里程数</td>
 						<td>
 							<%-- orders.miles --%>
-							<input id="milage" name="orders.miles" prompt="用户行驶里程数"
+							<input id="milage" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false"  name="orders.miles" prompt="用户行驶里程数"
 							class="easyui-textbox" style="height: 30px;" />
 							
 						</td>
 						<td>随车物品</td>
 						<td>
 							<%-- orders.caritems --%>
-							<input prompt="请输入随车物品" name="orders.caritems" class="easyui-textbox"
+							<input prompt="请输入随车物品" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false"  name="orders.caritems" class="easyui-textbox"
 							style="height: 30px;" />
 							
 						</td>
 						<td>贵重物品</td>
 						<td>
 							<%-- orders.valuableobj --%>
-							<input prompt="请输入贵重物品" name="orders.valuableobj" class="easyui-textbox"
+							<input prompt="请输入贵重物品" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false"  name="orders.valuableobj" class="easyui-textbox"
 							style="height: 30px;" />
 							
 						</td>
 						<td>车主描述故障状况</td>
 						<td>
 							<%-- orders.ownerdescribtion --%>
-						    <input prompt="请输入车主描述的故障情况"
+						    <input prompt="请输入车主描述的故障情况" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false" 
 							class="easyui-textbox" name="orders.ownerdescribtion" style="height: 30px;">
 						
 						</td> 
@@ -229,7 +244,8 @@
 						<td>
 							<%-- orders.esdeliverytime--%>
 							<input id="dd" value="3/4/2010 2:3" type="text"
-							class="easyui-datetimebox" name="orders.esdeliverytime" style="height: 30px;" /></td>
+							class="easyui-datetimebox" data-options="required:true,validateOnBlur:true,
+						validateOnCreate:false"  name="orders.esdeliverytime" style="height: 30px;" /></td>
 						 
 					</tr>
 					
@@ -251,7 +267,7 @@
 						   				   $container.empty();
 						   				   let str = '';					   				 
 						   				   $.each(data, function(i,item){
-						   					   str +='<span>'+item.projname+'</span><input name="orders.warrcontent" type="checkbox" value="'+item.id+'" />&nbsp;&nbsp;';
+						   					   str +='<span>'+item.projname+'</span><input name="orders.warrcontent" type="checkbox" value="'+item.projname+'" />&nbsp;&nbsp;';
 						   				   });
 						   				   // 添加到容器中
 						   				   $container.append(str);
@@ -326,6 +342,10 @@
 				</table>
 			</div>
 		    <!-- 主要表单内容部分 -->
+		    <%-- 隐藏域部分 --%>
+		    <div id="hiddenpart">
+		    	
+		    </div>
 		</form> 
 	</div>
 </body> 
@@ -347,7 +367,16 @@ var weixiuArray = new Array();
 * 定义质检人员列表
 */
 var zhijianArray = new Array();
-	
+
+/**
+ * 定义维修人员分配对象
+ */
+function allocating(userinfoid,taskcategory){
+	let object = new Object();
+	object.userinfoid = userinfoid;
+	object.taskcategory = taskcategory;
+	return object;
+}
 	
 	function myformatter_wx(value,row,index){ 
 		return '<a href="#" style="color:red;" onclick="deleteSelected('+index+',1,\''+row.username+'\',\''+row.userid+'\')">删除</a>';
@@ -407,10 +436,38 @@ var zhijianArray = new Array();
 		
 		// 提交表单信息
 		$("#subOrderList").click(function(){
+			// 显示进度条
+			$.messager.progress();
 			$('#fmOrderRecept').form('submit', {
 			    url:"${pageContext.request.contextPath}/vehicle/receptOrder.html",
 			    onSubmit: function(){
-			        return true;
+			    	var isValid = $('#fmOrderRecept').form('validate');;
+					console.log(isValid);
+					if (!isValid){
+						$.messager.progress('close');	 
+					}else{
+						// 在这里把数组中的元素放到隐藏域中
+				    	let myAllocatedArray = new Array();
+				    	// 维修人员
+				    	for(var i = 0,n = weixiuArray.length;i<n;i++){
+				    		myAllocatedArray.push(new allocating(weixiuArray[i].userid,'wx'));
+				    	}			    	
+				    	// 质检人员
+				    	for(var j = 0,m=zhijianArray.length;j<m;j++){
+				    		myAllocatedArray.push(new allocating(zhijianArray[j].userid,'zj'));
+				    	}
+				    	// 添加到隐藏域
+				    	let $hidden = $('#hiddenpart');
+				    	$hidden.empty();
+				    	let result = '';
+				    	for(var k = 0,q=myAllocatedArray.length;k<q;k++){
+				    		// 维修人员编号，分配任务类别
+				    		result += "<input type='text' value='"+myAllocatedArray[k].userinfoid+"' name='personallocates["+k+"].userinfoid'/>"
+				    				+"<input type='text' value='"+myAllocatedArray[k].taskcategory+"' name='personallocates["+k+"].taskcategory'/>";
+				    	}
+				    	$hidden.append(result);
+					}
+					return isValid;	 
 			    },
 			    success:function(data){
 			        alert(data)
@@ -550,6 +607,9 @@ var zhijianArray = new Array();
 						$("#customerid").val(obj.customerid);
 						$("#vehiclenum").textbox("setValue",obj.platenum);
 						$("#vehicleid").val(obj.vehicleid);
+						$('#customername').val(obj.numbering);
+						$('#customerphone').val(obj.contactinfo);
+						$('#isNew').val('1');
 		            }
 		        });
 		    });
@@ -703,12 +763,16 @@ var zhijianArray = new Array();
 		$(function(){
 			// 绑定双击事件
 			$("#tt").datagrid({
-				'onDblClickRow':function(index,row){ 					 
+				'onDblClickRow':function(index,row){
+					console.log(row);
 				 	//赋值
 					$("#currentUser").textbox("setValue",row.numbering);
 					$("#customerid").val(row.customerid);
 					$("#vehiclenum").textbox("setValue",row.platenum);
 					$("#vehicleid").val(row.vehicleid);
+					$('#customername').val(row.numbering);
+					$('#customerphone').val(row.contactinfo);
+					$('#isNew').val('0');
 					// 隐藏掉模态框
 					$('#chooseUser').window('close');
 				}
