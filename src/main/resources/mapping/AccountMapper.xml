@@ -98,7 +98,7 @@
 		select account.accountnumber,
 		account.passwords,account.accountflag,
 		userinfo.username,
-		userinfo.jobnumber,userinfo.sectorid,sector.deptname,userinfo.id
+		userinfo.jobnumber,userinfo.sectorid,sector.deptname,userinfo.id as userinfoid
 		from account LEFT JOIN
 		userinfo on(account.userinfoid=userinfo.id)
 		LEFT JOIN sector

@@ -15,7 +15,7 @@ public class OrderMaintence {
 	private String vehicleid;
 	private String personallocateid;
 	private String customername;
-	private String cantactinfo;
+	private String contactinfo;
 	private String miles;
 	private String vehflag;
 	private String inspectiondate;
@@ -30,7 +30,7 @@ public class OrderMaintence {
 	private String platenum;
 	private String bustatusid;
 	private String statename;
-	private String allocatatetime;
+	private String allocatetime;
 	private String vehname;
 	private String carmodel;
 	private String esdeliverytime;
@@ -90,13 +90,13 @@ public class OrderMaintence {
 	public void setCustomername(String customername) {
 		this.customername = customername;
 	}
-
-	public String getCantactinfo() {
-		return cantactinfo;
+ 
+	public String getContactinfo() {
+		return contactinfo;
 	}
 
-	public void setCantactinfo(String cantactinfo) {
-		this.cantactinfo = cantactinfo;
+	public void setContactinfo(String contactinfo) {
+		this.contactinfo = contactinfo;
 	}
 
 	public String getMiles() {
@@ -211,12 +211,13 @@ public class OrderMaintence {
 		this.statename = statename;
 	}
 
-	public String getAllocatatetime() {
-		return allocatatetime;
+	 
+	public String getAllocatetime() {
+		return allocatetime;
 	}
 
-	public void setAllocatatetime(String allocatatetime) {
-		this.allocatatetime = allocatatetime;
+	public void setAllocatetime(String allocatetime) {
+		this.allocatetime = allocatetime;
 	}
 
 	public String getVehname() {

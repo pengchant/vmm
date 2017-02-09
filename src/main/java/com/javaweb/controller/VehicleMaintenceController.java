@@ -254,7 +254,7 @@ public class VehicleMaintenceController extends BaseController {
 			userinfoid = user.getUserinfoid();
 			PagedResult<OrderMaintence> pagedResult = serviceFactory.getVehicleMaintence().queryMaintanceOrders(
 					userinfoid, keyworld, startTime, endTime, sort, order, category,
-					StringUtils.getIntegerValue(pageNo, 0), StringUtils.getIntegerValue(pageSize, 10));
+					StringUtils.getIntegerValue(pageNo, 1), StringUtils.getIntegerValue(pageSize, 10));
 			if (pagedResult == null) {
 				return responseFail("系统暂时无法提供查询，请稍后重试");
 			} else {

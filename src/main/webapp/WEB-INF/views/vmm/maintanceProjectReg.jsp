@@ -22,18 +22,15 @@
     </style>
 </head>
 <body style="padding:5px;">
-    <div class="easyui-layout" fit="true">
+    <div class="easyui-layout" fit="true"> 
         <!-- 主要的内容部分 -->
         <div region="center" border="false">
-            <div class="easyui-layout" fit="true">
-                <div region="west" style="width:61.8%" split="true" border="false">
+            <div class="easyui-layout" fit="true"> 
+                <div region="center" split="true" border="false">
                     <div class="easyui-layout" fit="true">
-                        <div region="north" iconCls="icon-bug" split="true" style="height:50%;" collapsible="false" title="维修任务">
+                        <div region="north" iconCls="icon-bug" split="true" style="height:60%;" collapsible="false" title="维修任务">
                             <!-- 任务窗口 -->
-                            <table class="easyui-datagrid" id="current" fit="true" border="false"
-                                   data-options="singleSelect:true,pagination:true,
-                                    url:'data.json',method:'get',
-                                    toolbar:'#tb'">
+                            <table  id="current" fit="true" border="false">
                             </table>
                             <div id="tb" style="padding:5px">
                                 <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -55,65 +52,65 @@
                             </div>
                         </div>
                         <!-- 汽车进场登记详情 -->
-                        <div region="center" iconCls="icon-car" title="客户详情&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：苏F23434]">
-                            <table class="detail" cellpadding="0" cellspacing="0" style="width:100%;">
-                                <tr>
-                                    <td>车主</td>
-                                    <td style="width:160px;"><span id="owner">张三</span></td>
-                                    <td>电话</td>
-                                    <td><span id="phone">18796258893</span></td>
-                                    <td>行驶里程数</td>
-                                    <td><span>123</span></td>
-                                </tr>
-                                <tr>
-                                    <td>发动机号</td>
-                                    <td>23345356</td>
-                                    <td>保险日期</td>
-                                    <td colspan="3">2015-22-12</td>
-                                </tr>
-                                <tr>
-                                    <td>车主联系地址</td>
-                                    <td colspan="5">
-                                       	 江苏省无锡市槐古豪庭8座8楼
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>是否查看旧件</td>
-                                    <td>是</td>
-                                    <td>是否清洗车辆</td>
-                                    <td>是</td>
-                                    <td>是否检查备胎</td>
-                                    <td>是</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2" style="height:60px;">保修的内容</td>
-                                    <td rowspan="2">
-                                       	 项目一、项目1、项目1、项目1、项目1、项目1、项目1
-                                    </td>
-                                    <td>随车物品</td>
-                                    <td colspan="3">
-                                       	 范德萨范德萨发
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>贵重物品</td>
-                                    <td colspan="3">
-                                        	范德萨范德萨
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>车主描述故障</td>
-                                    <td colspan="5" style="height:120px;">
-
-                                    </td>
-                                </tr>
-                            </table>
+                        <div region="center" iconCls="icon-car" title="客户详情&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：<span class='currentplatnum' style='color:red;'>--</span>]">
+		                       <table class="detail" cellpadding="0" cellspacing="0" style="width:100%;height:100%;">
+		                         <tr>
+		                             <td style="width:10%;">车主</td>
+		                             <td style="width:20%;"><span id="customername">--</span></td>
+		                             <td style="width:20%;">电话</td>
+		                             <td style="width:20%;"><span id="contactinfo">--</span></td>
+		                             <td style="width:20%;">行驶里程数</td>
+		                             <td style="width:10%;"><span id="milage">--</span></td>
+		                         </tr>
+		                         <tr>
+		                             <td>发动机号</td>
+		                             <td><span id="vehflag">--</span></td>
+		                             <td>保险日期</td>
+		                             <td colspan="3"><span id="baoxiandate">--</span></td>
+		                         </tr>
+		                         <tr>
+		                             <td>车主联系地址</td>
+		                             <td colspan="5">
+		                                <span id="contactadd">--</span>
+		                             </td>
+		                         </tr>
+		                         <tr>
+		                             <td>是否查看旧件</td>
+		                             <td><span id="ifused">--</span></td>
+		                             <td>是否清洗车辆</td>
+		                             <td><span id="ifclean">--</span></td>
+		                             <td>是否检查备胎</td>
+		                             <td><span id="ifcheck">--</span></td>
+		                         </tr>
+		                         <tr>
+		                             <td rowspan="2" style="height:60px;">保修的内容</td>
+		                             <td rowspan="2">
+		                                 <span id="baoxiu">--</span>
+		                             </td>
+		                             <td>随车物品</td>
+		                             <td colspan="3">
+		                                 <span id="suiche">--</span>
+		                             </td>
+		                         </tr>
+		                         <tr>
+		                             <td>贵重物品</td>
+		                             <td colspan="3">
+		                                 <span id="guizhong">--</span>
+		                             </td>
+		                         </tr>
+		                         <tr>
+		                             <td>车主描述故障</td>
+		                             <td colspan="5" style="">
+										 <span id="guzhang">--</span>
+		                             </td>
+		                         </tr>
+		                   </table>
                         </div>
 
                     </div>
                 </div>
-                <div region="center" title="维修登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：苏F23434]" iconCls="icon-bullet_wrench">
-                    <div class="easyui-layout" fit="true" border="false">
+                <div region="east" style="width:38.2%" split="true" title="维修登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：<span class='currentplatnum' style='color:red;'>--</span>]" iconCls="icon-bullet_wrench">
+                    <div class="easyui-layout" fit="true" border="false" >
                         <div region="north" border="false" split="true" style="height:50%;"
                              title="维修项目登记" collapsible="false" iconCls="icon-layout_edit">
                             <!-- 维修项目登记 -->
@@ -170,23 +167,71 @@
         <div region="south" style="height:10px;" border="false">
         </div>
     </div>
-<script type="text/javascript">
-    $('#current').datagrid({
-        columns:[[
-                    {field:'numbering',width:60,align:'center',sortable:true,title:'编号'},
-                    {field:'numberPlate',width:100,align:'center',sortable:true,title:'车牌号'},
-                    {field:'numberPlate',width:100,align:'center',sortable:true,title:'车型'},
-                    {field:'admissionTime',width:100,align:'center',sortable:true,title:'入场时间'},
-                    {field:'scheduleTime',width:100,align:'center',sortable:true,title:'计划完工时间'},
-                    {field:'action',width:150,align:'center',title:'操作',
-                        formatter:function(value,row,index){
-                            var a = '<a href="#" class="easyui-linkbutton" style="text-decoration:none;color:#519fff;">维修登记</a>&nbsp;';
-                            var b = '&nbsp;<a href="#" class="easyui-linkbutton" style="text-decoration:none;color:#b93705;">确定完工</a>';
-                            return a+b;
-                        }
-                    }
-                ]]
-    });
-</script>
+	<script type="text/javascript">  
+	   $('#current').datagrid({
+	   	url:'${pageContext.request.contextPath}/vehicle/getTasks.html?category=wx',
+	   	singleSelect:true,
+	   	pagination:true,
+	   	method:'post',
+	       toolbar:'#tb',
+	       columns:[[
+	            {field:'indexing',width:50,align:'center',title:'编号',
+	            	formatter: function(value,row,index){ 
+	 				return (index+1);
+					}
+	            },
+	            {field:'platenum',width:100,align:'center',sortable:true,title:'车牌号'},
+	            {field:'vehname',width:80,align:'center',sortable:true,title:'品牌'},
+	            {field:'carmodel',width:80,align:'center',sortable:true,title:'车型'},
+	            {field:'allocatetime',width:120,align:'center',sortable:true,title:'入场时间',
+	            	formatter:function(value,row,index){
+	            		return value.substring(0,19);
+	            	}
+	            }, 
+	            {field:'esdeliverytime',width:120,align:'center',sortable:true,title:'计划完工时间',
+	            	formatter:function(value,row,index){
+	            		return value.substring(0,19);
+	            	}
+	            },
+	            {field:'action',width:150,align:'center',title:'操作',
+	                formatter:function(value,row,index){
+	                    var a = '<a href="#" class="easyui-linkbutton" style="color:#519fff;">维修登记</a>&nbsp;';
+	                    var b = '&nbsp;<a href="#" class="easyui-linkbutton" style="color:#b93705;">确定完工</a>';
+	                    return a+b;
+	                }
+	            }
+	        ]],
+	        onClickRow:function(index,row){	        	       
+	        	// 汽车牌号
+	        	$(".currentplatnum").empty().append(row.platenum);
+	        	// 车主
+	        	$("#customername").empty().append(row.customername);
+	        	// 电话
+	        	$("#contactinfo").empty().append(row.contactinfo);
+	        	// 行驶里程数
+	        	$("#milage").empty().append(row.miles);
+	        	// 发动机号
+	        	$("#vehflag").empty().append(row.vehflag);
+	        	// 保险日期
+	        	$("#baoxiandate").empty().append(row.inspectiondate.substring(0,10));
+	        	// 车主联系地址
+	        	$("#contactadd").empty().append(row.contactadd);
+	        	// 是否查看旧件
+	        	$("#ifused").empty().append(row.ifused=='1'?'是':'否');
+	        	// 是否清洗车辆
+	        	$("#ifclean").empty().append(row.ifclean=='1'?'是':'否');
+	        	// 是否检查备胎
+	        	$("#ifcheck").empty().append(row.ifcheckspare=='1'?'是':'否');
+	        	// 保修内容
+	        	$("#baoxiu").empty().append(row.warrcontent);
+	        	// 随车物品
+	        	$("#suiche").empty().append(row.caritems);
+	        	// 贵重物品
+	        	$("#guizhong").empty().append(row.valuableobj);
+	        	// 故障
+	        	$("#guzhang").empty().append(row.ownerdescribtion);
+	        }
+	   });
+	</script>
 </body>
 </html>

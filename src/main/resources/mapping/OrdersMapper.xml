@@ -344,7 +344,7 @@
 			</if>
 		</where>
 		<if test="sort!=null and sort!='' and order!=null and order!=''">
-			order by #{sort} #{order}
+			order by ${sort} ${order}
 		</if>
 	</select>
 </mapper>
