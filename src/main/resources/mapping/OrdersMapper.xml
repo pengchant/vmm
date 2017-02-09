@@ -332,15 +332,18 @@
 				 userinfoid = #{userinfoid}
 			</if>
 			<if test="keyworld!=null and keyworld!=''">
-				and customername like concat('%',#{keyworld},'%')
+				and (customer.numbering like concat('%',#{keyworld},'%')
 				or contactinfo like concat('%',#{keyworld},'%')
-				or platenum like concat('%',#{keyworld},'%')
+				or platenum like concat('%',#{keyworld},'%'))
 			</if>
 			<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
-				and allocatetime between starttime and endtime
+				and allocatetime between #{starttime} and #{endtime}
 			</if>
 			<if test="category!=null and category!=''">
 				and taskcategory = #{category}
+			</if>
+			<if test="orderstatus!=null and orderstatus!=''">
+				and bustatusid = #{orderstatus}
 			</if>
 		</where>
 		<if test="sort!=null and sort!='' and order!=null and order!=''">

@@ -101,8 +101,9 @@ public interface IVehicleMaintence {
 	 * @param category			任务的类别
 	 * @param pageNo			页数
 	 * @param pageSize			页面的大小
+	 * @param orderstatus 		订单的状态
 	 * @return
 	 */
 	PagedResult<OrderMaintence> queryMaintanceOrders(String userinfoid, String keyworld, String starttime, String endtime,
-			String sort, String order,String category,Integer pageNo,Integer pageSize);
+			String sort, String order,String category,Integer pageNo,Integer pageSize,String orderstatus);
 }

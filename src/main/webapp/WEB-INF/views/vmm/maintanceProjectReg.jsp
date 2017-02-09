@@ -34,20 +34,20 @@
                             </table>
                             <div id="tb" style="padding:5px">
                                 <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <input id="id" class="easyui-textbox" prompt="请输入用户名/手机号/车牌号"
+                                <input id="keyworld" class="easyui-textbox" prompt="请输入用户名/手机号/车牌号"
                                        style="width:170px;height:26px;">&nbsp;&nbsp;
                                 <span>任务状态:</span>
-                                <select id="cc" class="easyui-combobox" name="dept" style="width:170px;height:26px;">
-                                    <option value="aa">待完成</option>
-                                    <option>已完成</option>
+                                <select id="orderstatus" class="easyui-combobox" name="dept" style="width:170px;height:26px;">
+                                    <option value="1">待完成</option>
+                                    <option value="2">已完成</option>
                                 </select>
                                 <br/>
                                 <br/>
                                 <span>开始时间:</span>
-                                <input id="ds" type="text" value="3/4/2010 2:3" style="width:170px;height:26px;" class="easyui-datebox"  />
+                                <input id="startTime" type="text" value="3/4/2010 8:0" style="width:170px;height:26px;" class="easyui-datebox"  />
                                 &nbsp;&nbsp;<span>结束时间:</span>
-                                <input id="de" type="text" value="3/4/2010 2:3" style="width:170px;height:26px;" class="easyui-datebox"  />
-                                &nbsp;&nbsp;<a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
+                                <input id="endTime" type="text" value="3/4/2010 8:0" style="width:170px;height:26px;" class="easyui-datebox"  />
+                                &nbsp;&nbsp;<a href="#" iconCls="icon-search" class="easyui-linkbutton" id="selecting">条件查询</a>
                                 <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
                             </div>
                         </div>
@@ -168,70 +168,92 @@
         </div>
     </div>
 	<script type="text/javascript">  
-	   $('#current').datagrid({
-	   	url:'${pageContext.request.contextPath}/vehicle/getTasks.html?category=wx',
-	   	singleSelect:true,
-	   	pagination:true,
-	   	method:'post',
-	       toolbar:'#tb',
-	       columns:[[
-	            {field:'indexing',width:50,align:'center',title:'编号',
-	            	formatter: function(value,row,index){ 
-	 				return (index+1);
-					}
-	            },
-	            {field:'platenum',width:100,align:'center',sortable:true,title:'车牌号'},
-	            {field:'vehname',width:80,align:'center',sortable:true,title:'品牌'},
-	            {field:'carmodel',width:80,align:'center',sortable:true,title:'车型'},
-	            {field:'allocatetime',width:120,align:'center',sortable:true,title:'入场时间',
-	            	formatter:function(value,row,index){
-	            		return value.substring(0,19);
-	            	}
-	            }, 
-	            {field:'esdeliverytime',width:120,align:'center',sortable:true,title:'计划完工时间',
-	            	formatter:function(value,row,index){
-	            		return value.substring(0,19);
-	            	}
-	            },
-	            {field:'action',width:150,align:'center',title:'操作',
-	                formatter:function(value,row,index){
-	                    var a = '<a href="#" class="easyui-linkbutton" style="color:#519fff;">维修登记</a>&nbsp;';
-	                    var b = '&nbsp;<a href="#" class="easyui-linkbutton" style="color:#b93705;">确定完工</a>';
-	                    return a+b;
-	                }
-	            }
-	        ]],
-	        onClickRow:function(index,row){	        	       
-	        	// 汽车牌号
-	        	$(".currentplatnum").empty().append(row.platenum);
-	        	// 车主
-	        	$("#customername").empty().append(row.customername);
-	        	// 电话
-	        	$("#contactinfo").empty().append(row.contactinfo);
-	        	// 行驶里程数
-	        	$("#milage").empty().append(row.miles);
-	        	// 发动机号
-	        	$("#vehflag").empty().append(row.vehflag);
-	        	// 保险日期
-	        	$("#baoxiandate").empty().append(row.inspectiondate.substring(0,10));
-	        	// 车主联系地址
-	        	$("#contactadd").empty().append(row.contactadd);
-	        	// 是否查看旧件
-	        	$("#ifused").empty().append(row.ifused=='1'?'是':'否');
-	        	// 是否清洗车辆
-	        	$("#ifclean").empty().append(row.ifclean=='1'?'是':'否');
-	        	// 是否检查备胎
-	        	$("#ifcheck").empty().append(row.ifcheckspare=='1'?'是':'否');
-	        	// 保修内容
-	        	$("#baoxiu").empty().append(row.warrcontent);
-	        	// 随车物品
-	        	$("#suiche").empty().append(row.caritems);
-	        	// 贵重物品
-	        	$("#guizhong").empty().append(row.valuableobj);
-	        	// 故障
-	        	$("#guzhang").empty().append(row.ownerdescribtion);
-	        }
-	   });
+		$(function(){
+		   // 条件查询
+		   $("#selecting").click(function(){
+			// 获取keyworld
+			   let keyworld = $("#keyworld").val();
+			   // 获取任务状态
+			   let orderstatus = $("#orderstatus").combobox('getValue');
+			   // 开始时间
+			   let startTime = $("#startTime").val();
+			   // 结束时间
+			   let endTime = $("#endTime").val();
+			   // 重新加载数据
+			   $("#current").datagrid('load',{
+					keyworld: keyworld,
+					orderstatus: orderstatus,
+					startTime:startTime,
+					endTime:endTime
+				});
+		   }); 
+		   
+		   // datagrid 赋值
+		   $('#current').datagrid({
+		   	url:'${pageContext.request.contextPath}/vehicle/getTasks.html?category=wx',
+		   	singleSelect:true,
+		   	pagination:true,
+		   	method:'post',
+		       toolbar:'#tb',
+		       columns:[[
+		            {field:'indexing',width:50,align:'center',title:'编号',
+		            	formatter: function(value,row,index){ 
+		 				return (index+1);
+						}
+		            },
+		            {field:'platenum',width:100,align:'center',sortable:true,title:'车牌号'},
+		            {field:'vehname',width:80,align:'center',sortable:true,title:'品牌'},
+		            {field:'carmodel',width:80,align:'center',sortable:true,title:'车型'},
+		            {field:'allocatetime',width:120,align:'center',sortable:true,title:'入场时间',
+		            	formatter:function(value,row,index){
+		            		return value.substring(0,19);
+		            	}
+		            }, 
+		            {field:'esdeliverytime',width:120,align:'center',sortable:true,title:'计划完工时间',
+		            	formatter:function(value,row,index){
+		            		return value.substring(0,19);
+		            	}
+		            },
+		            {field:'action',width:150,align:'center',title:'操作',
+		                formatter:function(value,row,index){
+		                    var a = '<a href="#" class="easyui-linkbutton" style="color:#519fff;">维修登记</a>&nbsp;';
+		                    var b = '&nbsp;<a href="#" class="easyui-linkbutton" style="color:#b93705;">确定完工</a>';
+		                    return a+b;
+		                }
+		            }
+		        ]],
+		        onClickRow:function(index,row){	        	       
+		        	// 汽车牌号
+		        	$(".currentplatnum").empty().append(row.platenum);
+		        	// 车主
+		        	$("#customername").empty().append(row.customername);
+		        	// 电话
+		        	$("#contactinfo").empty().append(row.contactinfo);
+		        	// 行驶里程数
+		        	$("#milage").empty().append(row.miles);
+		        	// 发动机号
+		        	$("#vehflag").empty().append(row.vehflag);
+		        	// 保险日期
+		        	$("#baoxiandate").empty().append(row.inspectiondate.substring(0,10));
+		        	// 车主联系地址
+		        	$("#contactadd").empty().append(row.contactadd);
+		        	// 是否查看旧件
+		        	$("#ifused").empty().append(row.ifused=='1'?'是':'否');
+		        	// 是否清洗车辆
+		        	$("#ifclean").empty().append(row.ifclean=='1'?'是':'否');
+		        	// 是否检查备胎
+		        	$("#ifcheck").empty().append(row.ifcheckspare=='1'?'是':'否');
+		        	// 保修内容
+		        	$("#baoxiu").empty().append(row.warrcontent);
+		        	// 随车物品
+		        	$("#suiche").empty().append(row.caritems);
+		        	// 贵重物品
+		        	$("#guizhong").empty().append(row.valuableobj);
+		        	// 故障
+		        	$("#guzhang").empty().append(row.ownerdescribtion);
+		        }
+		   });
+		});
 	</script>
 </body>
 </html>

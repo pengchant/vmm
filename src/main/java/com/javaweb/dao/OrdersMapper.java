@@ -38,6 +38,7 @@ public interface OrdersMapper {
     		@Param("endtime")String endtime,
     		@Param("sort")String sort,
     		@Param("order")String order,
-    		@Param("category")String category);
+    		@Param("category")String category,
+    		@Param("orderstatus")String orderstatus);
     
 }

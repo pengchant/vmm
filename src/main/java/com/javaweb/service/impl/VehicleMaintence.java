@@ -226,14 +226,14 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public PagedResult<OrderMaintence> queryMaintanceOrders(String userinfoid, String keyworld, String starttime,
-			String endtime, String sort, String order, String category,Integer pageNo,Integer pageSize) {	
+			String endtime, String sort, String order, String category,Integer pageNo,Integer pageSize,String orderstatus) {	
 		PagedResult<OrderMaintence> ordermaintences = null;
 		try {
 			// 复杂查询
 			pageNo = pageNo == null ? 1 : pageNo;
 			pageSize = pageSize == null ? 10 : pageSize;
 			PageHelper.startPage(pageNo, pageSize); 
-			ordermaintences = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selectOrdersMaint(userinfoid, keyworld, starttime, endtime, sort, order, category));		 
+			ordermaintences = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selectOrdersMaint(userinfoid, keyworld, starttime, endtime, sort, order, category,orderstatus));		 
 			return ordermaintences;
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));

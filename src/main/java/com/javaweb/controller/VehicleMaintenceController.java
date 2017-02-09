@@ -241,12 +241,14 @@ public class VehicleMaintenceController extends BaseController {
 			String userinfoid;// 用户信息的编号
 			String keyworld = request.getParameter("keyworld");// 关键字
 			String startTime = request.getParameter("startTime");// 开始时间
-			String endTime = request.getParameter("endtime");// 结束时间
+			String endTime = request.getParameter("endTime");// 结束时间
 			String sort = request.getParameter("sort");// 排序字段
 			String order = request.getParameter("order");// 排序方式
 			String category = request.getParameter("category");// 类别
 			String pageNo = request.getParameter("pageNo");// 页数
 			String pageSize = request.getParameter("pageSize");// 页面大小
+			String orderstatus = request.getParameter("orderstatus");// 订单的状态
+			orderstatus = orderstatus!=null?orderstatus:"1";// 任务状态默认为未曾完成的维修单
 			LoginBean user = (LoginBean) request.getSession().getAttribute("user");
 			if (user == null) {
 				return responseFail("用户登录失效，请重新登录");
@@ -254,7 +256,7 @@ public class VehicleMaintenceController extends BaseController {
 			userinfoid = user.getUserinfoid();
 			PagedResult<OrderMaintence> pagedResult = serviceFactory.getVehicleMaintence().queryMaintanceOrders(
 					userinfoid, keyworld, startTime, endTime, sort, order, category,
-					StringUtils.getIntegerValue(pageNo, 1), StringUtils.getIntegerValue(pageSize, 10));
+					StringUtils.getIntegerValue(pageNo, 1), StringUtils.getIntegerValue(pageSize, 10),orderstatus);
 			if (pagedResult == null) {
 				return responseFail("系统暂时无法提供查询，请稍后重试");
 			} else {
