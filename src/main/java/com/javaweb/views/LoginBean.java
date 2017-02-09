@@ -13,6 +13,17 @@ public class LoginBean {
 	private String jobnumber;
 	private String sectorid;
 	private String deptname;
+	private String userinfoid;
+	
+	
+
+	public String getUserinfoid() {
+		return userinfoid;
+	}
+
+	public void setUserinfoid(String userinfoid) {
+		this.userinfoid = userinfoid;
+	}
 
 	public String getAccountnumber() {
 		return accountnumber;

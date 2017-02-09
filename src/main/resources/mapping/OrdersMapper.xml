@@ -1,287 +1,350 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javaweb.dao.OrdersMapper">
-  <resultMap id="BaseResultMap" type="com.javaweb.entity.Orders">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="numbering" jdbcType="CHAR" property="numbering" />
-    <result column="customerid" jdbcType="INTEGER" property="customerid" />
-    <result column="vehicleid" jdbcType="INTEGER" property="vehicleid" />
-    <result column="miles" jdbcType="DOUBLE" property="miles" />
-    <result column="ifused" jdbcType="SMALLINT" property="ifused" />
-    <result column="ifcheckspare" jdbcType="SMALLINT" property="ifcheckspare" />
-    <result column="ifclean" jdbcType="SMALLINT" property="ifclean" />
-    <result column="esdeliverytime" jdbcType="TIMESTAMP" property="esdeliverytime" />
-    <result column="warrcontent" jdbcType="VARCHAR" property="warrcontent" />
-    <result column="caritems" jdbcType="VARCHAR" property="caritems" />
-    <result column="valuableobj" jdbcType="VARCHAR" property="valuableobj" />
-    <result column="hassettled" jdbcType="SMALLINT" property="hassettled" />
-    <result column="hascompleted" jdbcType="SMALLINT" property="hascompleted" />
-    <result column="completedate" jdbcType="SMALLINT" property="completedate" />
-    <result column="settlecompdate" jdbcType="TIMESTAMP" property="settlecompdate" />
-    <result column="bustatusid" jdbcType="INTEGER" property="bustatusid" />
-    <result column="paystatusid" jdbcType="INTEGER" property="paystatusid" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.javaweb.entity.Orders">
-    <result column="ownerdescribtion" jdbcType="LONGVARCHAR" property="ownerdescribtion" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, numbering, customerid, vehicleid, miles, ifused, ifcheckspare, ifclean, esdeliverytime, 
-    warrcontent, caritems, valuableobj, hassettled, hascompleted, completedate, settlecompdate, 
-    bustatusid, paystatusid
-  </sql>
-  <sql id="Blob_Column_List">
-    ownerdescribtion
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from orders
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from orders
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Orders" useGeneratedKeys="true" keyProperty="id">
-    insert into orders (id, numbering, customerid, 
-      vehicleid, miles, ifused, 
-      ifcheckspare, ifclean, esdeliverytime, 
-      warrcontent, caritems, valuableobj, 
-      hassettled, hascompleted, completedate, 
-      settlecompdate, bustatusid, paystatusid, 
-      ownerdescribtion)
-    values (#{id,jdbcType=INTEGER}, #{numbering,jdbcType=CHAR}, #{customerid,jdbcType=INTEGER}, 
-      #{vehicleid,jdbcType=INTEGER}, #{miles,jdbcType=DOUBLE}, #{ifused,jdbcType=SMALLINT}, 
-      #{ifcheckspare,jdbcType=SMALLINT}, #{ifclean,jdbcType=SMALLINT}, #{esdeliverytime,jdbcType=TIMESTAMP}, 
-      #{warrcontent,jdbcType=VARCHAR}, #{caritems,jdbcType=VARCHAR}, #{valuableobj,jdbcType=VARCHAR}, 
-      #{hassettled,jdbcType=SMALLINT}, #{hascompleted,jdbcType=SMALLINT}, #{completedate,jdbcType=SMALLINT}, 
-      #{settlecompdate,jdbcType=TIMESTAMP}, #{bustatusid,jdbcType=INTEGER}, #{paystatusid,jdbcType=INTEGER}, 
-      #{ownerdescribtion,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.javaweb.entity.Orders">
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="numbering != null">
-        numbering,
-      </if>
-      <if test="customerid != null">
-        customerid,
-      </if>
-      <if test="vehicleid != null">
-        vehicleid,
-      </if>
-      <if test="miles != null">
-        miles,
-      </if>
-      <if test="ifused != null">
-        ifused,
-      </if>
-      <if test="ifcheckspare != null">
-        ifcheckspare,
-      </if>
-      <if test="ifclean != null">
-        ifclean,
-      </if>
-      <if test="esdeliverytime != null">
-        esdeliverytime,
-      </if>
-      <if test="warrcontent != null">
-        warrcontent,
-      </if>
-      <if test="caritems != null">
-        caritems,
-      </if>
-      <if test="valuableobj != null">
-        valuableobj,
-      </if>
-      <if test="hassettled != null">
-        hassettled,
-      </if>
-      <if test="hascompleted != null">
-        hascompleted,
-      </if>
-      <if test="completedate != null">
-        completedate,
-      </if>
-      <if test="settlecompdate != null">
-        settlecompdate,
-      </if>
-      <if test="bustatusid != null">
-        bustatusid,
-      </if>
-      <if test="paystatusid != null">
-        paystatusid,
-      </if>
-      <if test="ownerdescribtion != null">
-        ownerdescribtion,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="numbering != null">
-        #{numbering,jdbcType=CHAR},
-      </if>
-      <if test="customerid != null">
-        #{customerid,jdbcType=INTEGER},
-      </if>
-      <if test="vehicleid != null">
-        #{vehicleid,jdbcType=INTEGER},
-      </if>
-      <if test="miles != null">
-        #{miles,jdbcType=DOUBLE},
-      </if>
-      <if test="ifused != null">
-        #{ifused,jdbcType=SMALLINT},
-      </if>
-      <if test="ifcheckspare != null">
-        #{ifcheckspare,jdbcType=SMALLINT},
-      </if>
-      <if test="ifclean != null">
-        #{ifclean,jdbcType=SMALLINT},
-      </if>
-      <if test="esdeliverytime != null">
-        #{esdeliverytime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="warrcontent != null">
-        #{warrcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="caritems != null">
-        #{caritems,jdbcType=VARCHAR},
-      </if>
-      <if test="valuableobj != null">
-        #{valuableobj,jdbcType=VARCHAR},
-      </if>
-      <if test="hassettled != null">
-        #{hassettled,jdbcType=SMALLINT},
-      </if>
-      <if test="hascompleted != null">
-        #{hascompleted,jdbcType=SMALLINT},
-      </if>
-      <if test="completedate != null">
-        #{completedate,jdbcType=SMALLINT},
-      </if>
-      <if test="settlecompdate != null">
-        #{settlecompdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bustatusid != null">
-        #{bustatusid,jdbcType=INTEGER},
-      </if>
-      <if test="paystatusid != null">
-        #{paystatusid,jdbcType=INTEGER},
-      </if>
-      <if test="ownerdescribtion != null">
-        #{ownerdescribtion,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Orders">
-    update orders
-    <set>
-      <if test="numbering != null">
-        numbering = #{numbering,jdbcType=CHAR},
-      </if>
-      <if test="customerid != null">
-        customerid = #{customerid,jdbcType=INTEGER},
-      </if>
-      <if test="vehicleid != null">
-        vehicleid = #{vehicleid,jdbcType=INTEGER},
-      </if>
-      <if test="miles != null">
-        miles = #{miles,jdbcType=DOUBLE},
-      </if>
-      <if test="ifused != null">
-        ifused = #{ifused,jdbcType=SMALLINT},
-      </if>
-      <if test="ifcheckspare != null">
-        ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
-      </if>
-      <if test="ifclean != null">
-        ifclean = #{ifclean,jdbcType=SMALLINT},
-      </if>
-      <if test="esdeliverytime != null">
-        esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="warrcontent != null">
-        warrcontent = #{warrcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="caritems != null">
-        caritems = #{caritems,jdbcType=VARCHAR},
-      </if>
-      <if test="valuableobj != null">
-        valuableobj = #{valuableobj,jdbcType=VARCHAR},
-      </if>
-      <if test="hassettled != null">
-        hassettled = #{hassettled,jdbcType=SMALLINT},
-      </if>
-      <if test="hascompleted != null">
-        hascompleted = #{hascompleted,jdbcType=SMALLINT},
-      </if>
-      <if test="completedate != null">
-        completedate = #{completedate,jdbcType=SMALLINT},
-      </if>
-      <if test="settlecompdate != null">
-        settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bustatusid != null">
-        bustatusid = #{bustatusid,jdbcType=INTEGER},
-      </if>
-      <if test="paystatusid != null">
-        paystatusid = #{paystatusid,jdbcType=INTEGER},
-      </if>
-      <if test="ownerdescribtion != null">
-        ownerdescribtion = #{ownerdescribtion,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.javaweb.entity.Orders">
-    update orders
-    set numbering = #{numbering,jdbcType=CHAR},
-      customerid = #{customerid,jdbcType=INTEGER},
-      vehicleid = #{vehicleid,jdbcType=INTEGER},
-      miles = #{miles,jdbcType=DOUBLE},
-      ifused = #{ifused,jdbcType=SMALLINT},
-      ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
-      ifclean = #{ifclean,jdbcType=SMALLINT},
-      esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
-      warrcontent = #{warrcontent,jdbcType=VARCHAR},
-      caritems = #{caritems,jdbcType=VARCHAR},
-      valuableobj = #{valuableobj,jdbcType=VARCHAR},
-      hassettled = #{hassettled,jdbcType=SMALLINT},
-      hascompleted = #{hascompleted,jdbcType=SMALLINT},
-      completedate = #{completedate,jdbcType=SMALLINT},
-      settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
-      bustatusid = #{bustatusid,jdbcType=INTEGER},
-      paystatusid = #{paystatusid,jdbcType=INTEGER},
-      ownerdescribtion = #{ownerdescribtion,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Orders">
-    update orders
-    set numbering = #{numbering,jdbcType=CHAR},
-      customerid = #{customerid,jdbcType=INTEGER},
-      vehicleid = #{vehicleid,jdbcType=INTEGER},
-      miles = #{miles,jdbcType=DOUBLE},
-      ifused = #{ifused,jdbcType=SMALLINT},
-      ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
-      ifclean = #{ifclean,jdbcType=SMALLINT},
-      esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
-      warrcontent = #{warrcontent,jdbcType=VARCHAR},
-      caritems = #{caritems,jdbcType=VARCHAR},
-      valuableobj = #{valuableobj,jdbcType=VARCHAR},
-      hassettled = #{hassettled,jdbcType=SMALLINT},
-      hascompleted = #{hascompleted,jdbcType=SMALLINT},
-      completedate = #{completedate,jdbcType=SMALLINT},
-      settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
-      bustatusid = #{bustatusid,jdbcType=INTEGER},
-      paystatusid = #{paystatusid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.javaweb.entity.Orders">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="numbering" jdbcType="CHAR" property="numbering" />
+		<result column="customerid" jdbcType="INTEGER" property="customerid" />
+		<result column="vehicleid" jdbcType="INTEGER" property="vehicleid" />
+		<result column="miles" jdbcType="DOUBLE" property="miles" />
+		<result column="ifused" jdbcType="SMALLINT" property="ifused" />
+		<result column="ifcheckspare" jdbcType="SMALLINT" property="ifcheckspare" />
+		<result column="ifclean" jdbcType="SMALLINT" property="ifclean" />
+		<result column="esdeliverytime" jdbcType="TIMESTAMP" property="esdeliverytime" />
+		<result column="warrcontent" jdbcType="VARCHAR" property="warrcontent" />
+		<result column="caritems" jdbcType="VARCHAR" property="caritems" />
+		<result column="valuableobj" jdbcType="VARCHAR" property="valuableobj" />
+		<result column="hassettled" jdbcType="SMALLINT" property="hassettled" />
+		<result column="hascompleted" jdbcType="SMALLINT" property="hascompleted" />
+		<result column="completedate" jdbcType="SMALLINT" property="completedate" />
+		<result column="settlecompdate" jdbcType="TIMESTAMP" property="settlecompdate" />
+		<result column="bustatusid" jdbcType="INTEGER" property="bustatusid" />
+		<result column="paystatusid" jdbcType="INTEGER" property="paystatusid" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.javaweb.entity.Orders">
+		<result column="ownerdescribtion" jdbcType="LONGVARCHAR"
+			property="ownerdescribtion" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, numbering, customerid, vehicleid, miles, ifused, ifcheckspare,
+		ifclean, esdeliverytime,
+		warrcontent, caritems, valuableobj, hassettled, hascompleted, completedate,
+		settlecompdate,
+		bustatusid, paystatusid
+	</sql>
+	<sql id="Blob_Column_List">
+		ownerdescribtion
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from orders
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from orders
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.javaweb.entity.Orders"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into orders (id, numbering, customerid,
+		vehicleid, miles, ifused,
+		ifcheckspare, ifclean, esdeliverytime,
+		warrcontent, caritems, valuableobj,
+		hassettled, hascompleted, completedate,
+		settlecompdate, bustatusid, paystatusid,
+		ownerdescribtion)
+		values (#{id,jdbcType=INTEGER}, #{numbering,jdbcType=CHAR},
+		#{customerid,jdbcType=INTEGER},
+		#{vehicleid,jdbcType=INTEGER}, #{miles,jdbcType=DOUBLE}, #{ifused,jdbcType=SMALLINT},
+		#{ifcheckspare,jdbcType=SMALLINT}, #{ifclean,jdbcType=SMALLINT},
+		#{esdeliverytime,jdbcType=TIMESTAMP},
+		#{warrcontent,jdbcType=VARCHAR}, #{caritems,jdbcType=VARCHAR}, #{valuableobj,jdbcType=VARCHAR},
+		#{hassettled,jdbcType=SMALLINT}, #{hascompleted,jdbcType=SMALLINT},
+		#{completedate,jdbcType=SMALLINT},
+		#{settlecompdate,jdbcType=TIMESTAMP}, #{bustatusid,jdbcType=INTEGER},
+		#{paystatusid,jdbcType=INTEGER},
+		#{ownerdescribtion,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.javaweb.entity.Orders">
+		insert into orders
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="numbering != null">
+				numbering,
+			</if>
+			<if test="customerid != null">
+				customerid,
+			</if>
+			<if test="vehicleid != null">
+				vehicleid,
+			</if>
+			<if test="miles != null">
+				miles,
+			</if>
+			<if test="ifused != null">
+				ifused,
+			</if>
+			<if test="ifcheckspare != null">
+				ifcheckspare,
+			</if>
+			<if test="ifclean != null">
+				ifclean,
+			</if>
+			<if test="esdeliverytime != null">
+				esdeliverytime,
+			</if>
+			<if test="warrcontent != null">
+				warrcontent,
+			</if>
+			<if test="caritems != null">
+				caritems,
+			</if>
+			<if test="valuableobj != null">
+				valuableobj,
+			</if>
+			<if test="hassettled != null">
+				hassettled,
+			</if>
+			<if test="hascompleted != null">
+				hascompleted,
+			</if>
+			<if test="completedate != null">
+				completedate,
+			</if>
+			<if test="settlecompdate != null">
+				settlecompdate,
+			</if>
+			<if test="bustatusid != null">
+				bustatusid,
+			</if>
+			<if test="paystatusid != null">
+				paystatusid,
+			</if>
+			<if test="ownerdescribtion != null">
+				ownerdescribtion,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="numbering != null">
+				#{numbering,jdbcType=CHAR},
+			</if>
+			<if test="customerid != null">
+				#{customerid,jdbcType=INTEGER},
+			</if>
+			<if test="vehicleid != null">
+				#{vehicleid,jdbcType=INTEGER},
+			</if>
+			<if test="miles != null">
+				#{miles,jdbcType=DOUBLE},
+			</if>
+			<if test="ifused != null">
+				#{ifused,jdbcType=SMALLINT},
+			</if>
+			<if test="ifcheckspare != null">
+				#{ifcheckspare,jdbcType=SMALLINT},
+			</if>
+			<if test="ifclean != null">
+				#{ifclean,jdbcType=SMALLINT},
+			</if>
+			<if test="esdeliverytime != null">
+				#{esdeliverytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="warrcontent != null">
+				#{warrcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="caritems != null">
+				#{caritems,jdbcType=VARCHAR},
+			</if>
+			<if test="valuableobj != null">
+				#{valuableobj,jdbcType=VARCHAR},
+			</if>
+			<if test="hassettled != null">
+				#{hassettled,jdbcType=SMALLINT},
+			</if>
+			<if test="hascompleted != null">
+				#{hascompleted,jdbcType=SMALLINT},
+			</if>
+			<if test="completedate != null">
+				#{completedate,jdbcType=SMALLINT},
+			</if>
+			<if test="settlecompdate != null">
+				#{settlecompdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bustatusid != null">
+				#{bustatusid,jdbcType=INTEGER},
+			</if>
+			<if test="paystatusid != null">
+				#{paystatusid,jdbcType=INTEGER},
+			</if>
+			<if test="ownerdescribtion != null">
+				#{ownerdescribtion,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.javaweb.entity.Orders">
+		update orders
+		<set>
+			<if test="numbering != null">
+				numbering = #{numbering,jdbcType=CHAR},
+			</if>
+			<if test="customerid != null">
+				customerid = #{customerid,jdbcType=INTEGER},
+			</if>
+			<if test="vehicleid != null">
+				vehicleid = #{vehicleid,jdbcType=INTEGER},
+			</if>
+			<if test="miles != null">
+				miles = #{miles,jdbcType=DOUBLE},
+			</if>
+			<if test="ifused != null">
+				ifused = #{ifused,jdbcType=SMALLINT},
+			</if>
+			<if test="ifcheckspare != null">
+				ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
+			</if>
+			<if test="ifclean != null">
+				ifclean = #{ifclean,jdbcType=SMALLINT},
+			</if>
+			<if test="esdeliverytime != null">
+				esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="warrcontent != null">
+				warrcontent = #{warrcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="caritems != null">
+				caritems = #{caritems,jdbcType=VARCHAR},
+			</if>
+			<if test="valuableobj != null">
+				valuableobj = #{valuableobj,jdbcType=VARCHAR},
+			</if>
+			<if test="hassettled != null">
+				hassettled = #{hassettled,jdbcType=SMALLINT},
+			</if>
+			<if test="hascompleted != null">
+				hascompleted = #{hascompleted,jdbcType=SMALLINT},
+			</if>
+			<if test="completedate != null">
+				completedate = #{completedate,jdbcType=SMALLINT},
+			</if>
+			<if test="settlecompdate != null">
+				settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bustatusid != null">
+				bustatusid = #{bustatusid,jdbcType=INTEGER},
+			</if>
+			<if test="paystatusid != null">
+				paystatusid = #{paystatusid,jdbcType=INTEGER},
+			</if>
+			<if test="ownerdescribtion != null">
+				ownerdescribtion = #{ownerdescribtion,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.javaweb.entity.Orders">
+		update orders
+		set numbering = #{numbering,jdbcType=CHAR},
+		customerid = #{customerid,jdbcType=INTEGER},
+		vehicleid = #{vehicleid,jdbcType=INTEGER},
+		miles = #{miles,jdbcType=DOUBLE},
+		ifused = #{ifused,jdbcType=SMALLINT},
+		ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
+		ifclean = #{ifclean,jdbcType=SMALLINT},
+		esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
+		warrcontent = #{warrcontent,jdbcType=VARCHAR},
+		caritems = #{caritems,jdbcType=VARCHAR},
+		valuableobj = #{valuableobj,jdbcType=VARCHAR},
+		hassettled = #{hassettled,jdbcType=SMALLINT},
+		hascompleted = #{hascompleted,jdbcType=SMALLINT},
+		completedate = #{completedate,jdbcType=SMALLINT},
+		settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
+		bustatusid = #{bustatusid,jdbcType=INTEGER},
+		paystatusid = #{paystatusid,jdbcType=INTEGER},
+		ownerdescribtion = #{ownerdescribtion,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.javaweb.entity.Orders">
+		update orders
+		set numbering = #{numbering,jdbcType=CHAR},
+		customerid = #{customerid,jdbcType=INTEGER},
+		vehicleid = #{vehicleid,jdbcType=INTEGER},
+		miles = #{miles,jdbcType=DOUBLE},
+		ifused = #{ifused,jdbcType=SMALLINT},
+		ifcheckspare = #{ifcheckspare,jdbcType=SMALLINT},
+		ifclean = #{ifclean,jdbcType=SMALLINT},
+		esdeliverytime = #{esdeliverytime,jdbcType=TIMESTAMP},
+		warrcontent = #{warrcontent,jdbcType=VARCHAR},
+		caritems = #{caritems,jdbcType=VARCHAR},
+		valuableobj = #{valuableobj,jdbcType=VARCHAR},
+		hassettled = #{hassettled,jdbcType=SMALLINT},
+		hascompleted = #{hascompleted,jdbcType=SMALLINT},
+		completedate = #{completedate,jdbcType=SMALLINT},
+		settlecompdate = #{settlecompdate,jdbcType=TIMESTAMP},
+		bustatusid = #{bustatusid,jdbcType=INTEGER},
+		paystatusid = #{paystatusid,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 订单维修查询 -->
+	<select id="selectOrdersMaint" resultType="com.javaweb.views.OrderMaintence">
+		SELECT DISTINCT orders.id as ordersid,
+		personallocate.taskcategory,
+		personallocate.userinfoid,
+		orders.customerid as customerid,
+		orders.vehicleid as vehicleid,
+		personallocate.id as personallocateid,
+		customer.numbering as customername,
+		customer.contactinfo,
+		orders.miles,
+		vehicle.vehflag,
+		vehicle.inspectiondate,
+		customer.contactadd,
+		orders.ifused,
+		orders.ifclean,
+		orders.ifcheckspare,
+		orders.warrcontent,
+		orders.caritems,
+		orders.valuableobj,
+		orders.ownerdescribtion,
+		vehicle.platenum,
+		orders.bustatusid,
+		bustatus.statename,
+		personallocate.allocatetime,
+		vehicle.vehname,
+		vehicle.carmodel,
+		orders.esdeliverytime
+		from orders left join personallocate on(personallocate.ordersid=orders.id)
+		left join customer on (orders.customerid=customer.id)
+		left join vehicle on (orders.vehicleid = vehicle.id)
+		left join bustatus on (orders.bustatusid = bustatus.id) 
+		<where>
+			<if test="userinfoid!=null and userinfoid!=''">
+				 userinfoid = #{userinfoid}
+			</if>
+			<if test="keyworld!=null and keyworld!=''">
+				and customername like concat('%',#{keyworld},'%')
+				or contactinfo like concat('%',#{keyworld},'%')
+				or platenum like concat('%',#{keyworld},'%')
+			</if>
+			<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
+				and allocatetime between starttime and endtime
+			</if>
+			<if test="category!=null and category!=''">
+				and taskcategory = #{category}
+			</if>
+		</where>
+		<if test="sort!=null and sort!='' and order!=null and order!=''">
+			order by #{sort} #{order}
+		</if>
+	</select>
 </mapper>

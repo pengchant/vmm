@@ -23,7 +23,7 @@
     delete from customervisithis
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.javaweb.entity.Customervisithis">
+  <insert id="insert" parameterType="com.javaweb.entity.Customervisithis" useGeneratedKeys="true" keyProperty="ids">
     insert into customervisithis (id, customername, contactinfo, 
       visittime, servicecontent, isnew, 
       customer)

@@ -153,27 +153,27 @@
 						validateOnCreate:false" style="width:100px;height:30px;" readonly="true" prompt="当前选择的用户" id="currentUser"/>
 							
 							<%-- orders.customerid --%>
-							<input type="text" id="customerid" name="orders.customerid" />
+							<input type="hidden" id="customerid" name="orders.customerid" />
 							
 							<span>当前的汽车牌号</span>
 							<input class="easyui-textbox" data-options="required:true,validateOnBlur:true,
 						validateOnCreate:false"  style="width:100px;height:30px;" readonly="true" prompt="汽车牌号" id="vehiclenum"/>
 							
 							<%-- orders.vehicleid --%>
-							<input type="text" id="vehicleid" name="orders.vehicleid"/>
+							<input type="hidden" id="vehicleid" name="orders.vehicleid"/>
 							
 							<%-- customername --%>
-							<input type="text" name="customername" id="customername" value=""/>
+							<input type="hidden" name="customername" id="customername" value=""/>
 							
 							<%-- customerphone --%>
-							<input type="text" name="customerphone" id="customerphone" value=""/>
+							<input type="hidden" name="customerphone" id="customerphone" value=""/>
 							
 							<%-- isNew --%>
-							<input type="text" name="isNew" id="isNew" />
+							<input type="hidden" name="isNew" id="isNew" />
 							
 							<a href="#" class="easyui-linkbutton" style="height:30px;" 
 							  iconCls="icon-tag_blue_delete" id="clearSelectedCustomer">清除用户</a>											
-							 <a href="#" class="easyui-linkbutton"
+							 <a href="#" class="easyui-linkbutton subOrderList"
 							style="height: 30px;" iconCls="icon-building_go">保存</a>
 						</td>
 					</tr>
@@ -334,10 +334,10 @@
 					</tr>
 					<tr>
 						<td colspan="10" style="background-color: #d8ecff;"><a
-							class="easyui-linkbutton" iconCls="icon-ok"
-							style="width: 120px; height: 30px;" id="subOrderList">提交</a>&nbsp;&nbsp;&nbsp; <a
+							class="easyui-linkbutton subOrderList" iconCls="icon-ok"
+							style="width: 120px; height: 30px;">提交</a>&nbsp;&nbsp;&nbsp; <a
 							class="easyui-linkbutton" iconCls="icon-building_error"
-							style="width: 120px; height: 30px;">取消</a></td>
+							style="width: 120px; height: 30px;" id="refresh">刷新</a></td>
 					</tr>
 				</table>
 			</div>
@@ -435,47 +435,72 @@ function allocating(userinfoid,taskcategory){
 	$(function() {   
 		
 		// 提交表单信息
-		$("#subOrderList").click(function(){
-			// 显示进度条
-			$.messager.progress();
-			$('#fmOrderRecept').form('submit', {
-			    url:"${pageContext.request.contextPath}/vehicle/receptOrder.html",
-			    onSubmit: function(){
-			    	var isValid = $('#fmOrderRecept').form('validate');;
-					console.log(isValid);
-					if (!isValid){
-						$.messager.progress('close');	 
-					}else{
-						// 在这里把数组中的元素放到隐藏域中
-				    	let myAllocatedArray = new Array();
-				    	// 维修人员
-				    	for(var i = 0,n = weixiuArray.length;i<n;i++){
-				    		myAllocatedArray.push(new allocating(weixiuArray[i].userid,'wx'));
-				    	}			    	
-				    	// 质检人员
-				    	for(var j = 0,m=zhijianArray.length;j<m;j++){
-				    		myAllocatedArray.push(new allocating(zhijianArray[j].userid,'zj'));
-				    	}
-				    	// 添加到隐藏域
-				    	let $hidden = $('#hiddenpart');
-				    	$hidden.empty();
-				    	let result = '';
-				    	for(var k = 0,q=myAllocatedArray.length;k<q;k++){
-				    		// 维修人员编号，分配任务类别
-				    		result += "<input type='text' value='"+myAllocatedArray[k].userinfoid+"' name='personallocates["+k+"].userinfoid'/>"
-				    				+"<input type='text' value='"+myAllocatedArray[k].taskcategory+"' name='personallocates["+k+"].taskcategory'/>";
-				    	}
-				    	$hidden.append(result);
-					}
-					return isValid;	 
-			    },
-			    success:function(data){
-			        alert(data)
-			    }
+		$(".subOrderList").click(function(){
+			$.messager.confirm('确定','你确定要提交当前数据吗?',function(r){
+				if(r){
+					// 显示进度条
+					$.messager.progress();
+					$('#fmOrderRecept').form('submit', {
+					    url:"${pageContext.request.contextPath}/vehicle/receptOrder.html",
+					    onSubmit: function(){
+					    	var isValid = $('#fmOrderRecept').form('validate');;
+					    	var flag = (weixiuArray.length==0||zhijianArray.length==0); 
+						  
+							if (!isValid){
+								$.messager.progress('close');	 
+							}else{
+								// 在这里把数组中的元素放到隐藏域中
+						    	let myAllocatedArray = new Array();
+						    	// 维修人员
+						    	for(var i = 0,n = weixiuArray.length;i<n;i++){
+						    		myAllocatedArray.push(new allocating(weixiuArray[i].userid,'wx'));
+						    	}			    	
+						    	// 质检人员
+						    	for(var j = 0,m=zhijianArray.length;j<m;j++){
+						    		myAllocatedArray.push(new allocating(zhijianArray[j].userid,'zj'));
+						    	}
+						    	// 添加到隐藏域
+						    	let $hidden = $('#hiddenpart');
+						    	$hidden.empty();
+						    	let result = '';
+						    	for(var k = 0,q=myAllocatedArray.length;k<q;k++){
+						    		// 维修人员编号，分配任务类别
+						    		result += "<input type='hidden' value='"+myAllocatedArray[k].userinfoid+"' name='personallocates["+k+"].userinfoid'/>"
+						    				+"<input type='hidden' value='"+myAllocatedArray[k].taskcategory+"' name='personallocates["+k+"].taskcategory'/>";
+						    	}
+						    	$hidden.append(result);
+							}
+							if(flag){
+								isValid = false;
+								$.messager.progress('close');
+								$.messager.alert('操作提示','请选择至少一个维修员和质检员!','info');
+							}
+							return isValid;	 
+					    },
+					    success:function(data){
+					    	console.log(data);
+					    	$.messager.progress('close');
+					    	var obj = JSON.parse(data);
+					    	if(obj.isError){
+					    		$.messager.alert('操作提示','添加修理单失败，请重试!','info');
+					    	}else{
+					    		$.messager.alert('操作提示','添加修理单成功!','info');
+					    		window.location.href="${pageContext.request.contextPath}/index/dis.html?url=/vmm/vehicleReception.jsp";
+					    	} 
+					    }
+					});
+				}
 			});
-			 
 		});
 		 
+		// 取消
+		$("#refresh").click(function(){
+			$.messager.confirm("确定","刷新后将不再保存当前的数据,是否刷新?",function(r){
+				if(r){
+					window.location.href="${pageContext.request.contextPath}/index/dis.html?url=/vmm/vehicleReception.jsp";
+				}
+			}) 
+		});
 		
 		// 定义用户的对象
 		function User(userid,username,jobnumber,concatinfo){
@@ -560,9 +585,6 @@ function allocating(userinfoid,taskcategory){
 			}
 			return false;
 		}
-		
-		
-		
 		 
 		// 重填
 		$("#resetform").click(function() {

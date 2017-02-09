@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.Order;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -19,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Orders;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
@@ -29,6 +31,7 @@ import com.javaweb.utils.MyErrorPrinter;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.UserSector;
 import com.sun.star.lib.uno.environments.remote.remote_environment;
 
@@ -188,11 +191,17 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	@Transactional
-	public boolean newOrderList(Orders orders, List<Personallocate> personallocates) {
+	public boolean newOrderList(Orders orders, List<Personallocate> personallocates,Customervisithis visithis) {
 		int count = 0;
 		try {
 			// 1.添加接单表
-			daoFactory.getOrdersMapper().insert(orders);
+			// 设置流水号
+			orders.setNumbering(com.javaweb.utils.StringUtils.getCode(12));
+			// 设置支付的状态和业务的状态
+			orders.setBustatusid(1);
+			orders.setPaystatusid(1);
+			// 添加订单
+			daoFactory.getOrdersMapper().insert(orders); 
 			logger.info("添加订单表成功，订单表的编号为:" + orders.getId());
 			// 2.添加人员分配表
 			for (Personallocate allocate : personallocates) {
@@ -202,11 +211,32 @@ public class VehicleMaintence implements IVehicleMaintence {
 				count++;
 			}
 			logger.info("添加订单维修人员和质检人员完毕，一共添加了:" + count + "条记录.");
+			// 3.添加客户来访历史表
+			daoFactory.getCustomervisithisMapper().insert(visithis);
+			logger.info("添加用户到访历史表成功,历史表的编号为:"+visithis.getId());
 			return true;
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 			return false;
 		}
+	}
+
+	/**
+	 * 工作人员查看自己的维修任务
+	 */
+	@Override
+	public PagedResult<OrderMaintence> queryMaintanceOrders(String userinfoid, String keyworld, String starttime,
+			String endtime, String sort, String order, String category,Integer pageNo,Integer pageSize) {		 
+		try {
+			// 复杂查询
+			pageNo = pageNo == null ? 1 : pageNo;
+			pageSize = pageSize == null ? 10 : pageSize;
+			PageHelper.startPage(pageNo, pageSize); 
+			return  BeanUtil.topagedResult(daoFactory.getOrdersMapper().selectOrdersMaint(userinfoid, keyworld, starttime, endtime, sort, order, category));
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return null;
 	}
 
 }

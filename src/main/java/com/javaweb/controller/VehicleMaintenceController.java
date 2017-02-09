@@ -24,15 +24,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
 import com.javaweb.utils.MyErrorPrinter;
+import com.javaweb.utils.PagedResult;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.LoginBean;
 import com.javaweb.views.OrderList;
+import com.javaweb.views.OrderMaintence;
 
 /**
  * 汽车修理模块控制器
@@ -51,7 +55,7 @@ public class VehicleMaintenceController extends BaseController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(VehicleMaintenceController.class);
 
 	@Autowired
@@ -196,17 +200,69 @@ public class VehicleMaintenceController extends BaseController {
 	 * @param orderList
 	 * @return
 	 */
-	@RequestMapping(value="/receptOrder",method=RequestMethod.POST)
+	@RequestMapping(value = "/receptOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String receptOrders(OrderList orderList) {
-		logger.info("获取到的订单的信息为:"+JSON.toJSONString(orderList));
-//		boolean flag = false;
-//		if (orderList != null && orderList.getOrders() != null && orderList.getPersonallocates() != null) {
-//			flag = serviceFactory.getVehicleMaintence().newOrderList(orderList.getOrders(),
-//					orderList.getPersonallocates());
-//			return flag?responseSuccess(null, "添加用户信息成功!"):responseFail("添加订单失败!");
-//		}
+		logger.info("获取到的订单的信息为:" + JSON.toJSONString(orderList));
+		boolean flag = false;
+		if (orderList != null && orderList.getOrders() != null && orderList.getPersonallocates() != null) {
+			try {
+				// 定义用户来访实体
+				Customervisithis customervisithis = new Customervisithis();
+				customervisithis.setCustomername(orderList.getCustomername());
+				customervisithis.setContactinfo(orderList.getCustomerphone());
+				customervisithis.setVisittime(new Date());
+				customervisithis.setServicecontent(orderList.getOrders().getWarrcontent());
+				customervisithis.setIsnew(Short.valueOf(String.valueOf(orderList.getIsNew())));
+				customervisithis.setCustomer(orderList.getOrders().getCustomerid());
+
+				flag = serviceFactory.getVehicleMaintence().newOrderList(orderList.getOrders(),
+						orderList.getPersonallocates(), customervisithis);
+			} catch (Exception e) {
+				flag = false;
+				logger.error(MyErrorPrinter.getErrorStack(e));
+			}
+			return flag ? responseSuccess(null, "添加用户信息成功!") : responseFail("添加订单失败!");
+		}
 		return responseFail("添加订单失败!");
 	}
 
+	/**
+	 * 工作人员查看自己的维修任务
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/getTasks")
+	@ResponseBody
+	public String queryAllTasks(HttpServletRequest request, Model model) {
+		try {
+			String userinfoid;// 用户信息的编号
+			String keyworld = request.getParameter("keyworld");// 关键字
+			String startTime = request.getParameter("startTime");// 开始时间
+			String endTime = request.getParameter("endtime");// 结束时间
+			String sort = request.getParameter("sort");// 排序字段
+			String order = request.getParameter("order");// 排序方式
+			String category = request.getParameter("category");// 类别
+			String pageNo = request.getParameter("pageNo");// 页数
+			String pageSize = request.getParameter("pageSize");// 页面大小
+			LoginBean user = (LoginBean) request.getSession().getAttribute("user");
+			if (user == null) {
+				return responseFail("用户登录失效，请重新登录");
+			}
+			userinfoid = user.getUserinfoid();
+			PagedResult<OrderMaintence> pagedResult = serviceFactory.getVehicleMaintence().queryMaintanceOrders(
+					userinfoid, keyworld, startTime, endTime, sort, order, category,
+					StringUtils.getIntegerValue(pageNo, 0), StringUtils.getIntegerValue(pageSize, 10));
+			if (pagedResult == null) {
+				return responseFail("系统暂时无法提供查询，请稍后重试");
+			} else {
+				return responseSuccess(pagedResult);
+			}
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return responseFail("获取任务失败!");
+	}
 }
