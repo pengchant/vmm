@@ -11,9 +11,7 @@
 	text-align: center;
 }
 
-.main_table {
-	width: 100%;
-	height: 100%;
+.main_table { 
 	border: solid 1px #97b1ff;
 	border-right: none;
 	border-bottom: none;
@@ -182,8 +180,8 @@
 			<!-- 表单头部内容结束 -->
 			
 			<!-- 主要的表单内容部分 -->
-			<div class="easyui-panel form_cont" border="false">
-				<table class="main_table" cellpadding="0" cellspacing="0">
+			<div class="easyui-panel form_cont" border="false" fit="true">
+				<table class="main_table" style="width:100%;height:100%;" cellpadding="0" cellspacing="0">
 					<%-- 基础信息部分 --%>
 					<tr>
 						<td style="width: 80px;">行驶里程数</td>

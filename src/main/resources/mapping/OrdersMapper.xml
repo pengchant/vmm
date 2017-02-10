@@ -337,7 +337,7 @@
 				or platenum like concat('%',#{keyworld},'%'))
 			</if>
 			<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
-				and allocatetime between #{starttime} and #{endtime}
+				and allocatetime between concat(#{starttime},' 00:00:00') and concat(#{endtime},' 23:59:59')
 			</if>
 			<if test="category!=null and category!=''">
 				and taskcategory = #{category}

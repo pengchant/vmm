@@ -103,4 +103,12 @@
       mainflag = #{mainflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 通过维修项目的类别查询所有的维修项目 -->
+  <select id="selectMainitembyCategory" resultMap="BaseResultMap">
+  	 select <include refid="Base_Column_List" />
+		from mainitem
+	 where mainitem.projcategoryid=#{projcategory}
+		and mainitem.mainflag = '1'
+  </select>
 </mapper>

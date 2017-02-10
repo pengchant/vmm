@@ -1,6 +1,9 @@
 package com.javaweb.dao;
 
+import java.util.List;
+
 import com.javaweb.entity.Mainprojreg;
+import com.javaweb.views.MaintProject;
 
 public interface MainprojregMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,12 @@ public interface MainprojregMapper {
     int updateByPrimaryKeySelective(Mainprojreg record);
 
     int updateByPrimaryKey(Mainprojreg record);
+    
+    /**
+     * 查询所有的
+     * @param ordersid		订单的编号
+     * @param userid		用户的编号
+     * @return
+     */
+    List<MaintProject> selectAllMainregedProj(String ordersid,String userid);
 }

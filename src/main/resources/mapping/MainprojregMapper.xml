@@ -125,4 +125,39 @@
       haspassed = #{haspassed,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据用户的表的id和订单编号查询已经登记的订单信息 -->
+  <select id="selectAllMainregedProj" resultType="com.javaweb.views.MaintProject">
+  	SELECT DISTINCT
+		orders.id AS ordersid,
+		mainitem.id AS mainprojid,
+		mainitem.projName AS mainproj,
+		projcategory.id AS mainprojcateid,
+		projcategory.projname AS mainprojcate,
+		mainprojreg.regperson AS recpter,
+		mainprojreg.regtime AS regdatetime,
+		mainprojreg.spenttime AS totalhours,
+		mainprojreg.mainstatus AS mainstatus,
+		mainprojreg.haspassed AS haspassed
+	FROM
+		mainprojreg
+	LEFT JOIN orders ON (
+		orders.id = mainprojreg.ordersid
+	)
+	LEFT JOIN mainitem ON (
+		mainprojreg.mainitemid = mainitem.id
+	)
+	LEFT JOIN projcategory ON (
+		mainitem.projcategoryid = projcategory.id
+	)
+	<where>
+		<if test="ordersid!=null and ordersid!=''">
+			orders.id = #{ordersid}
+		</if>
+		<if test="userid!=null and userid!=''">
+			and mainprojreg.regperson = #{userid}
+		</if>
+	</where>
+  </select>
+  
 </mapper>

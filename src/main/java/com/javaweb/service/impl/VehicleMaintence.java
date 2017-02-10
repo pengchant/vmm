@@ -21,6 +21,8 @@ import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Customervisithis;
+import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Orders;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
@@ -31,6 +33,7 @@ import com.javaweb.utils.MyErrorPrinter;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.UserSector;
 import com.sun.star.lib.uno.environments.remote.remote_environment;
@@ -191,7 +194,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	@Transactional
-	public boolean newOrderList(Orders orders, List<Personallocate> personallocates,Customervisithis visithis) {
+	public boolean newOrderList(Orders orders, List<Personallocate> personallocates, Customervisithis visithis) {
 		int count = 0;
 		try {
 			// 1.添加接单表
@@ -201,7 +204,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 			orders.setBustatusid(1);
 			orders.setPaystatusid(1);
 			// 添加订单
-			daoFactory.getOrdersMapper().insert(orders); 
+			daoFactory.getOrdersMapper().insert(orders);
 			logger.info("添加订单表成功，订单表的编号为:" + orders.getId());
 			// 2.添加人员分配表
 			for (Personallocate allocate : personallocates) {
@@ -213,7 +216,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 			logger.info("添加订单维修人员和质检人员完毕，一共添加了:" + count + "条记录.");
 			// 3.添加客户来访历史表
 			daoFactory.getCustomervisithisMapper().insert(visithis);
-			logger.info("添加用户到访历史表成功,历史表的编号为:"+visithis.getId());
+			logger.info("添加用户到访历史表成功,历史表的编号为:" + visithis.getId());
 			return true;
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
@@ -226,19 +229,137 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public PagedResult<OrderMaintence> queryMaintanceOrders(String userinfoid, String keyworld, String starttime,
-			String endtime, String sort, String order, String category,Integer pageNo,Integer pageSize,String orderstatus) {	
+			String endtime, String sort, String order, String category, Integer pageNo, Integer pageSize,
+			String orderstatus) {
 		PagedResult<OrderMaintence> ordermaintences = null;
 		try {
 			// 复杂查询
 			pageNo = pageNo == null ? 1 : pageNo;
 			pageSize = pageSize == null ? 10 : pageSize;
-			PageHelper.startPage(pageNo, pageSize); 
-			ordermaintences = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selectOrdersMaint(userinfoid, keyworld, starttime, endtime, sort, order, category,orderstatus));		 
+			PageHelper.startPage(pageNo, pageSize);
+			ordermaintences = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selectOrdersMaint(userinfoid,
+					keyworld, starttime, endtime, sort, order, category, orderstatus));
 			return ordermaintences;
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return null;
+	}
+
+	/**
+	 * 查询所有项目的类别
+	 */
+	@Override
+	public List<Projcategory> queryAllProjCategory() {
+		List<Projcategory> projcategories = null;
+		try {
+			projcategories = daoFactory.getProjcategoryMapper().selectAll();
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return projcategories;
+	}
+
+	/**
+	 * 通过类别的编号查询所有的维修的项目
+	 */
+	@Override
+	public List<Mainitem> queryAllMainItemByCatId(String categoryid) {
+		List<Mainitem> mainitems = null;
+		try {
+			mainitems = daoFactory.getMainitemMapper().selectMainitembyCategory(categoryid);
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return mainitems;
+	}
+
+	/**
+	 * 添加维修项目登记
+	 */
+	@Override
+	public boolean addMainItemRecord(Mainprojreg mainprojreg) {
+		if (mainprojreg == null) {
+			return false;
+		}
+		try {
+			daoFactory.getMainprojregMapper().insert(mainprojreg);
+			return true;
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+			return false;
+		}
+
+	}
+
+	/**
+	 * 根据订单表的编号和用户表的编号来查询汽修人员已经添加过的项目
+	 */
+	@Override
+	public List<MaintProject> queryAllMainregedProj(String ordersid,String userid) {
+		List<MaintProject> maintProjects = null;
+		try {
+			maintProjects = daoFactory.getMainprojregMapper().selectAllMainregedProj(ordersid, userid);
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return maintProjects;
+	}
+
+	
+	/**
+	 * 判断是否已经被质检过
+	 */
+	@Override
+	public boolean checkhasPassed(String mainprojregid) {
+		// 根据id获取到用户登记的信息查看是否已经被质检过
+		Mainprojreg mainprojreg = null;
+		try {
+			mainprojreg = daoFactory.getMainprojregMapper().selectByPrimaryKey(com.javaweb.utils.StringUtils.getIntegerValue(mainprojregid, -1));
+			return (mainprojreg.getHaspassed()=='1');
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return false;
+	}
+
+	/**
+	 * 更新维修登记表
+	 */
+	@Override
+	public boolean updateMainregRecord(Mainprojreg mainprojreg) {
+		if(mainprojreg!=null&mainprojreg.getId()>0){
+			try { 
+				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
+				if(!flag){// 如果还未曾质检
+					daoFactory.getMainprojregMapper().updateByPrimaryKeySelective(mainprojreg);
+					return true;
+				}
+			} catch (Exception e) {
+				logger.error(MyErrorPrinter.getErrorStack(e));
+			}
+		} 
+		return false;
+	}
+
+	
+	/**
+	 * 删除维修登记表
+	 */
+	@Override
+	public boolean deleteMainregRecord(Mainprojreg mainprojreg) {
+		if(mainprojreg!=null&mainprojreg.getId()>0){
+			try { 
+				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
+				if(!flag){// 如果还未曾质检
+					daoFactory.getMainprojregMapper().deleteByPrimaryKey(mainprojreg.getId());
+					return true;
+				}
+			} catch (Exception e) {
+				logger.error(MyErrorPrinter.getErrorStack(e));
+			}
+		} 
+		return false;
 	}
 
 }

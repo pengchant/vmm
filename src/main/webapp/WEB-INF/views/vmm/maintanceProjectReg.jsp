@@ -11,14 +11,30 @@
         .detail td{
             border:solid 1px #a8d7ff;
             border-top:none;
-            border-left:none;
-            padding:4px;
+            border-left:none; 
             text-align: center;
         }
 
         .detail td:nth-child(2n-1){
             color: #3d5e7b;
         }
+        
+        .wxTbl{
+        	margin-top:50px;
+        }
+        
+        .wxTbl tr{
+        	height:30px;
+        }
+        
+        .wxTbl tr td{
+        	height:26px;
+        }
+        
+        .wxTbl td:nth-child(2n-1){
+        	text-align:right;
+        }
+                
     </style>
 </head>
 <body style="padding:5px;">
@@ -28,7 +44,7 @@
             <div class="easyui-layout" fit="true"> 
                 <div region="center" split="true" border="false">
                     <div class="easyui-layout" fit="true">
-                        <div region="north" iconCls="icon-bug" split="true" style="height:60%;" collapsible="false" title="维修任务">
+                        <div region="north" iconCls="icon-bug" split="true" style="height:440px;" collapsible="false" title="维修任务">
                             <!-- 任务窗口 -->
                             <table  id="current" fit="true" border="false">
                             </table>
@@ -48,7 +64,7 @@
                                 &nbsp;&nbsp;<span>结束时间:</span>
                                 <input id="endTime" type="text" value="3/4/2010 8:0" style="width:170px;height:26px;" class="easyui-datebox"  />
                                 &nbsp;&nbsp;<a href="#" iconCls="icon-search" class="easyui-linkbutton" id="selecting">条件查询</a>
-                                <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
+                                <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton" id="refreshtask">刷新</a>
                             </div>
                         </div>
                         <!-- 汽车进场登记详情 -->
@@ -56,23 +72,15 @@
 		                       <table class="detail" cellpadding="0" cellspacing="0" style="width:100%;height:100%;">
 		                         <tr>
 		                             <td style="width:10%;">车主</td>
-		                             <td style="width:20%;"><span id="customername">--</span></td>
-		                             <td style="width:20%;">电话</td>
-		                             <td style="width:20%;"><span id="contactinfo">--</span></td>
-		                             <td style="width:20%;">行驶里程数</td>
+		                             <td style="width:10%;"><span id="customername">--</span></td>
+		                             <td style="width:10%;">电话</td>
+		                             <td style="width:10%;"><span id="contactinfo">--</span></td>
+		                             <td style="width:10%;">行驶里程数</td>
 		                             <td style="width:10%;"><span id="milage">--</span></td>
-		                         </tr>
-		                         <tr>
-		                             <td>发动机号</td>
-		                             <td><span id="vehflag">--</span></td>
-		                             <td>保险日期</td>
-		                             <td colspan="3"><span id="baoxiandate">--</span></td>
-		                         </tr>
-		                         <tr>
-		                             <td>车主联系地址</td>
-		                             <td colspan="5">
-		                                <span id="contactadd">--</span>
-		                             </td>
+		                             <td style="width:10%;">发动机号</td>
+		                             <td style="width:10%;"><span id="vehflag">--</span></td>
+		                             <td style="width:10%;">保险日期</td>
+		                             <td style="width:10%;"><span id="baoxiandate">--</span></td>
 		                         </tr>
 		                         <tr>
 		                             <td>是否查看旧件</td>
@@ -81,35 +89,35 @@
 		                             <td><span id="ifclean">--</span></td>
 		                             <td>是否检查备胎</td>
 		                             <td><span id="ifcheck">--</span></td>
-		                         </tr>
-		                         <tr>
-		                             <td rowspan="2" style="height:60px;">保修的内容</td>
-		                             <td rowspan="2">
-		                                 <span id="baoxiu">--</span>
-		                             </td>
 		                             <td>随车物品</td>
-		                             <td colspan="3">
+		                             <td>
 		                                 <span id="suiche">--</span>
 		                             </td>
-		                         </tr>
-		                         <tr>
 		                             <td>贵重物品</td>
-		                             <td colspan="3">
+		                             <td>
 		                                 <span id="guizhong">--</span>
 		                             </td>
 		                         </tr>
 		                         <tr>
+		                             <td>车主联系地址</td>
+		                             <td colspan="2">
+		                                <span id="contactadd">--</span>
+		                             </td>
+		                             <td>保修的内容</td>
+		                             <td colspan="2">
+		                                 <span id="baoxiu">--</span>
+		                             </td>
 		                             <td>车主描述故障</td>
-		                             <td colspan="5" style="">
+		                             <td colspan="3" style="">
 										 <span id="guzhang">--</span>
 		                             </td>
-		                         </tr>
+		                         </tr> 
 		                   </table>
                         </div>
 
                     </div>
                 </div>
-                <div region="east" style="width:38.2%" split="true" title="维修登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：<span class='currentplatnum' style='color:red;'>--</span>]" iconCls="icon-bullet_wrench">
+                <div region="east" style="width:380px;" split="true" title="维修登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[当前处理的车牌号：<span class='currentplatnum' style='color:red;'>--</span>]" iconCls="icon-bullet_wrench">
                     <div class="easyui-layout" fit="true" border="false" >
                         <div region="north" border="false" split="true" style="height:50%;"
                              title="维修项目登记" collapsible="false" iconCls="icon-layout_edit">
@@ -125,15 +133,14 @@
                                     <th field="firstname" width="50" align="center">编号</th>
                                     <th field="lastname" width="100" align="center">维修项目大类</th>
                                     <th field="phone" width="100" align="center">维修项目名称</th>
-                                    <th field="time" width="50" align="center">工时</th>
-                                    <th field="operation" width="80" align="center">操作</th>
+                                    <th field="time" width="50" align="center">工时</th> 
                                 </tr>
                                 </thead>
                             </table>
                             <div id="toolbar2">
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加维修项目</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改维修项目况</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除维修项目</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newWXProj()">添加维修项目</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editWXProj()">修改维修项目况</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyWXProj()">删除维修项目</a>
                             </div>
                         </div>
                         <div region="center"style="height:50%;" title="维修使用材料登记"
@@ -148,8 +155,7 @@
                                     <th field="firstname" width="50" align="center">编号</th>
                                     <th field="lastname" width="100" align="center">零件大类</th>
                                     <th field="phone" width="100" align="center">零件名称</th>
-                                    <th field="email" width="50" align="center">数量</th>
-                                    <th field="email" width="80" align="center">操作</th>
+                                    <th field="email" width="50" align="center">数量</th> 
                                 </tr>
                                 </thead>
                             </table>
@@ -167,8 +173,81 @@
         <div region="south" style="height:10px;" border="false">
         </div>
     </div>
+    <%-- 维修项目管理模态框 --%> 
+	<div id="dlgWX" class="easyui-dialog" data-options="modal:true"
+		style="width: 350px; height: 300px; padding: 10px 20px;text-align:center;" closed="true"
+		buttons="#dlg-buttonsWX"> 
+		<form id="fmWX" method="post">
+			 <table style="width:300px;" class="wxTbl">
+			 	<tr>
+			 		<td>维修类别</td>
+			 		<td>
+			 			<input id="projcategory" name="projcategory" value="aa"/>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<td>维修项目名称</td>
+			 		<td>
+			 			<input id="projname" name="projname" value="aa"/>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<td>工时</td>
+			 		<td>
+			 			<input type="text" class="easyui-textbox" prompt="请输入工时"/>
+			 		</td>
+			 	</tr>
+			 </table>
+		</form>
+	</div>
+	<div id="dlg-buttonsWX">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+			onclick="saveUser()">保存</a> <a href="#" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#dlgWX').dialog('close')">取消</a>
+	</div> 
+	
+    <%-- 维修使用材料登记 --%>
+    
 	<script type="text/javascript">  
-		$(function(){
+	
+		/**
+		*	当前的订单
+		*/
+		var currentOrder;
+	
+		// 添加维修项目
+		function newWXProj(){
+			// 先判断是当前页面是否已经选择了order
+			if(currentOrder!=null){
+				// 加载所有的类别
+				 
+				$('#dlgWX').dialog('open').dialog('setTitle','添加维修项目');
+			}else{
+				$.messager.alert('操作提示','您还未选择维修订单!','info');
+			}
+		}
+		
+		$(function(){ 
+			
+		   // 维系项目类别
+		   $("#projcategory").combobox({
+			    url:'combobox_data.json',
+			    valueField:'id',
+			    textField:'text'
+		   });
+		   
+		   // 维修项目名称
+		   $("#projname").combobox({
+			   url:'combobox_data.json',
+			   valueField:'id',
+			   textField:'text'
+		   });
+		     
+		   // 重新刷新
+		   $("#refreshtask").click(function(){
+			   $("#current").datagrid('load');
+		   });
+			
 		   // 条件查询
 		   $("#selecting").click(function(){
 			// 获取keyworld
@@ -176,9 +255,9 @@
 			   // 获取任务状态
 			   let orderstatus = $("#orderstatus").combobox('getValue');
 			   // 开始时间
-			   let startTime = $("#startTime").val();
+			   let startTime = $("#startTime").datebox('getValue');
 			   // 结束时间
-			   let endTime = $("#endTime").val();
+			   let endTime = $("#endTime").datebox('getValue');
 			   // 重新加载数据
 			   $("#current").datagrid('load',{
 					keyworld: keyworld,
@@ -204,12 +283,12 @@
 		            {field:'platenum',width:100,align:'center',sortable:true,title:'车牌号'},
 		            {field:'vehname',width:80,align:'center',sortable:true,title:'品牌'},
 		            {field:'carmodel',width:80,align:'center',sortable:true,title:'车型'},
-		            {field:'allocatetime',width:120,align:'center',sortable:true,title:'入场时间',
+		            {field:'allocatetime',width:150,align:'center',sortable:true,title:'入场时间',
 		            	formatter:function(value,row,index){
 		            		return value.substring(0,19);
 		            	}
 		            }, 
-		            {field:'esdeliverytime',width:120,align:'center',sortable:true,title:'计划完工时间',
+		            {field:'esdeliverytime',width:150,align:'center',sortable:true,title:'计划完工时间',
 		            	formatter:function(value,row,index){
 		            		return value.substring(0,19);
 		            	}
@@ -222,7 +301,9 @@
 		                }
 		            }
 		        ]],
-		        onClickRow:function(index,row){	        	       
+		        onClickRow:function(index,row){	
+		        	// 获取当前选中的orderid
+		        	currentOrder = row.ordersid;
 		        	// 汽车牌号
 		        	$(".currentplatnum").empty().append(row.platenum);
 		        	// 车主
@@ -255,5 +336,6 @@
 		   });
 		});
 	</script>
+ 
 </body>
 </html>

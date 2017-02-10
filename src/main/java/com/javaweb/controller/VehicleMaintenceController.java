@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Customervisithis;
+import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.impl.ServiceFactory;
@@ -35,6 +38,7 @@ import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.LoginBean;
+import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderList;
 import com.javaweb.views.OrderMaintence;
 
@@ -267,4 +271,52 @@ public class VehicleMaintenceController extends BaseController {
 		}
 		return responseFail("获取任务失败!");
 	}
+	
+	/**
+	 * 维修项目登记管理功能  			路径变量operation:addMP(添加),modMP(修改),delMP(删除),queMP(查询),
+	 * 							isvad(是否已经质检过)
+	 * 							gtCT（获取维修的大类）,getIM(根据维修项目大类下查询维修项目)
+	 * @param request			request请求对象
+	 * @param maintProject		维修项目实体 
+	 * @return					操作后的json字符串
+	 */
+	@RequestMapping("/mainprojrecord/{operation}")
+	@ResponseBody
+	public String addMaintRegRecord(HttpServletRequest request,Mainprojreg maintProject,@PathVariable("operation")String operation){
+		boolean flag = false;
+		String failStr = "暂时无法提供服务，请稍后重试!";
+		if(org.apache.commons.lang.StringUtils.equals(operation, "addMP")){
+			// 添加
+			flag = serviceFactory.getVehicleMaintence().addMainItemRecord(maintProject);
+			return flag?responseSuccess(null, "添加成功!"):responseFail(failStr);
+		}else if(org.apache.commons.lang.StringUtils.equals(operation, "modMP")){
+			// 修改
+			flag = serviceFactory.getVehicleMaintence().updateMainregRecord(maintProject);
+			return flag?responseSuccess(null, "修改成功!"):responseFail(failStr);
+		}else if(org.apache.commons.lang.StringUtils.equals(operation, "delMP")){
+			// 删除
+			flag = serviceFactory.getVehicleMaintence().deleteMainregRecord(maintProject);
+			return flag?responseSuccess(null,"删除成功!"):responseFail(failStr);			
+		}else if(org.apache.commons.lang.StringUtils.equals(operation, "queMP")){
+			// 查询
+			List<MaintProject> maintProjects = serviceFactory.getVehicleMaintence().queryAllMainregedProj(maintProject.getOrdersid()+"", maintProject.getRegperson());
+			return responseArraySuccess(maintProjects);
+		} else if(org.apache.commons.lang.StringUtils.equals(operation, "isvad")){
+			// 是否已经质检过
+			flag = serviceFactory.getVehicleMaintence().checkhasPassed(maintProject.getId()+"");
+			return responseSuccess(flag);
+		}else if(org.apache.commons.lang.StringUtils.equals(operation, "gtCT")){
+			// 查询所有大类
+			List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryAllProjCategory();
+			return responseArraySuccess(projcategories);
+		}else if(org.apache.commons.lang.StringUtils.equals(operation, "getIM")){
+			// 查询大类下的所有的子类
+			String q = request.getParameter("q");
+			List<Mainitem> mainitems = serviceFactory.getVehicleMaintence().queryAllMainItemByCatId(q);
+			return responseArraySuccess(mainitems);
+		}
+		return responseFail("暂不提供该服务，请稍后重试!");
+	}
+	
+	
 }
