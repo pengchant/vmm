@@ -7,7 +7,8 @@ package com.javaweb.views;
  *
  */
 public class MaintProject {
-	private String orderid;// 订单表的编号
+	private String mainprojregid;// 登记表编号
+	private String ordersid;// 订单表的编号
 	private String mainprojid;// 维修项目编号
 	private String mainproj;// 维修项目
 	private String mainprojcateid;// 维修项目类别编号
@@ -18,12 +19,20 @@ public class MaintProject {
 	private String mainstatus;// 维修的状态
 	private String haspassed;// 是否通过质检
 
-	public String getOrderid() {
-		return orderid;
+	public String getMainprojregid() {
+		return mainprojregid;
 	}
 
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setMainprojregid(String mainprojregid) {
+		this.mainprojregid = mainprojregid;
+	}
+
+	public String getOrdersid() {
+		return ordersid;
+	}
+
+	public void setOrdersid(String ordersid) {
+		this.ordersid = ordersid;
 	}
 
 	public String getMainprojid() {

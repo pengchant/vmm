@@ -2,6 +2,8 @@ package com.javaweb.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.javaweb.entity.Mainprojreg;
 import com.javaweb.views.MaintProject;
 
@@ -24,5 +26,5 @@ public interface MainprojregMapper {
      * @param userid		用户的编号
      * @return
      */
-    List<MaintProject> selectAllMainregedProj(String ordersid,String userid);
+    List<MaintProject> selectAllMainregedProj(@Param("ordersid")String ordersid,@Param("userid")String userid);
 }

@@ -298,7 +298,7 @@
 	<!-- 订单维修查询 -->
 	<select id="selectOrdersMaint" resultType="com.javaweb.views.OrderMaintence">
 		SELECT DISTINCT orders.id as ordersid,
-		personallocate.taskcategory,
+		personallocate.taskcategory, 
 		personallocate.userinfoid,
 		orders.customerid as customerid,
 		orders.vehicleid as vehicleid,

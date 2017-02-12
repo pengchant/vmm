@@ -44,7 +44,7 @@
             <div class="easyui-layout" fit="true"> 
                 <div region="center" split="true" border="false">
                     <div class="easyui-layout" fit="true">
-                        <div region="north" iconCls="icon-bug" split="true" style="height:440px;" collapsible="false" title="维修任务">
+                        <div region="north" iconCls="icon-bug" split="true" style="height:70%;" collapsible="false" title="维修任务">
                             <!-- 任务窗口 -->
                             <table  id="current" fit="true" border="false">
                             </table>
@@ -122,25 +122,28 @@
                         <div region="north" border="false" split="true" style="height:50%;"
                              title="维修项目登记" collapsible="false" iconCls="icon-layout_edit">
                             <!-- 维修项目登记 -->
-                            <table id="dg1" fit="true" class="easyui-datagrid"
+                            <table id="dgWX" fit="true" class="easyui-datagrid"
                                    style="border-top:none;
-                                    border-left:none;border-right:none;"
-                                   url="get_users.php"
-                                   toolbar="#toolbar2"
+                                    border-left:none;border-right:none;" 
+                                   toolbar="#toolbarWX"
                                    rownumbers="true" singleSelect="true">
                                 <thead>
-                                <tr>
-                                    <th field="firstname" width="50" align="center">编号</th>
-                                    <th field="lastname" width="100" align="center">维修项目大类</th>
-                                    <th field="phone" width="100" align="center">维修项目名称</th>
-                                    <th field="time" width="50" align="center">工时</th> 
+                                <tr> 
+                               		<th field="mainproj" width="100" align="center">维修项目名称</th>
+                                    <th field="mainprojcate" hidden="true" width="100" align="center">维修项目大类</th>                                   
+                                    <th field="totalhours" width="50" align="center">工时</th>
+                                    <th field="regdatetime" width="100" align="center">创建的时间</th> 
+                                    <th field="mainstatus" width="80" align="center">维修项目的状态</th>  
+                                    <th field="haspassed" hidden="true" width="80" align="center">是否通过</th>
+                                    <th field="mainprojregid" hidden="true" width="80" align="center">记录的编号</th>
                                 </tr>
                                 </thead>
                             </table>
-                            <div id="toolbar2">
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newWXProj()">添加维修项目</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editWXProj()">修改维修项目况</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyWXProj()">删除维修项目</a>
+                            <div id="toolbarWX">
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newWXProj()">添加</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editWXProj()">修改</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyWXProj()">删除</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-arrow_refresh" plain="true" onclick="reloadWXProj()">更新</a>
                             </div>
                         </div>
                         <div region="center"style="height:50%;" title="维修使用材料登记"
@@ -181,20 +184,23 @@
 			 <table style="width:300px;" class="wxTbl">
 			 	<tr>
 			 		<td>维修类别</td>
-			 		<td>
-			 			<input id="projcategory" name="projcategory" value="aa"/>
+			 		<td> 
+			 			<input type="hidden" name="ordersid" id="ordersid"/>
+			 			<input data-options="required:true,validateOnCreate:false" name="ordersid" prompt="请选择维修的类别" style="width:150px;height:30px;" id="projcategory" name="projcategory" />
 			 		</td>
 			 	</tr>
 			 	<tr>
 			 		<td>维修项目名称</td>
 			 		<td>
-			 			<input id="projname" name="projname" value="aa"/>
+			 			<%-- mainitemid --%>
+			 			<input data-options="required:true,validateOnCreate:false" name="mainitemid" prompt="请选择维修项目的名称"  style="width:150px;height:30px;" id="projname" name="projname" />
 			 		</td>
 			 	</tr>
 			 	<tr>
 			 		<td>工时</td>
 			 		<td>
-			 			<input type="text" class="easyui-textbox" prompt="请输入工时"/>
+			 			<%-- spenttime --%>
+			 			<input data-options="required:true,validateOnCreate:false" id="spenttime" name="spenttime" prompt="请填写工时" style="width:150px;height:30px;" type="text" class="easyui-textbox"/>
 			 		</td>
 			 	</tr>
 			 </table>
@@ -202,47 +208,182 @@
 	</div>
 	<div id="dlg-buttonsWX">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
-			onclick="saveUser()">保存</a> <a href="#" class="easyui-linkbutton"
+			onclick="mainitemReg()">保存</a> <a href="#" class="easyui-linkbutton"
 			iconCls="icon-cancel" onclick="javascript:$('#dlgWX').dialog('close')">取消</a>
 	</div> 
 	
     <%-- 维修使用材料登记 --%>
     
 	<script type="text/javascript">  
-	
-		/**
+	  
+		// 维修
+	    var wxpojurl;
+	 
+	    /**
 		*	当前的订单
 		*/
 		var currentOrder;
 	
+		
+		// 维修项目确定按钮
+		function mainitemReg(){
+			$.messager.progress();	 
+			$('#fmWX').form('submit', {
+				url: wxpojurl,
+				onSubmit: function(){
+					var isValid = $(this).form('validate');
+					if (!isValid){
+						$.messager.progress('close'); 
+					}
+					return isValid;	 
+				},
+				success: function(data){					 
+					$.messager.progress('close');
+					/**
+		        	*	加载登记的维修项目
+		        	*/ 
+		            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+		            	// 把获取到的数据放到datagrid中		          
+			        	$("#dgWX").datagrid('loadData',data);
+		            }); 
+					data = JSON.parse(data);
+					$.messager.alert('操作提示',data.errorMsg,'info');
+					$('#dlgWX').dialog('close');
+				}
+			});
+		}
+		 
+	  
 		// 添加维修项目
 		function newWXProj(){
 			// 先判断是当前页面是否已经选择了order
 			if(currentOrder!=null){
-				// 加载所有的类别
-				 
+				$("#spenttime").textbox('setValue','');
+				// 加载所有的类别 
+				loadCombox();
 				$('#dlgWX').dialog('open').dialog('setTitle','添加维修项目');
+				wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/addMP.html";
+				// 获取ordersid
+				$("#ordersid").val(currentOrder); 
 			}else{
 				$.messager.alert('操作提示','您还未选择维修订单!','info');
 			}
 		}
 		
-		$(function(){ 
-			
-		   // 维系项目类别
-		   $("#projcategory").combobox({
-			    url:'combobox_data.json',
-			    valueField:'id',
-			    textField:'text'
-		   });
+		// 修改维修项目
+		function editWXProj(){
+			if(currentOrder!=null){
+				let row = $("#dgWX").datagrid("getSelected");
+				if(row!=null){
+					if(row.haspassed=='0'){
+						// 加载所有的类别 
+						loadCombox();
+						// 设置值
+						$("#projcategory").combobox('select',row.mainprojcateid);
+						$("#projname").combobox('select',row.mainprojid);
+						$("#spenttime").textbox('setValue',row.totalhours);
+						// 重新加载数据
+						$('#dlgWX').dialog('open').dialog('setTitle','修改维修项目');
+						wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/modMP.html?id="+row.mainprojregid;
+						// 获取ordersid
+						$("#ordersid").val(currentOrder);
+					}else{
+						$.messager.alert('操作提示','该维修项目已经通过质检，您不能修改!','info');
+					} 
+				}else{
+					$.messager.alert("操作提示","您还未选择要修改的维修项目!",'info');
+				}
+			}else{
+				$.messager.alert('操作提示','您还未选择维修订单!','info');
+			}
+		}
+		
+	   // 删除维修项目
+	   function destroyWXProj(){
+		   if(currentOrder!=null){
+			   let row = $("#dgWX").datagrid("getSelected");		   
+			   if(row!=null){ 
+				   $.messager.confirm('确定','你确定要删除吗?',function(r){
+					   if(r){ 
+						   $.messager.progress();	
+						   $.ajax({
+							   url:"${pageContext.request.contextPath}/vehicle/mainprojrecord/delMP.html",
+							   data:{
+								  id:row.mainprojregid
+							   },
+							   type:"POST",
+							   dataType : "json"
+						   }).done(function(data){ 
+							   $.messager.alert('操作提示',data.errorMsg,'info');
+							   $.messager.progress('close');
+							   /**
+					        	*	加载登记的维修项目
+					        	*/ 
+					            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+					            	// 把获取到的数据放到datagrid中		          
+						        	$("#dgWX").datagrid('loadData',data);					            	
+					            }); 
+						   });
+					   }
+				   });
+			   }else{
+				   $.messager.alert('操作提示','您还未选择要删除的维修项目!','info');
+			   }
+		   }else{
+			   $.messager.alert('提示信息','您还未选择维修订单!','info');
+		   }
+		   
+	   }
+	   
+	   function reloadWXProj(){
+		   if(currentOrder!=null){
+			   $.messager.alert('操作提示','更新成功!','info');
+			   /**
+	        	*	加载登记的维修项目
+	        	*/ 
+	            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+	            	// 把获取到的数据放到datagrid中		          
+		        	$("#dgWX").datagrid('loadData',data);					            	
+	            }); 
+		   }else{
+			   $.messager.alert('操作提示','请先选择维修任务!','info');
+		   }
+	   }
+	   
+		
+	   /**
+	   *	加载维修项目的内容
+	   */
+	   function loadCombox(){
+		   // 清空工时
+		   $("#spenttime").val("");
 		   
 		   // 维修项目名称
-		   $("#projname").combobox({
-			   url:'combobox_data.json',
+		   $("#projname").combobox({ 
 			   valueField:'id',
-			   textField:'text'
+			   readOnly:true,
+			   textField:'projname' 
 		   });
-		     
+		   
+			// 维系项目类别
+		   $("#projcategory").combobox({
+			    url:'${pageContext.request.contextPath}/vehicle/mainprojrecord/gtCT.html',
+			    valueField:'id',
+			    textField:'projname',
+			    readOnly:true, 
+			    onSelect:function(record){  
+			    	$('#projname').combobox('clear');
+			    	if(record!=null||record!=undefined){
+			    		let url = '${pageContext.request.contextPath}/vehicle/mainprojrecord/getIM.html?q='+record.id;
+			            $('#projname').combobox('reload', url);
+			    	} 
+				}  
+		   });
+		    
+	   }
+		
+		$(function(){ 
+			 
 		   // 重新刷新
 		   $("#refreshtask").click(function(){
 			   $("#current").datagrid('load');
@@ -301,7 +442,7 @@
 		                }
 		            }
 		        ]],
-		        onClickRow:function(index,row){	
+		        onDblClickRow:function(index,row){	
 		        	// 获取当前选中的orderid
 		        	currentOrder = row.ordersid;
 		        	// 汽车牌号
@@ -332,6 +473,14 @@
 		        	$("#guizhong").empty().append(row.valuableobj);
 		        	// 故障
 		        	$("#guzhang").empty().append(row.ownerdescribtion);
+		        	
+		        	/**
+		        	*	加载登记的维修项目
+		        	*/ 
+		            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+		            	// 把获取到的数据放到datagrid中		            
+			        	$("#dgWX").datagrid('loadData',data);
+		            });  
 		        }
 		   });
 		});

@@ -134,6 +134,7 @@
 		mainitem.projName AS mainproj,
 		projcategory.id AS mainprojcateid,
 		projcategory.projname AS mainprojcate,
+		mainprojreg.id as mainprojregid,
 		mainprojreg.regperson AS recpter,
 		mainprojreg.regtime AS regdatetime,
 		mainprojreg.spenttime AS totalhours,
@@ -141,13 +142,13 @@
 		mainprojreg.haspassed AS haspassed
 	FROM
 		mainprojreg
-	LEFT JOIN orders ON (
+	JOIN orders ON (
 		orders.id = mainprojreg.ordersid
 	)
-	LEFT JOIN mainitem ON (
+	JOIN mainitem ON (
 		mainprojreg.mainitemid = mainitem.id
 	)
-	LEFT JOIN projcategory ON (
+	JOIN projcategory ON (
 		mainitem.projcategoryid = projcategory.id
 	)
 	<where>

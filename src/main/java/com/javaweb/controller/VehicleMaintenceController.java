@@ -285,35 +285,58 @@ public class VehicleMaintenceController extends BaseController {
 	public String addMaintRegRecord(HttpServletRequest request,Mainprojreg maintProject,@PathVariable("operation")String operation){
 		boolean flag = false;
 		String failStr = "暂时无法提供服务，请稍后重试!";
-		if(org.apache.commons.lang.StringUtils.equals(operation, "addMP")){
-			// 添加
-			flag = serviceFactory.getVehicleMaintence().addMainItemRecord(maintProject);
-			return flag?responseSuccess(null, "添加成功!"):responseFail(failStr);
-		}else if(org.apache.commons.lang.StringUtils.equals(operation, "modMP")){
-			// 修改
-			flag = serviceFactory.getVehicleMaintence().updateMainregRecord(maintProject);
-			return flag?responseSuccess(null, "修改成功!"):responseFail(failStr);
-		}else if(org.apache.commons.lang.StringUtils.equals(operation, "delMP")){
-			// 删除
-			flag = serviceFactory.getVehicleMaintence().deleteMainregRecord(maintProject);
-			return flag?responseSuccess(null,"删除成功!"):responseFail(failStr);			
-		}else if(org.apache.commons.lang.StringUtils.equals(operation, "queMP")){
-			// 查询
-			List<MaintProject> maintProjects = serviceFactory.getVehicleMaintence().queryAllMainregedProj(maintProject.getOrdersid()+"", maintProject.getRegperson());
-			return responseArraySuccess(maintProjects);
-		} else if(org.apache.commons.lang.StringUtils.equals(operation, "isvad")){
-			// 是否已经质检过
-			flag = serviceFactory.getVehicleMaintence().checkhasPassed(maintProject.getId()+"");
-			return responseSuccess(flag);
-		}else if(org.apache.commons.lang.StringUtils.equals(operation, "gtCT")){
-			// 查询所有大类
-			List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryAllProjCategory();
-			return responseArraySuccess(projcategories);
-		}else if(org.apache.commons.lang.StringUtils.equals(operation, "getIM")){
-			// 查询大类下的所有的子类
-			String q = request.getParameter("q");
-			List<Mainitem> mainitems = serviceFactory.getVehicleMaintence().queryAllMainItemByCatId(q);
-			return responseArraySuccess(mainitems);
+		try {
+			if(org.apache.commons.lang.StringUtils.equals(operation, "addMP")){
+				// 添加
+				short haspassed = 0;
+				maintProject.setHaspassed(haspassed);
+				maintProject.setMainstatus("已登记");
+				LoginBean loginBean = (LoginBean) request.getSession().getAttribute("user");
+				maintProject.setRegperson(loginBean.getUserinfoid());
+				maintProject.setRegtime(new Date()); 
+				flag = serviceFactory.getVehicleMaintence().addMainItemRecord(maintProject);
+				return flag?responseSuccess(null, "添加成功!"):responseFail(failStr);
+			}else if(org.apache.commons.lang.StringUtils.equals(operation, "modMP")){
+				// 修改
+				flag = serviceFactory.getVehicleMaintence().checkhasPassed(maintProject.getId()+"");
+				if(flag){
+					return responseFail("对不起改维修项目已经通过质检,您不能修改!"); 
+				}else{
+					flag = serviceFactory.getVehicleMaintence().updateMainregRecord(maintProject);
+					return flag?responseSuccess(null, "修改成功!"):responseFail(failStr);
+				} 
+			}else if(org.apache.commons.lang.StringUtils.equals(operation, "delMP")){
+				// 删除
+				flag = serviceFactory.getVehicleMaintence().checkhasPassed(maintProject.getId()+"");
+				if(flag){
+					return responseFail("对不起改维修项目已经通过质检,您不能删除!");
+				}else{
+					flag = serviceFactory.getVehicleMaintence().deleteMainregRecord(maintProject);
+					return flag?responseSuccess(null,"删除成功!"):responseFail(failStr);	
+				} 	
+			}else if(org.apache.commons.lang.StringUtils.equals(operation, "queMP")){
+				// 查询
+				String ordersid = request.getParameter("ordersid");
+				LoginBean loginBean = (LoginBean) request.getSession().getAttribute("user");
+				maintProject.setRegperson(loginBean.getUserinfoid());
+				List<MaintProject> maintProjects = serviceFactory.getVehicleMaintence().queryAllMainregedProj(ordersid, maintProject.getRegperson());
+				return responseArraySuccess(maintProjects);
+			} else if(org.apache.commons.lang.StringUtils.equals(operation, "isvad")){
+				// 是否已经质检过
+				flag = serviceFactory.getVehicleMaintence().checkhasPassed(maintProject.getId()+"");
+				return responseSuccess(flag);
+			}else if(org.apache.commons.lang.StringUtils.equals(operation, "gtCT")){
+				// 查询所有大类
+				List<Projcategory> projcategories = serviceFactory.getVehicleMaintence().queryAllProjCategory();
+				return responseArraySuccess(projcategories);
+			}else if(org.apache.commons.lang.StringUtils.equals(operation, "getIM")){
+				// 查询大类下的所有的子类
+				String q = request.getParameter("q");
+				List<Mainitem> mainitems = serviceFactory.getVehicleMaintence().queryAllMainItemByCatId(q);
+				return responseArraySuccess(mainitems);
+			}
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return responseFail("暂不提供该服务，请稍后重试!");
 	}

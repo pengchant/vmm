@@ -283,7 +283,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 			return false;
 		}
 		try {
-			daoFactory.getMainprojregMapper().insert(mainprojreg);
+			daoFactory.getMainprojregMapper().insertSelective(mainprojreg);
 			return true;
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
@@ -316,7 +316,11 @@ public class VehicleMaintence implements IVehicleMaintence {
 		Mainprojreg mainprojreg = null;
 		try {
 			mainprojreg = daoFactory.getMainprojregMapper().selectByPrimaryKey(com.javaweb.utils.StringUtils.getIntegerValue(mainprojregid, -1));
-			return (mainprojreg.getHaspassed()=='1');
+			if (mainprojreg!=null) {
+				return StringUtils.equals(mainprojreg.getHaspassed()+"", "1");
+			}else{
+				return false;
+			} 
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
@@ -328,7 +332,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public boolean updateMainregRecord(Mainprojreg mainprojreg) {
-		if(mainprojreg!=null&mainprojreg.getId()>0){
+		if(mainprojreg!=null&&mainprojreg.getId()>0){
 			try { 
 				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
 				if(!flag){// 如果还未曾质检
@@ -348,12 +352,12 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public boolean deleteMainregRecord(Mainprojreg mainprojreg) {
-		if(mainprojreg!=null&mainprojreg.getId()>0){
+		if(mainprojreg!=null&&mainprojreg.getId()!=null){
 			try { 
 				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
 				if(!flag){// 如果还未曾质检
-					daoFactory.getMainprojregMapper().deleteByPrimaryKey(mainprojreg.getId());
-					return true;
+					int t = daoFactory.getMainprojregMapper().deleteByPrimaryKey(mainprojreg.getId());
+					return (t>0);
 				}
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
