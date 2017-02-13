@@ -452,7 +452,9 @@
 					$.messager.alert("操作提示","您还未选择要修改的维修项目!",'info');
 				}
 			}else{
-				$.messager.alert('操作提示','您还未选择维修订单!','info');
+				$.messager.alert('操作提示'
+				
+				,'您还未选择维修订单!','info');
 			}
 		}
 		
@@ -465,7 +467,7 @@
 					   if(r){ 
 						   $.messager.progress();	
 						   $.ajax({
-							   url:"${pageContext.request.contextPath}/vehicle/mainprojrecord/delMP.html",
+							   url:"${pageContext.request.contextPath..}/vehicle/mainprojrecord/delMP.html",
 							   data:{
 								  id:row.mainprojregid
 							   },
