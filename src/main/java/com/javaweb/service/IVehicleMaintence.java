@@ -9,6 +9,7 @@ import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Orders;
+import com.javaweb.entity.Partused;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
@@ -17,6 +18,8 @@ import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartsInfo;
 
 /**
  * 汽车维修服务
@@ -158,4 +161,43 @@ public interface IVehicleMaintence {
 	 * @return				返回是否已经别成功删除
 	 */
 	boolean deleteMainregRecord(Mainprojreg mainprojreg);
+	
+	/**
+	 * 分页查询所有的零件的信息
+	 * @param parname		维修零件的信息
+	 * @param pageNo 		当前页数
+	 * @param pageSize 		页面的大小
+	 * @return				零件的信息列表
+	 */
+	PagedResult<PartsInfo> queryAllPartinfo(String parname,Integer pageNo,Integer pageSize);
+	
+	
+	/**
+	 * 添加零件使用登记
+	 * @param partused		零件使用登记实体
+	 * @return				零件使用登记实体的结果
+	 */
+	boolean addPartRegtion(Partused partused);
+	
+	/**
+	 * 根据零件使用登记的编号来删除零件使用登记
+	 * @param partusedid	零件使用登记表的编号
+	 * @return				操作的结果
+	 */
+	boolean removePartRegtion(Integer partusedid);
+	
+	/**
+	 * 检查是否已经领取过
+	 * @param partusedid	零件使用登记表的编号
+	 * @return				操作的结果
+	 */
+	boolean checkIfTooked(Integer partusedid);
+	
+	/**
+	 * 查询用户已经登记过的信息
+	 * @param ordersid		订单的编号
+	 * @param userid		用户的编号
+	 * @return				用户已经登记过零件的信息
+	 */
+	List<PartUsedInfo> queryAllRegedPart(String ordersid,String userid);
 }

@@ -150,4 +150,31 @@
       supplierid = #{supplierid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询零件信息 -->
+  <select id="selectParts" resultType="com.javaweb.views.PartsInfo">
+	 SELECT
+		p.partnumbering,
+		p.id AS partid,
+		p.partname,
+		c.id AS categoryid,
+		c.numbering as catenumbering,
+		c.partcategory,
+		p.specifications,
+		s.supplierName,
+		s.contacts,
+		s.contactInfo,
+		p.salesprice,
+		p.partflag
+	FROM
+		part AS p
+	JOIN partcategory AS c ON (p.partcategoryid = c.id)
+	JOIN supplier AS s ON (s.id = p.supplierid)
+	<where>
+		p.partflag = '1'
+		<if test="keyworld!=null and keyworld!=''">
+			and p.partname like concat('%',#{keyworld},'%')
+		</if>
+	</where> 
+  </select>
 </mapper>

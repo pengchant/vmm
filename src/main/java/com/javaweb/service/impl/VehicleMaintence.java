@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.mail.Flags.Flag;
 import javax.persistence.criteria.Order;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +25,7 @@ import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Orders;
+import com.javaweb.entity.Partused;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
@@ -35,6 +37,8 @@ import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartsInfo;
 import com.javaweb.views.UserSector;
 import com.sun.star.lib.uno.environments.remote.remote_environment;
 
@@ -364,6 +368,88 @@ public class VehicleMaintence implements IVehicleMaintence {
 			}
 		} 
 		return false;
+	}
+
+	
+	/**
+	 * 分页查询零件的信息
+	 */
+	@Override
+	public PagedResult<PartsInfo> queryAllPartinfo(String partname,Integer pageNo,Integer pageSize) {
+		PagedResult<PartsInfo> pagedResult = null;
+		try {
+			// 复杂查询
+			pageNo = pageNo == null ? 1 : pageNo;
+			pageSize = pageSize == null ? 10 : pageSize;
+			PageHelper.startPage(pageNo, pageSize);
+			pagedResult = BeanUtil.topagedResult(daoFactory.getPartMapper().selectParts(partname));
+		} catch (Exception e) {
+			 logger.error(MyErrorPrinter.getErrorStack(e));
+		}   
+		return pagedResult;
+	}
+
+	
+	/**
+	 * 添加零件使用登记的实体
+	 */
+	@Override
+	public boolean addPartRegtion(Partused partused) {
+		boolean flag = false;
+		try {
+			flag = daoFactory.getPartusedMapper().insertSelective(partused)>0;
+		} catch (Exception e) {
+			 logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return flag;
+	}
+
+	/**
+	 * 删除零件使用登记实体
+	 */
+	@Override
+	public boolean removePartRegtion(Integer partusedid) {
+		boolean flag = false;
+		try {
+			flag = daoFactory.getPartusedMapper().deleteByPrimaryKey(partusedid)>0;
+		} catch (Exception e) {
+			 logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return flag;
+	}
+
+	/**
+	 * 检查是否已经领取过
+	 */
+	@Override
+	public boolean checkIfTooked(Integer partusedid) {
+		boolean flag = false;
+		try {
+			Partused partused = daoFactory.getPartusedMapper().selectByPrimaryKey(partusedid);
+			if(partused!=null&&partused.getReceivednum()!=null&&partused.getReceivednum()>0){
+				return true;
+			}
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return false;
+	}
+
+	
+	/**
+	 * 查询已经登记过的零件信息
+	 */
+	@Override
+	public List<PartUsedInfo> queryAllRegedPart(String ordersid, String userid) {
+		List<PartUsedInfo> partUsedInfos = null;
+		try {
+			if(StringUtils.isNotBlank(ordersid)&&StringUtils.isNotBlank(userid)){
+				partUsedInfos = daoFactory.getPartusedMapper().selectHasSelectedPart(ordersid, userid);
+			}
+		} catch (Exception e) {
+		    logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return partUsedInfos;
 	}
 
 }

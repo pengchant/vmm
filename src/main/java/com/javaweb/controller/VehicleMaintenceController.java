@@ -6,7 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
+import javax.xml.registry.infomodel.ServiceBinding;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,13 @@ import com.javaweb.entity.Customer;
 import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Mainprojreg;
+import com.javaweb.entity.Partused;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
 import com.javaweb.utils.MyErrorPrinter;
+import com.javaweb.utils.MyWebUtils;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
@@ -41,6 +46,8 @@ import com.javaweb.views.LoginBean;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderList;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartsInfo;
 
 /**
  * 汽车修理模块控制器
@@ -240,7 +247,7 @@ public class VehicleMaintenceController extends BaseController {
 	 */
 	@RequestMapping("/getTasks")
 	@ResponseBody
-	public String queryAllTasks(HttpServletRequest request, Model model) {
+	public String queryAllTasks(HttpServletRequest request) {
 		try {
 			String userinfoid;// 用户信息的编号
 			String keyworld = request.getParameter("keyworld");// 关键字
@@ -249,8 +256,8 @@ public class VehicleMaintenceController extends BaseController {
 			String sort = request.getParameter("sort");// 排序字段
 			String order = request.getParameter("order");// 排序方式
 			String category = request.getParameter("category");// 类别
-			String pageNo = request.getParameter("pageNo");// 页数
-			String pageSize = request.getParameter("pageSize");// 页面大小
+			String pageNo = request.getParameter("page");// 页数
+			String pageSize = request.getParameter("rows");// 页面大小
 			String orderstatus = request.getParameter("orderstatus");// 订单的状态
 			orderstatus = orderstatus!=null?orderstatus:"1";// 任务状态默认为未曾完成的维修单
 			LoginBean user = (LoginBean) request.getSession().getAttribute("user");
@@ -341,5 +348,70 @@ public class VehicleMaintenceController extends BaseController {
 		return responseFail("暂不提供该服务，请稍后重试!");
 	}
 	
+	/**
+	 * 查询所有的零件
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryAllParts")
+	@ResponseBody
+	public String queryAllParts(HttpServletRequest request){
+		String pageNo = request.getParameter("page");
+		String pageSize = request.getParameter("rows");
+		Integer pageNoer = StringUtils.getIntegerValue(pageNo, 1);
+		Integer pageSizer = StringUtils.getIntegerValue(pageSize, 10);
+		String q = request.getParameter("q");	
+		PagedResult<PartsInfo> pagedResult = serviceFactory.getVehicleMaintence().queryAllPartinfo(q, pageNoer, pageSizer);		 
+		return pagedResult!=null?responseSuccess(pagedResult):responseFail("对不起暂时不提供服务，稍后重试!");
+	}
 	
+	/**
+	 * 添加零件使用登记	operation:pmAD添加零件使用登记，pmRM:删除零件使用登记,pmQU:查询已经添加的零件
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/partsMana/{operation}")
+	@ResponseBody
+	public String partsManage(HttpServletRequest request,Partused partused,@PathVariable("operation")String operation){ 
+		if("pmAD".equals(operation)){
+			// 添加零件使用登记
+			LoginBean user = MyWebUtils.getCurrentUser(request);
+			if(user!=null){
+				boolean flag = false;
+				partused.setApplicant(user.getUsername());
+				partused.setJobnumber(user.getJobnumber());
+				// concatinfo 为userinfoid
+				partused.setConcatinfo(user.getUserinfoid());
+				partused.setApplicattime(new Date());
+				partused.setReceivednum(0d);
+				partused.setReceivestatus("已登记");
+				flag = serviceFactory.getVehicleMaintence().addPartRegtion(partused);
+				return flag?responseSuccess(null,"添加成功!"):responseFail("添加失败，请稍后重试!");
+			}else{
+				return responseFail("对不起，您的登录已经过期，请重新登录!");
+			}
+		}else if("pmRM".equals(operation)){
+			String partusedid = request.getParameter("partuseid");
+			// 删除零件使用登记 
+			boolean flag = serviceFactory.getVehicleMaintence().checkIfTooked(StringUtils.getIntegerValue(partusedid, -1));
+			if(!flag){ 
+				flag = serviceFactory.getVehicleMaintence().removePartRegtion(StringUtils.getIntegerValue(partusedid, -1));
+				return flag?responseSuccess(null,"删除成功!"):responseFail("删除失败，请稍后重试!");
+			}else{
+				return responseFail("对不起，您已经领取了该材料不能删除！");
+			}
+		}else if("pmQU".equals(operation)){
+			LoginBean user = MyWebUtils.getCurrentUser(request);
+			if(user!=null){
+				// 查询当前用户已经登记过的零件信息
+				String userid = user.getUserinfoid();
+				String ordersid = request.getParameter("ordersid");
+				List<PartUsedInfo> partUsedInfos = serviceFactory.getVehicleMaintence().queryAllRegedPart(ordersid, userid);
+			    return  responseArraySuccess(partUsedInfos);
+			}else{
+				return responseFail("对不起，您的登录已经过期，请重新登录!");
+			} 
+		}
+		return responseFail("暂时不提供该服务，请稍后重试!");
+	}
 }

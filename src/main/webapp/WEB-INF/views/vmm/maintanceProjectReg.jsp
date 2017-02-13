@@ -149,23 +149,24 @@
                         <div region="center"style="height:50%;" title="维修使用材料登记"
                              iconCls="icon-layout_add">
                             <!-- 维修使用材料登记 -->
-                            <table  id="dg" fit="true" border="false" class="easyui-datagrid"
-                                   url="get_users.php"
-                                   toolbar="#toolbar"
-                                   rownumbers="true"   singleSelect="true">
+                            <table id="dgYL" fit="true" border="false" class="easyui-datagrid"  toolbar="#toolbar"
+                                   rownumbers="true" singleSelect="true">
                                 <thead>
-                                <tr>
-                                    <th field="firstname" width="50" align="center">编号</th>
-                                    <th field="lastname" width="100" align="center">零件大类</th>
-                                    <th field="phone" width="100" align="center">零件名称</th>
-                                    <th field="email" width="50" align="center">数量</th> 
+                                <tr> 
+                                	<th field="partusedid" hidden="true" width="50" align="center">登记编号</th>
+                                    <th field="partname" width="100" align="center">零件</th>
+                                     <th field="receivednum" width="50" align="center">已领</th>
+                                    <th field="registedspecnum" width="50" align="center">登记</th> 
+                                    <th field="applicattime" width="130" align="center" data-options="formatter:function(value,row,index){
+                                    	return value.substring(0,19);
+                                    }">登记日期</th> 
                                 </tr>
                                 </thead>
                             </table>
                             <div id="toolbar">
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加维修用料</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改维修用料情况</a>
-                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除维修用料记录</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newYL()">添加</a>               
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyYL()">删除</a>
+                                <a href="#" class="easyui-linkbutton" iconCls="icon-arrow_refresh" plain="true" onclick="refreshYL()">刷新</a>
                             </div>
                         </div>
 
@@ -212,8 +213,121 @@
 			iconCls="icon-cancel" onclick="javascript:$('#dlgWX').dialog('close')">取消</a>
 	</div> 
 	
-    <%-- 维修使用材料登记 --%>
-    
+    <%--选择材料模态框 --%>
+	<div id="choosePart" class="easyui-window" title="选择材料"
+		style="width: 800px; height: 420px; display: none;"
+		data-options="modal: true,closed:true,collapsible:false,iconCls:'icon-application_edit',minimizable:false,maximizable:false">
+		<%--分页展示材料的信息 --%>
+		 <table id="ttPart" class="easyui-datagrid" fit="true" border="false"
+		        data-options="singleSelect:true,rownumbers:true"
+				url="${pageContext.request.contextPath}/vehicle/queryAllParts.html"
+			    iconCls="icon-save" 
+				toolbar="#tbPart" pagination="true">
+			<thead>
+				<tr> 
+					<th field="partnumbering" align="center" hidden="true" width="100">零件系统编号</th>
+					<th field="partid" align="center" width="100" hidden="true">零件编号</th>
+					<th field="partname" align="center" width="120" >零件名称</th>
+					<th field="catenumbering" align="center" width="130" hidden="true" >零件类别编号</th>
+					<th field="categoryid" align="center" width="130" hidden="true">类别编号</th>
+					<th field="partcategory" align="center" width="130" >零件类别</th>
+		  			<th field="specifications" align="center" width="50" hidden="true" >规格</th>
+		  			<th field="supplierName" align="center" width="170" >供应商名称</th>
+		  			<th field="contacts" align="center" width="100" >联系人</th>	  			 
+		  			<th field="contactinfo" width="120" align="center">联系方式</th> 	  	
+		  			<th field="salesprice" width="80" align="center">销售价</th> 	
+		  			<th field="partflag" width="80" align="center" hidden="true">零件标记</th> 	 
+				</tr>
+			</thead> 
+		</table> 
+		<%-- 工具栏 --%>
+		<div id="tbPart" style="padding:3px"> 
+			<span>输入关键字查询</span>
+			<input id="partname" class="easyui-textbox" prompt="请输入零件名称" style="width:200px;height:30px;"/>
+			<a href="#" class="easyui-linkbutton" onclick="doSearch()" iconCls="icon-search">查询</a>
+		</div>
+		<%-- 工具栏搜索js部分 --%>
+		<script type="text/javascript">
+			// 模糊查询
+			function doSearch(){
+				// 获取带查询关键字
+				let key = $("#partname").textbox("getValue"); 
+				// 开始查询
+				$('#ttPart').datagrid('load',{
+					q:key
+				});
+			} 		
+		</script>
+		<%-- 双击用户信息 --%>
+		<script type="text/javascript">
+			$(function(){
+				// 绑定双击事件
+				$("#ttPart").datagrid({
+					'onDblClickRow':function(index,row){
+						// 设置值
+						$("#currentSelectedPart").empty().html(row.partname);
+						$("#currentSelectedPartid").val(row.partid);
+						$("#guige").empty().html(row.specifications);
+						$("#ddYL").dialog('open');  
+					}
+				});							
+			});
+		</script>
+	</div>
+
+	<%-- 添加维修材料的模态框 --%>
+    <div id="ddYL" class="easyui-dialog" title="填写用料数量" style="width:400px;height:200px;"
+            data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true"
+            buttons="#dlg-buttonsEDITNUM">
+        <table style="width:100%;margin-top:20px;" class="wxTbl">
+        	<tr>
+        		<td>当前选择的材料:</td>
+        		<td>
+        			<span id="currentSelectedPart" style="color:red;"></span>
+        			<input type="hidden" name="currentSelectedPartid" id="currentSelectedPartid" />
+        		</td>
+        	</tr>
+        	<tr> 
+        		<td>选择数量:</td>
+        		<td>
+        			<input id="needNum" class="easyui-numberspinner" style="width:80px;"
+        			  data-options="required:true,validateOnCreate:false,min:1" />     
+        			<span id="guige"></span>
+        		</td>
+        	</tr>
+        </table>     
+        <%-- 填写数量脚本部分 --%>
+        <script type="text/javascript">
+        	 // 保存填写的数量
+        	 function saveYL(){
+        		 let num = $("#needNum").numberspinner('getValue');
+        		 $.ajax({
+        			 url:'${pageContext.request.contextPath}/vehicle/partsMana/pmAD.html',
+        			 data:{
+        				 ordersid:currentOrder,
+        				 partid:$("#currentSelectedPartid").val(),
+        				 useamount:num,
+        				 registedspecnum:num,
+        				 noreceivingnum:num,
+        			 },
+        			 type:'post',
+        			 dataType:'json'
+        		 }).done(function(data){ 
+        			 $.messager.alert('操作提示',data.errorMsg,'info');
+        			 $("#ddYL").dialog('close');   	
+        			 getYLData();
+        		 });
+        	 }
+        </script>  
+    </div>
+    <div id="dlg-buttonsEDITNUM">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+			onclick="saveYL()">保存</a> <a href="#" class="easyui-linkbutton"
+			iconCls="icon-cancel" onclick="javascript:$('#ddYL').dialog('close')">取消</a>
+	</div> 
+
+   
+    <%-- 页面逻辑的js代码部分 --%>
 	<script type="text/javascript">  
 	  
 		// 维修
@@ -224,6 +338,53 @@
 		*/
 		var currentOrder;
 	
+		// 打开选择维修用料模态框
+		function newYL(){
+			// 先判断是当前页面是否已经选择了order
+			if(currentOrder!=null){
+				$('#tt').datagrid('reload');
+				$("#choosePart").window('open'); 
+			}else{
+				$.messager.alert('操作提示','您还未选择维修订单!','info');
+			}
+			
+		}
+		
+		function refreshYL(){
+			// 先判断是当前页面是否已经选择了order
+			if(currentOrder!=null){
+				getYLData();
+				$.messager.alert('操作提示','刷新成功!','info');
+			}else{
+				$.messager.alert('操作提示','您还未选择维修订单!','info');
+			}
+		}
+	    
+		// 删除用料
+		function destroyYL(){
+			// 先判断是当前页面是否已经选择了order
+			if(currentOrder!=null){
+				$.messager.confirm('操作提示','你确定要删除吗?',function(r){
+					if(r){
+						// 先获取到选中的行
+						let row = $("#dgYL").datagrid("getSelected");
+						$.ajax({
+							url:"${pageContext.request.contextPath}/vehicle/partsMana/pmRM.html",
+							data:{
+								partuseid:row.partusedid
+							},
+							dataType:"json"
+						}).done(function(data){ 
+						    $.messager.alert('操作提示',data.errorMsg,'info');
+							getYLData();
+							 
+						});
+					}
+				});
+			}else{
+				$.messager.alert('操作提示','您还未选择维修订单!','info');
+			} 
+		}
 		
 		// 维修项目确定按钮
 		function mainitemReg(){
@@ -242,10 +403,7 @@
 					/**
 		        	*	加载登记的维修项目
 		        	*/ 
-		            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
-		            	// 把获取到的数据放到datagrid中		          
-			        	$("#dgWX").datagrid('loadData',data);
-		            }); 
+		        	getWXData();
 					data = JSON.parse(data);
 					$.messager.alert('操作提示',data.errorMsg,'info');
 					$('#dlgWX').dialog('close');
@@ -316,13 +474,7 @@
 						   }).done(function(data){ 
 							   $.messager.alert('操作提示',data.errorMsg,'info');
 							   $.messager.progress('close');
-							   /**
-					        	*	加载登记的维修项目
-					        	*/ 
-					            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
-					            	// 把获取到的数据放到datagrid中		          
-						        	$("#dgWX").datagrid('loadData',data);					            	
-					            }); 
+							   getWXData();
 						   });
 					   }
 				   });
@@ -338,18 +490,13 @@
 	   function reloadWXProj(){
 		   if(currentOrder!=null){
 			   $.messager.alert('操作提示','更新成功!','info');
-			   /**
-	        	*	加载登记的维修项目
-	        	*/ 
-	            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
-	            	// 把获取到的数据放到datagrid中		          
-		        	$("#dgWX").datagrid('loadData',data);					            	
-	            }); 
+			   getWXData();
 		   }else{
 			   $.messager.alert('操作提示','请先选择维修任务!','info');
 		   }
 	   }
 	   
+	   	   
 		
 	   /**
 	   *	加载维修项目的内容
@@ -380,6 +527,26 @@
 				}  
 		   });
 		    
+	   }
+	   
+	   /**
+	   *  加载登记的维修项目
+	   */
+	   function getWXData(){ 
+           $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+           	// 把获取到的数据放到datagrid中		          
+	        	$("#dgWX").datagrid('loadData',data);					            	
+           }); 
+	   }
+	   
+	   /**
+	   *  加载登记的维修用料
+	   */
+	   function getYLData(){
+		   $.getJSON('${pageContext.request.contextPath}/vehicle/partsMana/pmQU.html?ordersid='+currentOrder,function(data){
+           	// 把获取到的数据放到datagrid中		            
+	        	$("#dgYL").datagrid('loadData',data);
+           }); 
 	   }
 		
 		$(function(){ 
@@ -474,13 +641,8 @@
 		        	// 故障
 		        	$("#guzhang").empty().append(row.ownerdescribtion);
 		        	
-		        	/**
-		        	*	加载登记的维修项目
-		        	*/ 
-		            $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
-		            	// 把获取到的数据放到datagrid中		            
-			        	$("#dgWX").datagrid('loadData',data);
-		            });  
+		        	getWXData();		        	
+		        	getYLData();
 		        }
 		   });
 		});
