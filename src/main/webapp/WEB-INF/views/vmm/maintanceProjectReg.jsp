@@ -467,7 +467,7 @@
 					   if(r){ 
 						   $.messager.progress();	
 						   $.ajax({
-							   url:"${pageContext.request.contextPath..}/vehicle/mainprojrecord/delMP.html",
+							   url:"${pageContext.request.contextPath}/vehicle/mainprojrecord/delMP.html",
 							   data:{
 								  id:row.mainprojregid
 							   },
