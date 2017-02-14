@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.mail.Flags.Flag;
 import javax.persistence.criteria.Order;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.UserSector;
@@ -300,7 +302,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 * 根据订单表的编号和用户表的编号来查询汽修人员已经添加过的项目
 	 */
 	@Override
-	public List<MaintProject> queryAllMainregedProj(String ordersid,String userid) {
+	public List<MaintProject> queryAllMainregedProj(String ordersid, String userid) {
 		List<MaintProject> maintProjects = null;
 		try {
 			maintProjects = daoFactory.getMainprojregMapper().selectAllMainregedProj(ordersid, userid);
@@ -310,7 +312,6 @@ public class VehicleMaintence implements IVehicleMaintence {
 		return maintProjects;
 	}
 
-	
 	/**
 	 * 判断是否已经被质检过
 	 */
@@ -319,12 +320,13 @@ public class VehicleMaintence implements IVehicleMaintence {
 		// 根据id获取到用户登记的信息查看是否已经被质检过
 		Mainprojreg mainprojreg = null;
 		try {
-			mainprojreg = daoFactory.getMainprojregMapper().selectByPrimaryKey(com.javaweb.utils.StringUtils.getIntegerValue(mainprojregid, -1));
-			if (mainprojreg!=null) {
-				return StringUtils.equals(mainprojreg.getHaspassed()+"", "1");
-			}else{
+			mainprojreg = daoFactory.getMainprojregMapper()
+					.selectByPrimaryKey(com.javaweb.utils.StringUtils.getIntegerValue(mainprojregid, -1));
+			if (mainprojreg != null) {
+				return StringUtils.equals(mainprojreg.getHaspassed() + "", "1");
+			} else {
 				return false;
-			} 
+			}
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
@@ -336,46 +338,44 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public boolean updateMainregRecord(Mainprojreg mainprojreg) {
-		if(mainprojreg!=null&&mainprojreg.getId()>0){
-			try { 
-				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
-				if(!flag){// 如果还未曾质检
+		if (mainprojreg != null && mainprojreg.getId() > 0) {
+			try {
+				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));
+				if (!flag) {// 如果还未曾质检
 					daoFactory.getMainprojregMapper().updateByPrimaryKeySelective(mainprojreg);
 					return true;
 				}
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
 			}
-		} 
+		}
 		return false;
 	}
 
-	
 	/**
 	 * 删除维修登记表
 	 */
 	@Override
 	public boolean deleteMainregRecord(Mainprojreg mainprojreg) {
-		if(mainprojreg!=null&&mainprojreg.getId()!=null){
-			try { 
-				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));	
-				if(!flag){// 如果还未曾质检
+		if (mainprojreg != null && mainprojreg.getId() != null) {
+			try {
+				boolean flag = checkhasPassed(String.valueOf(mainprojreg.getId()));
+				if (!flag) {// 如果还未曾质检
 					int t = daoFactory.getMainprojregMapper().deleteByPrimaryKey(mainprojreg.getId());
-					return (t>0);
+					return (t > 0);
 				}
 			} catch (Exception e) {
 				logger.error(MyErrorPrinter.getErrorStack(e));
 			}
-		} 
+		}
 		return false;
 	}
 
-	
 	/**
 	 * 分页查询零件的信息
 	 */
 	@Override
-	public PagedResult<PartsInfo> queryAllPartinfo(String partname,Integer pageNo,Integer pageSize) {
+	public PagedResult<PartsInfo> queryAllPartinfo(String partname, Integer pageNo, Integer pageSize) {
 		PagedResult<PartsInfo> pagedResult = null;
 		try {
 			// 复杂查询
@@ -384,12 +384,11 @@ public class VehicleMaintence implements IVehicleMaintence {
 			PageHelper.startPage(pageNo, pageSize);
 			pagedResult = BeanUtil.topagedResult(daoFactory.getPartMapper().selectParts(partname));
 		} catch (Exception e) {
-			 logger.error(MyErrorPrinter.getErrorStack(e));
-		}   
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
 		return pagedResult;
 	}
 
-	
 	/**
 	 * 添加零件使用登记的实体
 	 */
@@ -397,9 +396,9 @@ public class VehicleMaintence implements IVehicleMaintence {
 	public boolean addPartRegtion(Partused partused) {
 		boolean flag = false;
 		try {
-			flag = daoFactory.getPartusedMapper().insertSelective(partused)>0;
+			flag = daoFactory.getPartusedMapper().insertSelective(partused) > 0;
 		} catch (Exception e) {
-			 logger.error(MyErrorPrinter.getErrorStack(e));
+			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return flag;
 	}
@@ -411,9 +410,9 @@ public class VehicleMaintence implements IVehicleMaintence {
 	public boolean removePartRegtion(Integer partusedid) {
 		boolean flag = false;
 		try {
-			flag = daoFactory.getPartusedMapper().deleteByPrimaryKey(partusedid)>0;
+			flag = daoFactory.getPartusedMapper().deleteByPrimaryKey(partusedid) > 0;
 		} catch (Exception e) {
-			 logger.error(MyErrorPrinter.getErrorStack(e));
+			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return flag;
 	}
@@ -426,7 +425,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 		boolean flag = false;
 		try {
 			Partused partused = daoFactory.getPartusedMapper().selectByPrimaryKey(partusedid);
-			if(partused!=null&&partused.getReceivednum()!=null&&partused.getReceivednum()>0){
+			if (partused != null && partused.getReceivednum() != null && partused.getReceivednum() > 0) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -435,7 +434,6 @@ public class VehicleMaintence implements IVehicleMaintence {
 		return false;
 	}
 
-	
 	/**
 	 * 查询已经登记过的零件信息
 	 */
@@ -443,13 +441,33 @@ public class VehicleMaintence implements IVehicleMaintence {
 	public List<PartUsedInfo> queryAllRegedPart(String ordersid, String userid) {
 		List<PartUsedInfo> partUsedInfos = null;
 		try {
-			if(StringUtils.isNotBlank(ordersid)&&StringUtils.isNotBlank(userid)){
+			if (StringUtils.isNotBlank(ordersid) && StringUtils.isNotBlank(userid)) {
 				partUsedInfos = daoFactory.getPartusedMapper().selectHasSelectedPart(ordersid, userid);
 			}
 		} catch (Exception e) {
-		    logger.error(MyErrorPrinter.getErrorStack(e));
+			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return partUsedInfos;
+	}
+
+	/**
+	 * 分页查询用户维修领料的情况
+	 */
+	@Override
+	public PagedResult<PartPickingView> queryPickingView(
+			String regTime, String keyworld, String searchType,
+			Integer pageNo, Integer pageSize) {
+		PagedResult<PartPickingView> partPickingView = null;
+		try {
+			// 复杂查询
+			pageNo = pageNo == null ? 1 : pageNo;
+			pageSize = pageSize == null ? 10 : pageSize;
+			PageHelper.startPage(pageNo, pageSize);
+			partPickingView = BeanUtil.topagedResult(daoFactory.getPartusedMapper().selectPartUsed(regTime, keyworld, searchType));
+		} catch (Exception e) {
+			logger.error(MyErrorPrinter.getErrorStack(e));
+		}
+		return partPickingView;
 	}
 
 }

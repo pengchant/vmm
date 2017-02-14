@@ -18,6 +18,7 @@ import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 
@@ -200,4 +201,16 @@ public interface IVehicleMaintence {
 	 * @return				用户已经登记过零件的信息
 	 */
 	List<PartUsedInfo> queryAllRegedPart(String ordersid,String userid);
+	
+	/**
+	 * 分页查询用户维修领料的数据
+	 * @param regTime		登记的时间
+	 * @param keyworld		关键字(用户的工号和姓名)
+	 * @param searchType	查询的方式(Y:已经领取的，W:未曾领取的)
+	 * @param pageNo 		页号
+	 * @param pageSize		页面数据量的大小
+	 * @return
+	 */
+	PagedResult<PartPickingView> queryPickingView(String regTime,String keyworld,String searchType,Integer pageNo,Integer pageSize);
+	
 }

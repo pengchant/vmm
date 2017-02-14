@@ -46,6 +46,7 @@ import com.javaweb.views.LoginBean;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderList;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 
@@ -413,5 +414,18 @@ public class VehicleMaintenceController extends BaseController {
 			} 
 		}
 		return responseFail("暂时不提供该服务，请稍后重试!");
+	}
+	
+	/**
+	 * 查询维修领料
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryAllPickingRows")
+	@ResponseBody
+	public String queryAllPickingRows(HttpServletRequest request,String regTime,
+			String keyworld,String searchType,Integer page,Integer rows){
+		PagedResult<PartPickingView> pagedResult = serviceFactory.getVehicleMaintence().queryPickingView(regTime, keyworld, searchType, page, rows);
+		return responseSuccess(pagedResult,"查询成功!");
 	}
 }
