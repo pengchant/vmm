@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2017-02-13 16:48:55
+Date: 2017-02-15 16:05:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,17 +107,15 @@ CREATE TABLE `bustatus` (
   `statename` varchar(40) DEFAULT NULL,
   `remarks` char(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bustatus
 -- ----------------------------
 INSERT INTO `bustatus` VALUES ('1', 'xz001', '已下单', '1');
-INSERT INTO `bustatus` VALUES ('2', 'xz002', '维修中', '1');
-INSERT INTO `bustatus` VALUES ('3', 'xz003', '维修待质检', '1');
-INSERT INTO `bustatus` VALUES ('4', 'xz004', '质检中', '1');
-INSERT INTO `bustatus` VALUES ('5', 'xz005', '质检待提车', '1');
-INSERT INTO `bustatus` VALUES ('6', 'xz006', '已提车', '1');
+INSERT INTO `bustatus` VALUES ('2', 'xz003', '维修待质检', '1');
+INSERT INTO `bustatus` VALUES ('3', 'xz005', '质检待提车', '1');
+INSERT INTO `bustatus` VALUES ('4', 'xz006', '已提车', '1');
 
 -- ----------------------------
 -- Table structure for consumsettle
@@ -157,7 +155,7 @@ CREATE TABLE `customer` (
   `idcard` char(18) DEFAULT NULL,
   `customerflag` char(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of customer
@@ -186,6 +184,7 @@ INSERT INTO `customer` VALUES ('21', '徐敏', 'xuming@xzit.com', '12312323', '�
 INSERT INTO `customer` VALUES ('22', '成龙', 'cl@xzit.com', '187962589', '上海黄浦', '21323243415432', '1');
 INSERT INTO `customer` VALUES ('23', '逗比', 'doubi@xzit.com', '13961826751', '江苏省无锡市槐古豪庭8座8楼', '1232323345234', '1');
 INSERT INTO `customer` VALUES ('24', '小龙女', 'xln@xzit.com', '21323', '江苏无锡', '23254325432', '1');
+INSERT INTO `customer` VALUES ('25', '陈启乐', 'cql@xzit.com', '12323', '江苏省无锡市', '320682123240392', '1');
 
 -- ----------------------------
 -- Table structure for customervisithis
@@ -200,7 +199,7 @@ CREATE TABLE `customervisithis` (
   `isnew` smallint(6) DEFAULT NULL,
   `customer` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of customervisithis
@@ -219,6 +218,9 @@ INSERT INTO `customervisithis` VALUES ('11', '胡局新', '13212123', '2017-02-1
 INSERT INTO `customervisithis` VALUES ('12', '测试的', '1232323', '2017-02-10 08:53:45', '汽车美容,汽车检测与维修', '0', '8');
 INSERT INTO `customervisithis` VALUES ('13', '测试的', '1232323', '2017-02-10 08:54:55', null, '0', '8');
 INSERT INTO `customervisithis` VALUES ('14', '王五', '12332343', '2017-02-13 08:15:49', '汽车检测与维修,汽车电子', '0', '5');
+INSERT INTO `customervisithis` VALUES ('15', '陈启乐', '12323', '2017-02-13 17:17:36', '汽车美容,汽车保养', '1', '25');
+INSERT INTO `customervisithis` VALUES ('16', '小龙女', '21323', '2017-02-15 15:15:25', '汽车美容,装潢,汽车检测与维修,汽车电子,汽车保养', '0', '24');
+INSERT INTO `customervisithis` VALUES ('17', 'LD', '232324', '2017-02-15 15:30:17', '汽车美容,装潢', '0', '12');
 
 -- ----------------------------
 -- Table structure for mainitem
@@ -272,7 +274,7 @@ CREATE TABLE `mainprojreg` (
   KEY `mainitemid` (`mainitemid`),
   CONSTRAINT `mainprojreg_ibfk_1` FOREIGN KEY (`ordersid`) REFERENCES `orders` (`id`),
   CONSTRAINT `mainprojreg_ibfk_2` FOREIGN KEY (`mainitemid`) REFERENCES `mainitem` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mainprojreg
@@ -287,6 +289,23 @@ INSERT INTO `mainprojreg` VALUES ('9', '4', '3', '1', '2017-02-13 10:38:08', '12
 INSERT INTO `mainprojreg` VALUES ('11', '9', '1', '1', '2017-02-13 16:47:17', '444', '已登记', '0');
 INSERT INTO `mainprojreg` VALUES ('12', '9', '4', '1', '2017-02-13 16:47:24', '666', '已登记', '0');
 INSERT INTO `mainprojreg` VALUES ('13', '9', '8', '1', '2017-02-13 16:47:32', '999', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('14', '8', '4', '1', '2017-02-13 16:53:27', '66', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('16', '8', '11', '1', '2017-02-13 16:53:53', '9', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('17', '11', '7', '1', '2017-02-13 16:55:24', '3', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('18', '11', '3', '1', '2017-02-13 16:55:33', '55', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('19', '11', '6', '1', '2017-02-13 16:55:44', '33', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('20', '13', '4', '1', '2017-02-13 17:00:07', '12', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('21', '13', '10', '1', '2017-02-13 17:00:16', '43', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('22', '13', '3', '1', '2017-02-13 17:00:24', '5', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('23', '12', '10', '1', '2017-02-13 17:02:59', '4', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('24', '12', '7', '1', '2017-02-13 17:03:07', '4', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('25', '12', '13', '1', '2017-02-13 17:03:18', '1', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('26', '10', '4', '1', '2017-02-13 17:04:03', '2', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('27', '10', '3', '1', '2017-02-13 17:04:10', '7', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('28', '10', '6', '1', '2017-02-13 17:04:20', '3', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('30', '15', '12', '1', '2017-02-13 17:18:18', '5', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('31', '16', '3', '2', '2017-02-15 15:15:50', '2', '已登记', '0');
+INSERT INTO `mainprojreg` VALUES ('32', '16', '1', '2', '2017-02-15 15:15:57', '3', '已登记', '0');
 
 -- ----------------------------
 -- Table structure for materhis
@@ -345,12 +364,12 @@ CREATE TABLE `orders` (
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`vehicleid`) REFERENCES `vehicle` (`id`),
   CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`bustatusid`) REFERENCES `bustatus` (`id`),
   CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`paystatusid`) REFERENCES `paystatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '121321321321', '21', '23', '1222', '1', '0', '0', '2017-02-09 02:03:00', '汽车美容,装潢,汽车检测与维修,汽车电子', '随车物品', '贵重物品', '故障情况', null, null, null, null, null, null);
+INSERT INTO `orders` VALUES ('1', '121321321321', '21', '23', '1222', '1', '0', '0', '2017-02-09 02:03:00', '汽车美容,装潢,汽车检测与维修,汽车电子', '随车物品', '贵重物品', '故障情况', null, null, null, null, '1', null);
 INSERT INTO `orders` VALUES ('2', 'JhNc2CNAX6xe', '22', '24', '1111', '0', '0', '0', '2017-02-09 02:03:00', '装潢,汽车检测与维修,汽车电子', '111', '111', '111', null, null, null, null, '1', '1');
 INSERT INTO `orders` VALUES ('3', 'DjodugWvFrqL', '20', '22', '1212', '0', '0', '0', '2017-02-05 15:03:00', '汽车美容,装潢,汽车检测与维修', '32131', '31231', '321321', null, null, null, null, '1', '1');
 INSERT INTO `orders` VALUES ('4', 'wE31o2Av2Ngh', '24', '26', '2123', '1', '0', '1', '2017-02-09 02:03:00', '汽车美容,装潢,汽车检测与维修', '12112', '中华烟，啤酒一箱', '故障情况', null, null, null, null, '1', '1');
@@ -364,6 +383,9 @@ INSERT INTO `orders` VALUES ('11', 'AolEMjM3W5Oi', '19', '21', '3232', '1', '0',
 INSERT INTO `orders` VALUES ('12', 'uNKxhBB4vXj9', '8', '9', '3213', '1', '0', '1', '2017-02-10 02:03:00', '汽车美容,汽车检测与维修', '321', '2312', '321', null, null, null, null, '1', '1');
 INSERT INTO `orders` VALUES ('13', 'dDkXYUVmDHBL', '8', '9', '233', '1', '0', '1', '2017-02-10 02:03:00', null, '111', '111', '111', null, null, null, null, '1', '1');
 INSERT INTO `orders` VALUES ('14', 'HvZtP06Hp4Xb', '5', '6', '1', '1', '1', '0', '2017-02-15 02:03:00', '汽车检测与维修,汽车电子', '1', '1', '1', null, null, null, null, '1', '1');
+INSERT INTO `orders` VALUES ('15', 'Z5l7FM9RkxE1', '25', '27', '121', '0', '0', '0', '2017-02-13 02:03:00', '汽车美容,汽车保养', '2121', '2121', '2121', null, null, null, null, '1', '1');
+INSERT INTO `orders` VALUES ('16', 'Cb33UC6qdlGD', '24', '26', '33', '1', '1', '0', '2017-02-15 02:03:00', '汽车美容,装潢,汽车检测与维修,汽车电子,汽车保养', '23', '23', '23', null, null, null, null, '1', '1');
+INSERT INTO `orders` VALUES ('17', 'hFNhkLGHVw0D', '12', '14', '11', '1', '0', '0', '2017-02-15 02:03:00', '汽车美容,装潢', '111', '111', '111', null, null, null, null, '1', '1');
 
 -- ----------------------------
 -- Table structure for part
@@ -478,11 +500,22 @@ CREATE TABLE `partstorage` (
   KEY `warehouseid` (`warehouseid`),
   CONSTRAINT `partstorage_ibfk_1` FOREIGN KEY (`partid`) REFERENCES `part` (`id`),
   CONSTRAINT `partstorage_ibfk_2` FOREIGN KEY (`warehouseid`) REFERENCES `warehouse` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of partstorage
 -- ----------------------------
+INSERT INTO `partstorage` VALUES ('1', '1', '1', '位置xxxx', '300', '2017-02-07 09:24:49', '张三', '121212', '124312', '无');
+INSERT INTO `partstorage` VALUES ('2', '2', '2', '伟大房间卡萨', '400', '2017-02-08 09:25:39', '李四', '3432', '234132', '无');
+INSERT INTO `partstorage` VALUES ('3', '3', '3', '附近的扩散', '320', '2017-02-13 09:26:02', '王五', '54325432', '5325432', '无');
+INSERT INTO `partstorage` VALUES ('4', '4', '4', '发动机是卡了反倒是健康', '500', '2017-02-01 09:26:24', '赵六', '6542432', '4312432', '无');
+INSERT INTO `partstorage` VALUES ('5', '5', '4', '发的时刻了', '210', '2017-02-02 09:26:41', '孙七', '234123', '5342154', '无');
+INSERT INTO `partstorage` VALUES ('6', '6', '2', '发大水了', '100', '2017-02-09 09:27:24', '哈哈', '234321', '5432134', '无');
+INSERT INTO `partstorage` VALUES ('7', '7', '1', '你大爷', '530', '2017-02-10 09:27:47', '234312', '4321432', '432143', '无');
+INSERT INTO `partstorage` VALUES ('8', '8', '3', '呵呵呵', '223', '2017-02-11 09:28:14', '范德萨', '31232', '3232', '无');
+INSERT INTO `partstorage` VALUES ('9', '9', '2', '什么鬼', '432', '2017-02-09 09:28:36', '随笔', '23432', '3423', '无');
+INSERT INTO `partstorage` VALUES ('10', '10', '3', '老师了是临时', '4532', '2017-02-16 09:28:57', '迪拜', '5432', '5432', '无');
+INSERT INTO `partstorage` VALUES ('11', '11', '4', '这是啥', '432', '2017-02-07 09:29:21', '军都是', '533', '232', '无');
 
 -- ----------------------------
 -- Table structure for partused
@@ -506,7 +539,7 @@ CREATE TABLE `partused` (
   KEY `partid` (`partid`),
   CONSTRAINT `partused_ibfk_1` FOREIGN KEY (`ordersid`) REFERENCES `orders` (`id`),
   CONSTRAINT `partused_ibfk_2` FOREIGN KEY (`partid`) REFERENCES `part` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of partused
@@ -516,7 +549,6 @@ INSERT INTO `partused` VALUES ('3', '11', '10', '2', '陈鹏', '20130501140', '1
 INSERT INTO `partused` VALUES ('4', '3', '7', '5', '陈鹏', '20130501140', '1', '2017-02-13 14:55:51', '5', '5', '0', '已登记');
 INSERT INTO `partused` VALUES ('5', '3', '6', '5', '陈鹏', '20130501140', '1', '2017-02-13 15:05:10', '5', '5', '0', '已登记');
 INSERT INTO `partused` VALUES ('6', '3', '9', '1', '陈鹏', '20130501140', '1', '2017-02-13 15:49:25', '1', '1', '0', '已登记');
-INSERT INTO `partused` VALUES ('7', '3', '9', '4', '陈鹏', '20130501140', '1', '2017-02-13 16:07:52', '4', '4', '0', '已登记');
 INSERT INTO `partused` VALUES ('8', '4', '7', '3', '陈鹏', '20130501140', '1', '2017-02-13 16:20:29', '3', '3', '0', '已登记');
 INSERT INTO `partused` VALUES ('12', '3', '3', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:29:53', '1', '0', '1', '已登记');
 INSERT INTO `partused` VALUES ('13', '4', '4', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:44:54', '1', '1', '0', '已登记');
@@ -524,6 +556,24 @@ INSERT INTO `partused` VALUES ('14', '9', '10', '1', '陈鹏', '20130501140', '1
 INSERT INTO `partused` VALUES ('15', '9', '7', '2', '陈鹏', '20130501140', '1', '2017-02-13 16:47:54', '2', '2', '0', '已登记');
 INSERT INTO `partused` VALUES ('16', '9', '6', '2', '陈鹏', '20130501140', '1', '2017-02-13 16:47:57', '2', '2', '0', '已登记');
 INSERT INTO `partused` VALUES ('17', '9', '11', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:48:15', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('18', '8', '4', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:54:28', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('19', '8', '10', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:54:33', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('20', '8', '6', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:54:36', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('21', '11', '11', '3', '陈鹏', '20130501140', '1', '2017-02-13 16:55:53', '3', '3', '0', '已登记');
+INSERT INTO `partused` VALUES ('22', '11', '7', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:55:59', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('23', '14', '7', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:59:51', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('24', '14', '11', '1', '陈鹏', '20130501140', '1', '2017-02-13 16:59:54', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('25', '13', '9', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:00:40', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('26', '13', '3', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:00:43', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('27', '13', '4', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:00:51', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('28', '12', '8', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:03:43', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('29', '12', '11', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:03:46', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('30', '10', '1', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:04:43', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('31', '10', '3', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:04:46', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('32', '15', '10', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:18:01', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('33', '15', '6', '1', '陈鹏', '20130501140', '1', '2017-02-13 17:18:04', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('34', '16', '9', '1', '孔磊', '20130501141', '2', '2017-02-15 15:16:02', '1', '1', '0', '已登记');
+INSERT INTO `partused` VALUES ('35', '16', '2', '2', '孔磊', '20130501141', '2', '2017-02-15 15:16:05', '2', '2', '0', '已登记');
 
 -- ----------------------------
 -- Table structure for paystatus
@@ -597,7 +647,7 @@ CREATE TABLE `personallocate` (
   KEY `ordersid` (`ordersid`),
   CONSTRAINT `personallocate_ibfk_1` FOREIGN KEY (`userinfoid`) REFERENCES `userinfo` (`id`),
   CONSTRAINT `personallocate_ibfk_2` FOREIGN KEY (`ordersid`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of personallocate
@@ -648,6 +698,13 @@ INSERT INTO `personallocate` VALUES ('43', '1', '13', 'zj', '2017-02-10 08:54:56
 INSERT INTO `personallocate` VALUES ('44', '1', '14', 'wx', '2017-02-13 08:15:49');
 INSERT INTO `personallocate` VALUES ('45', '7', '14', 'wx', '2017-02-13 08:15:49');
 INSERT INTO `personallocate` VALUES ('46', '6', '14', 'zj', '2017-02-13 08:15:49');
+INSERT INTO `personallocate` VALUES ('47', '1', '15', 'wx', '2017-02-13 17:17:36');
+INSERT INTO `personallocate` VALUES ('48', '6', '15', 'wx', '2017-02-13 17:17:36');
+INSERT INTO `personallocate` VALUES ('49', '3', '15', 'zj', '2017-02-13 17:17:36');
+INSERT INTO `personallocate` VALUES ('50', '2', '16', 'wx', '2017-02-15 15:15:26');
+INSERT INTO `personallocate` VALUES ('51', '4', '16', 'zj', '2017-02-15 15:15:26');
+INSERT INTO `personallocate` VALUES ('52', '2', '17', 'wx', '2017-02-15 15:30:18');
+INSERT INTO `personallocate` VALUES ('53', '4', '17', 'zj', '2017-02-15 15:30:18');
 
 -- ----------------------------
 -- Table structure for projcategory
@@ -781,7 +838,7 @@ CREATE TABLE `userrights` (
   KEY `accountid` (`accountid`),
   CONSTRAINT `userrights_ibfk_1` FOREIGN KEY (`permissionid`) REFERENCES `permission` (`id`),
   CONSTRAINT `userrights_ibfk_2` FOREIGN KEY (`accountid`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of userrights
@@ -806,7 +863,20 @@ INSERT INTO `userrights` VALUES ('17', '17', '1');
 INSERT INTO `userrights` VALUES ('18', '18', '1');
 INSERT INTO `userrights` VALUES ('19', '19', '1');
 INSERT INTO `userrights` VALUES ('20', '20', '1');
-INSERT INTO `userrights` VALUES ('21', '21', '2');
+INSERT INTO `userrights` VALUES ('21', '21', '1');
+INSERT INTO `userrights` VALUES ('22', '1', '2');
+INSERT INTO `userrights` VALUES ('23', '2', '2');
+INSERT INTO `userrights` VALUES ('24', '3', '2');
+INSERT INTO `userrights` VALUES ('25', '4', '2');
+INSERT INTO `userrights` VALUES ('26', '5', '2');
+INSERT INTO `userrights` VALUES ('27', '6', '2');
+INSERT INTO `userrights` VALUES ('28', '7', '2');
+INSERT INTO `userrights` VALUES ('29', '8', '2');
+INSERT INTO `userrights` VALUES ('30', '9', '2');
+INSERT INTO `userrights` VALUES ('31', '10', '2');
+INSERT INTO `userrights` VALUES ('32', '11', '2');
+INSERT INTO `userrights` VALUES ('33', '12', '2');
+INSERT INTO `userrights` VALUES ('34', '13', '2');
 
 -- ----------------------------
 -- Table structure for vehicle
@@ -824,7 +894,7 @@ CREATE TABLE `vehicle` (
   PRIMARY KEY (`id`),
   KEY `customerid` (`customerid`),
   CONSTRAINT `vehicle_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vehicle
@@ -855,6 +925,7 @@ INSERT INTO `vehicle` VALUES ('23', '劳斯来是', '132123', '2017-02-07 00:00:
 INSERT INTO `vehicle` VALUES ('24', '长安福特', 'SQ132', '2017-02-08 00:00:00', '213', '213', '23', '22');
 INSERT INTO `vehicle` VALUES ('25', '奔驰', 'K1231', '2017-02-08 00:00:00', '2323', '2323', '213', '23');
 INSERT INTO `vehicle` VALUES ('26', '奥迪', 'A6', '2017-02-09 00:00:00', '123', '苏Q231', '23315', '24');
+INSERT INTO `vehicle` VALUES ('27', '北京现代', 'sds3', '2017-02-13 00:00:00', '12121', '苏C3223', 'DSA23', '25');
 
 -- ----------------------------
 -- Table structure for warehouse
