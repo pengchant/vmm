@@ -423,9 +423,10 @@ public class VehicleMaintenceController extends BaseController {
 	 */
 	@RequestMapping("/queryAllPickingRows")
 	@ResponseBody
-	public String queryAllPickingRows(HttpServletRequest request,String regTime,
-			String keyworld,String searchType,Integer page,Integer rows){
-		PagedResult<PartPickingView> pagedResult = serviceFactory.getVehicleMaintence().queryPickingView(regTime, keyworld, searchType, page, rows);
+	public String queryAllPickingRows(HttpServletRequest request,String startTime,String endTime,
+			String keyworld,String searchType_c,Integer page,Integer rows){
+		logger.info("controller层:startTime:"+startTime+",endTime:"+endTime+",keyworld"+keyworld+",searchType_c:"+searchType_c+",page:"+page+",rows:"+rows);
+		PagedResult<PartPickingView> pagedResult = serviceFactory.getVehicleMaintence().queryPickingView(startTime,endTime, keyworld, searchType_c, page, rows);
 		return responseSuccess(pagedResult,"查询成功!");
 	}
 }

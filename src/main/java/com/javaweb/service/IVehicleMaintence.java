@@ -204,13 +204,14 @@ public interface IVehicleMaintence {
 	
 	/**
 	 * 分页查询用户维修领料的数据
-	 * @param regTime		登记的时间
+	 * @param startTime		开始的时间
+	 * @param endTime		结束的时间
 	 * @param keyworld		关键字(用户的工号和姓名)
 	 * @param searchType	查询的方式(Y:已经领取的，W:未曾领取的)
 	 * @param pageNo 		页号
 	 * @param pageSize		页面数据量的大小
 	 * @return
 	 */
-	PagedResult<PartPickingView> queryPickingView(String regTime,String keyworld,String searchType,Integer pageNo,Integer pageSize);
+	PagedResult<PartPickingView> queryPickingView(String startTime,String endTime,String keyworld,String searchType,Integer pageNo,Integer pageSize);
 	
 }

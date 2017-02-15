@@ -259,24 +259,25 @@
 		JOIN partstorage AS ps ON (ps.partid = p.id)
 		JOIN warehouse AS w ON (w.id = ps.warehouseid)
 		<where> 
+			
 			<!-- 登记维修用料的时间 -->
- 			<if test="applicattime!=null and applicattime!=''">
- 				u.applicattime BETWEEN concat(#{applicattime},' 00:00:00') and  concat(#{applicattime,' 23:59:59'})
+ 			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+ 				u.applicattime BETWEEN concat(#{startTime},' 00:00:00') and  concat(#{endTime},' 23:59:59')
  			</if>
  			<!-- 登记维修用料的关键字 -->
  			<if test="keyworld!=null and keyworld!=''">
  				and (u.applicant like concat('%',#{keyworld},'%') or u.jobnumber like concat('%',#{keyworld},'%'))
  			</if>
  			<!-- 登记维修用料的查询的类型 -->
- 			<if test="searchtype!=null and searchtype!=''">
+ 			<if test="searchCategory!=null and searchCategory!=''">
  				<!-- 如若查询已经领取的 -->
- 				<if test="searchtype=='Y'">
+ 				<if test="searchCategory.toString()=='Y'.toString()">
  				    <![CDATA[  
  						and u.receivednum=u.registedspecnum
  					]]>
  				</if>
  				<!-- 如果查询未曾领取的(已经领取的小于登记使用的) -->
- 				<if test="searchtype=='W'">
+ 				<if test="searchCategory.toString()=='W'.toString()">
  					<![CDATA[  
  						and u.receivednum<u.registedspecnum
  					]]>

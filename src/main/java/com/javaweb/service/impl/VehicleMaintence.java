@@ -455,15 +455,16 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public PagedResult<PartPickingView> queryPickingView(
-			String regTime, String keyworld, String searchType,
+			String startTime,String endTime, String keyworld, String searchType,
 			Integer pageNo, Integer pageSize) {
+		logger.info("service层：startTime:"+startTime+",endTime:"+endTime+",keyworld:"+keyworld+",searchType:"+searchType+",pageNo:"+pageNo+",pageSize:"+pageSize);
 		PagedResult<PartPickingView> partPickingView = null;
 		try {
 			// 复杂查询
 			pageNo = pageNo == null ? 1 : pageNo;
 			pageSize = pageSize == null ? 10 : pageSize;
 			PageHelper.startPage(pageNo, pageSize);
-			partPickingView = BeanUtil.topagedResult(daoFactory.getPartusedMapper().selectPartUsed(regTime, keyworld, searchType));
+			partPickingView = BeanUtil.topagedResult(daoFactory.getPartusedMapper().selectPartUsed(startTime,endTime, keyworld, searchType));
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}

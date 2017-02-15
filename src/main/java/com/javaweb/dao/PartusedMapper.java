@@ -32,13 +32,15 @@ public interface PartusedMapper {
     
     /**
      * 分页查询维修领料的情况
-     * @param applicattime	登记的时间
+     * @param startTime		开始时间
+     * @param endTime		结束时间
      * @param keyworld		关键词(维修人员的工号和维修人员的姓名)
      * @param searchtype	查询的类型(Y:表示已经领取的,W:未曾领取的)
      * @return
      */
     List<PartPickingView> selectPartUsed(
-    		@Param("applicattime")String applicattime,
+    		@Param("startTime")String startTime,
+    		@Param("endTime")String endTime,
     		@Param("keyworld")String keyworld,
-    		@Param("searchtype")String searchtype);
+    		@Param("searchCategory")String searchtype);
 }
