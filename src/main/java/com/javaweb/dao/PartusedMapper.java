@@ -8,6 +8,7 @@ import com.javaweb.entity.Partused;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PickedPartView;
 
 public interface PartusedMapper {
     int deleteByPrimaryKey(Integer id);
@@ -43,4 +44,11 @@ public interface PartusedMapper {
     		@Param("endTime")String endTime,
     		@Param("keyworld")String keyworld,
     		@Param("searchCategory")String searchtype);
+    
+    /**
+     * 查询零件已经领取的历史表纪录
+     * @param partusedid	零件等级表编号
+     * @return				零件等级领取的纪录
+     */
+    List<PickedPartView> selectPickedPart(@Param("partusedid")String partusedid);
 }

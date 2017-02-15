@@ -21,6 +21,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PickedPartView;
 
 /**
  * 汽车维修服务
@@ -214,4 +215,10 @@ public interface IVehicleMaintence {
 	 */
 	PagedResult<PartPickingView> queryPickingView(String startTime,String endTime,String keyworld,String searchType,Integer pageNo,Integer pageSize);
 	
+	/**
+	 * 查询已经领取的的零件的视图
+	 * @param partUsedId	零件使用表的编号
+	 * @return
+	 */
+	List<PickedPartView> queryPickedPartView(String partUsedId);
 }

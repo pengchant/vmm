@@ -235,7 +235,7 @@
 		o.id AS ordersid,
 		o.numbering AS ordernumbering,
 		o.customerid,
-	    o.vehicleid,
+		o.vehicleid,
 		p.id AS partid,
 		p.partnumbering,
 		p.partname,
@@ -253,37 +253,58 @@
 		FROM
 		partused AS u
 		JOIN orders AS o ON (u.ordersid = o.id)
-		JOIN part AS p ON (u.partid = p.id)
+		JOIN part AS p ON (u.partid =
+		p.id)
 		JOIN partcategory AS c ON (p.partcategoryid = c.id)
-		JOIN supplier AS s ON (s.id = p.supplierid)
-		JOIN partstorage AS ps ON (ps.partid = p.id)
+		JOIN supplier
+		AS s ON (s.id = p.supplierid)
+		JOIN partstorage AS ps ON (ps.partid =
+		p.id)
 		JOIN warehouse AS w ON (w.id = ps.warehouseid)
-		<where> 
-			
+		<where>
+
 			<!-- 登记维修用料的时间 -->
- 			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
- 				u.applicattime BETWEEN concat(#{startTime},' 00:00:00') and  concat(#{endTime},' 23:59:59')
- 			</if>
- 			<!-- 登记维修用料的关键字 -->
- 			<if test="keyworld!=null and keyworld!=''">
- 				and (u.applicant like concat('%',#{keyworld},'%') or u.jobnumber like concat('%',#{keyworld},'%'))
- 			</if>
- 			<!-- 登记维修用料的查询的类型 -->
- 			<if test="searchCategory!=null and searchCategory!=''">
- 				<!-- 如若查询已经领取的 -->
- 				<if test="searchCategory.toString()=='Y'.toString()">
+			<if
+				test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				u.applicattime BETWEEN concat(#{startTime},' 00:00:00') and concat(#{endTime},'
+				23:59:59')
+			</if>
+			<!-- 登记维修用料的关键字 -->
+			<if test="keyworld!=null and keyworld!=''">
+				and (u.applicant like concat('%',#{keyworld},'%') or u.jobnumber like
+				concat('%',#{keyworld},'%'))
+			</if>
+			<!-- 登记维修用料的查询的类型 -->
+			<if test="searchCategory!=null and searchCategory!=''">
+				<!-- 如若查询已经领取的 -->
+				<if test="searchCategory.toString()=='Y'.toString()">
  				    <![CDATA[  
  						and u.receivednum=u.registedspecnum
  					]]>
- 				</if>
- 				<!-- 如果查询未曾领取的(已经领取的小于登记使用的) -->
- 				<if test="searchCategory.toString()=='W'.toString()">
+				</if>
+				<!-- 如果查询未曾领取的(已经领取的小于登记使用的) -->
+				<if test="searchCategory.toString()=='W'.toString()">
  					<![CDATA[  
  						and u.receivednum<u.registedspecnum
  					]]>
- 				</if>
- 			</if>
+				</if>
+			</if>
 		</where>
 		order by u.applicattime desc
+	</select>
+
+	<!-- 查询领取历史表 -->
+	<select id="selectPickedPart" resultType="com.javaweb.views.PickedPartView">
+		select p.id as partid,
+		p.partname,
+		h.reciamount,
+		h.recipients,
+		h.recijobnum,
+		h.contactinfo,
+		h.recitime
+		from accessoryhis as h
+		join partused as u on(h.partusedid = u.id)
+		join part as p on(p.id = u.partid)
+		where u.id = #{partusedid}
 	</select>
 </mapper>

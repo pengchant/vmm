@@ -41,6 +41,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PickedPartView;
 import com.javaweb.views.UserSector;
 import com.sun.star.lib.uno.environments.remote.remote_environment;
 
@@ -469,6 +470,12 @@ public class VehicleMaintence implements IVehicleMaintence {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
 		return partPickingView;
+	}
+
+	@Override
+	public List<PickedPartView> queryPickedPartView(String partUsedId) {
+		 
+		return null;
 	}
 
 }
