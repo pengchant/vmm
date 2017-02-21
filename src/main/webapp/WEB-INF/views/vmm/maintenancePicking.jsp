@@ -69,6 +69,13 @@
 
         </div>
     </div>
+    
+    <%-- 查看领取历史的窗体部分 --%>
+    <div id="winPickHistory">
+    	<!-- 查看领取历史 -->
+    	<table id="dgPKHistory"></table>
+    </div>
+    
     <%-- 页面的js部分 --%>
     <script type="text/javascript">
         // 模糊查询
@@ -88,11 +95,48 @@
     	}
     	
         // 格式化
-    	function myformatter(value,row,index){
-    		let a = '<a href="#" onclick="queryHistory" style="color:red;">查看历史</a>&nbsp;&nbsp;';// 查看配件领取历史
+    	function myformatter(value,row,index){        
+    		let a = '<a href="#" onclick="queryHistory('+row.partusedid+','+index+')" style="color:red;">查看历史</a>&nbsp;&nbsp;';// 查看配件领取历史
     		let b = '<a href="#" onclick="picking" style="color:green;">领取配件</a>';// 配件领取
     		return a+b;
     	}
+        
+        // 查询历史
+        function queryHistory(partusedid,index){        	
+        	$('#winPickHistory').window('open');
+        	// 加载数据
+        	$("#dgPKHistory").datagrid('load',{
+        		partUsedId:partusedid
+        	});
+        }
+        
+        $(function(){
+        	// 弹出模态框，绑定数据
+            $('#winPickHistory').window({
+                width:620,
+                height:400,
+                title:'领取历史',
+                collapsible:false,
+                minimizable:false,
+                maximizable:false,
+                modal:true,
+                closed:true 
+            });
+        	
+        	$("#dgPKHistory").datagrid({
+                url:"${pageContext.request.contextPath}/vehicle/queryAllPicked.html",
+        	    columns:[[
+        	        {field:'partname',align:'center',title:'零件名',width:100},
+        	        {field:'reciamount',align:'center',title:'领取数量',width:100},
+        	        {field:'recipients',align:'center',title:'领取人',width:100},
+        	        {field:'recijobnum',align:'center',title:'工号',width:100},
+        	        {field:'contactinfo',align:'center',title:'联系方式',width:100},
+        	        {field:'recitime',align:'center',title:'领取时间',width:100}
+        	    ]],
+        	    border:false
+        	});
+        	        	
+        });
     </script>
 </body>
 </html>

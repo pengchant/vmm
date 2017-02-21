@@ -472,9 +472,15 @@ public class VehicleMaintence implements IVehicleMaintence {
 		return partPickingView;
 	}
 
+	/**
+	 * 查询所有领取的历史
+	 */
 	@Override
 	public List<PickedPartView> queryPickedPartView(String partUsedId) {
-		 
+		if(!StringUtils.isBlank(partUsedId)){
+			List<PickedPartView> pickedPartViews = daoFactory.getPartusedMapper().selectPickedPart(partUsedId);
+			return pickedPartViews;
+		}
 		return null;
 	}
 

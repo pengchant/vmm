@@ -49,6 +49,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PickedPartView;
 
 /**
  * 汽车修理模块控制器
@@ -428,5 +429,17 @@ public class VehicleMaintenceController extends BaseController {
 		logger.info("controller层:startTime:"+startTime+",endTime:"+endTime+",keyworld"+keyworld+",searchType_c:"+searchType_c+",page:"+page+",rows:"+rows);
 		PagedResult<PartPickingView> pagedResult = serviceFactory.getVehicleMaintence().queryPickingView(startTime,endTime, keyworld, searchType_c, page, rows);
 		return responseSuccess(pagedResult,"查询成功!");
+	}
+	
+	/**
+	 * 查询领取的历史
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryAllPicked")
+	@ResponseBody
+	public String queryAllPickHis(HttpServletRequest request,String partUsedId){
+		List<PickedPartView> pickedPartViews = serviceFactory.getVehicleMaintence().queryPickedPartView(partUsedId);		
+		return responseArraySuccess(pickedPartViews);
 	}
 }
