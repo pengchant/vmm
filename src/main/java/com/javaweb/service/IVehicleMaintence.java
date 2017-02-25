@@ -221,4 +221,11 @@ public interface IVehicleMaintence {
 	 * @return
 	 */
 	List<PickedPartView> queryPickedPartView(String partUsedId);
+	
+	/**
+	 * 领取材料
+	 * @param PartPickingView
+	 * @return
+	 */
+	float pickPart(PartPickingView partPickingView);
 }

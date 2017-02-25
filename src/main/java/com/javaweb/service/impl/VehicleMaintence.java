@@ -26,6 +26,8 @@ import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Orders;
+import com.javaweb.entity.Partproc;
+import com.javaweb.entity.Partstorage;
 import com.javaweb.entity.Partused;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
@@ -455,17 +457,18 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 * 分页查询用户维修领料的情况
 	 */
 	@Override
-	public PagedResult<PartPickingView> queryPickingView(
-			String startTime,String endTime, String keyworld, String searchType,
-			Integer pageNo, Integer pageSize) {
-		logger.info("service层：startTime:"+startTime+",endTime:"+endTime+",keyworld:"+keyworld+",searchType:"+searchType+",pageNo:"+pageNo+",pageSize:"+pageSize);
+	public PagedResult<PartPickingView> queryPickingView(String startTime, String endTime, String keyworld,
+			String searchType, Integer pageNo, Integer pageSize) {
+		logger.info("service层：startTime:" + startTime + ",endTime:" + endTime + ",keyworld:" + keyworld + ",searchType:"
+				+ searchType + ",pageNo:" + pageNo + ",pageSize:" + pageSize);
 		PagedResult<PartPickingView> partPickingView = null;
 		try {
 			// 复杂查询
 			pageNo = pageNo == null ? 1 : pageNo;
 			pageSize = pageSize == null ? 10 : pageSize;
 			PageHelper.startPage(pageNo, pageSize);
-			partPickingView = BeanUtil.topagedResult(daoFactory.getPartusedMapper().selectPartUsed(startTime,endTime, keyworld, searchType));
+			partPickingView = BeanUtil.topagedResult(
+					daoFactory.getPartusedMapper().selectPartUsed(startTime, endTime, keyworld, searchType));
 		} catch (Exception e) {
 			logger.error(MyErrorPrinter.getErrorStack(e));
 		}
@@ -477,11 +480,56 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public List<PickedPartView> queryPickedPartView(String partUsedId) {
-		if(!StringUtils.isBlank(partUsedId)){
+		if (!StringUtils.isBlank(partUsedId)) {
 			List<PickedPartView> pickedPartViews = daoFactory.getPartusedMapper().selectPickedPart(partUsedId);
 			return pickedPartViews;
 		}
 		return null;
+	}
+
+	/**
+	 * 领取材料
+	 */
+	@Override
+	@Transactional
+	public float pickPart(PartPickingView partPickingView) {
+		// 获取登记的数量
+		float regNum = 0f;
+		// 获取已经领取的数量
+		float receivedNum = 0f;
+		// 当前需要领取的数量
+		float needNum = 0f;
+		float realNum = 0f;
+		try {
+			Partstorage partstorage = daoFactory.getPartstorageMapper().selectByPrimaryKey(
+					com.javaweb.utils.StringUtils.getIntegerValue(partPickingView.getPartstorageid(), -1));
+			if (partstorage != null) {
+				regNum = Float.parseFloat(partPickingView.getRegistedspecnum());
+				receivedNum = Float.parseFloat(partPickingView.getReceivednum());
+				needNum = regNum - receivedNum;
+				if (partstorage.getInventory() < needNum) {
+					float purchaseNum = (float) (needNum - partstorage.getInventory());
+					// 零件采购
+					Partproc partproc = new Partproc();
+					partproc.setPartcategoryname(partPickingView.getPartcategory());
+					partproc.setPartcategorycode(partPickingView.getCategoryid());
+					partproc.setPartcode(partPickingView.getPartid());
+					partproc.setPartname(partPickingView.getPartname());
+					partproc.setSuppliercode(partPickingView.getSupplierid());
+					partproc.setSuppliername(partPickingView.getSupplierName());
+					partproc.setPruchernum(purchaseNum+"");
+					partproc.setTotalpurchase((double) (purchaseNum*Float.parseFloat(partPickingView.getPurchaseprice())));
+					partproc.setPurchstatus("0");// 初始状态
+				}
+				// 更新存储表
+				partstorage.setInventory(partstorage.getInventory()-needNum);
+				// 添加零件领取表
+				// 添加零件领取历史表
+			}
+		} catch (Exception e) {
+			logger.info(MyErrorPrinter.getErrorStack(e));
+		}
+		return realNum;
 	}
 
 }

@@ -1,6 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../public/header.jsp" %>
+<style>
+	.picktb{
+		width:80%;
+		margin:0 auto; 
+		margin-top:20px;
+	}
+	
+	.picktb tr{
+		line-height:30px;
+	}
+	
+	.picktb tr td:nth-child(2n+1){
+		width:100px;
+		text-align:right;
+	}
+	
+	.picktb tr td:nth-child(2n){
+		text-align:left;
+	}
+</style>
 </head>
 <body style="padding:5px;">
     <div class="easyui-layout" fit="true" border="false">
@@ -76,8 +96,40 @@
     	<table id="dgPKHistory"></table>
     </div>
     
+    
+    <%-- 领取材料 --%>
+    <div id="winPickingPart">
+    	<!-- 领取材料 -->
+    	<table class="picktb">
+    		<tr>
+    			<td>领取材料名称:</td>
+    			<td id="partName"></td>
+    		</tr>
+    		<tr>
+    			<td>生产厂家:</td>
+    			<td id="partSup"></td>
+    		</tr>
+    		<tr>
+    			<td>登记数量:</td>
+    			<td id="regNum"></td>
+    		</tr>
+    		<tr>
+    			<td>已领取数量:</td>
+    			<td id="hasRep"></td>
+    		</tr> 
+    		<tr>
+    			<td>实际可领取数量:</td>
+    			<td id="realRep"></td>
+    		</tr> 
+    	</table>
+    </div>
+    <div id="ttPickPart">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" id="surePicking">确定领取</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-delete" onclick="javascript:$('#winPickingPart').dialog('close')">取消</a>
+	</div>
+    
     <%-- 页面的js部分 --%>
-    <script type="text/javascript">
+    <script type="text/javascript"> 
         // 模糊查询
     	function doSearch(){
     		let keyworld = $("#key").val();
@@ -97,7 +149,13 @@
         // 格式化
     	function myformatter(value,row,index){        
     		let a = '<a href="#" onclick="queryHistory('+row.partusedid+','+index+')" style="color:red;">查看历史</a>&nbsp;&nbsp;';// 查看配件领取历史
-    		let b = '<a href="#" onclick="picking" style="color:green;">领取配件</a>';// 配件领取
+			// 如果已经领取不显示领取配件
+			let registed = parseFloat(row.registedspecnum);
+    		let tooken = parseFloat(row.receivednum);
+    		let b = '';
+			if(registed>tooken){
+				b = '<a href="#" onclick="pickPart('+index+')" style="color:green;">领取配件</a>';// 配件领取
+			} 
     		return a+b;
     	}
         
@@ -110,17 +168,79 @@
         	});
         }
         
+        
+        // 领取材料
+        function pickPart(index){
+        	let obj = $("#dg").datagrid("getRows")[index]; 
+        	console.log(obj);
+        	if(obj!=null){
+        		$("#partName").empty().text(obj.partname);
+            	$("#partSup").empty().text(obj.supplierName);
+            	$("#regNum").empty().text(obj.registedspecnum);
+           		$("#hasRep").empty().text(obj.receivednum);
+            	// 登记数量
+            	let regNum = parseFloat(obj.registedspecnum);
+            	// 库存数量
+            	let inventory = parseFloat(obj.inventory);
+            	// 已领取数量
+                let hasPicked = parseFloat(obj.receivednum);
+            	// 实际能领取的数量
+            	let num = regNum - hasPicked;
+                num = (num>inventory)?inventory:num;
+            	$("#realRep").empty().html("<span style='color:red;'>"+num+"</span>");
+            	// 绑定事件
+            	$("#surePicking").click(function(){
+            		// 发起ajax请求
+            		/*领取人
+            		领取人工号 			jobnumber
+            		联系方式			concatinfo
+            		零件使用登记表编号             partusedid
+
+            		零件类别编号		categoryid
+            		零件类别名称		partcategory
+            		零件编号			partid		
+            		零件代码			partnumbering
+            		零件名称			partname
+            		供应商编号			supplierid
+            		供应商名称			supplierName
+            		零件单价			purchaseprice
+            		材料数量(*)		needNum	
+
+            		登记人			applicant
+            		登记时间			applicattime
+            		领取人			concatinfo*/
+            		
+            	});
+        	} 
+        	$('#winPickingPart').window('open'); 
+        }
+        
         $(function(){
+        	 
+        	
         	// 弹出模态框，绑定数据
             $('#winPickHistory').window({
                 width:620,
-                height:400,
+                height:300,
                 title:'领取历史',
                 collapsible:false,
                 minimizable:false,
                 maximizable:false,
                 modal:true,
                 closed:true 
+            });
+        	
+            // 弹出模态框，显示领取材料页面
+            $('#winPickingPart').dialog({
+                width:420,
+                height:300,
+                title:'领取材料',
+                collapsible:false,
+                minimizable:false,
+                maximizable:false,
+                modal:true,
+                closed:true,
+                buttons:'#ttPickPart'
             });
         	
         	$("#dgPKHistory").datagrid({
