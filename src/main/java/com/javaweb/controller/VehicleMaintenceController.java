@@ -442,4 +442,21 @@ public class VehicleMaintenceController extends BaseController {
 		List<PickedPartView> pickedPartViews = serviceFactory.getVehicleMaintence().queryPickedPartView(partUsedId);		
 		return responseArraySuccess(pickedPartViews);
 	}
+	
+	/**
+	 * 领取材料
+	 * @param request
+	 * @param partPickingView
+	 * @return
+	 */
+	@RequestMapping("/pickingPart")
+	@ResponseBody
+	public String pickPart(HttpServletRequest request,PartPickingView partPickingView){
+		logger.info("领取材料获取到的数据为："+JSON.toJSONString(partPickingView));
+		float real = 0f;
+		real = serviceFactory.getVehicleMaintence().pickPart(partPickingView);
+		logger.info("领取材料后返回的结果为:"+real);
+		return JSON.toJSONString(real);
+	}
+	
 }

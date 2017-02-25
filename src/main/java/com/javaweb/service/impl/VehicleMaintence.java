@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
+import com.javaweb.entity.Accessoryhis;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
@@ -502,34 +503,64 @@ public class VehicleMaintence implements IVehicleMaintence {
 		float realNum = 0f;
 		try {
 			Partstorage partstorage = daoFactory.getPartstorageMapper().selectByPrimaryKey(
-					com.javaweb.utils.StringUtils.getIntegerValue(partPickingView.getPartstorageid(), -1));
+					com.javaweb.utils.StringUtils.getIntegerValue(partPickingView.getPartstorageid(), -1));			
+			Partused partused = daoFactory.getPartusedMapper().selectByPrimaryKey(com.javaweb.utils.StringUtils.getIntegerValue(partPickingView.getPartusedid(), -1));			
 			if (partstorage != null) {
 				regNum = Float.parseFloat(partPickingView.getRegistedspecnum());
 				receivedNum = Float.parseFloat(partPickingView.getReceivednum());
 				needNum = regNum - receivedNum;
-				if (partstorage.getInventory() < needNum) {
-					float purchaseNum = (float) (needNum - partstorage.getInventory());
-					// 零件采购
-					Partproc partproc = new Partproc();
-					partproc.setPartcategoryname(partPickingView.getPartcategory());
-					partproc.setPartcategorycode(partPickingView.getCategoryid());
-					partproc.setPartcode(partPickingView.getPartid());
-					partproc.setPartname(partPickingView.getPartname());
-					partproc.setSuppliercode(partPickingView.getSupplierid());
-					partproc.setSuppliername(partPickingView.getSupplierName());
-					partproc.setPruchernum(purchaseNum+"");
-					partproc.setTotalpurchase((double) (purchaseNum*Float.parseFloat(partPickingView.getPurchaseprice())));
-					partproc.setPurchstatus("0");// 初始状态
+				// 先判断是否已经领取过了
+				if(regNum==receivedNum){
+					return -2;// 表示已经领取过了
 				}
-				// 更新存储表
-				partstorage.setInventory(partstorage.getInventory()-needNum);
-				// 添加零件领取表
-				// 添加零件领取历史表
+				// 如果库存量小于需求量
+				if (partstorage.getInventory() < needNum) {
+					// 先要判断是否已经登记采购过(判断领取状态为"-1"[已登记，-1，已经领取])
+					// 如果已经登记过就不用再登记了
+					if(partused!=null&&!StringUtils.equals(partused.getReceivestatus(), "-1")){
+						
+						// 添加采购记录
+						float purchaseNum = (float) (needNum - partstorage.getInventory()); 
+						Partproc partproc = new Partproc();
+						partproc.setPartcategoryname(partPickingView.getPartcategory());
+						partproc.setPartcategorycode(partPickingView.getCategoryid());
+						partproc.setPartcode(partPickingView.getPartid());
+						partproc.setPartname(partPickingView.getPartname());
+						partproc.setSuppliercode(partPickingView.getSupplierid());
+						partproc.setSuppliername(partPickingView.getSupplierName());
+						partproc.setPruchernum(purchaseNum+"");
+						partproc.setTotalpurchase((double) (purchaseNum*Float.parseFloat(partPickingView.getPurchaseprice())));
+						partproc.setPurchstatus("0");// 初始状态
+					    daoFactory.getPartstorageMapper().insertSelective(partstorage);
+					    
+					    // 修改零件使用登记表的状态(-1标记为正在采购中)
+					    partused.setReceivestatus("-1");
+					    daoFactory.getPartusedMapper().updateByPrimaryKeySelective(partused);
+					} 
+					// 设置实际领取的数量为0
+					realNum = 0;
+				}else{// 如果材料足够 
+					// 更新存储表
+					partstorage.setInventory(partstorage.getInventory()-needNum);
+					daoFactory.getPartstorageMapper().updateByPrimaryKeySelective(partstorage);
+					// 添加零件领取表
+				    Accessoryhis accessoryhis = new Accessoryhis();
+				    accessoryhis.setRecitime(new Date());
+				    accessoryhis.setReciamount((double) realNum);
+				    accessoryhis.setPartusedid(Integer.parseInt(partPickingView.getPartusedid()));
+				    daoFactory.getAccessoryhisMapper().insertSelective(accessoryhis);
+				    // 更新零件登记表(标记为已经领取)
+				    partused.setReceivednum((double) needNum);
+				    partused.setReceivestatus("已领取");
+				    daoFactory.getPartusedMapper().updateByPrimaryKeySelective(partused);
+				    realNum = needNum;
+				} 
 			}
 		} catch (Exception e) {
 			logger.info(MyErrorPrinter.getErrorStack(e));
+			realNum = -1;// -1表示异常
 		}
-		return realNum;
+		return realNum;// 正常返回领取的数量
 	}
 
 }

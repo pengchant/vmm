@@ -42,11 +42,11 @@
                 	<th field="inventory" align="center" width="20">库存</th>
                 	<th field="registedspecnum" align="center" width="20" >登记</th>
                     <th field="receivednum" align="center" width="20" >领取</th> 
-                    <th field="applicattime" align="center" width="50">申请时间</th>
+                    <th field="applicattime" align="center" width="80">申请时间</th>
                     <th field="receivestatus" align="center" width="50">领取状态</th>
                     <th field="operation_action" 
                     	data-options="formatter:myformatter" 
-                        align="center" width="80">操作</th> 
+                        align="center" width="40">操作</th> 
                         
                     <%-- 隐藏域 --%>
                     <th field="warehouseAdd" align="center" width="50" hidden="true">仓库地址</th>
@@ -72,6 +72,7 @@
                 <select class="easyui-combobox" id="reptStatus" style="width:150px;height:26px;">
                     <option value="W">待领取</option>
                     <option value="Y">已领取</option>
+                    <option value="">全部</option>
                 </select>&nbsp;&nbsp; 
                 <span>开始时间:</span>
                 <input id="ds" type="text" value="3/4/2010 2:3" style="height:26px;" class="easyui-datebox"  />
@@ -148,15 +149,17 @@
     	
         // 格式化
     	function myformatter(value,row,index){        
-    		let a = '<a href="#" onclick="queryHistory('+row.partusedid+','+index+')" style="color:red;">查看历史</a>&nbsp;&nbsp;';// 查看配件领取历史
+    		//let a = '<a href="#" onclick="queryHistory('+row.partusedid+','+index+')" style="color:red;">查看历史</a>&nbsp;&nbsp;';// 查看配件领取历史
 			// 如果已经领取不显示领取配件
 			let registed = parseFloat(row.registedspecnum);
     		let tooken = parseFloat(row.receivednum);
     		let b = '';
 			if(registed>tooken){
 				b = '<a href="#" onclick="pickPart('+index+')" style="color:green;">领取配件</a>';// 配件领取
-			} 
-    		return a+b;
+			}else{
+				b = "<span>--</span>";
+			}
+    		return b;
     	}
         
         // 查询历史
@@ -171,48 +174,41 @@
         
         // 领取材料
         function pickPart(index){
-        	let obj = $("#dg").datagrid("getRows")[index]; 
-        	console.log(obj);
-        	if(obj!=null){
-        		$("#partName").empty().text(obj.partname);
-            	$("#partSup").empty().text(obj.supplierName);
-            	$("#regNum").empty().text(obj.registedspecnum);
-           		$("#hasRep").empty().text(obj.receivednum);
-            	// 登记数量
-            	let regNum = parseFloat(obj.registedspecnum);
-            	// 库存数量
-            	let inventory = parseFloat(obj.inventory);
-            	// 已领取数量
-                let hasPicked = parseFloat(obj.receivednum);
-            	// 实际能领取的数量
-            	let num = regNum - hasPicked;
-                num = (num>inventory)?inventory:num;
-            	$("#realRep").empty().html("<span style='color:red;'>"+num+"</span>");
-            	// 绑定事件
-            	$("#surePicking").click(function(){
-            		// 发起ajax请求
-            		/*领取人
-            		领取人工号 			jobnumber
-            		联系方式			concatinfo
-            		零件使用登记表编号             partusedid
-
-            		零件类别编号		categoryid
-            		零件类别名称		partcategory
-            		零件编号			partid		
-            		零件代码			partnumbering
-            		零件名称			partname
-            		供应商编号			supplierid
-            		供应商名称			supplierName
-            		零件单价			purchaseprice
-            		材料数量(*)		needNum	
-
-            		登记人			applicant
-            		登记时间			applicattime
-            		领取人			concatinfo*/
-            		
-            	});
-        	} 
-        	$('#winPickingPart').window('open'); 
+        	let partPickingView = $("#dg").datagrid("getRows")[index]; 
+        	 $.messager.confirm("操作提示","是否确定维修人员【"+partPickingView.applicant+"】,领取【"+partPickingView.partcategory+":"+partPickingView.partname+"】?",function(r){
+        		 if(r){ 
+                   	if(partPickingView!=null){ 
+                       	// 登记数量
+                       	let regNum = parseFloat(partPickingView.registedspecnum);
+                       	// 库存数量
+                       	let inventory = parseFloat(partPickingView.inventory);
+                       	// 已领取数量
+                           let hasPicked = parseFloat(partPickingView.receivednum);
+                       	// 实际能领取的数量
+                       	let num = regNum - hasPicked;
+                           if(num>inventory){
+                           	$.messager.alert("操作提示","对不起，库存不足暂时无法领取，已经通知相关人员进行采购!","info");                	
+                           }else{ 
+                           	$.ajax({
+                           		url:"${pageContext.request.contextPath}/vehicle/pickingPart.html",
+                           		type:"post",
+                           		dataType:"json",
+                           		data:partPickingView
+                           	}).done(function(data){
+                           		if(data=="-1"){
+                           			$.messager.alert("操作提示","对不起，系统暂时无法提供服务!","info"); 
+                           		}else if(data=="-2"){
+                           			$.messager.alert("操作提示","对不起，您已经领取!","info");              			
+                           		}else{
+                           			$.messager.alert("操作提示","成功领取零件 "+partPickingView.partcategory+" "+partPickingView.partname+" "+data+" 【个/件】！","info");               			
+                           		}
+                           		 // 刷新
+                           		doRefresh(); 
+                           	});
+                           }
+                   	}  
+        		 }
+        	 });
         }
         
         $(function(){
