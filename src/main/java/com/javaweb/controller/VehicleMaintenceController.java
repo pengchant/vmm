@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Null;
@@ -33,6 +34,7 @@ import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Mainprojreg;
 import com.javaweb.entity.Partused;
 import com.javaweb.entity.Projcategory;
+import com.javaweb.entity.Qualityinspec;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
@@ -50,6 +52,7 @@ import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PickedPartView;
+import com.javaweb.views.QualityView;
 
 /**
  * 汽车修理模块控制器
@@ -459,4 +462,91 @@ public class VehicleMaintenceController extends BaseController {
 		return JSON.toJSONString(real);
 	}
 	
+	/**
+	 * 结束维修
+	 * @param request
+	 * @param ordersid
+	 * @return
+	 */
+	@RequestMapping("/endFixed")
+	@ResponseBody
+	public String endFixed(HttpServletRequest request,Integer ordersid){
+		boolean flag = false;
+	    flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid);
+	    return flag?responseSuccess(""):responseFail("结束维修状态失败!");
+	}
+	
+	/**
+	 * 结束质检
+	 */
+	@RequestMapping("/endQualitied")
+	@ResponseBody
+	public String endQualitied(Integer ordersid){
+		boolean flag = false;
+		flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid);
+	    return flag?responseSuccess(""):responseFail("结束质检失败!");
+	}
+	
+	/**
+	 * 查询待质检的纪录
+	 * @param keyworld		关键字
+	 * @param starttime		开始时间
+	 * @param endTime		结束时间
+	 * @param bustatusid	业务状态的编号
+	 * @param userinfoid	用户信息编号
+	 * @param pageNo		页号
+	 * @param pageSize		页面大小
+	 * @return				返回当前用户待质检的纪录
+	 */
+	@RequestMapping("/queryQualiting")
+	@ResponseBody
+	public String endQualitied(HttpServletRequest request, String keyworld, String starttime, String endTime,
+			String bustatusid,Integer pageNo,Integer pageSize){
+		 PagedResult<QualityView> qualityViews = null;
+		 LoginBean user = MyWebUtils.getCurrentUser(request);
+		 if(user!=null){
+			 // 分页查询待质检的信息
+			 qualityViews = serviceFactory.getVehicleMaintence().queryNeedQuality(keyworld, starttime, endTime, bustatusid, user.getUserinfoid(), pageNo, pageSize);
+		 }
+		 return responseSuccess(qualityViews);
+	}
+		
+	
+	/**
+	 * 质检项目
+	 * @param fixProjid			待质检的项目
+	 * @param qualityinspec		质检的详情（备注）
+	 * @param hasPassed			是否通过
+	 * @return
+	 */
+	@RequestMapping("/qualityProj")
+	@ResponseBody
+	public String endQualitied(HttpServletRequest request,Integer fixProjid, String qualityinspec, Short hasPassed){
+		boolean flag = false;
+		try {
+			Qualityinspec quality = new Qualityinspec();
+			LoginBean user = MyWebUtils.getCurrentUser(request);
+			quality.setMainprojregid(fixProjid);
+			quality.setInspectperson(user.getUsername());
+			quality.setJobnum(user.getJobnumber());
+			quality.setInspecttime(new Date());
+			quality.setRemarks(qualityinspec); 
+			flag = serviceFactory.getVehicleMaintence().qualityProject(fixProjid, quality, hasPassed);
+		} catch (Exception e) {
+			logger.error("质检失败...");
+		}
+		return flag?responseSuccess(null):responseFail("系统暂时无法提供服务,请稍后重试!");
+	}
+	
+	/**
+	 * 查询所有的待质检的内容
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryFixing")
+	@ResponseBody
+	public String queryFixing(HttpServletRequest request,String ordersid){
+		 return responseArraySuccess(serviceFactory.getVehicleMaintence().queryAllFlexing(ordersid));
+	}
+	 
 }

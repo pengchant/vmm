@@ -161,4 +161,30 @@
 	</where>
   </select>
   
+  <!-- 根据订单的编号查询维修的项目情况 -->
+  <select id="selectFixingItems" resultType="com.javaweb.views.FixingViews">
+  	select 
+		m.ordersid,
+		m.id as mainprojregid,
+		m.mainitemid,
+		i.projName,
+		c.id as categoryid,
+		c.partcategory,
+		m.regperson,
+		u.id as userinfoid,
+		u.username,
+		u.concatinfo,
+		m.mainstatus,
+		m.haspassed
+	from mainprojreg as m
+	join mainitem as i on(m.mainitemid = i.id)
+	join partcategory as c on (i.projcategoryid = c.id)
+	join userinfo as u on (u.id = m.regperson)
+	<where>
+		<if test="ordersid!=null and ordersid!=''">
+			and m.ordersid=#{ordersid}
+		</if>
+	</where>
+  </select>
+  
 </mapper>

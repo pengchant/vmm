@@ -103,4 +103,59 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询待质检的订单 -->
+  <select id="selectZhiJian" resultType="com.javaweb.views.QualityView">
+	select 
+		o.id as ordersid,
+		o.numbering as ordernumbering,
+		o.customerid,
+		o.vehicleid,
+		o.warrcontent,
+		c.numbering,
+		c.contactinfo,
+		v.platenum,
+		v.vehname,
+		v.carmodel,
+		a.allocatetime,
+		a.userinfoid,
+		o.bustatusid,
+		o.esdeliverytime, 
+		s.statename
+	from orders as o
+		join personallocate as a on(o.id = a.ordersid)
+		join customer as c on(o.customerid = c.id)
+		join vehicle as v on (o.vehicleid = v.id)
+		join bustatus as s on (o.bustatusid = s.id)
+	<where>
+		a.taskcategory = 'zj'
+		<!-- 分配给谁 -->
+		<if test="userinfoid!=null and userinfoid!=''">
+			and a.userinfoid = #{userinfoid}
+		</if>
+		<!-- 模糊查询 -->
+		<if test="keyworld!=null and keyworld!=''">
+			and (c.numbering like concat('%',#{keyworld},'%')
+				or c.contactinfo like concat('%',#{keyworld},'%')
+				or v.platenum like concat('%',#{keyworld},'%')
+			)
+		</if> 
+		<!-- 开始事件和结束事件 -->
+		<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
+			and a.allocatetime between concat(#{starttime},' 00:00:00')
+			    and concat(#{endtime},' 23:59:59')
+		</if>
+		<!-- 业务的状态的编号 -->
+		<choose>
+			<when test="bustatusid!=null and bustatusid!=''">
+				and o.bustatusid=#{bustatusid}
+			</when>
+			<otherwise>
+				and o.bustatusid='2' or o.bustatusid='3'
+			</otherwise>
+		</choose> 
+	</where> 
+  </select>
+  
+  
 </mapper>

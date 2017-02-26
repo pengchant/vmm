@@ -32,6 +32,7 @@ import com.javaweb.entity.Partstorage;
 import com.javaweb.entity.Partused;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
+import com.javaweb.entity.Qualityinspec;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.IVehicleMaintence;
 import com.javaweb.utils.BeanUtil;
@@ -39,12 +40,14 @@ import com.javaweb.utils.MyErrorPrinter;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.FixingViews;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PickedPartView;
+import com.javaweb.views.QualityView;
 import com.javaweb.views.UserSector;
 import com.sun.star.lib.uno.environments.remote.remote_environment;
 
@@ -531,7 +534,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 						partproc.setPruchernum(purchaseNum+"");
 						partproc.setTotalpurchase((double) (purchaseNum*Float.parseFloat(partPickingView.getPurchaseprice())));
 						partproc.setPurchstatus("0");// 初始状态
-					    daoFactory.getPartstorageMapper().insertSelective(partstorage);
+					    daoFactory.getPartprocMapper().insertSelective(partproc);
 					    
 					    // 修改零件使用登记表的状态(-1标记为正在采购中)
 					    partused.setReceivestatus("-1");
@@ -563,4 +566,96 @@ public class VehicleMaintence implements IVehicleMaintence {
 		return realNum;// 正常返回领取的数量
 	}
 
+	
+	/**
+	 * 结束维修
+	 */	
+	@Override
+	public boolean finishedFixed(Integer ordersid) {
+	    if (ordersid!=null) {
+			Orders orders = daoFactory.getOrdersMapper().selectByPrimaryKey(ordersid);
+			if(orders!=null){
+				// 修改状态
+				orders.setBustatusid(2);
+				orders.setHascompleted((short) 1); 
+				return (daoFactory.getOrdersMapper().updateByPrimaryKeySelective(orders)>0);
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 结束质检
+	 */
+	@Override
+	public boolean finshedQalited(Integer ordersid) {
+		if(ordersid!=null){
+			Orders orders = daoFactory.getOrdersMapper().selectByPrimaryKey(ordersid);
+			if(orders!=null){ 
+				// 修改状态
+				orders.setBustatusid(3);
+				orders.setHascompleted((short) 1); 
+				return (daoFactory.getOrdersMapper().updateByPrimaryKeySelective(orders)>0);
+			}
+		}
+		return false;
+	}
+
+	
+	/**
+	 * 查询待质检的订单信息
+	 */
+	@Override
+	public PagedResult<QualityView> queryNeedQuality(String keyworld, String starttime, String endTime,
+			String bustatusid, String userinfoid,Integer pageNo,Integer pageSize) {
+		PagedResult<QualityView> qualityViews = null;
+		try {
+			// 复杂查询
+			pageNo = pageNo == null ? 1 : pageNo;
+			pageSize = pageSize == null ? 10 : pageSize;
+			PageHelper.startPage(pageNo, pageSize);
+			qualityViews = BeanUtil.topagedResult(daoFactory.getQualityinspecMapper().selectZhiJian(keyworld, starttime,
+					endTime, bustatusid, userinfoid));
+		} catch (Exception e) {
+		    logger.error("查询待质检的订单失败...");
+		}
+		return qualityViews;
+	}
+
+	/**
+	 * 质检项目
+	 */
+	@Transactional
+	@Override
+	public boolean qualityProject(Integer fixProjid, Qualityinspec qualityinspec, Short hasPassed) {
+		boolean flag = false;
+		if(fixProjid!=null){  
+			Mainprojreg mainprojreg = daoFactory.getMainprojregMapper().selectByPrimaryKey(fixProjid); 
+			if(mainprojreg!=null){
+				try {
+					mainprojreg.setMainstatus((hasPassed==1)?"已质检":"质检不通过");
+					mainprojreg.setHaspassed(hasPassed);
+					daoFactory.getMainprojregMapper().updateByPrimaryKeySelective(mainprojreg);
+					// 添加质检纪录
+					daoFactory.getQualityinspecMapper().insertSelective(qualityinspec);
+					flag = true;
+				} catch (Exception e) {
+					logger.info("质检项目失败");
+				}
+			}			
+		} 
+		return flag;
+	}
+
+	/**
+	 * 更具订单的编号查询所有的待质检的项目
+	 */
+	@Override
+	public List<FixingViews> queryAllFlexing(String ordersid) {
+		List<FixingViews> fixingViews = null;
+		if(StringUtils.isNotBlank(ordersid)){
+			fixingViews = daoFactory.getMainprojregMapper().selectFixingItems(ordersid);
+		}
+		return fixingViews;
+	} 
 }

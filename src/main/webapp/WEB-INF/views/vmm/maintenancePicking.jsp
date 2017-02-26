@@ -185,27 +185,25 @@
                        	// 已领取数量
                            let hasPicked = parseFloat(partPickingView.receivednum);
                        	// 实际能领取的数量
-                       	let num = regNum - hasPicked;
-                           if(num>inventory){
-                           	$.messager.alert("操作提示","对不起，库存不足暂时无法领取，已经通知相关人员进行采购!","info");                	
-                           }else{ 
-                           	$.ajax({
-                           		url:"${pageContext.request.contextPath}/vehicle/pickingPart.html",
-                           		type:"post",
-                           		dataType:"json",
-                           		data:partPickingView
-                           	}).done(function(data){
-                           		if(data=="-1"){
-                           			$.messager.alert("操作提示","对不起，系统暂时无法提供服务!","info"); 
-                           		}else if(data=="-2"){
-                           			$.messager.alert("操作提示","对不起，您已经领取!","info");              			
-                           		}else{
-                           			$.messager.alert("操作提示","成功领取零件 "+partPickingView.partcategory+" "+partPickingView.partname+" "+data+" 【个/件】！","info");               			
-                           		}
-                           		 // 刷新
-                           		doRefresh(); 
-                           	});
-                           }
+                       	let num = regNum - hasPicked; 
+                       	$.ajax({
+                       		url:"${pageContext.request.contextPath}/vehicle/pickingPart.html",
+                       		type:"post",
+                       		dataType:"json",
+                       		data:partPickingView
+                       	}).done(function(data){
+                       		if(data=="-1"){
+                       			$.messager.alert("操作提示","对不起，系统暂时无法提供服务!","info"); 
+                       		}else if(data=="-2"){
+                       			$.messager.alert("操作提示","对不起，您已经领取!","info");              			
+                       		}else if(data=="0"){
+                       			$.messager.alert("操作提示","对不起，库存不足暂时无法领取，已经通知相关人员进行采购!","info");   
+                       		}else{
+                       			$.messager.alert("操作提示","成功领取零件 "+partPickingView.partcategory+" "+partPickingView.partname+" "+data+" 【个/件】！","info");               			
+                       		}
+                       		 // 刷新
+                       		doRefresh(); 
+                       	}); 
                    	}  
         		 }
         	 });

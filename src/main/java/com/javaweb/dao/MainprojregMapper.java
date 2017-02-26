@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.javaweb.entity.Mainprojreg;
+import com.javaweb.views.FixingViews;
 import com.javaweb.views.MaintProject;
 
 public interface MainprojregMapper {
@@ -21,10 +22,17 @@ public interface MainprojregMapper {
     int updateByPrimaryKey(Mainprojreg record);
     
     /**
-     * 查询所有的
+     * 查询所有的查询所有的订单
      * @param ordersid		订单的编号
      * @param userid		用户的编号
      * @return
      */
     List<MaintProject> selectAllMainregedProj(@Param("ordersid")String ordersid,@Param("userid")String userid);
+    
+    /**
+     * 查询所有的待质检的项目
+     * @param ordersid
+     * @return
+     */
+    List<FixingViews> selectFixingItems(@Param("ordersid")String ordersid);
 }

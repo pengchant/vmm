@@ -12,16 +12,20 @@ import com.javaweb.entity.Orders;
 import com.javaweb.entity.Partused;
 import com.javaweb.entity.Personallocate;
 import com.javaweb.entity.Projcategory;
+import com.javaweb.entity.Qualityinspec;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
+import com.javaweb.views.FixingViews;
+import com.javaweb.views.LoginBean;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PickedPartView;
+import com.javaweb.views.QualityView;
 
 /**
  * 汽车维修服务
@@ -228,4 +232,48 @@ public interface IVehicleMaintence {
 	 * @return
 	 */
 	float pickPart(PartPickingView partPickingView);
+	
+	/**
+	 * 维修完毕
+	 */
+	boolean finishedFixed(Integer ordersid);
+	
+	/**
+	 * 质检完毕
+	 */
+	boolean finshedQalited(Integer ordersid);
+	
+	/**
+	 * 查询待质检的数据
+	 * @param keyworld			关键字段
+	 * @param starttime			开始时间
+	 * @param endTime			结束时间
+	 * @param bustatusid		业务的状态
+	 * @param userinfoid		用户信息的编号
+	 * @return
+	 */
+	PagedResult<QualityView> queryNeedQuality(
+			String keyworld,
+			String starttime,
+			String endTime,
+			String bustatusid,
+			String userinfoid,
+			Integer pageNo,
+			Integer pageSize);
+	
+	/**
+	 * 项目质检
+	 * @param fixProjid			质检项目的编号
+	 * @param qualityinspec		质检的详情
+	 * @param hasPassed			是否通过？1：表示通过,0:表示未通过
+	 * @return
+	 */
+	boolean qualityProject(Integer fixProjid,Qualityinspec qualityinspec,Short hasPassed);
+	
+	/**
+	 * 查询订单下所有的待审核的内容
+	 * @param ordersid
+	 * @return
+	 */
+	List<FixingViews> queryAllFlexing(String ordersid);
 }
