@@ -594,7 +594,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 			if(orders!=null){ 
 				// 修改状态
 				orders.setBustatusid(3);
-				orders.setHascompleted((short) 1); 
+				orders.setHascompleted((short) 1);  
 				return (daoFactory.getOrdersMapper().updateByPrimaryKeySelective(orders)>0);
 			}
 		}

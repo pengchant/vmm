@@ -151,7 +151,7 @@
 				and o.bustatusid=#{bustatusid}
 			</when>
 			<otherwise>
-				and o.bustatusid='2' or o.bustatusid='3'
+				and (o.bustatusid='2' or o.bustatusid='3')
 			</otherwise>
 		</choose> 
 	</where> 

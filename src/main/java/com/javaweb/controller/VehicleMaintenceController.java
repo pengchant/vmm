@@ -473,7 +473,7 @@ public class VehicleMaintenceController extends BaseController {
 	public String endFixed(HttpServletRequest request,Integer ordersid){
 		boolean flag = false;
 	    flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid);
-	    return flag?responseSuccess(""):responseFail("结束维修状态失败!");
+	    return flag?responseSuccess(null):responseFail("结束维修状态失败!");
 	}
 	
 	/**
@@ -483,8 +483,8 @@ public class VehicleMaintenceController extends BaseController {
 	@ResponseBody
 	public String endQualitied(Integer ordersid){
 		boolean flag = false;
-		flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid);
-	    return flag?responseSuccess(""):responseFail("结束质检失败!");
+		flag = serviceFactory.getVehicleMaintence().finshedQalited(ordersid);
+	    return flag?responseSuccess(null):responseFail("结束质检失败!");
 	}
 	
 	/**
