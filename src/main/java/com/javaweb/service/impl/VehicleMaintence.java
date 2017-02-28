@@ -46,6 +46,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
 import com.javaweb.views.QualityView;
 import com.javaweb.views.UserSector;
@@ -657,5 +658,26 @@ public class VehicleMaintence implements IVehicleMaintence {
 			fixingViews = daoFactory.getMainprojregMapper().selectFixingItems(ordersid);
 		}
 		return fixingViews;
+	}
+
+	
+	/**
+	 * 查询所有的待结算的订单
+	 */
+	@Override
+	public PagedResult<PayViews> queryAllPayingOrder(String keyworld, String starttime, String endtime,
+			String bustatusid, String ordersid, Integer pageNo, Integer pageSize) {
+		PagedResult<PayViews> pagedResult = null;
+		try {
+			// 复杂查询
+			pageNo = pageNo == null ? 1 : pageNo;
+			pageSize = pageSize == null ? 10 : pageSize;
+			PageHelper.startPage(pageNo, pageSize);
+			pagedResult = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selctMyPayOrders(
+					keyworld, starttime, endtime, bustatusid, ordersid)); 
+		} catch (Exception e) {
+			logger.error("查询待结算的订单失败!");
+		}
+		return pagedResult;
 	} 
 }

@@ -24,6 +24,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
 import com.javaweb.views.QualityView;
 
@@ -276,4 +277,25 @@ public interface IVehicleMaintence {
 	 * @return
 	 */
 	List<FixingViews> queryAllFlexing(String ordersid);
+	
+	
+	/**
+	 * 分页查询出当前需要支付的订单
+	 * @param keyworld
+	 * @param starttime
+	 * @param endtime
+	 * @param bustatusid
+	 * @param ordersid
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	PagedResult<PayViews> queryAllPayingOrder(
+			String keyworld,
+			String starttime,
+			String endtime,
+			String bustatusid, 
+			String ordersid,
+			Integer pageNo,
+			Integer pageSize);
 }

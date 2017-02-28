@@ -51,6 +51,7 @@ import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
 import com.javaweb.views.PartsInfo;
+import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
 import com.javaweb.views.QualityView;
 
@@ -549,4 +550,17 @@ public class VehicleMaintenceController extends BaseController {
 		 return responseArraySuccess(serviceFactory.getVehicleMaintence().queryAllFlexing(ordersid));
 	}
 	 
+	/**
+	 * 查询所有的待质检的视图
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/queryPaying")
+	@ResponseBody
+	public String queryPayingView(String keyworld, String starttime, String endtime,
+			String bustatusid, String ordersid, Integer pageNo, Integer pageSize){
+		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, pageNo, pageSize);		
+		return responseSuccess(payViews);
+	}
+	
 }

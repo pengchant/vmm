@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.javaweb.entity.Orders;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PayViews;
 
 public interface OrdersMapper {
     int deleteByPrimaryKey(Integer id);
@@ -40,5 +41,21 @@ public interface OrdersMapper {
     		@Param("order")String order,
     		@Param("category")String category,
     		@Param("orderstatus")String orderstatus);
+    
+    /**
+     * 查询待付款的订单信息
+     * @param keyworld
+     * @param starttime
+     * @param endtime
+     * @param bustatusid
+     * @param ordersid
+     * @return
+     */
+    List<PayViews> selctMyPayOrders(
+    		@Param("keyworld")String keyworld,
+    		@Param("starttime")String starttime,
+    		@Param("endtime")String endtime,
+    		@Param("bustatusid")String bustatusid,
+    		@Param("ordersid")String ordersid);
     
 }

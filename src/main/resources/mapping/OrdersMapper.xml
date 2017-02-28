@@ -350,4 +350,100 @@
 			order by ${sort} ${order}
 		</if>
 	</select>
+	
+	<!-- 订单结算查询 -->
+	<select id="selctMyPayOrders" resultType="com.javaweb.views.PayViews">
+		SELECT
+			o.id AS ordersid,
+			o.numbering,
+			o.customerid,
+			c.numbering AS customername,
+			c.contactinfo,
+			v.id AS vehicleid,
+			v.vehname,
+			v.carmodel,
+			o.warrcontent,
+			b.id AS bustatusid,
+			b.statename AS busstatus,
+			p.id AS paystatusid,
+			p.statusname AS paystatus,
+			o.esdeliverytime,
+			q.ptotal,
+			m.mtotal,
+			(q.ptotal+m.mtotal) as totalcost
+		FROM
+			orders AS o
+		JOIN customer AS c ON (o.customerid = c.id)
+		JOIN vehicle AS v ON (o.vehicleid = v.id)
+		JOIN bustatus AS b ON (o.bustatusid = b.id)
+		JOIN paystatus AS p ON (o.paystatusid = p.id)
+		JOIN (
+			SELECT
+				_p.ordersid,
+				SUM(_p.ptotal) AS ptotal
+			FROM
+				(
+					SELECT
+						u.ordersid,
+						(
+		
+							IF (
+								u.receivednum = '0',
+								'0',
+								u.receivednum * p.salesprice
+							)
+						) AS ptotal
+					FROM
+						partused AS u
+					JOIN part AS p ON (u.partid = p.id) 
+				) AS _p 
+				group by _p.ordersid
+		) AS q ON (q.ordersid = o.id)
+		JOIN (
+			SELECT
+				_m.ordersid,
+				sum(_m.totalcost) AS mtotal
+			FROM
+				(
+					SELECT
+						m.ordersid,
+						m.spenttime * i.itemprice AS totalcost
+					FROM
+						mainprojreg AS m
+					JOIN mainitem AS i ON (m.mainitemid = i.id) 
+				) AS _m 
+				group by _m.ordersid
+		) AS m ON (m.ordersid = o.id)
+		<where>
+			<!-- 关键字 -->
+			<if test="keyworld!=null and keyworld!=''">
+				(
+					c.numbering  like concat('%',#{keyworld},'%')
+					or 
+					c.contactinfo like concat('%',#{keyworld},'%') 
+				)
+			</if>			
+			<!-- 开始时间和结束时间 -->
+			<if test="starttime!=null and starttime!='' and endtime !=null and endtime!=''">
+				and o.esdeliverytime between concat(#{starttime},' 00:00:00') 
+					and
+					concat(#{endtime},' 23:59:59')
+			</if>
+			<!-- 状态编号 -->
+			<choose>
+				<when test="bustatusid!=null and bustatusid!=''">
+					and o.bustatusid=#{bustatusid}
+				</when>
+				<otherwise>
+					and (o.bustatusid='3' or o.bustatusid='4')
+				</otherwise>
+			</choose> 
+			<!-- 订单的编号 -->
+			<if test="ordersid!=null and ordersid!=''">
+				and o.id=#{ordersid}
+			</if>
+		</where>
+		ORDER BY
+			o.id ASC
+	</select>
 </mapper>
