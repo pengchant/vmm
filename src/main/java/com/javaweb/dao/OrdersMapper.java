@@ -56,6 +56,7 @@ public interface OrdersMapper {
     		@Param("starttime")String starttime,
     		@Param("endtime")String endtime,
     		@Param("bustatusid")String bustatusid,
-    		@Param("ordersid")String ordersid);
+    		@Param("ordersid")String ordersid,
+    		@Param("paystatusid")String paystatusid);
     
 }

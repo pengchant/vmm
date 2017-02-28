@@ -438,6 +438,10 @@
 					and (o.bustatusid='3' or o.bustatusid='4')
 				</otherwise>
 			</choose> 
+			<!-- 支付状态 -->
+			<if test="paystatusid!=null and paystatusid!=''">
+				and p.id=#{paystatusid}
+			</if>
 			<!-- 订单的编号 -->
 			<if test="ordersid!=null and ordersid!=''">
 				and o.id=#{ordersid}

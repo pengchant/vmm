@@ -34,22 +34,22 @@
         </table>
         <div id="tb" style="padding:5px">
             <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <input id="id" class="easyui-textbox" prompt="请输入用户名/手机号/车牌号"
+            <input id="keyworld" class="easyui-textbox" prompt="请输入用户名/手机号/车牌号"
                    style="width:150px;height:26px;">&nbsp;&nbsp;
 
             <span>入场开始时间:</span>
-            <input id="ds" type="text" value="3/4/2010 2:3" style="width:150px;height:26px;" class="easyui-datebox"  />
+            <input id="starttime" type="text" value="3/4/2010 2:3" style="width:150px;height:26px;" class="easyui-datebox"  />
             &nbsp;&nbsp;<span>入场结束时间:</span>
-            <input id="de" type="text" value="3/4/2010 2:3" style="width:150px;height:26px;" class="easyui-datebox"  />
+            <input id="endtime" type="text" value="3/4/2010 2:3" style="width:150px;height:26px;" class="easyui-datebox"  />
             &nbsp;&nbsp;
             <span>支付状态:</span>
-            <select class="easyui-combobox" name="dept" style="width:150px;height:26px;">
+            <select id="paystatus" class="easyui-combobox" name="dept" style="width:150px;height:26px;">
                 <option value="aa">已结算</option>
                 <option>未结算</option>
             </select>&nbsp;&nbsp;
             <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
             &nbsp;&nbsp;
-            <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
+            <a href="#" id="refresh" iconCls="icon-arrow_refresh" onclick="refresh()" class="easyui-linkbutton">刷新所有</a>
         </div>
 
     </div>
@@ -58,6 +58,21 @@
     </div>
 </div>
 <script type="text/javascript">
+
+	// 查询
+	function doSearch(){
+		$('#dg').datagrid('load',{
+			keyworld:$("#keyworld").textbox("getValue"),
+			starttime:$("#starttime").datebox("getValue"),
+			endtime:$("#endtime").datebox("getValue"),
+			paystatusid:$("#paystatus").combobox("getValue")
+		});
+	}
+	
+	// 刷新
+	function refresh(){
+		$('#dg').datagrid("reload");
+	}
 
 	// 用料费用
 	function ylfm(value,row,index){

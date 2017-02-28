@@ -558,8 +558,8 @@ public class VehicleMaintenceController extends BaseController {
 	@RequestMapping("/queryPaying")
 	@ResponseBody
 	public String queryPayingView(String keyworld, String starttime, String endtime,
-			String bustatusid, String ordersid, Integer pageNo, Integer pageSize){
-		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, pageNo, pageSize);		
+			String bustatusid, String ordersid, Integer pageNo, Integer pageSize,String paystatusid){
+		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, pageNo, pageSize,paystatusid);		
 		return responseSuccess(payViews);
 	}
 	

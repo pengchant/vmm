@@ -297,5 +297,6 @@ public interface IVehicleMaintence {
 			String bustatusid, 
 			String ordersid,
 			Integer pageNo,
-			Integer pageSize);
+			Integer pageSize,
+			String paystatusid);
 }

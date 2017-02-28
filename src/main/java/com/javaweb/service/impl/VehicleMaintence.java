@@ -666,7 +666,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 */
 	@Override
 	public PagedResult<PayViews> queryAllPayingOrder(String keyworld, String starttime, String endtime,
-			String bustatusid, String ordersid, Integer pageNo, Integer pageSize) {
+			String bustatusid, String ordersid, Integer pageNo, Integer pageSize,String paystatusid) {
 		PagedResult<PayViews> pagedResult = null;
 		try {
 			// 复杂查询
@@ -674,7 +674,7 @@ public class VehicleMaintence implements IVehicleMaintence {
 			pageSize = pageSize == null ? 10 : pageSize;
 			PageHelper.startPage(pageNo, pageSize);
 			pagedResult = BeanUtil.topagedResult(daoFactory.getOrdersMapper().selctMyPayOrders(
-					keyworld, starttime, endtime, bustatusid, ordersid)); 
+					keyworld, starttime, endtime, bustatusid, ordersid,paystatusid)); 
 		} catch (Exception e) {
 			logger.error("查询待结算的订单失败!");
 		}
