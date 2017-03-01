@@ -228,8 +228,7 @@
 					},
 					dataType:"json",
 					type:"post"
-				}).done(function(data){
-					alert(data);
+				}).done(function(data){ 
 					console.log(data);
 					$.messager.alert("操作提示","支付成功!感谢您使用汽车维修管理系统","info");
 					// 关闭模态框
