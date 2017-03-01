@@ -450,4 +450,48 @@
 		ORDER BY
 			o.id ASC
 	</select>
+	
+	<!-- 查询用料情况 -->
+	<select id="selectAllYLList" resultType="com.javaweb.views.PartUsedView">
+		SELECT
+			u.ordersid,
+			p.partname,
+			u.receivednum,
+			p.salesprice,
+			(
+		
+				IF (
+					u.receivednum = '0',
+					'0',
+					u.receivednum * p.salesprice
+				)
+			) AS ptotal
+		FROM
+			partused AS u
+		JOIN part AS p ON (u.partid = p.id)
+		<where>
+			<if test="ordersid!=null and ordersid!=''">
+				and u.ordersid = #{ordersid} 
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 查询维修情况 -->
+	<select id="selectAllWXList" resultType="com.javaweb.views.MainitemUsedView">
+		SELECT
+			m.ordersid,
+			m.mainitemid,
+			i.projName,
+			i.itemprice,
+			m.spenttime,
+			m.spenttime * i.itemprice AS totalcost
+		FROM
+			mainprojreg AS m
+		JOIN mainitem AS i ON (m.mainitemid = i.id)
+		<where>
+			<if test="ordersid!=null and ordersid!=''">
+				and m.ordersid=#{ordersid}
+			</if>
+		</where>
+	</select>
 </mapper>

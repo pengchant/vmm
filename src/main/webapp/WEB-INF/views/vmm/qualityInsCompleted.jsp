@@ -29,7 +29,7 @@
 		               <th field="ordersid" align="center" width="50" hidden="true">接单表编号</th>
 		               <th field="bustatusid" align="center" width="50" hidden="true">状态编号</th>
 		               <th field="operation" align="center" width="80" formatter="myformatter">维修检测</th>
-		               <th field="operation2" align="center" width="80" formatter="myformatter2">质检操作</th>
+		               <th field="operation2" align="center" width="120" formatter="myformatter2">质检操作</th>
 	                </tr>
                 </thead>
             </table>
@@ -41,9 +41,9 @@
             &nbsp;&nbsp;
             <span>质检状态:</span>
             <select id="status" class="easyui-combobox" name="dept" style="width:150px;height:26px;">
-                <option value="3">已质检</option>
-                <option value="2">未质检</option>
                 <option value="">全部</option>
+                <option value="3">已质检</option>
+                <option value="2">未质检</option> 
             </select>
             <br/> 
             <br/> 
@@ -89,7 +89,8 @@
 				<td>
 					<%-- 隐藏域 --%>
 					<%--订单表的编号 --%>
-					<input type="hidden" name="ordersid" id="ordersid"/>
+					<input type="hidden" name="ordersid" id="ordersid"/>  
+					<input type="hidden"  id="index"/>
 					<%-- 维修登记表的编号 --%>
 					<input type="hidden" name="fixProjid" id="fixProjid"/>
 					<input type="radio" name="hasPassed" value="1" checked="checked"/>通过
@@ -127,15 +128,17 @@
 	}
 
 	function myformatter(value,row,index){
-		let a='<button onclick="jiance('+row.ordersid+','+row.platenum+')" style="cursor:pointer;font-size:13px;border:none;background:red;border-radius:3px;height:26px;color:white;">维修检测</button>';		
+		let a='<button onclick="jiance('+index+')" style="cursor:pointer;font-size:13px;border:none;background:red;border-radius:3px;height:26px;color:white;">维修检测</button>';		
 		return a; 
 	}
 	
 	function myformatter2(value,row,index){ 
 		let b = '';
+		let c = '';
 		if(row.bustatusid=="2"){
-			b = '<button onclick="passzhijian('+row.ordersid+')" style=:border:none;background:green;height:26px;color:white;border:none;border-radius:3px;">通过质检</button>';
-			return b;
+			b = '<button onclick="passzhijian('+row.ordersid+')" style=:border:none;background:green;height:26px;color:white;border:none;border-radius:3px;cursor:pointer;">通过质检</button>';
+			c = '&nbsp;<button onclick="chongxinweixiu('+row.ordersid+')" style=:border:none;background:orange;height:26px;color:white;border:none;border-radius:3px;cursor:pointer;">重新维修</button>';			
+			return b+c;
 		}else{
 			return "--";
 		}  
@@ -143,7 +146,10 @@
 	
 	
 	// 查看质检项目情况
-	function jiance(ordersid,platenum){
+	function jiance(index){
+		let row = $("#dg").datagrid("getRows")[index];
+		let ordersid = row.ordersid;
+		let platenum = row.platenum;
 		$("#currentpl").empty().html(platenum);
 		// 发起ajax请求
 		$.ajax({
@@ -155,6 +161,8 @@
 			console.log(data);
 			 $("#tbfixing").datagrid("loadData",data); 
 		});
+		// 设置隐藏域
+		$("#index").val(index);
 	}
 	
 	 
@@ -179,6 +187,7 @@
 		let row = $("#tbfixing").datagrid("getRows")[index]; 
 		$("#ordersid").val(row.ordersid);
 		$("#fixProjid").val(row.mainprojregid); 
+		// 打开弹框
 		$("#shenghe").dialog({
 		    title: '审核',
 		    width: 400,
@@ -188,6 +197,7 @@
 		    modal: true,
 		    buttons:"#shtb"
 		});		
+		
 	}
 	
 	// 提交审核
@@ -196,7 +206,8 @@
 		    url:"${pageContext.request.contextPath}/vehicle/qualityProj.html",
 		    success:function(data){
 		        $.messager.alert("操作提示","审核成功!","info");
-		        jiance($("#ordersid").val());
+		        // 重新刷新
+		        jiance($("#index").val());
 		        $('#shenghe').dialog('close');
 		    },
 		    error:function(error){
@@ -226,6 +237,26 @@
 					 dataType:"json"
 				 }).done(function(data){
 					 $.messager.alert("操作提示","质检成功!","info");
+					 $("#dg").datagrid("reload");
+				 });
+			}
+		});
+	}
+	
+	// 重新维修
+	function chongxinweixiu(ordersid){
+		$.messager.confirm('确定', '该操作不能撤销,请确定是否重新维修?', function(r){
+			if (r){
+				 $.ajax({
+					 url:"${pageContext.request.contextPath}/vehicle/endFixed.html",
+					 type:"post",
+					 data:{
+						 ordersid:ordersid,
+						 isreturn:"Y"
+				     },
+					 dataType:"json"
+				 }).done(function(data){
+					 $.messager.alert("操作提示","操作成功!","info");
 					 $("#dg").datagrid("reload");
 				 });
 			}

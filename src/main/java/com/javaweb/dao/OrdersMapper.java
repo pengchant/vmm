@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.javaweb.entity.Orders;
+import com.javaweb.views.MainitemUsedView;
 import com.javaweb.views.OrderMaintence;
+import com.javaweb.views.PartUsedView;
 import com.javaweb.views.PayViews;
 
 public interface OrdersMapper {
@@ -58,5 +60,19 @@ public interface OrdersMapper {
     		@Param("bustatusid")String bustatusid,
     		@Param("ordersid")String ordersid,
     		@Param("paystatusid")String paystatusid);
+    
+    /**
+     * 查询所有的用料的情况
+     * @param ordersid	订单的编号
+     * @return
+     */
+    List<PartUsedView> selectAllYLList(@Param("ordersid")String ordersid);
+    
+    /**
+     * 查询所有的维修的情况
+     * @param ordersid	订单的编号
+     * @return
+     */
+    List<MainitemUsedView> selectAllWXList(@Param("ordersid")String ordersid);
     
 }

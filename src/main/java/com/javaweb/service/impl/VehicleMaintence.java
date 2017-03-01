@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Accessoryhis;
+import com.javaweb.entity.Balancesheet;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Customervisithis;
 import com.javaweb.entity.Mainitem;
@@ -41,10 +42,13 @@ import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.FixingViews;
+import com.javaweb.views.LoginBean;
+import com.javaweb.views.MainitemUsedView;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartUsedView;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
@@ -572,13 +576,15 @@ public class VehicleMaintence implements IVehicleMaintence {
 	 * 结束维修
 	 */	
 	@Override
-	public boolean finishedFixed(Integer ordersid) {
+	public boolean finishedFixed(Integer ordersid,String isreturn) {
 	    if (ordersid!=null) {
 			Orders orders = daoFactory.getOrdersMapper().selectByPrimaryKey(ordersid);
 			if(orders!=null){
-				// 修改状态
-				orders.setBustatusid(2);
-				orders.setHascompleted((short) 1); 
+				if("Y".equals(isreturn)){ 
+					orders.setBustatusid(1);
+				}else{
+					orders.setBustatusid(2);
+				} 
 				return (daoFactory.getOrdersMapper().updateByPrimaryKeySelective(orders)>0);
 			}
 		}
@@ -679,5 +685,68 @@ public class VehicleMaintence implements IVehicleMaintence {
 			logger.error("查询待结算的订单失败!");
 		}
 		return pagedResult;
-	} 
+	}
+
+	/**
+	 * 查询所有的订单中维修使用材料的情况
+	 */
+	@Override
+	public List<PartUsedView> queryAllPartUsedView(String ordersid) { 
+		List<PartUsedView> partUsedViews = null;
+		try {
+			partUsedViews = daoFactory.getOrdersMapper().selectAllYLList(ordersid);
+		} catch (Exception e) {
+			logger.error("查询所有的订单中维修使用材料的情况失败!");
+		}
+		return partUsedViews;
+	}
+
+	/**
+	 * 查询订单中所有的维修项目的情况
+	 */
+	@Override
+	public List<MainitemUsedView> queryAllMainitemView(String ordersid) { 
+		List<MainitemUsedView> mainitemUsedViews = null;
+		try {
+			mainitemUsedViews = daoFactory.getOrdersMapper().selectAllWXList(ordersid);
+		} catch (Exception e) {
+			logger.error("查询订单中所有的维修项目的情况");
+		}
+		return mainitemUsedViews;
+	}
+
+	
+	/**
+	 * 支付订单
+	 */
+	@Override
+	public boolean payMyOrders(String ordersid, LoginBean user, Double toalMoney) {
+		boolean flag = false;
+		if(StringUtils.isNotBlank(ordersid)&&toalMoney>0&&user!=null){
+			try {
+				Orders orders = daoFactory.getOrdersMapper().selectByPrimaryKey(Integer.parseInt(ordersid));
+				if(orders!=null){
+					Balancesheet balancesheet = new Balancesheet();
+					balancesheet.setSettlementdate(new Date());
+					balancesheet.setTotalamount(toalMoney);
+					balancesheet.setOrdersid(orders.getId());
+					balancesheet.setSettler(user.getUserinfoid());
+					daoFactory.getBalancesheetMapper().insertSelective(balancesheet);
+					// 跟新表
+					orders.setHascompleted((short) 1);
+					orders.setHassettled((short) 1);
+					orders.setSettlecompdate(new Date());
+					orders.setPaystatusid(2);// 已经支付
+					orders.setBustatusid(4);// 已经提车
+					daoFactory.getOrdersMapper().updateByPrimaryKeySelective(orders);
+					flag=true;
+				}
+			} catch (Exception e) {
+				logger.error("支付订单错误!");
+			} 
+		}
+		return flag;
+	}
+ 
+	 
 }

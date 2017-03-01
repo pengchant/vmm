@@ -19,10 +19,12 @@ import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.FixingViews;
 import com.javaweb.views.LoginBean;
+import com.javaweb.views.MainitemUsedView;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartUsedView;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
@@ -237,7 +239,7 @@ public interface IVehicleMaintence {
 	/**
 	 * 维修完毕
 	 */
-	boolean finishedFixed(Integer ordersid);
+	boolean finishedFixed(Integer ordersid,String isreturn);
 	
 	/**
 	 * 质检完毕
@@ -299,4 +301,28 @@ public interface IVehicleMaintence {
 			Integer pageNo,
 			Integer pageSize,
 			String paystatusid);
+	
+	/**
+	 * 查询所有的订单的使用材料的情况
+	 * @param ordersid
+	 * @return
+	 */
+	List<PartUsedView> queryAllPartUsedView(String ordersid);
+	
+	/**
+	 * 查询所有的订单的维修项目情况
+	 * @param ordersid
+	 * @return
+	 */
+	List<MainitemUsedView> queryAllMainitemView(String ordersid);
+	
+	
+	/**
+	 * 支付订单
+	 * @param ordersid
+	 * @param user
+	 * @param toalMoney
+	 * @return
+	 */
+	boolean payMyOrders(String ordersid,LoginBean user,Double toalMoney);
 }

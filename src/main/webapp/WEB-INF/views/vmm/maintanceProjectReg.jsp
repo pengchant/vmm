@@ -550,7 +550,70 @@
 	        	$("#dgYL").datagrid('loadData',data);
            }); 
 	   }
+	   	   
+	   
+	   /**
+	   * 完工
+	   */
+	   function sureWG(ordersid){
+		   $.messager.confirm("确定","你确定要完工吗?",function(r){
+			   if(r){
+				   // 执行完工操作
+				   $.ajax({
+					   url:"${pageContext.request.contextPath}/vehicle/endFixed.html",
+					   type:"post",
+					   data:{
+						   ordersid:ordersid
+					   }
+				   }).done(function(data){
+					   console.log(data);
+					   $.messager.alert("提示","操作成功!","info");
+					   $("#current").datagrid("reload");
+				   });
+			   }
+		   });
+	   }
 		
+	   /**
+	   *	查看维修情况
+	   */
+	   function showDT(index){
+		    let row = $("#current").datagrid("getRows")[index];
+			// 获取当前选中的orderid
+	       	currentOrder = row.ordersid;
+	       	// 汽车牌号
+	       	$(".currentplatnum").empty().append(row.platenum);
+	       	// 车主
+	       	$("#customername").empty().append(row.customername);
+	       	// 电话
+	       	$("#contactinfo").empty().append(row.contactinfo);
+	       	// 行驶里程数
+	       	$("#milage").empty().append(row.miles);
+	       	// 发动机号
+	       	$("#vehflag").empty().append(row.vehflag);
+	       	// 保险日期
+	       	$("#baoxiandate").empty().append(row.inspectiondate.substring(0,10));
+	       	// 车主联系地址
+	       	$("#contactadd").empty().append(row.contactadd);
+	       	// 是否查看旧件
+	       	$("#ifused").empty().append(row.ifused=='1'?'是':'否');
+	       	// 是否清洗车辆
+	       	$("#ifclean").empty().append(row.ifclean=='1'?'是':'否');
+	       	// 是否检查备胎
+	       	$("#ifcheck").empty().append(row.ifcheckspare=='1'?'是':'否');
+	       	// 保修内容
+	       	$("#baoxiu").empty().append(row.warrcontent);
+	       	// 随车物品
+	       	$("#suiche").empty().append(row.caritems);
+	       	// 贵重物品
+	       	$("#guizhong").empty().append(row.valuableobj);
+	       	// 故障
+	       	$("#guzhang").empty().append(row.ownerdescribtion);
+	       	
+	       	getWXData();		        	
+	       	getYLData();
+	   }
+	   
 		$(function(){ 
 			 
 		   // 重新刷新
@@ -603,49 +666,18 @@
 		            		return value.substring(0,19);
 		            	}
 		            },
-		            {field:'action',width:150,align:'center',title:'操作',
+		            {field:'action',width:170,align:'center',title:'操作',
 		                formatter:function(value,row,index){
-		                    var a = '<a href="#" class="easyui-linkbutton" style="color:#519fff;">维修登记</a>&nbsp;';
-		                    var b = '&nbsp;<a href="#" class="easyui-linkbutton" style="color:#b93705;">确定完工</a>';
+		                	var a='';
+		                	var b='';
+		                	a='&nbsp;<button style="border:none;color:white;background:orange;cursor:pointer;border-radius:3px;" onclick="showDT('+index+')">查看维修</button>&nbsp;';
+		                	if(row.bustatusid=="1"){
+		                		b = '&nbsp;<button style="border:none;color:white;background:green;cursor:pointer;border-radius:3px; " onclick="sureWG('+row.ordersid+')">确定完工</button>&nbsp;';
+		                	}  
 		                    return a+b;
 		                }
 		            }
-		        ]],
-		        onDblClickRow:function(index,row){	
-		        	// 获取当前选中的orderid
-		        	currentOrder = row.ordersid;
-		        	// 汽车牌号
-		        	$(".currentplatnum").empty().append(row.platenum);
-		        	// 车主
-		        	$("#customername").empty().append(row.customername);
-		        	// 电话
-		        	$("#contactinfo").empty().append(row.contactinfo);
-		        	// 行驶里程数
-		        	$("#milage").empty().append(row.miles);
-		        	// 发动机号
-		        	$("#vehflag").empty().append(row.vehflag);
-		        	// 保险日期
-		        	$("#baoxiandate").empty().append(row.inspectiondate.substring(0,10));
-		        	// 车主联系地址
-		        	$("#contactadd").empty().append(row.contactadd);
-		        	// 是否查看旧件
-		        	$("#ifused").empty().append(row.ifused=='1'?'是':'否');
-		        	// 是否清洗车辆
-		        	$("#ifclean").empty().append(row.ifclean=='1'?'是':'否');
-		        	// 是否检查备胎
-		        	$("#ifcheck").empty().append(row.ifcheckspare=='1'?'是':'否');
-		        	// 保修内容
-		        	$("#baoxiu").empty().append(row.warrcontent);
-		        	// 随车物品
-		        	$("#suiche").empty().append(row.caritems);
-		        	// 贵重物品
-		        	$("#guizhong").empty().append(row.valuableobj);
-		        	// 故障
-		        	$("#guzhang").empty().append(row.ownerdescribtion);
-		        	
-		        	getWXData();		        	
-		        	getYLData();
-		        }
+		        ]]  
 		   });
 		});
 	</script>

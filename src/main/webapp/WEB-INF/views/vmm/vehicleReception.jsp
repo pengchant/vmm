@@ -135,10 +135,10 @@
 		style="width: 100%; padding: 10px;">
 		
 		<%-- 页面的form表单部分 --%>
-		<form method="post" action="${pageContext.request.contextPath}/vehicle/receptOrder.html"  id="fmOrderRecept" style="width:100%;height:100%;padding:0px;">
+		<form method="post" action="${pageContext.request.contextPath}/vehicle/receptOrder.html"  id="fmOrderRecept" style="width:100%;padding:0px;">
 			<!-- 表单的头部内容部分 -->
 			<div style="padding-top: 5px; padding-bottom: 10px;">
-				<table style="width: 100%; height: 100%;">
+				<table style="width: 100%;">
 					<tr>
 						<td style="text-align: left;"><a class="easyui-linkbutton"
 							iconCls="icon-add" id="openAddUser">新建用户</a>&nbsp;&nbsp; <a
@@ -180,8 +180,8 @@
 			<!-- 表单头部内容结束 -->
 			
 			<!-- 主要的表单内容部分 -->
-			<div class="easyui-panel form_cont" border="false" fit="true">
-				<table class="main_table" style="width:100%;height:100%;" cellpadding="0" cellspacing="0">
+			<div class="easyui-panel form_cont" border="false">
+				<table class="main_table" style="width:100%;" cellpadding="0" cellspacing="0">
 					<%-- 基础信息部分 --%>
 					<tr>
 						<td style="width: 80px;">行驶里程数</td>

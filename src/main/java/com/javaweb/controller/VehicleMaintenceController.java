@@ -45,11 +45,13 @@ import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerVehicle;
 import com.javaweb.views.EasyUITreeNode;
 import com.javaweb.views.LoginBean;
+import com.javaweb.views.MainitemUsedView;
 import com.javaweb.views.MaintProject;
 import com.javaweb.views.OrderList;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartPickingView;
 import com.javaweb.views.PartUsedInfo;
+import com.javaweb.views.PartUsedView;
 import com.javaweb.views.PartsInfo;
 import com.javaweb.views.PayViews;
 import com.javaweb.views.PickedPartView;
@@ -464,16 +466,16 @@ public class VehicleMaintenceController extends BaseController {
 	}
 	
 	/**
-	 * 结束维修
+	 * 维修（结束维修，重新维修）
 	 * @param request
 	 * @param ordersid
 	 * @return
 	 */
 	@RequestMapping("/endFixed")
 	@ResponseBody
-	public String endFixed(HttpServletRequest request,Integer ordersid){
+	public String endFixed(HttpServletRequest request,Integer ordersid,String isreturn){
 		boolean flag = false;
-	    flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid);
+	    flag = serviceFactory.getVehicleMaintence().finishedFixed(ordersid,isreturn);
 	    return flag?responseSuccess(null):responseFail("结束维修状态失败!");
 	}
 	
@@ -561,6 +563,47 @@ public class VehicleMaintenceController extends BaseController {
 			String bustatusid, String ordersid, Integer pageNo, Integer pageSize,String paystatusid){
 		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, pageNo, pageSize,paystatusid);		
 		return responseSuccess(payViews);
+	}
+	
+	/**
+	 * 查询所有用料单额情况
+	 * @param ordersid
+	 * @return
+	 */
+	@RequestMapping("/queryAllPartUsed")
+	@ResponseBody
+	public String queryAllPartUsed(String ordersid ){
+		List<PartUsedView> partUsedViews = serviceFactory.getVehicleMaintence().queryAllPartUsedView(ordersid);
+		return responseArraySuccess(partUsedViews);
+	}
+	
+	/**
+	 * 查询所有维修项目的情况
+	 * @param ordersid
+	 * @return
+	 */
+	@RequestMapping("/queryMainitemUsed")
+	@ResponseBody
+	public String queryMainitemUsed(String ordersid){
+		List<MainitemUsedView> mainitemUsedViews = serviceFactory.getVehicleMaintence().queryAllMainitemView(ordersid);
+		return responseArraySuccess(mainitemUsedViews);
+	}
+	
+	/**
+	 * 支付订单
+	 */
+	@RequestMapping("/paymyOrders")
+	@ResponseBody
+	public String paymyOrders(HttpServletRequest request,String ordersid,String totalMoney){
+		boolean flag = false;
+		LoginBean user = MyWebUtils.getCurrentUser(request);
+		try {
+			Double tm = Double.parseDouble(totalMoney);
+			flag = serviceFactory.getVehicleMaintence().payMyOrders(ordersid, user, tm);
+		} catch (Exception e) {
+			logger.info("支付失败...");
+		}
+	   return flag?responseSuccess(null):responseFail("系统暂时无法提供服务请稍后重试!");
 	}
 	
 }
