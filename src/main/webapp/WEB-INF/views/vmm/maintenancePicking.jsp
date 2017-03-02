@@ -43,7 +43,7 @@
                 	<th field="registedspecnum" align="center" width="20" >登记</th>
                     <th field="receivednum" align="center" width="20" >领取</th> 
                     <th field="applicattime" align="center" width="80">申请时间</th>
-                    <th field="receivestatus" align="center" width="50">领取状态</th>
+                    <th field="receivestatus" align="center" width="50" formatter="pickingformatter">领取状态</th>
                     <th field="operation_action" 
                     	data-options="formatter:myformatter" 
                         align="center" width="40">操作</th> 
@@ -131,6 +131,15 @@
     
     <%-- 页面的js部分 --%>
     <script type="text/javascript"> 
+    	// 领取状态
+    	function pickingformatter(value,row,index){
+    		if(value=="-1"){
+    			return "采购中";
+    		}else{
+    			return value;
+    		}
+    	}
+    
         // 模糊查询
     	function doSearch(){
     		let keyworld = $("#key").val();

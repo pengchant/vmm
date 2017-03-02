@@ -81,4 +81,8 @@ public class StringUtils {
 		}
 		return null;
 	}
+	
+	public static String getCurrentTimeStr(){
+		return null;
+	}
 }

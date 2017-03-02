@@ -342,8 +342,15 @@
 			<if test="category!=null and category!=''">
 				and taskcategory = #{category}
 			</if>
-			<if test="orderstatus!=null and orderstatus!=''">
-				and bustatusid = #{orderstatus}
+			<if test="orderstatus!=null and orderstatus!=''"> 
+				<choose>
+					<when test='orderstatus=="2"'>
+						and bustatusid != '1'
+					</when>
+					<otherwise>
+						and bustatusid = #{orderstatus}
+					</otherwise>
+				</choose> 
 			</if>
 		</where>
 		<if test="sort!=null and sort!='' and order!=null and order!=''">

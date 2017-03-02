@@ -536,7 +536,8 @@ public class VehicleMaintence implements IVehicleMaintence {
 						partproc.setPartname(partPickingView.getPartname());
 						partproc.setSuppliercode(partPickingView.getSupplierid());
 						partproc.setSuppliername(partPickingView.getSupplierName());
-						partproc.setPruchernum(purchaseNum+"");
+						partproc.setPruchdemand((double) purchaseNum); 
+						partproc.setPruchprice(Double.parseDouble(partPickingView.getPurchaseprice()));
 						partproc.setTotalpurchase((double) (purchaseNum*Float.parseFloat(partPickingView.getPurchaseprice())));
 						partproc.setPurchstatus("0");// 初始状态
 					    daoFactory.getPartprocMapper().insertSelective(partproc);

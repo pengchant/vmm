@@ -54,8 +54,9 @@
                                        style="width:170px;height:26px;">&nbsp;&nbsp;
                                 <span>任务状态:</span>
                                 <select id="orderstatus" class="easyui-combobox" name="dept" style="width:170px;height:26px;">
-                                    <option value="1">待完成</option>
-                                    <option value="2">已完成</option>
+                                    <option value="">全部</option>
+                                    <option value="1">待完成</option> 
+                                    <option value="2">已完成</option> 
                                 </select>
                                 <br/>
                                 <br/>
