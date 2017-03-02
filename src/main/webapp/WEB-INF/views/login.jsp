@@ -8,7 +8,7 @@
 <style>
 	 body{
 	 	margin:0px;
-	 	padding:0px;
+	 	padding:0px; 
 	 }
 	 
 	 .wrapper{
@@ -19,7 +19,8 @@
 	 	width:100%;
 	 	height:100%;
 	 	position:relative;		
-	 	text-align:center; 	 
+	 	text-align:center; 	
+	 	background:url(${pageContext.request.contextPath}/img/bg.png) no-repeat bottom; 
 	 }
 	 
 	 .login{

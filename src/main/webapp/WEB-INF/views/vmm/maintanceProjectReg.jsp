@@ -364,23 +364,28 @@
 		function destroyYL(){
 			// 先判断是当前页面是否已经选择了order
 			if(currentOrder!=null){
-				$.messager.confirm('操作提示','你确定要删除吗?',function(r){
-					if(r){
-						// 先获取到选中的行
-						let row = $("#dgYL").datagrid("getSelected");
-						$.ajax({
-							url:"${pageContext.request.contextPath}/vehicle/partsMana/pmRM.html",
-							data:{
-								partuseid:row.partusedid
-							},
-							dataType:"json"
-						}).done(function(data){ 
-						    $.messager.alert('操作提示',data.errorMsg,'info');
-							getYLData();
-							 
-						});
-					}
-				});
+				let row = $("#dgYL").datagrid("getSelected");
+				if(row!=null){
+					$.messager.confirm('操作提示','你确定要删除吗?',function(r){
+						if(r){
+							// 先获取到选中的行
+							let row = $("#dgYL").datagrid("getSelected");
+							$.ajax({
+								url:"${pageContext.request.contextPath}/vehicle/partsMana/pmRM.html",
+								data:{
+									partuseid:row.partusedid
+								},
+								dataType:"json"
+							}).done(function(data){ 
+							    $.messager.alert('操作提示',data.errorMsg,'info');
+								getYLData();
+								 
+							});
+						}
+					});
+				}else{
+					$.messager.alert('操作提示',"请先选择要删除的记录!",'info');
+				} 
 			}else{
 				$.messager.alert('操作提示','您还未选择维修订单!','info');
 			} 

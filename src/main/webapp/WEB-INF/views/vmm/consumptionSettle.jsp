@@ -77,6 +77,7 @@
             &nbsp;&nbsp;
             <span>支付状态:</span>
             <select id="paystatus" class="easyui-combobox" name="dept" style="width:150px;height:26px;">
+                <option value="">全部</option>
                 <option value="1">未结算</option>
                 <option value="2">已结算</option> 
             </select>&nbsp;&nbsp;
