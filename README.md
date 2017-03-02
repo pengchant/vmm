@@ -67,4 +67,21 @@ JOIN (
 where o.bustatusid='3' 
 ORDER BY
 	o.id ASC;
+	
+	
+	
+select 
+p.id as procid,
+p.partcode,
+i.partname,
+p.partcategorycode,
+c.partcategory,
+p.suppliercode,
+p.suppliername,
+p.pruchdemand,
+p.partcategoryname as createtime,
+p.purchstatus
+from partproc as p
+join partcategory as c on(p.partcategorycode=c.id)
+join part as i on(p.partcode=i.id)
 

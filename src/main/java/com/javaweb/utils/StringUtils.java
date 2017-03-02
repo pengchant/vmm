@@ -1,8 +1,12 @@
 package com.javaweb.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.enterprise.inject.New;
 
 public class StringUtils {
 
@@ -82,7 +86,12 @@ public class StringUtils {
 		return null;
 	}
 	
+	/**
+	 * 获取时间的字符串
+	 * @return
+	 */
 	public static String getCurrentTimeStr(){
-		return null;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+		return format.format(new Date());
 	}
 }
