@@ -150,4 +150,11 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 更新存储表 -->
+  <select id="updateStorage" resultType="Integer">
+  	update partstorage
+	set partstorage.inventory=partstorage.inventory+#{num}
+	where partstorage.partid=#{partid}
+  </select>  
 </mapper>

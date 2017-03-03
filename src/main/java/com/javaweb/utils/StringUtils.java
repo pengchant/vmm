@@ -94,4 +94,14 @@ public class StringUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
 		return format.format(new Date());
 	}
+	
+	/**
+	 * 获取格式化之后的时间xxx年xx月xx日(参数格式为xxxx-xx-xx)
+	 * @param timeStr
+	 * @return
+	 */
+	public static String getTimeStr(String timeStr){
+		String[] array = timeStr.split("-");
+		return array[0]+"年"+array[1]+"月"+array[2]+"日";
+	}
 }

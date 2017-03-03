@@ -278,7 +278,7 @@ public class XLS<T> {
 			style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 			// 设置字体
 			HSSFFont font = workbook.createFont();
-			font.setFontName("仿宋_GB2312");
+			font.setFontName("宋体");
 			font.setFontHeightInPoints((short)12);			 
 			style.setFont(font);				 
 			return style;
@@ -288,7 +288,7 @@ public class XLS<T> {
 		public int[] getColumnWidth() {	
 			int[] counter = new int[this.count];
 			for(int i = 0;i<this.count;i++){
-				counter[i] = 4000;
+				counter[i] = 4500;
 			}
 			return counter;
 		}
@@ -300,7 +300,7 @@ public class XLS<T> {
 			style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 			// 设置字体
 			HSSFFont font = workbook.createFont();
-			font.setFontName("仿宋_GB2312");
+			font.setFontName("宋体");
 			font.setFontHeightInPoints((short)10);		 
 			style.setFont(font);				 
 			return style;

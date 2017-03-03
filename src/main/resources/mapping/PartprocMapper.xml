@@ -185,4 +185,52 @@
       purchstatus = #{purchstatus,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询采购订单 -->
+  <select id="selectPartProc" resultType="com.javaweb.views.PartProcView">
+  	SELECT
+		p.id AS procid,
+		p.partcode,
+		i.partname,
+		p.partcategorycode,
+		c.partcategory,
+		p.suppliercode,
+		p.suppliername,
+		p.pruchdemand,
+		p.partcategoryname AS createtime,
+		p.purchstatus,
+		s.phone,
+		s.contacts,
+		s.contactInfo,
+		s.address,
+		s.mailbox,
+		s.fax,
+		p.prucher,
+		p.pruchernum,
+		p.pruchprice,
+		p.totalpurchase
+	FROM
+		partproc AS p
+	JOIN partcategory AS c ON (p.partcategorycode = c.id)
+	JOIN part AS i ON (p.partcode = i.id)
+	JOIN supplier as s on(s.id = p.suppliercode)
+	<where>
+		<if test="keyworld!=null and keyworld!=''">
+			and (
+				i.partname like concat('%',#{keyworld},'%')
+				or
+				c.partcategory like concat('%',#{keyworld},'%')
+			)
+		</if>
+		<if test="purchstatus!=null and purchstatus!=''">
+			and p.purchstatus=#{purchstatus}
+		</if>
+		<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
+			and p.partcategoryname between concat(#{starttime},' 00:00:00') and concat(#{endtime},' 23:59:59')
+		</if>
+	</where>
+  </select>
+  
+  
+  
 </mapper>
