@@ -75,9 +75,9 @@ public class InventoryManageController extends BaseController {
 	@RequestMapping("/queryPagedPartProc")
 	@ResponseBody
 	public String queryPagedPartProc(String keyworld, String purchstatus, String starttime, String endtime,
-			Integer pageNo, Integer pageSize) {
+			Integer page, Integer rows) {
 		return responseSuccess(serviceFactory.getInventoryManageService().queryPagedPartProc(keyworld, purchstatus,
-				starttime, endtime, pageNo, pageSize));
+				starttime, endtime, page, rows));
 	}
 
 	/**
@@ -99,13 +99,19 @@ public class InventoryManageController extends BaseController {
 		try {
 			List<PartProcView> partProcViews = serviceFactory.getInventoryManageService().queryAllPartProc(purchstatus,
 					starttime, endtime);
+			
+			logger.info("===================>"+JSON.toJSONString(partProcViews));
+			
 			// 将数据库查询出来的结果重新封装
 			List<PartProcEXCELView> partProcEXCELViews = new ArrayList<>();
 			for (PartProcView p : partProcViews) {
 				PartProcEXCELView excelView = new PartProcEXCELView(p);
 				partProcEXCELViews.add(excelView);
 			}
-			logger.info(JSON.toJSONString(partProcEXCELViews));
+			
+			logger.info("===================>"+JSON.toJSONString(partProcEXCELViews));
+			
+			
 			XLS<PartProcEXCELView> myXLS = new XLS<PartProcEXCELView>(PartProcEXCELView.class);
 			String[] titles = new String[] { "零件名称", "零件类别", "供应商名称", "需求量", "创建时间", "供应商联系电话", "供应商联系人", "联系人电话", "地址",
 					"邮箱", "传真", "采购的状态","采购人","采购数量","采购价格","采购总计"};
@@ -132,5 +138,29 @@ public class InventoryManageController extends BaseController {
 		return flag?responseSuccess(null, "采购成功！"):responseFail("采购失败!");
 	}
 	
+	/**
+	 * 查询存储零件的数据
+	 * @param keyword
+	 * @return
+	 */
+	@RequestMapping("/queryStorage")
+	@ResponseBody
+	public String queryStorage(String keyword,Integer page,Integer rows){		
+		return responseSuccess(serviceFactory.getInventoryManageService().queryAllPartStorage(keyword, page, rows));
+	}
+	
+	
+	/**
+	 * 修改价格
+	 * @param partid
+	 * @param price
+	 * @return
+	 */
+	@RequestMapping("/updatePrice")
+	@ResponseBody
+	public String updatePrice(Integer partid,double price){
+		boolean flag = serviceFactory.getInventoryManageService().modifyPrice(partid, price);
+		return flag?responseSuccess(null,"成功!"):responseFail("更新失败!");
+	}
 
 }

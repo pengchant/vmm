@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Part;
-import com.javaweb.entity.Partproc;
-import com.javaweb.entity.Partstorage;
+import com.javaweb.entity.Partproc; 
 import com.javaweb.service.IInventoryManageService;
 import com.javaweb.utils.BeanUtil;
 import com.javaweb.utils.MyErrorPrinter;
@@ -21,6 +20,7 @@ import com.javaweb.utils.PagedResult;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.LoginBean;
 import com.javaweb.views.PartProcView;
+import com.javaweb.views.PartStorageView;
 
 /**
  * 库存管理
@@ -93,6 +93,32 @@ public class InventoryManageService implements IInventoryManageService {
 				logger.info(MyErrorPrinter.getErrorStack(e));
 			}
 		} 
+		return flag;
+	}
+
+	
+	/**
+	 * 查询所有的存储的表
+	 */
+	@Override
+	public PagedResult<PartStorageView> queryAllPartStorage(String keyworld, Integer pageNo, Integer pageSize) {
+		pageNo = pageNo == null ? 1 : pageNo;
+		pageSize = pageSize == null ? 10 : pageSize;
+		PageHelper.startPage(pageNo, pageSize);
+		return BeanUtil.topagedResult(daoFactory.getWarehouseMapper().selectPartStorage(keyworld));
+	}
+
+	/**
+	 * 修改销售价格
+	 */
+	@Override
+	public boolean modifyPrice(Integer partid, double price) {
+		boolean flag = false;
+		Part part = daoFactory.getPartMapper().selectByPrimaryKey(partid);
+		if(part!=null){
+			part.setSalesprice(price);
+			flag = daoFactory.getPartMapper().updateByPrimaryKeySelective(part)>0; 
+		}
 		return flag;
 	}
 

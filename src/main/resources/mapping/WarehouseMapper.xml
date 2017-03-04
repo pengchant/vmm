@@ -90,4 +90,34 @@
       wareflag = #{wareflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectPartStorage" resultType="com.javaweb.views.PartStorageView">
+  	select
+		p.id as partid,
+		p.partname,
+		p.partcategoryid,
+		c.partcategory,
+		p.purchaseprice,
+		p.salesprice,
+		s.id as supplierid,
+		s.supplierName,
+		s.phone,
+		s.address, 
+		i.warehouseid,
+		i.inventory,
+		i.detaillocation,
+		w.warehouseName,
+		w.warehouseAdd
+	from part as p
+	join partcategory as c on(p.partcategoryid=c.id)
+	join supplier as s on(p.supplierid = s.id)
+	join partstorage as i on(p.id = i.partid)
+	join warehouse as w on(i.warehouseid = w.id) 
+	<where>
+		<if test="key!=null and key!=''">
+			and p.partname like concat('%',#{key},'%')
+			or c.partcategory like concat('%',#{key},'%')
+		</if>
+	</where>
+  </select>
 </mapper>

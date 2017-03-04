@@ -504,12 +504,12 @@ public class VehicleMaintenceController extends BaseController {
 	@RequestMapping("/queryQualiting")
 	@ResponseBody
 	public String endQualitied(HttpServletRequest request, String keyworld, String starttime, String endTime,
-			String bustatusid,Integer pageNo,Integer pageSize){
+			String bustatusid,Integer page,Integer rows){
 		 PagedResult<QualityView> qualityViews = null;
 		 LoginBean user = MyWebUtils.getCurrentUser(request);
 		 if(user!=null){
 			 // 分页查询待质检的信息
-			 qualityViews = serviceFactory.getVehicleMaintence().queryNeedQuality(keyworld, starttime, endTime, bustatusid, user.getUserinfoid(), pageNo, pageSize);
+			 qualityViews = serviceFactory.getVehicleMaintence().queryNeedQuality(keyworld, starttime, endTime, bustatusid, user.getUserinfoid(), page, rows);
 		 }
 		 return responseSuccess(qualityViews);
 	}
@@ -560,8 +560,8 @@ public class VehicleMaintenceController extends BaseController {
 	@RequestMapping("/queryPaying")
 	@ResponseBody
 	public String queryPayingView(String keyworld, String starttime, String endtime,
-			String bustatusid, String ordersid, Integer pageNo, Integer pageSize,String paystatusid){
-		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, pageNo, pageSize,paystatusid);		
+			String bustatusid, String ordersid, Integer page, Integer rows,String paystatusid){
+		PagedResult<PayViews> payViews = serviceFactory.getVehicleMaintence().queryAllPayingOrder(keyworld, starttime, endtime, bustatusid, ordersid, page, rows,paystatusid);		
 		return responseSuccess(payViews);
 	}
 	

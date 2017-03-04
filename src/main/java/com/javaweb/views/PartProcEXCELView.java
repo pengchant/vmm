@@ -23,11 +23,21 @@ public class PartProcEXCELView{
 	private String fax;
 	private String purchstatus;
 	private String prucher; 
+	private String pruchnum;
 	private String pruchprice;
 	private String totalpurchase;
 	
 	
 	
+	
+	public String getPruchnum() {
+		return pruchnum;
+	}
+
+	public void setPruchnum(String pruchnum) {
+		this.pruchnum = pruchnum;
+	}
+
 	public String getPrucher() {
 		return prucher;
 	}
@@ -60,7 +70,7 @@ public class PartProcEXCELView{
 		 this.setPartname(partProcView.getPartname());
 		 this.setPartcategory(partProcView.getPartcategory());
 		 this.setSuppliername(partProcView.getSuppliername());
-		 this.setPruchdemand("0".equals(partProcView.getPurchstatus())?"":partProcView.getPruchdemand());
+		 this.setPruchdemand(partProcView.getPruchdemand());
 		 this.setCreatetime(partProcView.getCreatetime());
 		 this.setPurchstatus((StringUtils.equals("0", partProcView.getPurchstatus())?"待采购":"已经采购"));
 		 this.setPhone(partProcView.getPhone());
@@ -69,9 +79,17 @@ public class PartProcEXCELView{
 		 this.setAddress(partProcView.getAddress());
 		 this.setMailbox(partProcView.getMailbox());
 		 this.setFax(partProcView.getFax());
-		 this.setPrucher(partProcView.getPrucher()==null?"":partProcView.getPrucher()); 
-		 this.setPruchprice(partProcView.getPruchprice()==null?"":partProcView.getPruchprice());
-		 this.setTotalpurchase(partProcView.getTotalpurchase()==null?"":partProcView.getTotalpurchase());
+		 if(StringUtils.equals("1", partProcView.getPurchstatus())){
+			 this.setPrucher(partProcView.getPrucher()==null?"":partProcView.getPrucher()); 			 
+			 this.setPruchprice(partProcView.getPruchprice()==null?"":partProcView.getPruchprice());
+			 this.setPruchnum(partProcView.getPruchdemand()==null?"":partProcView.getPruchdemand());
+			 this.setTotalpurchase(partProcView.getTotalpurchase()==null?"":partProcView.getTotalpurchase());
+		 }else{
+			 this.setPrucher(""); 
+			 this.setPruchprice("");
+			 this.setPruchnum("");
+			 this.setTotalpurchase(""); 
+		 } 
 	}
 
 	public String getPartname() {

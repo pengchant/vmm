@@ -6,6 +6,7 @@ import java.util.List;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.LoginBean;
 import com.javaweb.views.PartProcView;
+import com.javaweb.views.PartStorageView;
 
 /**
  * 库存管理的接口
@@ -53,4 +54,23 @@ public interface IInventoryManageService {
 	 * @return				操作的结果
 	 */
 	public boolean partProcing(String partid,String partprocid,LoginBean user,double price,double num);
+	
+	
+	/**
+	 * 查询所有的零件存储信息
+	 * @param keyworld		关键字
+	 * @param pageNo		页号
+	 * @param pageSize		页面的大小
+	 * @return
+	 */
+	PagedResult<PartStorageView> queryAllPartStorage(String keyworld,Integer pageNo,Integer pageSize);
+	
+	
+	/**
+	 * 修改零件的销售价格
+	 * @param partid
+	 * @param price
+	 * @return
+	 */
+	boolean modifyPrice(Integer partid,double price);
 }
