@@ -24,7 +24,15 @@ public interface PermissionMapper {
     
     /**
      * 获取用户所有的权限
-     */
+     */ 
     List<Permission> getAllUserPermission(String accountnumber);
+    
+    /**
+     * 查询  
+     * @param permission
+     * @return
+     */
+    List<Permission> selectAllPermission();
+    
     
 }

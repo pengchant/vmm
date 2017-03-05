@@ -7,22 +7,19 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="客户资料管理" iconCls="icon-shield"
                toolbar="#tb" idField="id"
-               url="${pageContext.request.contextPath}/baseData/queryPagedCustomerView.html"
-               rownumbers="true" singleSelect="true" pagination="true" 
+               url="${pageContext.request.contextPath}/baseData/queryallPermisson.html"
+               rownumbers="true" singleSelect="true" 
                pageSize="20"
                fitColumns="true">
             <thead>
             <tr>
-                <th sortable="true" field="customerid" align="center" width="80" hidden="true">用户的编号</th>
-                <th sortable="true" field="customername" align="center" width="100">用户名</th>
-                <th sortable="true" field="contactinfo" align="center" width="100">联系方式</th>
-                <th sortable="true" field="contactadd" align="center" width="200">联系地址</th>
-                <th sortable="true" field="vehicleid" align="center" width="80" hidden="true" >汽车编号</th>
-                <th sortable="true" field="platenum" align="center" width="80" >汽车牌号</th> 
-                <th sortable="true" field="inspectiondate" align="center" width="180">年检日期</th>
-                <th sortable="true" field="milage" align="center" width="80">里程数</th>
-                <th sortable="true" field="vehflag" align="center" width="80">发动机号</th> 
-                <th  field="op" align="center" width="110" formatter="modifyfm">操作</th>
+                <th  field="id" align="center" width="80" hidden="true">编号</th>
+                <th  field="_myicon" align="center" width="20" formatter="iconfm">图标</th>
+                <th  field="pername" align="center" width="100">权限名称</th>
+                <th  field="authcategory" align="center" width="100">权限类别</th>
+                <th  field="_myurl" align="center" width="200" formatter="urlfm">系统内部地址</th>
+                <th field="perflag" align="center" width="80" formatter="myfm">权限状态</th> 
+                <th  field="op" align="center" width="110">操作</th>
             </tr>
             </thead>
         </table> 
@@ -31,80 +28,24 @@
 
     </div>   
     <script type="text/javascript"> 
-    	$(function(){
-    		$('#customer').dialog({
-    		    title: '修改用户信息',
-    		    width: 450,
-    		    height: 340,
-    		    closed: true,
-    		    cache: false, 
-    		    modal: true,
-    		    buttons:'#tbcg'
-    		});
-    	});
-    
-    	// 导出excel
-    	function toExcel(){
-    		window.location.href="${pageContext.request.contextPath}/baseData/toCusttomerExcel.html";    		
-    	}
-    	
-    	// 条件查询
-    	function doSearch(){
-    		$("#dg").datagrid("load",{
-    			key:$("#key").textbox("getValue")
-    		});
-    	}
-    	
-    	// 刷新
-    	function refresh(){
-    		$("#dg").datagrid("reload");
-    	}
-    	
-    	// 操作格式化
-    	function modifyfm(value,row,index){
-    		return '<button onclick="modifyfrom('+index+')" style="border:none;margin:2px;cursor:pointer;background:#2A94D0;border:none;color:white;border-radius:3px;width:100px;height:28px;">修改用户信息</button>';
-    	}
-    	
-    	// 弹出模态框
-    	function modifyfrom(index){
-    		let obj = $("#dg").datagrid("getRows")[index]; 
-    		// 设置值
-    		$("#customerid").val(obj.customerid);
-    		$("#customername").textbox("setValue",obj.customername);
-    		$("#contactinfo").textbox("setValue",obj.contactinfo);
-    		$("#contactadd").textbox("setValue",obj.contactadd);
-    		$("#vehicleid").val(obj.vehicleid);
-    		$("#platenum").textbox("setValue",obj.platenum);
-    		$("#inspectiondate").datebox("setValue",obj.inspectiondate);
-    		$("#milage").textbox("setValue",obj.milage);
-    		$("#vehflag").textbox("setValue",obj.vehflag);
-    		$('#customer').dialog('open');
-    	}
-    	
-    	// 提交信息
-    	function suresubmit(){ 
-    		$.messager.progress(); 
-    		$('#customerfm').form('submit', {
-    			url:"${pageContext.request.contextPath}/baseData/modifyCustomer.html",
-    			onSubmit: function(){
-    				var isValid = $(this).form('validate');
-    				if (!isValid){
-    					$.messager.progress('close');	 
-    				}
-    				return isValid;	 
-    			},
-    			success: function(data){
-    				if(!data.isError){
-    					$.messager.alert("操作提示","修改用户信息成功!","info");
-    				}else{
-    					$.messager.alert("操作提示","修改用户信息失败","info");
-    				}
-    				$("#customer").dialog('close');    			 
-    				$.messager.progress('close'); 
-    				$("#dg").datagrid("reload");
-    			}
-    		});
-    	}
+    	  function myfm(value,row,index){
+    		  let a = '';
+    		  if(value=="1"){
+    			 a = '<span style="color:green;">已启用</span>';
+    		  }else{
+    			 a = '<span style="color:red;">禁用</span>';
+    		  }
+    		  return a;
+    	  }
+    	  
+    	  function urlfm(value,row,index){  
+    		  return row.perurl.split("#")[0];;
+    	  }
+    	  
+    	  function iconfm(value,row,index){ 
+    		  let icon = row.perurl.split("#")[1];
+    		  return '<img src="${pageContext.request.contextPath}/js/jquery-easyui-1.4.5/themes/icons/'+icon.substring(5)+'.png" />';
+    	  }
     </script>
 </div>
 </body>

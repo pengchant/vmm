@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Permission;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.IBaseDataManageService;
 import com.javaweb.utils.BeanUtil;
@@ -85,6 +86,27 @@ public class BaseDataManageService implements IBaseDataManageService {
 			logger.info("修改用户信息失败!");
 		}
 		return (i==2);
+	}
+
+	/**
+	 * 查询权限
+	 */
+	@Override
+	public List<Permission> queryPermission() { 
+		return daoFactory.getPermissionMapper().selectAllPermission();
+	}
+
+	/**
+	 * 修改权限的状态
+	 */
+	@Override
+	public boolean modifyPermission(Permission permission) {
+		boolean flag = false;
+		if(permission!=null){
+			Permission perm = daoFactory.getPermissionMapper().selectByPrimaryKey(permission.getId());
+			flag = daoFactory.getPermissionMapper().updateByPrimaryKeySelective(perm)>0;
+		} 
+		return flag;
 	}
 
 }

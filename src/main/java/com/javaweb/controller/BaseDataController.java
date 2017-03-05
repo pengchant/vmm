@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Permission;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
 import com.javaweb.utils.XLS;
@@ -73,6 +74,31 @@ public class BaseDataController extends BaseController{
 	public String modifyCustomer(CustomerView customerView){
 		boolean flag = serviceFactory.getBaseDataManageService().modifyCustomer(customerView);
 		return flag?responseSuccess(null):responseFail("修改用户信息失败!");
+	}
+	
+	
+	/**
+	 * 查询所有的权限
+	 * @return
+	 */
+	@RequestMapping("/queryallPermisson")
+	@ResponseBody
+	public String queryallPermisson(){
+		return responseArraySuccess(serviceFactory.getBaseDataManageService().queryPermission());
+	}
+	
+	
+	/**
+	 * 修改权限
+	 * @param permission
+	 * @return
+	 */
+	@RequestMapping("/modifyPermission")
+	@ResponseBody
+	public String modifyPermission(Permission permission){
+		boolean flag = false;
+		flag = serviceFactory.getBaseDataManageService().modifyPermission(permission);
+		return flag?responseSuccess(null):responseFail("修改失败!");
 	}
 	
 }

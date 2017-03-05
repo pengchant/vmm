@@ -106,4 +106,10 @@
 	where account.accountnumber=#{accountnumber}
 	and permission.perflag='1'
   </select>
+  
+  <!-- 获取所有的权限 -->
+  <select id="selectAllPermission" resultType="com.javaweb.entity.Permission">
+  	select * 
+  	from permission
+  </select>
 </mapper>

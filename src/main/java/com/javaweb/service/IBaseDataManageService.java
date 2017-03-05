@@ -2,6 +2,7 @@ package com.javaweb.service;
 
 import java.util.List;
 
+import com.javaweb.entity.Permission;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerView;
 
@@ -40,4 +41,17 @@ public interface IBaseDataManageService {
 	 * @return
 	 */
 	boolean modifyCustomer(CustomerView customerView);
+	
+	/**
+	 * 查询所有的权限
+	 * @return
+	 */
+	List<Permission> queryPermission();
+	
+	/**
+	 * 修改权限的状态
+	 * @param permission
+	 * @return
+	 */
+	boolean modifyPermission(Permission permission);
 }
