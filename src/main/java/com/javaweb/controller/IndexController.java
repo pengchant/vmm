@@ -50,47 +50,5 @@ public class IndexController {
 		} catch (IOException e) {			 
 			e.printStackTrace();
 		}		 
-	}
-	
-	/**
-	 * 车辆接待
-	 * @return
-	 */
-	@RequestMapping("/vehicleReception.html")
-	public String carRecept(){
-		return "vmm/vehicleReception";
-	}
-	
-	/**
-	 * 维修项目登记
-	 * @return
-	 */
-	@RequestMapping("/maintanceProjectReg.html")
-	public String mainProjReg(){
-		return "vmm/maintanceProjectReg";
-	}
-	
-	/**
-	 * 维修领料
-	 */
-	@RequestMapping("/maintenancePicking.html")
-	public String mainPicking(){
-		return "vmm/maintenancePicking";
-	}
-	
-	/**
-	 * 质检完工
-	 */
-	@RequestMapping("/qualityInsCompleted.html")
-	public String qualityInsCompleted(){
-		return "vmm/qualityInsCompleted";
-	}
-	
-	/**
-	 * 消费结算
-	 */
-	@RequestMapping("/consumptionSettle.html")
-	public String consumptionSettle(){
-		return "vmm/consumptionSettle";
-	}
+	} 
 }

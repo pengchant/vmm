@@ -124,4 +124,37 @@
 		and customer.numbering like concat('%',#{keyworld},'%')
 	</if>
   </select>
+  
+  
+  <!-- 查询用户的信息 -->
+  <select id="selectCustomer" resultType="com.javaweb.views.CustomerView">
+	SELECT
+	c.id as customerid,
+	c.numbering as customername,
+	c.contactinfo,
+	c.contactadd,
+	v.id as vehicleid,
+	v.platenum,
+	v.carmodel,
+	v.inspectiondate,
+	v.milage, 
+	v.vehflag
+	from
+	customer as c
+	join vehicle as v on(c.id=v.customerid)
+	<where>
+		<if test="key!=null and key!=''">
+			and (
+				c.numbering like concat('%',#{key},'%')
+				or 
+				c.contactinfo like concat('%',#{key},'%')
+				or 
+			 	v.platenum like concat('%',#{key},'%')
+			) 
+		</if>
+	</where>
+	<if test="sort!=null and sort!='' and order!=null and order!=''">
+		order by ${sort} ${order} 
+	</if>
+  </select>
 </mapper>

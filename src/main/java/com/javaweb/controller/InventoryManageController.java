@@ -99,19 +99,14 @@ public class InventoryManageController extends BaseController {
 		try {
 			List<PartProcView> partProcViews = serviceFactory.getInventoryManageService().queryAllPartProc(purchstatus,
 					starttime, endtime);
-			
-			logger.info("===================>"+JSON.toJSONString(partProcViews));
-			
+			 
 			// 将数据库查询出来的结果重新封装
 			List<PartProcEXCELView> partProcEXCELViews = new ArrayList<>();
 			for (PartProcView p : partProcViews) {
 				PartProcEXCELView excelView = new PartProcEXCELView(p);
 				partProcEXCELViews.add(excelView);
 			}
-			
-			logger.info("===================>"+JSON.toJSONString(partProcEXCELViews));
-			
-			
+		  
 			XLS<PartProcEXCELView> myXLS = new XLS<PartProcEXCELView>(PartProcEXCELView.class);
 			String[] titles = new String[] { "零件名称", "零件类别", "供应商名称", "需求量", "创建时间", "供应商联系电话", "供应商联系人", "联系人电话", "地址",
 					"邮箱", "传真", "采购的状态","采购人","采购数量","采购价格","采购总计"};

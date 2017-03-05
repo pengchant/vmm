@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.javaweb.service.IBaseDataManageService;
 import com.javaweb.service.IInventoryManageService;
 import com.javaweb.service.IUserValidateService;
 import com.javaweb.service.IVehicleMaintence;
@@ -28,12 +29,22 @@ public class ServiceFactory {
 	 */
 	@Resource
 	private IVehicleMaintence vehicleMaintence;
-	
+
 	/**
 	 * 库存管理模块
 	 */
 	@Resource
 	private IInventoryManageService inventoryManageService;
+
+	/**
+	 * 基础数据管理模块
+	 */
+	@Resource
+	private IBaseDataManageService baseDataManageService;
+
+	public IBaseDataManageService getBaseDataManageService() {
+		return baseDataManageService;
+	}
 
 	public IVehicleMaintence getVehicleMaintence() {
 		return vehicleMaintence;
@@ -46,5 +57,5 @@ public class ServiceFactory {
 	public IInventoryManageService getInventoryManageService() {
 		return inventoryManageService;
 	}
-	 
+
 }
