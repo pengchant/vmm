@@ -125,4 +125,10 @@ public interface IBaseDataManageService {
 	 * @return
 	 */
 	boolean modifySupplier(Supplier supplier,String type);
+	
+	/**
+	 * 查询所有供应商
+	 * @return
+	 */
+	List<Supplier> queryAllSupplier();
 }

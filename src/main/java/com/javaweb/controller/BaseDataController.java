@@ -209,5 +209,22 @@ public class BaseDataController extends BaseController {
 		boolean flag = serviceFactory.getBaseDataManageService().modifySupplier(supplier, type);
 		return flag?responseSuccess(null):responseFail("修改失败!");
 	}
+	
+	
+	@RequestMapping("/toSupplierExcel")
+	public void toSupplierExcel(HttpServletResponse response){
+		try {
+			List<Supplier> suppliers = serviceFactory.getBaseDataManageService().queryAllSupplier();
+			XLS<Supplier> myXls = new XLS<Supplier>(Supplier.class);
+			String fileName = "汽车维修管理系统_供应商";
+			String[] titles = new String[] { "编号", "供应商名称", "联系人", "手机", "联系方式", "传真", "邮箱", "地址", "邮政编码", "银行卡号",
+					"标记" };
+			HSSFWorkbook hssfWorkbook = myXls.writeExcel(fileName, titles, suppliers,
+					myXls.getCommonStyle(titles.length));
+			myXls.printStream(response, fileName + ".xls", hssfWorkbook);
+		} catch (Exception e) {
+			logger.error("下载失败!");
+		}
+	}
 
 }

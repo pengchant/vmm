@@ -66,9 +66,7 @@
              &nbsp;&nbsp;
 		    <a href="#" iconCls="icon-add" class="easyui-linkbutton" onclick="add()">添加供应商</a>
 			&nbsp;&nbsp;
-		    <a href="#" iconCls="icon-page_excel" class="easyui-linkbutton" onclick="toExcel()">导出为excel</a>
-		    &nbsp;&nbsp;
-		    <a href="#" iconCls="icon-page_excel" class="easyui-linkbutton" onclick="toExcel()">批量导入excel</a>
+		    <a href="#" iconCls="icon-page_excel" class="easyui-linkbutton" onclick="toExcel()">导出为excel</a> 
         </div>
 
     </div>
@@ -139,11 +137,11 @@
     		    buttons:'#tbcg'
     		});
     	});
-    	/*
+    	
     	// 导出excel
     	function toExcel(){
-    		window.location.href="${pageContext.request.contextPath}/baseData/toCusttomerExcel.html";    		
-    	}*/
+    		window.location.href="${pageContext.request.contextPath}/baseData/toSupplierExcel.html";    		
+    	}
     	
     	// 定义全局变量
     	var url = '';
@@ -164,7 +162,7 @@
     	
     	// 状态格式化
     	function statusfm(value,row,index){
-    		if(value="1"){
+    		if(value=="1"){
     			return "<span style='color:green;font-size:14px;font-weight:800;'>有效</span>";
     		}else{
     			return "<span style='color:red;font-size:14px;font-weight:800;'>无效</span>";

@@ -176,15 +176,10 @@
 				or 
 				supplier.address like CONCAT('%',#{key},'%')
 			) 
-		</if>
-		<choose>
-			<when test="flag!=null and flag!=''">
-				and supplier.suppflag=#{flag}
-			</when>
-			<otherwise>
-				and supplier.suppflag='1'
-			</otherwise>
-		</choose>
+		</if> 
+		 <if test="flag!=null and flag!=''">
+			 and supplier.suppflag=#{flag}
+		 </if> 
 	</where>
 	<if test="sort!=null and sort!='' and order!=null and order!=''">
 		order by ${sort} ${order}

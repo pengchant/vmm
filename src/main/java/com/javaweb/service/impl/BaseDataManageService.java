@@ -224,4 +224,12 @@ public class BaseDataManageService implements IBaseDataManageService {
 		return flag;
 	}
 
+	/**
+	 * 查询所有的供应商
+	 */
+	@Override
+	public List<Supplier> queryAllSupplier() { 
+		return daoFactory.getSupplierMapper().selectAllSupplier(null, null, null, null);
+	}
+
 }
