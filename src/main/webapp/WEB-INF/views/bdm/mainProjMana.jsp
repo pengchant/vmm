@@ -93,7 +93,7 @@
 				<tr>
 					<td>项目类别</td>
 					<td> 
-					   <input id="projcategoryid" name="projcategoryid" data-options="required:true,validateOnCreate:false" name="ordersid" prompt="请选择维修的类别" style="width:200px;height:30px;"  />
+					   <input id="projcategoryid" name="projcategoryid" data-options="required:true,validateOnCreate:false" prompt="请选择维修的类别" style="width:200px;height:30px;"  />
 					</td>
 				</tr>
 				<tr>

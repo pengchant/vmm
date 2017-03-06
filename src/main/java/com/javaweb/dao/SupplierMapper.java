@@ -1,5 +1,9 @@
 package com.javaweb.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.javaweb.entity.Supplier;
 
 public interface SupplierMapper {
@@ -14,4 +18,11 @@ public interface SupplierMapper {
     int updateByPrimaryKeySelective(Supplier record);
 
     int updateByPrimaryKey(Supplier record);
+    
+    
+    List<Supplier> selectAllSupplier(
+    		@Param("key")String key,
+    		@Param("sort")String sort,
+    		@Param("order")String order,
+    		@Param("flag")String flag);
 }

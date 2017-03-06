@@ -161,4 +161,33 @@
       suppflag = #{suppflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询所有的供应商 --> 
+  <select id="selectAllSupplier" resultMap="BaseResultMap">
+  	select 
+	  <include refid="Base_Column_List" />
+	from supplier
+	<where>
+		<if test="key!=null and key!=''">
+			and (
+				supplier.supplierName like CONCAT('%',#{key},'%')
+				or 
+				supplier.contacts like CONCAT('%',#{key},'%')
+				or 
+				supplier.address like CONCAT('%',#{key},'%')
+			) 
+		</if>
+		<choose>
+			<when test="flag!=null and flag!=''">
+				and supplier.suppflag=#{flag}
+			</when>
+			<otherwise>
+				and supplier.suppflag='1'
+			</otherwise>
+		</choose>
+	</where>
+	<if test="sort!=null and sort!='' and order!=null and order!=''">
+		order by ${sort} ${order}
+	</if>
+  </select>
 </mapper>

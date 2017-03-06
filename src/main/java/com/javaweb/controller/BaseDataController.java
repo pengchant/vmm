@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.tools.ant.taskdefs.condition.And;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.javaweb.entity.Mainitem;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
+import com.javaweb.entity.Supplier;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
+import com.javaweb.utils.StringUtils;
 import com.javaweb.utils.XLS;
 import com.javaweb.views.CustomerView;
 
@@ -138,9 +141,10 @@ public class BaseDataController extends BaseController {
 	 */
 	@RequestMapping("/modifyPartCategory")
 	@ResponseBody
-	public String modifyPartCategory(String projcategorycode, String projcategory, String type, Integer id,String categoryflag) {
+	public String modifyPartCategory(String projcategorycode, String projcategory, String type, Integer id,
+			String categoryflag) {
 		boolean flag = false;
-		if ("C".equals(type) || "U".equals(type) || "D".equals(type)) { 
+		if ("C".equals(type) || "U".equals(type) || "D".equals(type)) {
 			Projcategory pc = new Projcategory();
 			pc.setNumbering(projcategorycode);
 			pc.setProjcatenum(projcategorycode);
@@ -148,7 +152,7 @@ public class BaseDataController extends BaseController {
 			if (id != null) {
 				pc.setId(id);
 			}
-			if(categoryflag!=null){
+			if (categoryflag != null) {
 				pc.setCatflag(categoryflag);
 			}
 			flag = serviceFactory.getBaseDataManageService().modifyPartCategory(pc, type);
@@ -169,6 +173,41 @@ public class BaseDataController extends BaseController {
 			flag = serviceFactory.getBaseDataManageService().modifyMainitem(mainitem, type);
 		}
 		return flag ? responseSuccess(null) : responseFail("修改维修项目失败!");
+	}
+
+	/**
+	 * 分页查询供应商的信息
+	 * 
+	 * @param key
+	 * @param sort
+	 * @param order
+	 * @param flag
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping("/querySupplier")
+	@ResponseBody
+	public String querySupplier(String key, String sort, String order, String flag, Integer page, Integer rows) {
+		return responseSuccess(
+				serviceFactory.getBaseDataManageService().queryAllSupplier(key, sort, order, flag, page, rows));
+	}
+	
+	
+	/**
+	 * 修改供应商的信息
+	 * @param supplier
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/modifySupplier")
+	@ResponseBody
+	public String modifySupplier(Supplier supplier,String type) {
+		if(supplier!=null && org.apache.commons.lang.StringUtils.isBlank(supplier.getId()+"")){
+			supplier.setId(null);
+		}
+		boolean flag = serviceFactory.getBaseDataManageService().modifySupplier(supplier, type);
+		return flag?responseSuccess(null):responseFail("修改失败!");
 	}
 
 }
