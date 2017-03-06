@@ -111,4 +111,18 @@
 	 where mainitem.projcategoryid=#{projcategory}
 		and mainitem.mainflag = '1'
   </select>
+  
+  <!-- 查询所有的维修项目 -->
+  <select id="selectallMainitem" resultType="com.javaweb.views.MainItemView">
+  	select 
+		m.id as mainitemid, 
+		m.projName,
+		m.itemprice,
+		m.mainflag,
+		m.projcategoryid,
+		c.projname as categoryname
+		from 
+	mainitem as m 
+	join projcategory as c on(m.projcategoryid = c.id)
+  </select>
 </mapper>

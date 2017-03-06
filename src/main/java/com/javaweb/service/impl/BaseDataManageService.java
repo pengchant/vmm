@@ -13,13 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
+import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Partcategory;
 import com.javaweb.entity.Permission;
+import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Vehicle;
 import com.javaweb.service.IBaseDataManageService;
 import com.javaweb.utils.BeanUtil;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.CustomerView;
+import com.javaweb.views.MainItemView;
 
 /**
  * 基础数据的服务
@@ -104,9 +108,80 @@ public class BaseDataManageService implements IBaseDataManageService {
 		boolean flag = false;
 		if(permission!=null){
 			Permission perm = daoFactory.getPermissionMapper().selectByPrimaryKey(permission.getId());
+			perm.setPerflag(permission.getPerflag());
 			flag = daoFactory.getPermissionMapper().updateByPrimaryKeySelective(perm)>0;
 		} 
 		return flag;
 	}
+
+	
+	 
+	/**
+	 * 查询所有的维修项目
+	 */
+	@Override
+	public List<MainItemView> queryAllMainItem() { 
+		return daoFactory.getMainitemMapper().selectallMainitem();
+	}
+
+	 
+	@Override
+	public boolean modifyMainitem(Mainitem mainitem, String type) { 
+		boolean flag = false;
+		if(mainitem!=null){
+			try{
+				if("C".equals(type)){// 添加信息					
+				   flag = daoFactory.getMainitemMapper().insertSelective(mainitem)>0;
+				}else if("U".equals(type)){
+					flag = daoFactory.getMainitemMapper().updateByPrimaryKeySelective(mainitem)>0;
+				}else if("D".equals(type)){
+					Mainitem mt = daoFactory.getMainitemMapper().selectByPrimaryKey(mainitem.getId());
+					if(mt!=null){
+						mt.setMainflag(mainitem.getMainflag());
+						flag = daoFactory.getMainitemMapper().updateByPrimaryKeySelective(mt)>0;
+					}
+				}
+			}catch (Exception e) {
+				logger.error("修改维修项目类别的信息失败!");
+			}
+		} 
+		return flag;
+	}
+
+	/**
+	 * 查询所有维修的类别
+	 */
+	@Override
+	public List<Projcategory> queryAllProjCategory() { 
+		return daoFactory.getProjcategoryMapper().selectAllCategory();
+	}
+
+	/**
+	 * 修改维修项目大类
+	 */
+	@Override
+	public boolean modifyPartCategory(Projcategory projcategory, String type) {
+		boolean flag = false;
+		if(projcategory!=null){
+			try{
+				if("C".equals(type)){// 添加信息 
+				   flag = daoFactory.getProjcategoryMapper().insertSelective(projcategory)>0;
+				}else if("U".equals(type)){
+					flag = daoFactory.getProjcategoryMapper().updateByPrimaryKeySelective(projcategory)>0;
+				}else if("D".equals(type)){
+					Projcategory pg = daoFactory.getProjcategoryMapper().selectByPrimaryKey(projcategory.getId());
+					if(pg!=null){
+						pg.setCatflag(projcategory.getCatflag());
+						flag = daoFactory.getProjcategoryMapper().updateByPrimaryKeySelective(projcategory)>0;
+					}
+				}
+			}catch (Exception e) {
+				logger.error("修改维修项目类别的信息失败!");
+			}
+		} 
+		return flag;
+	}
+
+	 
 
 }

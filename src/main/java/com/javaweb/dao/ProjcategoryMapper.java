@@ -18,4 +18,6 @@ public interface ProjcategoryMapper {
     int updateByPrimaryKey(Projcategory record);
     
     List<Projcategory> selectAll();
+    
+    List<Projcategory> selectAllCategory();
 }

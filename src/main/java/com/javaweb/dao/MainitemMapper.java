@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.javaweb.entity.Mainitem;
+import com.javaweb.views.MainItemView;
 
 public interface MainitemMapper {
     int deleteByPrimaryKey(Integer id);
@@ -25,4 +26,11 @@ public interface MainitemMapper {
      * @return
      */
     List<Mainitem> selectMainitembyCategory(@Param("projcategory")String projcategory);
+    
+    
+    /**
+     * 查询所有的维修项目
+     * @return
+     */
+    List<MainItemView> selectallMainitem();
 }
