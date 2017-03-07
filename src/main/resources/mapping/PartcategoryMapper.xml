@@ -79,4 +79,21 @@
       partcatFlag = #{partcatflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询所有的零件的类别 -->
+  <select id="selectAllPartCategory" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" />
+	from partcategory 
+	<where>
+		<choose>
+			<when test="status!=null and status!=''">
+				and partcategory.partcatFlag=#{status}
+			</when>
+			<otherwise>
+				and partcategory.partcatFlag='1'
+			</otherwise>
+		</choose> 
+	</where>
+  </select>
 </mapper>

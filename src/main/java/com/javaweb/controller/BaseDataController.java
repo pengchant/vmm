@@ -14,16 +14,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Partcategory;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
+import com.javaweb.entity.Warehouse;
 import com.javaweb.service.impl.ServiceFactory;
-import com.javaweb.utils.BaseController;
-import com.javaweb.utils.StringUtils;
+import com.javaweb.utils.BaseController; 
 import com.javaweb.utils.XLS;
 import com.javaweb.views.CustomerView;
 
@@ -192,27 +194,31 @@ public class BaseDataController extends BaseController {
 		return responseSuccess(
 				serviceFactory.getBaseDataManageService().queryAllSupplier(key, sort, order, flag, page, rows));
 	}
-	
-	
+
 	/**
 	 * 修改供应商的信息
+	 * 
 	 * @param supplier
 	 * @param type
 	 * @return
 	 */
 	@RequestMapping("/modifySupplier")
 	@ResponseBody
-	public String modifySupplier(Supplier supplier,String type) {
-		if(supplier!=null && org.apache.commons.lang.StringUtils.isBlank(supplier.getId()+"")){
+	public String modifySupplier(Supplier supplier, String type) {
+		if (supplier != null && org.apache.commons.lang.StringUtils.isBlank(supplier.getId() + "")) {
 			supplier.setId(null);
 		}
 		boolean flag = serviceFactory.getBaseDataManageService().modifySupplier(supplier, type);
-		return flag?responseSuccess(null):responseFail("修改失败!");
+		return flag ? responseSuccess(null) : responseFail("修改失败!");
 	}
-	
-	
+
+	/**
+	 * 导出供应商的excel
+	 * 
+	 * @param response
+	 */
 	@RequestMapping("/toSupplierExcel")
-	public void toSupplierExcel(HttpServletResponse response){
+	public void toSupplierExcel(HttpServletResponse response) {
 		try {
 			List<Supplier> suppliers = serviceFactory.getBaseDataManageService().queryAllSupplier();
 			XLS<Supplier> myXls = new XLS<Supplier>(Supplier.class);
@@ -225,6 +231,60 @@ public class BaseDataController extends BaseController {
 		} catch (Exception e) {
 			logger.error("下载失败!");
 		}
+	}
+
+	/**
+	 * 零件类别的管理{operation}:S:查询:M:修改
+	 * 查询所有${pageContext.request.contextPath}/baseData/S/partCategoryManage.html
+	 * 修改：
+	 * 		添加：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=C  (一下post partcategroy对象)
+	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=M
+	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U
+	 * 
+	 * @param pageNo
+	 * @param pageSize
+	 * @param status
+	 * @param partcategory
+	 * @param type	C:添加，U：修改,D：删除（还原）
+	 * @return
+	 */
+	@RequestMapping("/{operation}/partCategoryManage")
+	public String partCategoryManage(Integer pageNo, Integer pageSize, String status, Partcategory partcategory,
+			String type, @PathVariable("operation") String operation) {
+		if ("S".equals(operation)) {
+			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedPartCategory(pageNo, pageSize, status));
+		} else if ("M".equals(operation)) {
+			boolean flag = serviceFactory.getBaseDataManageService().modifyPartCategory(partcategory, type);
+			return flag?responseSuccess(null):responseFail("操作失败，请稍后重试!");
+		}
+		return responseFail("系统暂时无法提供该服务，请稍后重试!");
+	}
+
+	/**
+	 * 仓库表的管理{operation}:S:查询:M:修改
+	 * 查询所有${pageContext.request.contextPath}/baseData/S/warehouseManage.html
+	 * 	修改：
+	 * 		添加：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=C   
+	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=M
+	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U 
+	 * @param pageNo
+	 * @param pageSize
+	 * @param status
+	 * @param warehouse
+	 * @param type
+	 * @param operation
+	 * @return
+	 */
+	@RequestMapping("/{operation}/warehouseManage")
+	public String warehouseManage(Integer pageNo, Integer pageSize, String status, Warehouse warehouse, String type,
+			@PathVariable("operation") String operation) {
+		if ("S".equals(operation)) {
+			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedWarehouse(pageNo, pageSize, status));
+		} else if ("M".equals(operation)) {
+			boolean flag= serviceFactory.getBaseDataManageService().modifyWarehouse(warehouse, type);
+			return flag?responseSuccess(null):responseFail("操作失败，请稍后重试!");
+		}
+		return responseFail("系统暂时无法提供该服务，请稍后重试!");
 	}
 
 }

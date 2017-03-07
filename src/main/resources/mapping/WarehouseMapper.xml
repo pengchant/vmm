@@ -120,4 +120,16 @@
 		</if>
 	</where>
   </select>
+  
+  <!-- 查询所有的零件的类别 -->
+  <select id="selectAllWarehouse" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" />
+	from warehouse
+	<where>
+		<if test="status!=null and status!=''">
+			and warehouse.wareflag=#{status}
+		</if>
+	</where> 
+  </select>
 </mapper>

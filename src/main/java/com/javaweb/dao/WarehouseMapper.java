@@ -26,4 +26,11 @@ public interface WarehouseMapper {
      * @return
      */
     List<PartStorageView> selectPartStorage(@Param("key")String keyword);
+    
+    /**
+     * 查询所有的仓库信息
+     * @param status
+     * @return
+     */
+    List<Warehouse> selectAllWarehouse(@Param("status")String status);
 }

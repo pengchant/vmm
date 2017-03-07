@@ -20,6 +20,7 @@ import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
 import com.javaweb.entity.Vehicle;
+import com.javaweb.entity.Warehouse;
 import com.javaweb.service.IBaseDataManageService;
 import com.javaweb.utils.BeanUtil;
 import com.javaweb.utils.PagedResult;
@@ -231,5 +232,74 @@ public class BaseDataManageService implements IBaseDataManageService {
 	public List<Supplier> queryAllSupplier() { 
 		return daoFactory.getSupplierMapper().selectAllSupplier(null, null, null, null);
 	}
+
+	
+	/**
+	 * 查询所有的配件的类别
+	 */
+	@Override
+	public PagedResult<Partcategory> queryPagedPartCategory(Integer pageNo, Integer pageSize, String status) {
+		pageNo = pageNo==null?0:pageNo;
+		pageSize = pageSize==null?0:pageSize;
+		PageHelper.startPage(pageNo, pageSize);
+		return BeanUtil.topagedResult(daoFactory.getPartcategoryMapper().selectAllPartCategory(status));
+	}
+
+	/**
+	 * 修改零件类别信息
+	 */
+	@Override
+	public boolean modifyPartCategory(Partcategory partcategory, String type) {
+		boolean flag = false;
+		if(partcategory!=null && org.apache.commons.lang.StringUtils.isNotBlank(type)){
+			if("C".equals(type)){// 添加
+				flag = daoFactory.getPartcategoryMapper().insertSelective(partcategory)>0;
+			}else if("U".equals(type)){// 修改
+				flag = daoFactory.getPartcategoryMapper().updateByPrimaryKeySelective(partcategory)>0;
+			}else if("D".equals(type)){// 删除
+				Partcategory pt = daoFactory.getPartcategoryMapper().selectByPrimaryKey(partcategory.getId());
+				if(pt!=null){
+					pt.setPartcatflag(partcategory.getPartcatflag());
+					flag = daoFactory.getPartcategoryMapper().updateByPrimaryKeySelective(pt)>0;
+				}
+			}
+		}
+		return flag;
+	}
+
+	/**
+	 * 查询所有的仓库的信息
+	 */
+	@Override
+	public PagedResult<Warehouse> queryPagedWarehouse(Integer pageNo, Integer pageSize, String status) {
+		pageNo = pageNo==null?0:pageNo;
+		pageSize = pageSize==null?0:pageSize;
+		PageHelper.startPage(pageNo, pageSize);
+		return BeanUtil.topagedResult(daoFactory.getWarehouseMapper().selectAllWarehouse(status));
+	}
+
+	/**
+	 * 修改仓库的信息
+	 */
+	@Override
+	public boolean modifyWarehouse(Warehouse warehouse, String type) {
+		boolean flag = false;
+		if(warehouse!=null && org.apache.commons.lang.StringUtils.isNotBlank(type)){
+			if("C".equals(type)){// 添加
+				flag = daoFactory.getWarehouseMapper().insertSelective(warehouse)>0;
+			}else if("U".equals(type)){// 修改
+				flag = daoFactory.getWarehouseMapper().updateByPrimaryKeySelective(warehouse)>0;
+			}else if("D".equals(type)){// 删除
+				Warehouse wh = daoFactory.getWarehouseMapper().selectByPrimaryKey(warehouse.getId());
+				if(wh!=null){
+					wh.setWareflag(warehouse.getWareflag());
+					flag = daoFactory.getWarehouseMapper().updateByPrimaryKeySelective(wh)>0;
+				}
+			}
+		}
+		return flag;
+	}
+
+	 
 
 }

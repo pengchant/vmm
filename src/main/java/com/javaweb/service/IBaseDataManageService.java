@@ -9,6 +9,7 @@ import com.javaweb.entity.Partcategory;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
+import com.javaweb.entity.Warehouse;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.CustomerView;
 import com.javaweb.views.MainItemView;
@@ -131,4 +132,37 @@ public interface IBaseDataManageService {
 	 * @return
 	 */
 	List<Supplier> queryAllSupplier();
+	
+	
+	/**
+	 * 分页查询所有的零件的类别
+	 * @param pageNo		页号
+	 * @param pageSize		页面大小
+	 * @return
+	 */
+	PagedResult<Partcategory> queryPagedPartCategory(Integer pageNo,Integer pageSize,String status);
+	
+	/**
+	 * 添加C,修改U,删除D零件类别
+	 * @param partcategory
+	 * @return
+	 */
+	boolean modifyPartCategory(Partcategory partcategory,String type);
+	
+	/**
+	 * 分页查询仓库的信息
+	 * @param pageNo		页号
+	 * @param pageSize		页面大小
+	 * @return
+	 */
+	PagedResult<Warehouse> queryPagedWarehouse(Integer pageNo,Integer pageSize,String status);
+	
+	/**
+	 * 修改仓库的信息
+	 * @param warehouse
+	 * @param type
+	 * @return
+	 */
+	boolean modifyWarehouse(Warehouse warehouse,String type);
+	
 }
