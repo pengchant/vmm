@@ -137,8 +137,7 @@
     	 // 弹出新建维修大类模态框
     	 function newProjCatgory(){
     		 $("#fmcategory").form("reset");
-    		 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=C';
-    		 combox();
+    		 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=C';    		 
     		 $('#dlgcategory').dialog('open').dialog('setTitle','添加维修大类'); 
     	 }
     	 
@@ -148,8 +147,7 @@
     		 if(row==null){
     			 $.messager.alert("操作提示","请先选择你要修改的记录!","info");
     		 }else{
-    			 // 设置值
-    			 combox();
+    			 // 设置值 
     			 $("#projcategorycode").textbox("setValue",row.numbering);
     			 $("#projcategory").textbox("setValue",row.projname); 
     			 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=U&id='+row.id;
