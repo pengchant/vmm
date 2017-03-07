@@ -127,9 +127,14 @@
 	<include refid="Base_Column_List" />
 	from warehouse
 	<where>
-		<if test="status!=null and status!=''">
-			and warehouse.wareflag=#{status}
-		</if>
+		<choose>
+			<when test="status!=null and status!=''">
+				and warehouse.wareflag=#{status}
+			</when>
+			<otherwise>
+				and warehouse.wareflag='1'
+			</otherwise>
+		</choose> 
 	</where> 
   </select>
 </mapper>

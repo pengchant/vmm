@@ -238,8 +238,8 @@ public class BaseDataController extends BaseController {
 	 * 查询所有${pageContext.request.contextPath}/baseData/S/partCategoryManage.html
 	 * 修改：
 	 * 		添加：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=C  (一下post partcategroy对象)
-	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=M
-	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U
+	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U
+	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=D
 	 * 
 	 * @param pageNo
 	 * @param pageSize
@@ -249,10 +249,11 @@ public class BaseDataController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/{operation}/partCategoryManage")
-	public String partCategoryManage(Integer pageNo, Integer pageSize, String status, Partcategory partcategory,
+	@ResponseBody
+	public String partCategoryManage(Integer page, Integer rows, String status, Partcategory partcategory,
 			String type, @PathVariable("operation") String operation) {
 		if ("S".equals(operation)) {
-			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedPartCategory(pageNo, pageSize, status));
+			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedPartCategory(page, rows, status));
 		} else if ("M".equals(operation)) {
 			boolean flag = serviceFactory.getBaseDataManageService().modifyPartCategory(partcategory, type);
 			return flag?responseSuccess(null):responseFail("操作失败，请稍后重试!");
@@ -265,8 +266,8 @@ public class BaseDataController extends BaseController {
 	 * 查询所有${pageContext.request.contextPath}/baseData/S/warehouseManage.html
 	 * 	修改：
 	 * 		添加：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=C   
-	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=M
-	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U 
+	 * 		修改：${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U
+	 * 		删除(还原):${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=D
 	 * @param pageNo
 	 * @param pageSize
 	 * @param status
@@ -276,10 +277,11 @@ public class BaseDataController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/{operation}/warehouseManage")
-	public String warehouseManage(Integer pageNo, Integer pageSize, String status, Warehouse warehouse, String type,
+	@ResponseBody
+	public String warehouseManage(Integer page, Integer rows, String status, Warehouse warehouse, String type,
 			@PathVariable("operation") String operation) {
 		if ("S".equals(operation)) {
-			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedWarehouse(pageNo, pageSize, status));
+			return responseSuccess(serviceFactory.getBaseDataManageService().queryPagedWarehouse(page, rows, status));
 		} else if ("M".equals(operation)) {
 			boolean flag= serviceFactory.getBaseDataManageService().modifyWarehouse(warehouse, type);
 			return flag?responseSuccess(null):responseFail("操作失败，请稍后重试!");

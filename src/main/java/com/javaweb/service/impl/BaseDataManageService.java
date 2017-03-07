@@ -253,6 +253,7 @@ public class BaseDataManageService implements IBaseDataManageService {
 		boolean flag = false;
 		if(partcategory!=null && org.apache.commons.lang.StringUtils.isNotBlank(type)){
 			if("C".equals(type)){// 添加
+				partcategory.setPartcatflag("1");
 				flag = daoFactory.getPartcategoryMapper().insertSelective(partcategory)>0;
 			}else if("U".equals(type)){// 修改
 				flag = daoFactory.getPartcategoryMapper().updateByPrimaryKeySelective(partcategory)>0;
@@ -286,6 +287,7 @@ public class BaseDataManageService implements IBaseDataManageService {
 		boolean flag = false;
 		if(warehouse!=null && org.apache.commons.lang.StringUtils.isNotBlank(type)){
 			if("C".equals(type)){// 添加
+				warehouse.setWareflag("1");
 				flag = daoFactory.getWarehouseMapper().insertSelective(warehouse)>0;
 			}else if("U".equals(type)){// 修改
 				flag = daoFactory.getWarehouseMapper().updateByPrimaryKeySelective(warehouse)>0;
