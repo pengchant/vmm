@@ -142,5 +142,28 @@
 		where userinfo.userflag='1'
 		and sector.secflag='1';
 	</select>
-
+	 
+	<select id="selectAllUsers" resultType="com.javaweb.views.UserView">
+		SELECT
+			u.id AS userinfoid,
+			u.username,
+			u.concatinfo,
+			u.jobnumber,
+			u.address,
+			u.entrytime,
+			u.userflag,
+			u.sectorid,
+			s.deptname,
+			a.id AS accountid,
+			a.accountnumber
+		from 
+		userinfo as u
+		join account as a on(u.id = a.id)
+		join sector as s on(s.id = u.sectorid)
+		<where>
+			<if test="status!=null and status!=''">
+				and u.userflag=#{status}
+			</if>
+		</where>
+	</select>
 </mapper>

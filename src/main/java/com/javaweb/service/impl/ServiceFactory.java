@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.javaweb.service.IBaseDataManageService;
 import com.javaweb.service.IInventoryManageService;
+import com.javaweb.service.ISystemManageService;
 import com.javaweb.service.IUserValidateService;
 import com.javaweb.service.IVehicleMaintence;
 
@@ -41,6 +42,13 @@ public class ServiceFactory {
 	 */
 	@Resource
 	private IBaseDataManageService baseDataManageService;
+
+	@Resource
+	private ISystemManageService systemManageService;
+
+	public ISystemManageService getSystemManageService() {
+		return systemManageService;
+	}
 
 	public IBaseDataManageService getBaseDataManageService() {
 		return baseDataManageService;
