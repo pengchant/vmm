@@ -1,6 +1,5 @@
 package com.javaweb.service.impl;
-
-import java.util.List;
+ 
 
 import javax.annotation.Resource;
 
@@ -27,11 +26,11 @@ public class SystemManageService implements ISystemManageService {
 	 * 查询所有的用户
 	 */
 	@Override
-	public PagedResult<UserView> queryAllUser(Integer pageNo, Integer pageSize, String status) {
+	public PagedResult<UserView> queryAllUser(Integer pageNo, Integer pageSize, String status,String key) {
 		pageNo = pageNo==null?0:pageNo;
 		pageSize = pageSize==null?10:pageSize;
 		PageHelper.startPage(pageNo, pageSize);
-		return BeanUtil.topagedResult(daoFactory.getUserinfoMapper().selectAllUsers(status));
+		return BeanUtil.topagedResult(daoFactory.getUserinfoMapper().selectAllUsers(status,key));
 	}
 
 }

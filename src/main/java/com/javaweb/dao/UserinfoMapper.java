@@ -28,6 +28,6 @@ public interface UserinfoMapper {
      * @param status
      * @return
      */
-    List<UserView> selectAllUsers(@Param("status")String status);
+    List<UserView> selectAllUsers(@Param("status")String status,@Param("key")String key);
     
 }

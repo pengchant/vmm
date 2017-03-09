@@ -19,5 +19,5 @@ public interface ISystemManageService {
 	 * @param status
 	 * @return
 	 */
-	PagedResult<UserView> queryAllUser(Integer pageNo, Integer pageSize, String status);
+	PagedResult<UserView> queryAllUser(Integer pageNo, Integer pageSize, String status,String key);
 }

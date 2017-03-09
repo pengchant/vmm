@@ -37,7 +37,7 @@ public class SystemManageController extends BaseController {
 	 */
 	@RequestMapping("/queryUser")
 	@ResponseBody
-	public String queryUser(String status, Integer page, Integer rows) {
-		return responseSuccess(serviceFactory.getSystemManageService().queryAllUser(page, rows, status));
+	public String queryUser(String status, Integer page, Integer rows,String key) {
+		return responseSuccess(serviceFactory.getSystemManageService().queryAllUser(page, rows, status,key));
 	}
 }

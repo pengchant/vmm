@@ -300,8 +300,6 @@ public class BaseDataManageService implements IBaseDataManageService {
 			}
 		}
 		return flag;
-	}
-
-	 
+	} 
 
 }

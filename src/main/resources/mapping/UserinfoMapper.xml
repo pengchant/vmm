@@ -161,8 +161,22 @@
 		join account as a on(u.id = a.id)
 		join sector as s on(s.id = u.sectorid)
 		<where>
-			<if test="status!=null and status!=''">
-				and u.userflag=#{status}
+			<choose>
+				<when test="status!=null and status!=''">
+					and u.userflag=#{status}
+				</when>
+				<otherwise>
+					and u.userflag='1'
+				</otherwise>
+			</choose> 
+			<if test="key!=null and key!=''">
+				and (
+					u.username like concat('%',#{key},'%') 
+					or 
+					u.jobnumber like concat('%',#{key},'%')
+					or 
+					u.concatinfo like concat('%',#{key},'%')
+				)
 			</if>
 		</where>
 	</select>
