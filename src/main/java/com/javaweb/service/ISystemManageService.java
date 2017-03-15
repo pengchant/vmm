@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.entity.Userinfo;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.UserView;
 
@@ -20,4 +21,12 @@ public interface ISystemManageService {
 	 * @return
 	 */
 	PagedResult<UserView> queryAllUser(Integer pageNo, Integer pageSize, String status,String key);
+	
+	/**
+	 * 修改用户信息(添加，修改，删除)
+	 * @param userinfo
+	 * @param type
+	 * @return
+	 */
+	boolean modifyUser(UserView userView,int[] privileges,String type);
 }

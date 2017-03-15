@@ -104,4 +104,21 @@ public class StringUtils {
 		String[] array = timeStr.split("-");
 		return array[0]+"年"+array[1]+"月"+array[2]+"日";
 	}
+	
+	/**
+	 * 获取时间字符串
+	 * @param timestr
+	 * @return
+	 */
+	public static Date getDateFromStr(String timestr){
+		Date date = null;
+		try {
+			SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			date = sFormat.parse(timestr);
+		} catch (Exception e) {
+			e.printStackTrace();
+			date = new Date();
+		}
+		return date;
+	}
 }
