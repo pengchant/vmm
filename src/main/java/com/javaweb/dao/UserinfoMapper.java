@@ -30,4 +30,17 @@ public interface UserinfoMapper {
      */
     List<UserView> selectAllUsers(@Param("status")String status,@Param("key")String key);
     
+    /**
+     * 删除用户
+     * @param userinfoid
+     * @return
+     */
+    int delUser(@Param("userinfoid")String userinfoid);
+    
+    /**
+     * 删除所有用户的权限
+     * @param accountid
+     * @return
+     */
+    int delUserRights(@Param("accountid")String accountid);
 }

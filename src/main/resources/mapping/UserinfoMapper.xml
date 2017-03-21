@@ -180,4 +180,16 @@
 			</if>
 		</where>
 	</select>
+	
+	<!--  删除用户 -->
+	<update id="delUser">
+		update userinfo
+		set userinfo.userflag='0'
+		where userinfo.id=#{userinfoid}
+	</update>
+	
+	<!-- 删除用户的所有权限 -->
+	<delete id="delUserRights">
+		DELETE from userrights where userrights.accountid=#{accountid}
+	</delete>
 </mapper>

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.javaweb.dao.DaoFactory;
+import com.javaweb.entity.Account;
+import com.javaweb.entity.Userinfo;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
 
@@ -40,4 +43,23 @@ public class SystemManageController extends BaseController {
 	public String queryUser(String status, Integer page, Integer rows,String key) {
 		return responseSuccess(serviceFactory.getSystemManageService().queryAllUser(page, rows, status,key));
 	}
+	
+	/**
+	 * 添加用户信息
+	 * @param privileges
+	 * @param account
+	 * @param userinfo
+	 * @param sectorid
+	 * @return
+	 */
+	@RequestMapping("/addUser")
+	@ResponseBody
+	public boolean addUser(String privileges,Account account,Userinfo userinfo,String sectorid){
+		boolean flag = false;
+		
+		return flag;
+	}
+	
+	
+	
 }
