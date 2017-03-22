@@ -68,4 +68,11 @@
       secflag = #{secflag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询所有的部门的信息 -->
+  <select id="selectAllSector" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+	from sector
+	where sector.secflag='1'
+  </select>
 </mapper>

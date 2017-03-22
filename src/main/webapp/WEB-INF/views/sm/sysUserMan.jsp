@@ -71,28 +71,30 @@
     			 <tr>
     			 	<td>用户名称</td>
     			 	<td>  
-    			 		<input type="text" id="suppliername" validateOnCreate="false" name="suppliername"  class="easyui-textbox" required="required"/>
+    			 		<input type="text" id="username" validateOnCreate="false" name="username"  class="easyui-textbox" required="required"/>
     			 	</td>
     			 	<td>工号</td>
-    			 	<td><input type="text" id="contacts" validateOnCreate="false" name="contacts" class="easyui-textbox" required="required"/></td>    			 
+    			 	<td><input type="text" id="jobnumber" validateOnCreate="false" name="jobnumber" class="easyui-textbox" required="required"/></td>    			 
     			 </tr>  
     			  <tr>
     			 	<td>联系方式</td>
-    			 	<td><input type="text" id="phone" validateOnCreate="false" name="phone" class="easyui-textbox" required="required"/></td>
+    			 	<td><input type="text" id="concatinfo" validateOnCreate="false" name="concatinfo" class="easyui-textbox" required="required"/></td>
     			 	<td>地址</td>
     			 	<td> 
-    			 		<input id="contactinfo" validateOnCreate="false" name="contactinfo" type="text" class="easyui-textbox" required="required"/>
+    			 		<input id="address" validateOnCreate="false" name="address" type="text" class="easyui-textbox" required="required"/>
     			 	</td>    			 
     			 </tr>   
     			  <tr>
     			 	<td>入职时间</td>
-    			 	<td><input id="fax" name="fax" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>
+    			 	<td><input id="deptname" name="deptname"   type="text" class="easyui-datebox" required="required"></td>
     			 	<td>登录账号</td>
     			 	<td><input id="mailbox" name="mailbox" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>    			
     			 </tr> 
     			  <tr>
     			 	<td>部门</td>
-    			 	<td><input id="address" name="address" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>
+    			 	<td>
+    			 		<input id="sectorid" class="easyui-combobox" name="sectorid"
+    					data-options="valueField:'id',textField:'text',url:'get_data.php'" required="required">    			  
     			 </tr>
     			  <tr> 
     			 	<td id="userpermissions" colspan="4">
