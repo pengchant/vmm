@@ -111,5 +111,6 @@
   <select id="selectAllPermission" resultType="com.javaweb.entity.Permission">
   	select * 
   	from permission
+  	where permission.perflag='1'
   </select>
 </mapper>

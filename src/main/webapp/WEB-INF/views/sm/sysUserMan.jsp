@@ -2,7 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@include file="../public/header.jsp" %>
 <style>
-	 
+	.mytb{  
+		margin:0 auto;
+		margin-top:15px;
+	}
+	
+	.mytb tr{
+		height:35px;
+	}
+	
+	.mytb tr input{
+		height:30px;
+	}
+	
+	fieldset{
+		border:solid 1px #A9A9A9;
+	}
 </style>
 </head>
 <body style="padding:5px;">
@@ -42,7 +57,7 @@
             &nbsp;&nbsp;
             <a href="#" id="refresh" iconCls="icon-arrow_refresh" onclick="refresh()" class="easyui-linkbutton">刷新所有</a>
              &nbsp;&nbsp;
-            <a href="#" id="refresh" iconCls="icon-arrow_refresh" onclick="addUser()" class="easyui-linkbutton">添加用户</a>
+            <a href="#" id="refresh" iconCls="icon-add" onclick="addUser()" class="easyui-linkbutton">添加用户</a>
         </div> 
     </div>
     <div region="south" style="height:10px;" border="false">
@@ -54,47 +69,36 @@
     	<form id="userdialogfm">
     		<table class="mytb">  
     			 <tr>
-    			 	<td>供应商名称</td>
-    			 	<td> 
-    			 		<input type="hidden" id="id" name="id"/>
-    			 		<input type="hidden" id="type" name="type"/>
-    			 		<input type="text" id="suppliername" name="suppliername"  class="easyui-textbox" required="required"/>
+    			 	<td>用户名称</td>
+    			 	<td>  
+    			 		<input type="text" id="suppliername" validateOnCreate="false" name="suppliername"  class="easyui-textbox" required="required"/>
     			 	</td>
-    			 </tr>
-    			 <tr>
-    			 	<td>联系人</td>
-    			 	<td><input type="text" id="contacts" name="contacts" class="easyui-textbox" required="required"/></td>
-    			 </tr> 
-    			  <tr>
-    			 	<td>手机</td>
-    			 	<td><input type="text" id="phone" name="phone" class="easyui-textbox" required="required"/></td>
-    			 </tr> 
+    			 	<td>工号</td>
+    			 	<td><input type="text" id="contacts" validateOnCreate="false" name="contacts" class="easyui-textbox" required="required"/></td>    			 
+    			 </tr>  
     			  <tr>
     			 	<td>联系方式</td>
+    			 	<td><input type="text" id="phone" validateOnCreate="false" name="phone" class="easyui-textbox" required="required"/></td>
+    			 	<td>地址</td>
     			 	<td> 
-    			 		<input id="contactinfo" name="contactinfo" type="text" class="easyui-textbox" required="required"/>
-    			 	</td>
+    			 		<input id="contactinfo" validateOnCreate="false" name="contactinfo" type="text" class="easyui-textbox" required="required"/>
+    			 	</td>    			 
+    			 </tr>   
+    			  <tr>
+    			 	<td>入职时间</td>
+    			 	<td><input id="fax" name="fax" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>
+    			 	<td>登录账号</td>
+    			 	<td><input id="mailbox" name="mailbox" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>    			
     			 </tr> 
     			  <tr>
-    			 	<td>传真</td>
-    			 	<td><input id="fax" name="fax" type="text" class="easyui-textbox" required="required"/></td>
+    			 	<td>部门</td>
+    			 	<td><input id="address" name="address" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>
     			 </tr>
-    			  <tr>
-    			 	<td>邮箱</td>
-    			 	<td><input id="mailbox" name="mailbox" type="text" class="easyui-textbox" required="required"/></td>
-    			 </tr>
-    			  <tr>
-    			 	<td>地址</td>
-    			 	<td><input id="address" name="address" type="text" class="easyui-textbox" required="required"/></td>
-    			 </tr>
-    			  <tr>
-    			 	<td>邮政编码</td>
-    			 	<td><input id="postcode" name="postcode" type="text" class="easyui-textbox" required="required"/></td>
-    			 </tr>
-    			 <tr>
-    			 	<td>银行卡号</td>
-    			 	<td><input id="bankaccount" name="bankaccount" type="text" class="easyui-textbox" required="required"/></td>
-    			 </tr>
+    			  <tr> 
+    			 	<td id="userpermissions" colspan="4">
+    			 		
+    			 	</td>
+    			 </tr>  
     		</table>
     	</form>
     </div>
@@ -106,11 +110,12 @@
 
 	$(function(){
 		$("#userdialog").dialog({ 
-		    width: 450,
-		    height: 400,
+		    width: 560,
+		    height: 500,
 		    closed: true,
 		    cache: false, 
 		    modal: true,
+		    title:"用户信息",
 		    buttons:'#tbcg'
 		});
 	});
@@ -147,8 +152,59 @@
 	// 添加用户
 	function addUser(index){
 		let $row = getRow(index);
+		loadAllPrivileges();
 		// 弹出模态框
 		$("#userdialog").dialog('open');
+	}
+	
+	// 加载所有的权限信息
+	function loadAllPrivileges(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.html",
+			type:"post",
+			dataType:"json"
+		}).done(function(data){ 
+			console.log(data);
+			var $container = $("#userpermissions");
+			var $element = $("<fieldset><legend class='legend'></legend><div class='maincont'></div></fieldset><br/>");
+			var categoryArray = [];
+			// 类别的数组		
+			for(var i = 0;i<data.length;i++){
+				 if(!checkHasContained(categoryArray,data[i].authcategory)){
+					 categoryArray.push(data[i].authcategory);
+				 }
+			}
+			// 先清空
+			$container.empty();
+			// 生成fieldset
+			for(var j = 0;j<categoryArray.length;j++){
+				var $cpy = $element.clone();
+				$cpy.find(".legend").html(categoryArray[j]).attr("name",categoryArray[j]);
+				$container.append($cpy);
+			}
+			
+			// 在fieldset中添加权限
+			for(var i = 0;i<data.length;i++){
+				str="<span style='float:left;display:inline-block;'><input style='float:left;' type='checkbox' name='allprivileges' checked='checked' value="+data[i].id+" /><span style='margin-top:10px;display:incline-block;float:left;'>"+data[i].pername+"</span></span>";
+				var category = data[i].authcategory;
+				$(".legend[name="+category+"]").next().append(str);				
+			}  
+		});
+	}
+	
+	// 检查数组中是否含有某项元素
+	function checkHasContained(myArray,val){ 
+		for(var i = 0;i<myArray.length;i++){
+			if(myArray[i]==val){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// 确定提交
+	function suresubmit(){
+		
 	}
 	
 	// 修改用户
