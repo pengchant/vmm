@@ -29,7 +29,7 @@
 		#{passwords,jdbcType=CHAR},
 		#{accountflag,jdbcType=CHAR}, #{userinfoid,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.javaweb.entity.Account">
+	<insert id="insertSelective" parameterType="com.javaweb.entity.Account" useGeneratedKeys="true" keyProperty="id">
 		insert into account
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

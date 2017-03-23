@@ -35,7 +35,7 @@ public interface UserinfoMapper {
      * @param userinfoid
      * @return
      */
-    int delUser(@Param("userinfoid")String userinfoid);
+    int modifyUser(@Param("userinfoid")String userinfoid,@Param("userflag")String userflag);
     
     /**
      * 删除所有用户的权限

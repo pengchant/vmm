@@ -26,7 +26,7 @@
         <table fit="true" id="dg" class="easyui-datagrid" title="用户 信息" 
                toolbar="#tb" idField="id"
                data-options="url:'${pageContext.request.contextPath}/base/queryUser.html'"
-               rownumbers="true" fitColumns="true" singleSelect="true" pagination="true">
+               rownumbers="true" pageSize="20" fitColumns="true" singleSelect="true" pagination="true">
             <thead>
             <tr>
                 <th field="userinfoid" hidden="true" align="center" width="50" formatte>用户编号</th>
@@ -71,6 +71,10 @@
     			 <tr>
     			 	<td>用户名称</td>
     			 	<td>  
+    			 		<%-- 隐藏域 --%>
+    			 		<input type="hidden" id="userinfoid" name="userinfoid"/>
+    			 		<input type="hidden" id="accountid" name="accountid"/>
+    			 		<input type="hidden" id="userflag" name="userflag"/>
     			 		<input type="text" id="username" validateOnCreate="false" name="username"  class="easyui-textbox" required="required"/>
     			 	</td>
     			 	<td>工号</td>
@@ -86,15 +90,15 @@
     			 </tr>   
     			  <tr>
     			 	<td>入职时间</td>
-    			 	<td><input id="deptname" name="deptname"   type="text" class="easyui-datebox" required="required"></td>
+    			 	<td><input id="entrytime" name="entrytime" validateOnCreate="false"  type="text" class="easyui-datebox" required="required"></td>
     			 	<td>登录账号</td>
-    			 	<td><input id="mailbox" name="mailbox" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>    			
+    			 	<td><input id="accountnumber" name="accountnumber" validateOnCreate="false" type="text" class="easyui-textbox" required="required"/></td>    			
     			 </tr> 
     			  <tr>
     			 	<td>部门</td>
     			 	<td>
-    			 		<input id="sectorid" class="easyui-combobox" name="sectorid"
-    					data-options="valueField:'id',textField:'text',url:'get_data.php'" required="required">    			  
+    			 		<input id="sectorid" class="easyui-combobox" name="sectorid" validateOnCreate="false"
+    					data-options="valueField:'id',textField:'deptname',url:'<%=request.getContextPath() %>/base/queryAllSector.html'" required="required">    			  
     			 </tr>
     			  <tr> 
     			 	<td id="userpermissions" colspan="4">
@@ -109,17 +113,23 @@
 		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#userdialog').dialog('close')">取消</a>
 	</div>
 <script type="text/javascript">
+	
+	// 定义一个全局变量，标记修改还是添加
+	var flag = "0"; 
 
-	$(function(){
+	// 文档加载完毕
+	$(function(){ 
+		// 设置对话框的属性
 		$("#userdialog").dialog({ 
 		    width: 560,
-		    height: 500,
+		    height: 480,
 		    closed: true,
 		    cache: false, 
 		    modal: true,
 		    title:"用户信息",
 		    buttons:'#tbcg'
-		});
+		}); 
+	 
 	});
 
 	// 格式化操作
@@ -153,6 +163,8 @@
 	
 	// 添加用户
 	function addUser(index){
+		// 标记flag为1：表示创建
+		flag = "0";
 		let $row = getRow(index);
 		loadAllPrivileges();
 		// 弹出模态框
@@ -165,8 +177,7 @@
 			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.html",
 			type:"post",
 			dataType:"json"
-		}).done(function(data){ 
-			console.log(data);
+		}).done(function(data){   
 			var $container = $("#userpermissions");
 			var $element = $("<fieldset><legend class='legend'></legend><div class='maincont'></div></fieldset><br/>");
 			var categoryArray = [];
@@ -206,23 +217,159 @@
 	
 	// 确定提交
 	function suresubmit(){
-		
-	}
+		var url = ""; 
+		if(flag=="0"){// 添加
+			url = "<%=request.getContextPath()%>/base/c/modiUser.html";			
+		}else if(flag=="1"){// 修改
+			url = "<%=request.getContextPath()%>/base/u/modiUser.html";
+		}	
+		$.messager.progress();	 
+		$('#userdialogfm').form('submit', {
+			url: url,  
+			onSubmit: function(){
+				var isValid = $(this).form('validate');
+				if (!isValid){
+					$.messager.progress('close');	 
+				}
+				return isValid;	 
+			},
+			success: function(data){  
+				data = JSON.parse(data);
+				if(data.isError==false){
+					$.messager.alert("提示","操作成功!","info");
+					refresh();
+					// 成功后清除表单
+					$("#userdialogfm").form("reset");
+				}else{
+					$.messager.alert("提示","操作失败!","error");
+				}
+				$('#userdialog').dialog('close');
+				$.messager.progress('close');	 
+			}
+		});
+	} 
 	
-	// 修改用户
-	function modUser(index){
-		let $row = getRow(index);
-	}
-	
-	// 删除用户
+	// 删除
 	function delUser(index){
-		let $row = getRow(index);
+		var row = getRow(index); 
+		changeStatus(row.userinfoid,"0");
 	}
 	
-	// 还原用户
-	function rebackUser(index){
-		let $row = getRow(index);
+	// 修改用户的状态
+	function changeStatus(userinfoid,userflag){
+		$.messager.confirm('操作提示', '你确定要继续该操作吗?', function(r){
+			if (r){
+				$.ajax({
+					url:"<%=request.getContextPath()%>/base/d/modiUser.html",
+					type:"post",
+					data:{
+						"userinfoid":userinfoid,
+						"userflag":userflag
+					},
+					dataType:"json"
+				}).done(function(data){
+					if(data.isError==false){
+						$.messager.alert("提示","删除用户成功!","info");
+						refresh();
+					}else{
+						$.messager.alert("提示","删除用户失败,稍候重试!","error");
+					}
+				});
+			}
+		});
 	}
+	
+	// 还原
+	function rebackUser(index){
+		var row = getRow(index);
+		changeStatus(row.userinfoid,"1");
+	}
+	
+	// 修改用户信息
+	function modUser(index){
+		var row = getRow(index);
+		// 赋值
+		$("#userinfoid").val(row.userinfoid);
+		$("#accountid").val(row.accountid);	 
+		$("#userflag").val(row.userflag);
+		flag = "1";
+		// 赋值
+		$("#username").textbox("setValue",row.username);
+		// 工号
+		$("#jobnumber").textbox("setValue",row.jobnumber);
+		// 联系方式
+		$("#concatinfo").textbox("setValue",row.concatinfo);
+		// 地址
+		$("#address").textbox("setValue",row.address);
+		// 入职时间
+		$("#entrytime").datebox("setValue",row.entrytime);
+		// 登录账号
+		$("#accountnumber").textbox("setValue",row.accountnumber);
+		// 部门
+		$("#sectorid").combobox("setValue",row.sectorid);
+	
+		// 所有的权限（如果用户具备的权限需要勾选上）
+		$.ajax({
+			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.html",
+			type:"post",
+			dataType:"json"
+		}).done(function(data){
+			var $container = $("#userpermissions");
+			var $element = $("<fieldset><legend class='legend'></legend><div class='maincont'></div></fieldset><br/>");
+			var categoryArray = [];
+			
+			
+			// 类别的数组		
+			for(var i = 0;i<data.length;i++){
+				 if(!checkHasContained(categoryArray,data[i].authcategory)){
+					 categoryArray.push(data[i].authcategory);
+				 }
+			}
+			// 先清空
+			$container.empty();
+			// 生成fieldset
+			for(var j = 0;j<categoryArray.length;j++){
+				var $cpy = $element.clone();
+				$cpy.find(".legend").html(categoryArray[j]).attr("name",categoryArray[j]);
+				$container.append($cpy);
+			}
+			 
+			// 在fieldset中添加权限
+			for(var i = 0;i<data.length;i++){
+				str="<span style='float:left;display:inline-block;'><input style='float:left;' type='checkbox' name='allprivileges' value="+data[i].id+" /><span style='margin-top:10px;display:incline-block;float:left;'>"+data[i].pername+"</span></span>";
+				var category = data[i].authcategory;
+				$(".legend[name="+category+"]").next().append(str);				
+			}  
+			
+			///// 获取用户的所有的权限 /////
+			var userprivileges = queryAllUserPrivilege(row.accountnumber);
+			console.log("======>"+userprivileges.length);
+			for(var m = 0;m<userprivileges.length;m++){
+	    		$("#userpermissions input[type=checkbox][value="+userprivileges[m].id+"]").attr("checked","checked");
+	    	}
+			
+			// 打开弹框
+			$("#userdialog").dialog('open');
+		}); 
+	}
+	
+	// 获取所有的用户的权限
+	function queryAllUserPrivilege(accountnumber){
+		var result = "";
+		$.ajax({
+			url:"<%=request.getContextPath()%>/base/queryAllUserPrivilege.html",
+			type:"post",
+			data:{
+				"accountnumber":accountnumber
+			},
+			async:false,
+			dataType:"json"
+		}).done(function(data){  
+			result = data;
+		});
+		return result;
+	}
+	 
 </script>
 </body>
 </html>

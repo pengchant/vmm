@@ -34,5 +34,10 @@ public interface PermissionMapper {
      */
     List<Permission> selectAllPermission();
     
+    /**
+     * 查询所有有效的权限
+     * @return
+     */
+    List<Permission> selectAllPermissions();
     
 }

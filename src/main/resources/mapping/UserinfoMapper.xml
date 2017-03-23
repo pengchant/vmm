@@ -35,7 +35,7 @@
 		#{concatinfo,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{entrytime,jdbcType=TIMESTAMP},
 		#{userflag,jdbcType=CHAR}, #{sectorid,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.javaweb.entity.Userinfo">
+	<insert id="insertSelective" parameterType="com.javaweb.entity.Userinfo" useGeneratedKeys="true" keyProperty="id">
 		insert into userinfo
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -158,7 +158,7 @@
 			a.accountnumber
 		from 
 		userinfo as u
-		join account as a on(u.id = a.id)
+		join account as a on(u.id = a.userinfoid)
 		join sector as s on(s.id = u.sectorid)
 		<where>
 			<choose>
@@ -179,12 +179,13 @@
 				)
 			</if>
 		</where>
+		order by u.id desc
 	</select>
 	
 	<!--  删除用户 -->
-	<update id="delUser">
+	<update id="modifyUser">
 		update userinfo
-		set userinfo.userflag='0'
+		set userinfo.userflag=#{userflag}
 		where userinfo.id=#{userinfoid}
 	</update>
 	

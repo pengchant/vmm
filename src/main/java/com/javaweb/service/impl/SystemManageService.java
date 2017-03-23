@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Account;
 import com.javaweb.entity.Permission;
+import com.javaweb.entity.Sector;
 import com.javaweb.entity.Userinfo;
 import com.javaweb.entity.Userrights;
 import com.javaweb.service.ISystemManageService;
@@ -53,6 +54,7 @@ public class SystemManageService implements ISystemManageService {
 	@Override
 	public boolean modifyUser(UserView userView,int[] privileges, String type) { 
 		boolean flag = false;
+		logger.info("获取到的userview.userinfoid:"+userView.getUserinfoid());
 		try {
 			if("c".equals(type)){// 创建
 				// 1.添加用户信息
@@ -70,7 +72,8 @@ public class SystemManageService implements ISystemManageService {
 				account.setPasswords("000000");// 初始密码六个0
 				account.setAccountnumber(userView.getAccountnumber());
 				account.setAccountflag("1");
-				account.setUserinfoid(userinfo.getId());
+				logger.info("====================================>用户信息表的编号:"+userinfo.getId());
+				account.setUserinfoid(userinfo.getId());				
 				daoFactory.getAccontMapper().insertSelective(account);
 				// 3.添加权限
 				if(privileges!=null){
@@ -94,28 +97,40 @@ public class SystemManageService implements ISystemManageService {
 				userinfo.setEntrytime(StringUtils.getDateFromStr(userView.getEntrytime()));
 				userinfo.setUserflag(userView.getUserflag());
 				userinfo.setSectorid(StringUtils.getIntegerValue(userView.getSectorid(), -1));		
-				daoFactory.getUserinfoMapper().updateByPrimaryKey(userinfo);
+				flag = daoFactory.getUserinfoMapper().updateByPrimaryKey(userinfo)>0;
+				
+				logger.info("===================================>修改用户信息:"+flag);
+				
 				// 账号信息
 				Account account = new Account();   
-				account.setId(StringUtils.getIntegerValue(userView.getAccountid(), -1));
+				account.setId(Integer.parseInt(userView.getAccountid()));
 				account.setAccountnumber(userView.getAccountnumber()); 
 				account.setUserinfoid(userinfo.getId());
-				daoFactory.getAccontMapper().updateByPrimaryKeySelective(account);
+				flag = daoFactory.getAccontMapper().updateByPrimaryKeySelective(account)>0;
+				
+				
+				logger.info("===================================>修改账户信息:"+flag);
+				
 				// 更新权限信息
-				daoFactory.getUserinfoMapper().delUserRights(account.getId()+"");
+				flag = daoFactory.getUserinfoMapper().delUserRights(account.getId( )+"")>0;
+				
+				logger.info("===================================>删除所有权限信息:"+flag);
+				
 				// 添加权限信息
 				if(privileges!=null){
 					for(int i = 0;i<privileges.length;i++){
 						Userrights userrights = new Userrights();
 						userrights.setAccountid(account.getId());
 						userrights.setPermissionid(privileges[i]);
-						daoFactory.getUserrightsMapper().insertSelective(userrights);
+						flag = daoFactory.getUserrightsMapper().insertSelective(userrights)>0;
+						logger.info("===================================>修改账户信息:"+flag);
 					}
 				}
 				flag = true;
 			}else if("d".equals(type)){// 删除
 				// 跟新用户标记
-				daoFactory.getUserinfoMapper().delUser(userView.getUserinfoid());
+				daoFactory.getUserinfoMapper().modifyUser(userView.getUserinfoid(),userView.getUserflag());
+				logger.info("============================>删除用户成功!,userinfoid={}",userView.getUserinfoid());
 				flag = true;
 			}
 		} catch (Exception e) {
@@ -131,7 +146,25 @@ public class SystemManageService implements ISystemManageService {
 	 */
 	@Override
 	public List<Permission> queryAllPermission() {		
-		return daoFactory.getPermissionMapper().selectAllPermission();
+		return daoFactory.getPermissionMapper().selectAllPermissions();
+	}
+
+	
+	/**
+	 * 查询所有的部门
+	 */
+	@Override
+	public List<Sector> queryAllSectors() {		
+		return daoFactory.getSectorMapper().selectAllSector();
+	}
+
+	
+	/**
+	 * 查询所有的用户的权限
+	 */
+	@Override
+	public List<Permission> queryAllUserPer(String accountnumber) {		
+		return daoFactory.getPermissionMapper().getAllUserPermission(accountnumber);
 	}
  
 }

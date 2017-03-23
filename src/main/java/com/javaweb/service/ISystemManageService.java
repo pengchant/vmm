@@ -3,6 +3,7 @@ package com.javaweb.service;
 import java.util.List;
 
 import com.javaweb.entity.Permission;
+import com.javaweb.entity.Sector;
 import com.javaweb.entity.Userinfo;
 import com.javaweb.utils.PagedResult;
 import com.javaweb.views.UserView;
@@ -38,6 +39,21 @@ public interface ISystemManageService {
 	 * @return
 	 */
 	List<Permission> queryAllPermission();
+	
+	
+	/**
+	 * 查询所有的部门
+	 * @return
+	 */
+	List<Sector> queryAllSectors();
+	
+	
+	/**
+	 * 查询所有用户的权限
+	 * @param accountnumber
+	 * @return
+	 */
+	List<Permission> queryAllUserPer(String accountnumber);
 	
 }
 

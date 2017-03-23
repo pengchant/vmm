@@ -113,10 +113,9 @@ public class StringUtils {
 	public static Date getDateFromStr(String timestr){
 		Date date = null;
 		try {
-			SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 			date = sFormat.parse(timestr);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) { 
 			date = new Date();
 		}
 		return date;

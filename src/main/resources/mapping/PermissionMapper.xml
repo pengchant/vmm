@@ -101,8 +101,8 @@
   <select id="getAllUserPermission" resultMap="BaseResultMap" parameterType="String">
   	select permission.id,permission.authcategory,permission.pername,permission.perurl
 	from account 
-	left join userrights on(account.id=userrights.accountid)
-	left join permission on(userrights.permissionid=permission.id)
+	join userrights on(account.id=userrights.accountid)
+	join permission on(userrights.permissionid=permission.id)
 	where account.accountnumber=#{accountnumber}
 	and permission.perflag='1'
   </select>
@@ -110,7 +110,13 @@
   <!-- 获取所有的权限 -->
   <select id="selectAllPermission" resultType="com.javaweb.entity.Permission">
   	select * 
-  	from permission
+  	from permission  
+  </select>
+  
+    <!-- 获取所有的权限 （有效）-->
+  <select id="selectAllPermissions" resultType="com.javaweb.entity.Permission">
+  	select * 
+  	from permission  
   	where permission.perflag='1'
   </select>
 </mapper>
