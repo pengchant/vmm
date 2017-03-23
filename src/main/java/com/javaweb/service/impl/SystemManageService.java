@@ -166,5 +166,21 @@ public class SystemManageService implements ISystemManageService {
 	public List<Permission> queryAllUserPer(String accountnumber) {		
 		return daoFactory.getPermissionMapper().getAllUserPermission(accountnumber);
 	}
+
+	/**
+	 * 修改密码
+	 */
+	@Override
+	public boolean modifyPass(String password,String accountnumber) {
+		boolean flag = false;
+		try {
+			Account account = daoFactory.getAccontMapper().selectByAccountNum(accountnumber);
+			account.setPasswords(password);
+			flag = daoFactory.getAccontMapper().updateByPrimaryKeySelective(account) > 0;
+		} catch (Exception e) {
+			logger.info("成功修改密码!");
+		}
+		return flag;
+	}
  
 }

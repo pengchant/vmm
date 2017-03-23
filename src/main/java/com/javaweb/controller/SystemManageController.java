@@ -3,6 +3,8 @@ package com.javaweb.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.javaweb.entity.Account;
 import com.javaweb.entity.Userinfo;
 import com.javaweb.service.impl.ServiceFactory;
 import com.javaweb.utils.BaseController;
+import com.javaweb.utils.MyWebUtils;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.UserView;
 
@@ -42,7 +45,7 @@ public class SystemManageController extends BaseController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
-	
+
 	@Autowired
 	private ServiceFactory serviceFactory;
 
@@ -61,25 +64,25 @@ public class SystemManageController extends BaseController {
 	}
 
 	/**
-	 * 用户信息管理
-	 *  operation:c:创建,u:更新,d:删除 
+	 * 用户信息管理 operation:c:创建,u:更新,d:删除
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/{operation}/modiUser")
 	@ResponseBody
 	public String modiUser(UserView userView, String allprivileges, @PathVariable("operation") String operation) {
 		boolean flag = false;
-		if(org.apache.commons.lang.StringUtils.isNotBlank(operation)){
+		if (org.apache.commons.lang.StringUtils.isNotBlank(operation)) {
 			try {
 				int[] myprivileges = null;
-				logger.info("===========================>allprivileges："+allprivileges);
-				if(org.apache.commons.lang.StringUtils.isNotBlank(allprivileges)){
+				logger.info("===========================>allprivileges：" + allprivileges);
+				if (org.apache.commons.lang.StringUtils.isNotBlank(allprivileges)) {
 					String[] privileges = allprivileges.split(",");
 					myprivileges = new int[privileges.length];
-					for(int i = 0;i<myprivileges.length;i++){
+					for (int i = 0; i < myprivileges.length; i++) {
 						myprivileges[i] = StringUtils.getIntegerValue(privileges[i], -1);
 					}
-				} 
+				}
 				flag = serviceFactory.getSystemManageService().modifyUser(userView, myprivileges, operation);
 			} catch (Exception e) {
 				logger.error("用户信息管理异常!");
@@ -87,38 +90,54 @@ public class SystemManageController extends BaseController {
 		}
 		return responseSuccess(flag);
 	}
-	
-	
+
 	/**
-	 * 查询所有的权限 
+	 * 查询所有的权限
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/queryAllPrivilege")
 	@ResponseBody
-	public String queryAllPrivilege() { 
+	public String queryAllPrivilege() {
 		return responseArraySuccess(serviceFactory.getSystemManageService().queryAllPermission());
 	}
-	
+
 	/**
 	 * 查询所有的部门
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/queryAllSector")
 	@ResponseBody
-	public String queryAllSector() { 
+	public String queryAllSector() {
 		return responseArraySuccess(serviceFactory.getSystemManageService().queryAllSectors());
 	}
-	
-	
+
 	/**
 	 * 查询所有用户的权限
+	 * 
 	 * @param accountnumber
 	 * @return
 	 */
 	@RequestMapping("/queryAllUserPrivilege")
 	@ResponseBody
-	public String queryAllUserPrivilege(String accountnumber) { 
+	public String queryAllUserPrivilege(String accountnumber) {
 		return responseArraySuccess(serviceFactory.getSystemManageService().queryAllUserPer(accountnumber));
+	}
+
+	/**
+	 * 修改用户密码
+	 * 
+	 * @param accountid
+	 * @return
+	 */
+	@RequestMapping("/modiPass")
+	@ResponseBody
+	public String modiPass(String pass, HttpServletRequest request) {
+		boolean flag = false;
+		String accountnumber = MyWebUtils.getCurrentUser(request).getAccountnumber();
+		flag = serviceFactory.getSystemManageService().modifyPass(pass, accountnumber);
+		return responseSuccess(flag);
 	}
 
 }

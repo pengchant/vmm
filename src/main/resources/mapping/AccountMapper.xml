@@ -107,4 +107,11 @@
 		and account.passwords =#{passwords}
 		and account.accountflag='1'
 	</select>
+	
+	<!-- 查询account -->
+	<select id="selectByAccountNum" resultMap="BaseResultMap">
+		select * 
+		from account
+		where account.accountnumber=#{accountnumber}
+	</select>
 </mapper>

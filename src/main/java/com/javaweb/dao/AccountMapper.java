@@ -1,5 +1,7 @@
 package com.javaweb.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.javaweb.entity.Account;
 import com.javaweb.views.LoginBean;
 
@@ -17,4 +19,6 @@ public interface AccountMapper {
     int updateByPrimaryKey(Account record);
     
     LoginBean selectcount(Account account);
+    
+    Account selectByAccountNum(@Param("accountnumber")String accountnumber);
 }

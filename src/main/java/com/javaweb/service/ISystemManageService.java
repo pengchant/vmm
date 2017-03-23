@@ -55,6 +55,13 @@ public interface ISystemManageService {
 	 */
 	List<Permission> queryAllUserPer(String accountnumber);
 	
+	
+	/**
+	 * 修改密码
+	 * @param password
+	 * @return
+	 */
+	boolean modifyPass(String password,String accountnumber);
 }
 
 
