@@ -76,6 +76,11 @@
 	 	 }); 
 	 }
 	 
+	 
+	 // 重置
+	 function cancel(){
+		 $("#passfm").form("reset");
+	 }
 </script>
 </body>
 </html>
