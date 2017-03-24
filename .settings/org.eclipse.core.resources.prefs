@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/resources/jdbc.properties=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8
+encoding//src/main/resources/user-setting.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/am/procurementOfasso.jsp=UTF-8
 encoding/<project>=UTF-8
