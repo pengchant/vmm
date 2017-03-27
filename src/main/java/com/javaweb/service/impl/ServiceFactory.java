@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.service.IBaseDataManageService;
+import com.javaweb.service.IFinancialManagementService;
 import com.javaweb.service.IInventoryManageService;
 import com.javaweb.service.ISystemManageService;
 import com.javaweb.service.IUserValidateService;
@@ -43,6 +44,15 @@ public class ServiceFactory {
 	@Resource
 	private IBaseDataManageService baseDataManageService;
 
+	/**
+	 * 财务管理模块
+	 */
+	@Resource
+	private IFinancialManagementService finanicalManagement;
+
+	/**
+	 * 系统维护模块
+	 */
 	@Resource
 	private ISystemManageService systemManageService;
 
@@ -64,6 +74,10 @@ public class ServiceFactory {
 
 	public IInventoryManageService getInventoryManageService() {
 		return inventoryManageService;
+	}
+
+	public IFinancialManagementService getFinanicalManagement() {
+		return finanicalManagement;
 	}
 
 }

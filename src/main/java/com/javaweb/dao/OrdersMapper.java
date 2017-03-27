@@ -9,6 +9,7 @@ import com.javaweb.views.MainitemUsedView;
 import com.javaweb.views.OrderMaintence;
 import com.javaweb.views.PartUsedView;
 import com.javaweb.views.PayViews;
+import com.javaweb.views.SettleOrderView;
 
 public interface OrdersMapper {
     int deleteByPrimaryKey(Integer id);
@@ -74,5 +75,14 @@ public interface OrdersMapper {
      * @return
      */
     List<MainitemUsedView> selectAllWXList(@Param("ordersid")String ordersid);
+    
+    
+    /**
+     * 查询所有的已经结算的订单
+     * @param starttime
+     * @param endtime
+     * @return
+     */
+    List<SettleOrderView> selectSettledOrders(@Param("starttime")String starttime,@Param("endtime")String endtime);        
     
 }

@@ -501,4 +501,27 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectSettledOrders" resultType="com.javaweb.views.SettleOrderView">
+		select 
+			o.id as ordersid,
+			o.customerid,
+			c.numbering,
+			c.contactinfo,
+			v.id as vehicleid,
+			v.platenum,
+			o.warrcontent,
+			b.settlementdate,
+			b.totalamount
+		from orders as o
+		join customer as c on (o.customerid=c.id)
+		join vehicle as v on (o.vehicleid = v.id)
+		join balancesheet as b on(o.id = b.ordersid)
+		<where>
+			<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
+				and b.settlementdate between concat(#{starttime},' 00:00:00') 
+				and concat(#{endtime},' 23:59:59')				
+			</if>
+		</where>
+	</select>	
 </mapper>

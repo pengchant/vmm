@@ -25,4 +25,8 @@ public interface PartprocMapper {
     		@Param("purchstatus")String purchstatus,
     		@Param("starttime")String starttime,
     		@Param("endtime")String endtime);
+    
+    List<Partproc> selectProced(
+    		@Param("starttime")String starttime,
+    		@Param("endtime")String endtime);
 }

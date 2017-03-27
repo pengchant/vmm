@@ -21,26 +21,25 @@
 <div class="easyui-layout" fit="true" border="false">
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="采购配件查询" iconCls="icon-cart_add"
-               toolbar="#tb" idField="id"
-               fitColumns="true"
-               data-options="url:'${pageContext.request.contextPath}/inventory/queryPagedPartProc.html'"
+               toolbar="#tb" idField="ordersid" 
+               data-options="url:'${pageContext.request.contextPath}/financial/getOrders.html'"
                rownumbers="true" singleSelect="true" pagination="true">
             <thead>
-            <tr>
-                <th field="procid" align="center" hidden="true" width="50">编号</th>
-                <th field="partcode" align="center" hidden="true"  width="180" >零件的编号</th>
-                <th field="partname" align="center"  width="80" >零件名称</th>
-                <th field="partcategorycode" hidden="true"  align="center" width="100">零件类别编号</th>
-                <th field="partcategory"  align="center" width="150">零件类别</th>
-                <th field="suppliercode" hidden="true"  align="center" width="150">供应商编号</th>
-                <th field="suppliername" align="center" width="180">供应商名称</th>
-                <th field="pruchdemand" align="center" width="100">需求量</th>
-                <th field="createtime" align="center" width="100">创建时间</th>
-                <th field="purchstatus" align="center" width="100" formatter="myfm">采购状态</th> 
-                <th field="op" align="center" width="100" formatter="opfm">操作</th> 
-            </tr>
+	           <tr>
+	               <th field="ordersid" align="center"  width="50">编号</th>
+	               <th field="customerid" align="center" hidden="true"  width="50" >客户的编号</th>
+	               <th field="numbering" align="center"  width="100" >客户名</th>
+	               <th field="contactinfo"  align="center" width="150">客户联系方式</th>
+	               <th field="vehicleid"  align="center" width="150">汽车编号</th>
+	               <th field="platenum"  align="center" width="100">汽车牌号</th>
+	               <th field="warrcontent" align="center" width="190">维修项目内容</th>
+	               <th field="settlementdate" align="center" width="120">结算时间</th>
+	               <th field="totalamount" align="center" width="180">总额</th> 
+	           </tr>
             </thead>
         </table> 
+        
+        <div id="tb" style="padding:5px;">
             <span>开始时间:</span>
             <input id="ds" type="text" value="3/4/2010 2:3" style="width:170px;height:26px;" class="easyui-datebox"  />
             &nbsp;&nbsp;
@@ -49,9 +48,7 @@
             &nbsp;&nbsp;
             <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
             &nbsp;&nbsp;
-            <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton" onclick="refresh()">刷新所有</a>
-            &nbsp;&nbsp;
-            <a href="#" iconCls="icon-page_excel" class="easyui-linkbutton" onclick="toexcel()">导出 excel</a>
+            <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton" onclick="refresh()">刷新所有</a>            
         </div>
 
     </div>
@@ -68,6 +65,14 @@
 	function refresh(){
 		$("#dg").datagrid('reload');   
 	} 
+	
+	// 条件查询
+	function doSearch(){
+		$('#dg').datagrid('load',{
+			starttime:$("#ds").datebox("getValue"),
+			endtime:$("#de").datebox("getValue")
+		});
+	}
 </script>
 </body>
 </html>

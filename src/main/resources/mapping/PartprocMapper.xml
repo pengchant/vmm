@@ -231,6 +231,18 @@
 	</where>
   </select>
   
+  <!-- 查询所有的配件采购的信息 -->
+  <select id="selectProced" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" />
+	from partproc as p
+	<where>
+		p.purchstatus='1'
+		<if test="starttime!=null and starttime!='' and endtime!=null and endtime!=''">
+			and p.partcategoryname between concat(#{starttime},' 00:00:00') and concat(#{endtime},' 23:59:59')
+		</if>
+	</where>
+  </select>
   
   
 </mapper>

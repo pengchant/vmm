@@ -85,3 +85,27 @@ from partproc as p
 join partcategory as c on(p.partcategorycode=c.id)
 join part as i on(p.partcode=i.id)
 
+
+###############################
+-- 查询单据
+select 
+o.id as ordersid,
+o.customerid,
+c.numbering,
+c.contactinfo,
+v.id as vehicleid,
+v.platenum,
+o.warrcontent,
+b.settlementdate,
+b.totalamount
+from orders as o
+join customer as c on (o.customerid=c.id)
+join vehicle as v on (o.vehicleid = v.id)
+join balancesheet as b on(o.id = b.ordersid)
+
+-- 查询采购单据
+select 
+from partproc as p
+where p.purchstatus='1'
+
+
