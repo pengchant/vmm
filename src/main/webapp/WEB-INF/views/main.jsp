@@ -58,8 +58,8 @@
     <div>
 
     </div>
-    <div style="float:right;color:white;font-size:13px;width:260px;height:40px;margin-top:38px;line-height: 40px;">
-         欢迎&nbsp;<span style="font-weight:700;">${loginbean.username}</span>&nbsp;&nbsp;<a href="#" class="linka">修改密码</a>
+    <div style="float:right;color:white;font-size:13px;width:180px;height:40px;margin-top:38px;line-height: 40px;">
+         欢迎&nbsp;<span style="font-weight:700;">${loginbean.username}</span>&nbsp;&nbsp;
         &nbsp;&nbsp;<a href="#" class="linka" onclick="exit();">退出系统</a>
     </div>
 </div>
@@ -81,7 +81,7 @@
 <div region="center"  border="false">
     <div class="easyui-tabs" fit="true" id="tt">
         <div title="首页" data-options="iconCls:'icon-application_home'">
-
+			<iframe  style="width:100%;height:100%;border:none;" src="<%=request.getContextPath()%>/index/dis.html?url=/fm/reportStatistics.jsp"></iframe>
         </div>
     </div>
 </div>

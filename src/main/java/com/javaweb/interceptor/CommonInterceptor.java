@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.alibaba.fastjson.JSON;
+import com.javaweb.utils.MyWebPrinter;
 import com.javaweb.utils.StringUtils;
 import com.javaweb.views.LoginBean;
 
@@ -82,8 +83,9 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 		if(!flag){
 			logger.info("hisURL:"+url);
 			// 设置上一个访问的url
-			request.setAttribute("hisURL", url);	 
-			response.sendRedirect("/vmm/");			 
+			MyWebPrinter.print(response, "<script>window.parent.location.href='/vmm/'</script>");
+			//request.setAttribute("hisURL", url);	 
+			//response.sendRedirect("/vmm/");			 
 		}
 		return flag;
 	}
