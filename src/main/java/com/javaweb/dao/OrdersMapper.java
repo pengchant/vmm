@@ -1,6 +1,8 @@
 package com.javaweb.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -83,6 +85,35 @@ public interface OrdersMapper {
      * @param endtime
      * @return
      */
-    List<SettleOrderView> selectSettledOrders(@Param("starttime")String starttime,@Param("endtime")String endtime);        
+    List<SettleOrderView> selectSettledOrders(@Param("starttime")String starttime,@Param("endtime")String endtime);    
     
+    /**
+     * 接单量统计(1-12月份)
+     * @param year
+     * @return
+     */
+    Map<String, String> jiedantongji(@Param("year")String year);
+    
+    
+    /**
+     * 销售额统计
+     * @param year
+     * @return
+     */
+    Map<String, String> xiaoshouetongji(@Param("year")String year);
+    
+    
+    /**
+     * 采购金额统计
+     * @param year
+     * @return
+     */
+    Map<String, String> caigoujinetongji(@Param("year")String year);
+    
+    /**
+     * 占比统计
+     * @param year
+     * @return
+     */
+    String[] zhanbitongji(@Param("year")String year);
 }

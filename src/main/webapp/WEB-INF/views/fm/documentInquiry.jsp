@@ -20,7 +20,7 @@
 <body style="padding:5px;">
 <div class="easyui-layout" fit="true" border="false">
     <div region="center" border="false">
-        <table fit="true" id="dg" class="easyui-datagrid" title="采购配件查询" iconCls="icon-cart_add"
+        <table fit="true" id="dg" class="easyui-datagrid" title="单据查询" 
                toolbar="#tb" idField="ordersid" 
                data-options="url:'${pageContext.request.contextPath}/financial/getOrders.html'"
                rownumbers="true" singleSelect="true" pagination="true">

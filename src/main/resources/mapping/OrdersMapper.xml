@@ -524,4 +524,92 @@
 			</if>
 		</where>
 	</select>	
+	
+	
+	<!-- 接单量统计 -->
+	<select id="jiedantongji" resultType="java.util.HashMap">
+		select   
+			sum(case month(m.allocatetime) when '1' then 1 else 0 end) as '1',  
+			sum(case month(m.allocatetime) when '2' then 1 else 0 end) as '2',  
+			sum(case month(m.allocatetime) when '3' then 1 else 0 end) as '3',  
+			sum(case month(m.allocatetime) when '4' then 1 else 0 end) as '4',  
+			sum(case month(m.allocatetime) when '5' then 1 else 0 end) as '5',  
+			sum(case month(m.allocatetime) when '6' then 1 else 0 end) as '6',  
+			sum(case month(m.allocatetime) when '7' then 1 else 0 end) as '7',  
+			sum(case month(m.allocatetime) when '8' then 1 else 0 end) as '8',  
+			sum(case month(m.allocatetime) when '9' then 1 else 0 end) as '9',  
+			sum(case month(m.allocatetime) when '10' then 1 else 0 end) as '10',  
+			sum(case month(m.allocatetime) when '11' then 1 else 0 end) as '11',  
+			sum(case month(m.allocatetime) when '12' then 1 else 0 end) as '12' 
+		from (
+			select DISTINCT o.id,p.allocatetime
+			from orders as o 
+			join personallocate as p on(o.id = p.ordersid)
+		) as m
+		where year(m.allocatetime)=#{year};  
+	</select>
+	
+	<!-- 销售额统计 -->
+	<select id="xiaoshouetongji" resultType="java.util.HashMap">
+		select   
+			sum(case month(m.settlementdate) when '1' then m.totalamount else 0 end) as '1',  
+			sum(case month(m.settlementdate) when '2' then m.totalamount else 0 end) as '2',  
+			sum(case month(m.settlementdate) when '3' then m.totalamount else 0 end) as '3',  
+			sum(case month(m.settlementdate) when '4' then m.totalamount else 0 end) as '4',  
+			sum(case month(m.settlementdate) when '5' then m.totalamount else 0 end) as '5',  
+			sum(case month(m.settlementdate) when '6' then m.totalamount else 0 end) as '6',  
+			sum(case month(m.settlementdate) when '7' then m.totalamount else 0 end) as '7',  
+			sum(case month(m.settlementdate) when '8' then m.totalamount else 0 end) as '8',  
+			sum(case month(m.settlementdate) when '9' then m.totalamount else 0 end) as '9',  
+			sum(case month(m.settlementdate) when '10' then m.totalamount else 0 end) as '10',  
+			sum(case month(m.settlementdate) when '11' then m.totalamount else 0 end) as '11',  
+			sum(case month(m.settlementdate) when '12' then m.totalamount else 0 end) as '12'  
+		from (
+			select 
+				o.id as ordersid,
+				b.totalamount,
+				b.settlementdate
+			from orders as o
+			join balancesheet as b on(o.id=b.ordersid)
+		) as m
+		where year(m.settlementdate)=#{year}
+	</select>
+	
+	<!-- 查询采购金额 -->
+	<select id="caigoujinetongji" resultType="java.util.HashMap">
+		select   
+			sum(case month(m.purtime) when '1' then m.totalpurchase else 0 end) as '1',  
+			sum(case month(m.purtime) when '2' then m.totalpurchase else 0 end) as '2',  
+			sum(case month(m.purtime) when '3' then m.totalpurchase else 0 end) as '3',  
+			sum(case month(m.purtime) when '4' then m.totalpurchase else 0 end) as '4',  
+			sum(case month(m.purtime) when '5' then m.totalpurchase else 0 end) as '5',  
+			sum(case month(m.purtime) when '6' then m.totalpurchase else 0 end) as '6',  
+			sum(case month(m.purtime) when '7' then m.totalpurchase else 0 end) as '7',  
+			sum(case month(m.purtime) when '8' then m.totalpurchase else 0 end) as '8',  
+			sum(case month(m.purtime) when '9' then m.totalpurchase else 0 end) as '9',  
+			sum(case month(m.purtime) when '10' then m.totalpurchase else 0 end) as '10',  
+			sum(case month(m.purtime) when '11' then m.totalpurchase else 0 end) as '11',  
+			sum(case month(m.purtime) when '12' then m.totalpurchase else 0 end) as '12'  
+		from (
+			SELECT
+			p.id,
+			p.partcategoryname as purtime,
+			p.totalpurchase
+			from partproc as p
+			where p.purchstatus='1'
+		) as m
+	where year(m.purtime)=#{year}
+	</select>
+	
+	<!-- 收入采购占比 -->
+	<select id="zhanbitongji" resultType="java.lang.String">
+		select sum(b.totalamount) as total
+		from orders as o
+		join balancesheet as b on (o.id = b.ordersid)
+		where YEAR(b.settlementdate)=#{year}
+		UNION
+		select SUM(partproc.totalpurchase) as total
+		from partproc 
+		where YEAR(partproc.partcategoryname)=#{year}
+	</select>
 </mapper>

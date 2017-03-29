@@ -1,5 +1,8 @@
 package com.javaweb.service.impl;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -48,6 +51,38 @@ public class FinancialManagementService implements IFinancialManagementService{
 		PageHelper.startPage(pageNo, pageSize);
 		return BeanUtil.topagedResult(daoFactory.getPartprocMapper().selectProced(starttime, endtime));
 	}
+
 	
+	/**
+	 * 接单统计
+	 */
+	@Override
+	public Map<String, String> jiedantongji(String year) { 
+		return daoFactory.getOrdersMapper().jiedantongji(year);
+	}
+
+	/**
+	 * 销售统计
+	 */
+	@Override
+	public Map<String, String> xiaoshouetongji(String year) {		 
+		return daoFactory.getOrdersMapper().xiaoshouetongji(year);
+	}
+
+	/**
+	 * 采购金额统计
+	 */
+	@Override
+	public Map<String, String> caigoujinetongji(String year) {		 
+		return daoFactory.getOrdersMapper().caigoujinetongji(year);
+	}
+
+	/**
+	 * 占比统计
+	 */
+	@Override
+	public String[] zhanbitongji(String year) { 
+		return daoFactory.getOrdersMapper().zhanbitongji(year);
+	} 
 	
 }
