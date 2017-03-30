@@ -37,9 +37,9 @@
     <script type="text/javascript">      	
     
 	   $("#dg").edatagrid({
-	 		url:"${pageContext.request.contextPath}/baseData/S/partCategoryManage.html",
-	 		saveUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=C",
-	 		updateUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=U" 
+	 		url:"${pageContext.request.contextPath}/baseData/S/partCategoryManage.shtml",
+	 		saveUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=C",
+	 		updateUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=U" 
 	 	});
 	   
 	   function statusfm(value,row,index){
@@ -81,7 +81,7 @@
 	   // 修改状态操作
 	   function modifystatus(id,status){
 		   $.ajax({
-			   url:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.html?type=D",
+			   url:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=D",
 			   data:{
 				   id:id,
 				   partcatflag:status

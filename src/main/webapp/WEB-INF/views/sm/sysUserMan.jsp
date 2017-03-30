@@ -25,7 +25,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="用户 信息" 
                toolbar="#tb" idField="id"
-               data-options="url:'${pageContext.request.contextPath}/base/queryUser.html'"
+               data-options="url:'${pageContext.request.contextPath}/base/queryUser.shtml'"
                rownumbers="true" pageSize="20" fitColumns="true" singleSelect="true" pagination="true">
             <thead>
             <tr>
@@ -98,7 +98,7 @@
     			 	<td>部门</td>
     			 	<td>
     			 		<input id="sectorid" class="easyui-combobox" name="sectorid" validateOnCreate="false"
-    					data-options="valueField:'id',textField:'deptname',url:'<%=request.getContextPath() %>/base/queryAllSector.html'" required="required">    			  
+    					data-options="valueField:'id',textField:'deptname',url:'<%=request.getContextPath() %>/base/queryAllSector.shtml'" required="required">    			  
     			 </tr>
     			  <tr> 
     			 	<td id="userpermissions" colspan="4">
@@ -174,7 +174,7 @@
 	// 加载所有的权限信息
 	function loadAllPrivileges(){
 		$.ajax({
-			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.html",
+			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.shtml",
 			type:"post",
 			dataType:"json"
 		}).done(function(data){   
@@ -219,9 +219,9 @@
 	function suresubmit(){
 		var url = ""; 
 		if(flag=="0"){// 添加
-			url = "<%=request.getContextPath()%>/base/c/modiUser.html";			
+			url = "<%=request.getContextPath()%>/base/c/modiUser.shtml";			
 		}else if(flag=="1"){// 修改
-			url = "<%=request.getContextPath()%>/base/u/modiUser.html";
+			url = "<%=request.getContextPath()%>/base/u/modiUser.shtml";
 		}	
 		$.messager.progress();	 
 		$('#userdialogfm').form('submit', {
@@ -260,7 +260,7 @@
 		$.messager.confirm('操作提示', '你确定要继续该操作吗?', function(r){
 			if (r){
 				$.ajax({
-					url:"<%=request.getContextPath()%>/base/d/modiUser.html",
+					url:"<%=request.getContextPath()%>/base/d/modiUser.shtml",
 					type:"post",
 					data:{
 						"userinfoid":userinfoid,
@@ -310,7 +310,7 @@
 	
 		// 所有的权限（如果用户具备的权限需要勾选上）
 		$.ajax({
-			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.html",
+			url:"<%=request.getContextPath()%>/base/queryAllPrivilege.shtml",
 			type:"post",
 			dataType:"json"
 		}).done(function(data){
@@ -357,7 +357,7 @@
 	function queryAllUserPrivilege(accountnumber){
 		var result = "";
 		$.ajax({
-			url:"<%=request.getContextPath()%>/base/queryAllUserPrivilege.html",
+			url:"<%=request.getContextPath()%>/base/queryAllUserPrivilege.shtml",
 			type:"post",
 			data:{
 				"accountnumber":accountnumber

@@ -10,7 +10,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="系统基础数据配置" iconCls="icon-shield"
                toolbar="#tb" idField="id"
-               url="${pageContext.request.contextPath}/baseData/queryallPermisson.html"
+               url="${pageContext.request.contextPath}/baseData/queryallPermisson.shtml"
                rownumbers="true" singleSelect="true" 
                pageSize="20"
                fitColumns="true">
@@ -74,7 +74,7 @@
     	  // 修改权限
     	  function modifypermission(flag,id){
     		  $.ajax({
-    			  url:"${pageContext.request.contextPath}/baseData/modifyPermission.html",
+    			  url:"${pageContext.request.contextPath}/baseData/modifyPermission.shtml",
     			  type:"post",
     			  dataType:"json",
     			  data:{

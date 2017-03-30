@@ -50,7 +50,7 @@
 							idField : 'platenum',
 							textField : 'numbering',
 							mode : 'remote',
-							url : '${pageContext.request.contextPath}/vehicle/getUserVehBykey.html',
+							url : '${pageContext.request.contextPath}/vehicle/getUserVehBykey.shtml',
 							columns : [ [ {
 								field : 'customerid',
 								title : '用户编号',
@@ -135,7 +135,7 @@
 		style="width: 100%; padding: 10px;">
 		
 		<%-- 页面的form表单部分 --%>
-		<form method="post" action="${pageContext.request.contextPath}/vehicle/receptOrder.html"  id="fmOrderRecept" style="width:100%;padding:0px;">
+		<form method="post" action="${pageContext.request.contextPath}/vehicle/receptOrder.shtml"  id="fmOrderRecept" style="width:100%;padding:0px;">
 			<!-- 表单的头部内容部分 -->
 			<div style="padding-top: 5px; padding-bottom: 10px;">
 				<table style="width: 100%;">
@@ -258,7 +258,7 @@
 						   <script type="text/javascript">
 						   		$(function(){ 
 						   		    // 文档加载完毕后
-						   			$.getJSON("${pageContext.request.contextPath}/vehicle/getAllMainCategory.html",
+						   			$.getJSON("${pageContext.request.contextPath}/vehicle/getAllMainCategory.shtml",
 						   				function(data){
 						   				   let $container = $("#allProjCategory");
 						   				   // 先清空
@@ -439,7 +439,7 @@ function allocating(userinfoid,taskcategory){
 					// 显示进度条
 					$.messager.progress();
 					$('#fmOrderRecept').form('submit', {
-					    url:"${pageContext.request.contextPath}/vehicle/receptOrder.html",
+					    url:"${pageContext.request.contextPath}/vehicle/receptOrder.shtml",
 					    onSubmit: function(){
 					    	var isValid = $('#fmOrderRecept').form('validate');;
 					    	var flag = (weixiuArray.length==0||zhijianArray.length==0); 
@@ -483,7 +483,7 @@ function allocating(userinfoid,taskcategory){
 					    		$.messager.alert('操作提示','添加修理单失败，请重试!','info');
 					    	}else{
 					    		$.messager.alert('操作提示','添加修理单成功!','info');
-					    		window.location.href="${pageContext.request.contextPath}/index/dis.html?url=/vmm/vehicleReception.jsp";
+					    		window.location.href="${pageContext.request.contextPath}/index/dis.shtml?url=/vmm/vehicleReception.jsp";
 					    	} 
 					    }
 					});
@@ -495,7 +495,7 @@ function allocating(userinfoid,taskcategory){
 		$("#refresh").click(function(){
 			$.messager.confirm("确定","刷新后将不再保存当前的数据,是否刷新?",function(r){
 				if(r){
-					window.location.href="${pageContext.request.contextPath}/index/dis.html?url=/vmm/vehicleReception.jsp";
+					window.location.href="${pageContext.request.contextPath}/index/dis.shtml?url=/vmm/vehicleReception.jsp";
 				}
 			}) 
 		});
@@ -513,7 +513,7 @@ function allocating(userinfoid,taskcategory){
 		
 		// 获取用户的json字符串
 		(function loadUser(){ 
-			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.html',function(data){ 
+			$.getJSON('${pageContext.request.contextPath}/vehicle/getAllUserDept.shtml',function(data){ 
 				// 加载用户信息
 				$('.userselecting').tree({
 					dnd:true,
@@ -597,7 +597,7 @@ function allocating(userinfoid,taskcategory){
 		        console.log("-->提交表单");
 		        $.messager.progress();
 		        $('#ff').form('submit', {
-		            url: "${pageContext.request.contextPath}/vehicle/addUser.html",
+		            url: "${pageContext.request.contextPath}/vehicle/addUser.shtml",
 		            onSubmit: function() {
 		                var isValid = $('#ff')
 		                    .form('validate');
@@ -744,7 +744,7 @@ function allocating(userinfoid,taskcategory){
 	<%--分页展示用户的信息 --%>
 	 <table id="tt" class="easyui-datagrid" fit="true" border="false"
 	        data-options="singleSelect:true"
-			url="${pageContext.request.contextPath}/vehicle/getUserAndVehBykeyPg.html"
+			url="${pageContext.request.contextPath}/vehicle/getUserAndVehBykeyPg.shtml"
 		    iconCls="icon-save"
 			toolbar="#tb" pagination="true">
 		<thead>

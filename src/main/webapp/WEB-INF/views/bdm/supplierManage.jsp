@@ -28,7 +28,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="客户资料管理" iconCls="icon-shield"
                toolbar="#tb" idField="id"
-               url="${pageContext.request.contextPath}/baseData/querySupplier.html"
+               url="${pageContext.request.contextPath}/baseData/querySupplier.shtml"
                rownumbers="true" singleSelect="true" pagination="true"
                
                pageSize="20"
@@ -140,7 +140,7 @@
     	
     	// 导出excel
     	function toExcel(){
-    		window.location.href="${pageContext.request.contextPath}/baseData/toSupplierExcel.html";    		
+    		window.location.href="${pageContext.request.contextPath}/baseData/toSupplierExcel.shtml";    		
     	}
     	
     	// 定义全局变量
@@ -195,7 +195,7 @@
     	
     	function sub(data){
     		$.ajax({
-    			url:"${pageContext.request.contextPath}/baseData/modifySupplier.html",
+    			url:"${pageContext.request.contextPath}/baseData/modifySupplier.shtml",
    				type:"post",
    				data:data,
    				dataType:"json"
@@ -212,7 +212,7 @@
     	// 添加弹出模态框
     	function add(){
     		$("#supplier").dialog("setTitle","添加供应商").dialog("open");
-    		url = "${pageContext.request.contextPath}/baseData/modifySupplier.html";
+    		url = "${pageContext.request.contextPath}/baseData/modifySupplier.shtml";
     		$("#type").val("C"); 
     		$("#id").val("");
     		// 重置form
@@ -223,7 +223,7 @@
     	function modifysupplier(index){
     		let row = $("#dg").datagrid("getRows")[index];
     		// 赋值
-    		url = "${pageContext.request.contextPath}/baseData/modifySupplier.html";
+    		url = "${pageContext.request.contextPath}/baseData/modifySupplier.shtml";
     		$("#type").val("U"); 
     		$("#id").val(row.id);
     		$("#suppliername").textbox("setValue",row.suppliername);

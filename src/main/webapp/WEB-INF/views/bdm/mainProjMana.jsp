@@ -20,7 +20,7 @@
         <table id="dgmainitem" title="维修项目" class="easyui-datagrid"
 					fit="true"
 					fitColumns="true"
-					url="${pageContext.request.contextPath}/baseData/queryAllMainItem.html" toolbar="#toolbar2"
+					url="${pageContext.request.contextPath}/baseData/queryAllMainItem.shtml" toolbar="#toolbar2"
 					rownumbers="true" singleSelect="true">
 			<thead>
 				<tr>
@@ -124,7 +124,7 @@
     	 // 维修项目状态更改
     	 function changemainitem(id,value){
 	   		 $.ajax({
-	  			  url:"${pageContext.request.contextPath}/baseData/modifyMainitem.html?type=D",
+	  			  url:"${pageContext.request.contextPath}/baseData/modifyMainitem.shtml?type=D",
 	  			  type:"post",
 	  			  dataType:"json",
 	  			  data:{
@@ -149,14 +149,14 @@
     		 // 重置form
     		 $("#fmmainitem").form("reset");
     		 combox();
-    		 mainitemurl = '${pageContext.request.contextPath}/baseData/modifyMainitem.html?type=C' ;
+    		 mainitemurl = '${pageContext.request.contextPath}/baseData/modifyMainitem.shtml?type=C' ;
     		 $('#dlgmainitem').dialog('open').dialog('setTitle','添加维修项目');
     	 }
     	 
     	 function combox(){
     		  // 维系项目类别
 	   		   $("#projcategoryid").combobox({
-	   			    url:'${pageContext.request.contextPath}/vehicle/mainprojrecord/gtCT.html',
+	   			    url:'${pageContext.request.contextPath}/vehicle/mainprojrecord/gtCT.shtml',
 	   			    valueField:'id',
 	   			    textField:'projname',
 	   			    readOnly:true
@@ -173,7 +173,7 @@
     		 }else{
     			 combox();
     			 // 设置路径
-    			 mainitemurl = '${pageContext.request.contextPath}/baseData/modifyMainitem.html?type=U&id='+row.mainitemid; 
+    			 mainitemurl = '${pageContext.request.contextPath}/baseData/modifyMainitem.shtml?type=U&id='+row.mainitemid; 
     			 $("#mainnumbering").textbox("setValue",row.mainitemid);
         		 $("#projname").textbox("setValue",row.projName);
         		 $("#projcategoryid").combobox("setValue",row.projcategoryid);

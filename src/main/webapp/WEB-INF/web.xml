@@ -45,7 +45,7 @@
 	<!-- 配置Spring MVC servlet的映射地址 -->
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name> 
-		<url-pattern>*.html</url-pattern>
+		<url-pattern>*.shtml</url-pattern>
 	</servlet-mapping>
 	<!-- 配置错误页面 -->
 	<error-page>

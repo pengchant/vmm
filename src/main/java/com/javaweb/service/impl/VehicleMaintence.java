@@ -529,13 +529,13 @@ public class VehicleMaintence implements IVehicleMaintence {
 						
 						// 添加采购记录
 						float purchaseNum = (float) (needNum - partstorage.getInventory()); 
+						logger.info("======================>需要采购的数量为："+purchaseNum);
 						Partproc partproc = new Partproc();
 						// partcategoryname零件的类别名称为创建的时间(yyyy-MM-dd HH:mm:ss)
 						partproc.setPartcategoryname(com.javaweb.utils.StringUtils.getCurrentTimeStr());
 						partproc.setPartcategorycode(partPickingView.getCategoryid()); 
-						partproc.setPartcode(partPickingView.getPartid());
-						// partname为零件的名称为采购成功的时间(yyyy-MM-dd HH:mm:ss)						
-						//partproc.setPartname(partPickingView.getPartname());
+						partproc.setPartcode(partPickingView.getPartid());						 					
+						partproc.setPartname(partPickingView.getPartname());
 						partproc.setSuppliercode(partPickingView.getSupplierid());
 						partproc.setSuppliername(partPickingView.getSupplierName());
 						partproc.setPruchdemand((double) purchaseNum); 

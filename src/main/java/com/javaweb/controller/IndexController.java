@@ -29,7 +29,7 @@ public class IndexController {
 	@Resource
 	private ServiceFactory serviceFactory;
 	
-	@RequestMapping("/main.html")
+	@RequestMapping("/main.shtml")
 	public String index(HttpServletRequest request){
 		LoginBean loginBean = (LoginBean) request.getSession().getAttribute("user");
 		request.setAttribute("loginbean", loginBean);

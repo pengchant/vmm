@@ -91,7 +91,7 @@ public class UserInfoController extends BaseController{
 	 * @param accountnum	账户号
 	 * @return
 	 */
-	@RequestMapping("/{accountnum}/logout.html")
+	@RequestMapping("/{accountnum}/logout.shtml")
 	public String logout(HttpServletRequest request,HttpServletResponse response,Model model,@PathVariable("accountnum") String accountnum){
 		logger.info("用户"+accountnum+",退出系统登录...");
 		// 设置session为空

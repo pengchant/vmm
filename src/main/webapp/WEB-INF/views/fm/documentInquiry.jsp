@@ -22,7 +22,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="单据查询" 
                toolbar="#tb" idField="ordersid" 
-               data-options="url:'${pageContext.request.contextPath}/financial/getOrders.html'"
+               data-options="url:'${pageContext.request.contextPath}/financial/getOrders.shtml'"
                rownumbers="true" singleSelect="true" pagination="true">
             <thead>
 	           <tr>

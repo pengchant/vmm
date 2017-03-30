@@ -8,7 +8,7 @@
     <div region="center" border="false">
     	 <table fit="true" id="dg" class="easyui-datagrid" title="维修领料" iconCls="icon-comment_edit"
                    toolbar="#tb" idField="id"
-                   data-options="pageSize:20,url:'${pageContext.request.contextPath}/vehicle/queryQualiting.html'"
+                   data-options="pageSize:20,url:'${pageContext.request.contextPath}/vehicle/queryQualiting.shtml'"
                    rownumbers="true" fitColumns="true" singleSelect="true" pagination="true">
                 <thead>
 	                <tr> 
@@ -153,7 +153,7 @@
 		$("#currentpl").empty().html(platenum);
 		// 发起ajax请求
 		$.ajax({
-			url:"${pageContext.request.contextPath}/vehicle/queryFixing.html",
+			url:"${pageContext.request.contextPath}/vehicle/queryFixing.shtml",
 			type:"post",
 			data:{ordersid:ordersid},
 			dataType:"json"
@@ -203,7 +203,7 @@
 	// 提交审核
 	function sureshenhe(){ 
 		$('#shenhefm').form('submit', {
-		    url:"${pageContext.request.contextPath}/vehicle/qualityProj.html",
+		    url:"${pageContext.request.contextPath}/vehicle/qualityProj.shtml",
 		    success:function(data){
 		        $.messager.alert("操作提示","审核成功!","info");
 		        // 重新刷新
@@ -231,7 +231,7 @@
 		$.messager.confirm('确定', '该操作不能撤销,请确定是否结束该订单的质检?', function(r){
 			if (r){
 				 $.ajax({
-					 url:"${pageContext.request.contextPath}/vehicle/endQualitied.html",
+					 url:"${pageContext.request.contextPath}/vehicle/endQualitied.shtml",
 					 type:"post",
 					 data:{ordersid:ordersid},
 					 dataType:"json"
@@ -248,7 +248,7 @@
 		$.messager.confirm('确定', '该操作不能撤销,请确定是否重新维修?', function(r){
 			if (r){
 				 $.ajax({
-					 url:"${pageContext.request.contextPath}/vehicle/endFixed.html",
+					 url:"${pageContext.request.contextPath}/vehicle/endFixed.shtml",
 					 type:"post",
 					 data:{
 						 ordersid:ordersid,

@@ -23,7 +23,7 @@
         <table fit="true" id="dg" class="easyui-datagrid" title="采购配件查询" iconCls="icon-cart_add"
                toolbar="#tb" idField="id"
                fitColumns="true"
-               data-options="url:'${pageContext.request.contextPath}/inventory/queryPagedPartProc.html'"
+               data-options="url:'${pageContext.request.contextPath}/inventory/queryPagedPartProc.shtml'"
                rownumbers="true" singleSelect="true" pagination="true">
             <thead>
             <tr>
@@ -182,13 +182,13 @@
 		let status = $("#status").combobox("getValue");
 		let starttime = $("#ds").datebox("getValue");
 		let endtime = $("#de").datebox("getValue");
-		window.location.href="${pageContext.request.contextPath}/inventory/toPartProcExcel.html?purchstatus="+status+"&starttime="+starttime+"&endtime="+endtime;
+		window.location.href="${pageContext.request.contextPath}/inventory/toPartProcExcel.shtml?purchstatus="+status+"&starttime="+starttime+"&endtime="+endtime;
 	}
 	
 	// 确定采购
 	function surecaigou(){
 		$("#fmcaigou").form('submit', {
-			url:"${pageContext.request.contextPath}/inventory/procpart.html",
+			url:"${pageContext.request.contextPath}/inventory/procpart.shtml",
 			onSubmit: function(){
 				var isValid = $(this).form('validate');
 				if (!isValid){

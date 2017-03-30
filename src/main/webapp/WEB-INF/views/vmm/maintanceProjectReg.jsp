@@ -221,7 +221,7 @@
 		<%--分页展示材料的信息 --%>
 		 <table id="ttPart" class="easyui-datagrid" fit="true" border="false"
 		        data-options="singleSelect:true,rownumbers:true"
-				url="${pageContext.request.contextPath}/vehicle/queryAllParts.html"
+				url="${pageContext.request.contextPath}/vehicle/queryAllParts.shtml"
 			    iconCls="icon-save" 
 				toolbar="#tbPart" pagination="true">
 			<thead>
@@ -303,7 +303,7 @@
         	 function saveYL(){
         		 let num = $("#needNum").numberspinner('getValue');
         		 $.ajax({
-        			 url:'${pageContext.request.contextPath}/vehicle/partsMana/pmAD.html',
+        			 url:'${pageContext.request.contextPath}/vehicle/partsMana/pmAD.shtml',
         			 data:{
         				 ordersid:currentOrder,
         				 partid:$("#currentSelectedPartid").val(),
@@ -372,7 +372,7 @@
 							// 先获取到选中的行
 							let row = $("#dgYL").datagrid("getSelected");
 							$.ajax({
-								url:"${pageContext.request.contextPath}/vehicle/partsMana/pmRM.html",
+								url:"${pageContext.request.contextPath}/vehicle/partsMana/pmRM.shtml",
 								data:{
 									partuseid:row.partusedid
 								},
@@ -426,7 +426,7 @@
 				// 加载所有的类别 
 				loadCombox();
 				$('#dlgWX').dialog('open').dialog('setTitle','添加维修项目');
-				wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/addMP.html";
+				wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/addMP.shtml";
 				// 获取ordersid
 				$("#ordersid").val(currentOrder); 
 			}else{
@@ -448,7 +448,7 @@
 						$("#spenttime").textbox('setValue',row.totalhours);
 						// 重新加载数据
 						$('#dlgWX').dialog('open').dialog('setTitle','修改维修项目');
-						wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/modMP.html?id="+row.mainprojregid;
+						wxpojurl = "${pageContext.request.contextPath}/vehicle/mainprojrecord/modMP.shtml?id="+row.mainprojregid;
 						// 获取ordersid
 						$("#ordersid").val(currentOrder);
 					}else{
@@ -473,7 +473,7 @@
 					   if(r){ 
 						   $.messager.progress();	
 						   $.ajax({
-							   url:"${pageContext.request.contextPath}/vehicle/mainprojrecord/delMP.html",
+							   url:"${pageContext.request.contextPath}/vehicle/mainprojrecord/delMP.shtml",
 							   data:{
 								  id:row.mainprojregid
 							   },
@@ -522,14 +522,14 @@
 		   
 			// 维系项目类别
 		   $("#projcategory").combobox({
-			    url:'${pageContext.request.contextPath}/vehicle/mainprojrecord/gtCT.html',
+			    url:'${pageContext.request.contextPath}/vehicle/mainprojrecord/gtCT.shtml',
 			    valueField:'id',
 			    textField:'projname',
 			    readOnly:true, 
 			    onSelect:function(record){  
 			    	$('#projname').combobox('clear');
 			    	if(record!=null||record!=undefined){
-			    		let url = '${pageContext.request.contextPath}/vehicle/mainprojrecord/getIM.html?q='+record.id;
+			    		let url = '${pageContext.request.contextPath}/vehicle/mainprojrecord/getIM.shtml?q='+record.id;
 			            $('#projname').combobox('reload', url);
 			    	} 
 				}  
@@ -541,7 +541,7 @@
 	   *  加载登记的维修项目
 	   */
 	   function getWXData(){ 
-           $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.html?ordersid='+currentOrder,function(data){
+           $.getJSON('${pageContext.request.contextPath}/vehicle/mainprojrecord/queMP.shtml?ordersid='+currentOrder,function(data){
            	// 把获取到的数据放到datagrid中		          
 	        	$("#dgWX").datagrid('loadData',data);					            	
            }); 
@@ -551,7 +551,7 @@
 	   *  加载登记的维修用料
 	   */
 	   function getYLData(){
-		   $.getJSON('${pageContext.request.contextPath}/vehicle/partsMana/pmQU.html?ordersid='+currentOrder,function(data){
+		   $.getJSON('${pageContext.request.contextPath}/vehicle/partsMana/pmQU.shtml?ordersid='+currentOrder,function(data){
            	// 把获取到的数据放到datagrid中		            
 	        	$("#dgYL").datagrid('loadData',data);
            }); 
@@ -566,7 +566,7 @@
 			   if(r){
 				   // 执行完工操作
 				   $.ajax({
-					   url:"${pageContext.request.contextPath}/vehicle/endFixed.html",
+					   url:"${pageContext.request.contextPath}/vehicle/endFixed.shtml",
 					   type:"post",
 					   data:{
 						   ordersid:ordersid
@@ -648,7 +648,7 @@
 		   
 		   // datagrid 赋值
 		   $('#current').datagrid({
-		   	url:'${pageContext.request.contextPath}/vehicle/getTasks.html?category=wx',
+		   	url:'${pageContext.request.contextPath}/vehicle/getTasks.shtml?category=wx',
 		   	singleSelect:true,
 		   	pagination:true,
 		   	method:'post',

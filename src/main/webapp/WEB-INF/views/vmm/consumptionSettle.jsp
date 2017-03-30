@@ -40,7 +40,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="消费结算" iconCls="icon-money"
                toolbar="#tb" idField="id"
-               data-options="url:'${pageContext.request.contextPath}/vehicle/queryPaying.html'"
+               data-options="url:'${pageContext.request.contextPath}/vehicle/queryPaying.shtml'"
                rownumbers="true" fitColumns="true" singleSelect="true" pagination="true">
             <thead>
             <tr>
@@ -93,7 +93,7 @@
 				 <div>
 				 	<p class="p_title"><span class="mytitle">维修用料情况</span></p>
 				    <table id="tb_yl" class="easyui-datagrid" style="width:100%;"
-				            data-options="rownumbers:true,url:'${pageContext.request.contextPath}/vehicle/queryAllPartUsed.html',fitColumns:true,singleSelect:true">
+				            data-options="rownumbers:true,url:'${pageContext.request.contextPath}/vehicle/queryAllPartUsed.shtml',fitColumns:true,singleSelect:true">
 				        <thead>
 				            <tr>
 				                <th data-options="field:'partname',width:60" align="center">用料名称</th>
@@ -109,7 +109,7 @@
 				 <div>
 				 	<p class="p_title p_fx"><span class="mytitle">维修项目情况</span></p>
 				 	 <table id="tb_wx" class="easyui-datagrid" style="width:100%;"
-				            data-options="rownumbers:true,url:'${pageContext.request.contextPath}/vehicle/queryMainitemUsed.html',fitColumns:true,singleSelect:true">
+				            data-options="rownumbers:true,url:'${pageContext.request.contextPath}/vehicle/queryMainitemUsed.shtml',fitColumns:true,singleSelect:true">
 				        <thead>
 				            <tr>
 				                <th data-options="field:'projName',width:60" align="center">项目名称</th>
@@ -222,7 +222,7 @@
 				let ordersid = $("#myordersid").val();
 				// 发起ajax请求
 				$.ajax({
-					url:"${pageContext.request.contextPath}/vehicle/paymyOrders.html",
+					url:"${pageContext.request.contextPath}/vehicle/paymyOrders.shtml",
 					data:{
 						ordersid:ordersid,
 						totalMoney:totalmoney

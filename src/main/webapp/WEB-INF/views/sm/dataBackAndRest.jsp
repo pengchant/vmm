@@ -95,7 +95,7 @@
  				// 上传
  				$.messager.progress(); 
  				$('#refm').form('submit', {
- 					url: "<%=request.getContextPath()%>/base/databaseHY.html",
+ 					url: "<%=request.getContextPath()%>/base/databaseHY.shtml",
  					onSubmit: function(){
  						var isValid = $(this).form('validate');
  						if (!isValid){
@@ -123,7 +123,7 @@
  			if (r){
  				$.messager.progress();	
  				$.ajax({
- 					url:"<%=request.getContextPath()%>/base/databaseBF.html",
+ 					url:"<%=request.getContextPath()%>/base/databaseBF.shtml",
  					data:{
  						"location":r
  					},

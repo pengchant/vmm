@@ -20,7 +20,7 @@
        	<table id="dgcategory" title="维修项目大类" class="easyui-datagrid"
 					fit="true"
 					fitColumns="true"
-					url="${pageContext.request.contextPath}/baseData/queryAllProjCategory.html" toolbar="#toolbar1"
+					url="${pageContext.request.contextPath}/baseData/queryAllProjCategory.shtml" toolbar="#toolbar1"
 					rownumbers="true"  singleSelect="true">
 			<thead>
 				<tr>
@@ -115,7 +115,7 @@
     	 
     	 function changeCategory(id,value){
 	   		 $.ajax({
-	  			  url:"${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=D",
+	  			  url:"${pageContext.request.contextPath}/baseData/modifyPartCategory.shtml?type=D",
 	  			  type:"post",
 	  			  dataType:"json",
 	  			  data:{
@@ -137,7 +137,7 @@
     	 // 弹出新建维修大类模态框
     	 function newProjCatgory(){
     		 $("#fmcategory").form("reset");
-    		 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=C';    		 
+    		 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.shtml?type=C';    		 
     		 $('#dlgcategory').dialog('open').dialog('setTitle','添加维修大类'); 
     	 }
     	 
@@ -150,7 +150,7 @@
     			 // 设置值 
     			 $("#projcategorycode").textbox("setValue",row.numbering);
     			 $("#projcategory").textbox("setValue",row.projname); 
-    			 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.html?type=U&id='+row.id;
+    			 categoryurl = '${pageContext.request.contextPath}/baseData/modifyPartCategory.shtml?type=U&id='+row.id;
         		 $('#dlgcategory').dialog('open').dialog('setTitle','修改维修大类');  
     		 } 
     	 }

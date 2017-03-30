@@ -90,7 +90,7 @@
                 
                 /////////////////// 第一个图表////////////////
                 $.ajax({
-                	url:"<%=request.getContextPath()%>/financial/jiedanliang.html",
+                	url:"<%=request.getContextPath()%>/financial/jiedanliang.shtml",
                 	type:"post",
                 	dataType:"json"
                 }).done(function(mydata){
@@ -151,7 +151,7 @@
                 
                 ////////////////第二个图表//////////////////
                 $.ajax({
-                	url:"<%=request.getContextPath()%>/financial/yinxiaoe.html",
+                	url:"<%=request.getContextPath()%>/financial/yinxiaoe.shtml",
                 	type:"post",
                 	dataType:"json"
                 }).done(function(data){
@@ -202,7 +202,7 @@
                 
                 ////////////////第三个图表//////////////////
                 $.ajax({
-                	url:"<%=request.getContextPath()%>/financial/caigoujine.html",
+                	url:"<%=request.getContextPath()%>/financial/caigoujine.shtml",
                 	type:"post",
                 	dataType:"json"
                 }).done(function(data){
@@ -255,7 +255,7 @@
                 
 				////////////////第四个图表//////////////////
                 $.ajax({
-                	url:"<%=request.getContextPath()%>/financial/zhanbi.html",
+                	url:"<%=request.getContextPath()%>/financial/zhanbi.shtml",
                 	type:"post",
                 	dataType:"json"
                 }).done(function(data){

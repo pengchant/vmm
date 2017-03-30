@@ -23,7 +23,7 @@
         <table fit="true" id="dg" class="easyui-datagrid" title="采购单据查询查询" iconCls="icon-cart_add"
                toolbar="#tb" idField="id"
                fitColumns="true"
-               data-options="url:'${pageContext.request.contextPath}/financial/getPartProc.html'"
+               data-options="url:'${pageContext.request.contextPath}/financial/getPartProc.shtml'"
                rownumbers="true" singleSelect="true" pagination="true">
             <thead>
 		          <tr>

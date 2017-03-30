@@ -24,7 +24,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="客户资料管理" iconCls="icon-shield"
                toolbar="#tb" idField="id"
-               url="${pageContext.request.contextPath}/baseData/queryPagedCustomerView.html"
+               url="${pageContext.request.contextPath}/baseData/queryPagedCustomerView.shtml"
                rownumbers="true" singleSelect="true" pagination="true"
                
                pageSize="20"
@@ -119,7 +119,7 @@
     
     	// 导出excel
     	function toExcel(){
-    		window.location.href="${pageContext.request.contextPath}/baseData/toCusttomerExcel.html";    		
+    		window.location.href="${pageContext.request.contextPath}/baseData/toCusttomerExcel.shtml";    		
     	}
     	
     	// 条件查询
@@ -159,7 +159,7 @@
     	function suresubmit(){ 
     		$.messager.progress(); 
     		$('#customerfm').form('submit', {
-    			url:"${pageContext.request.contextPath}/baseData/modifyCustomer.html",
+    			url:"${pageContext.request.contextPath}/baseData/modifyCustomer.shtml",
     			onSubmit: function(){
     				var isValid = $(this).form('validate');
     				if (!isValid){

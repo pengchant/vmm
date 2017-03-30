@@ -38,9 +38,9 @@
     <script type="text/javascript">      	
     
 	   $("#dg").edatagrid({
-	 		url:"${pageContext.request.contextPath}/baseData/S/warehouseManage.html",
-	 		saveUrl:"${pageContext.request.contextPath}/baseData/M/warehouseManage.html?type=C",
-	 		updateUrl:"${pageContext.request.contextPath}/baseData/M/warehouseManage.html?type=U" 
+	 		url:"${pageContext.request.contextPath}/baseData/S/warehouseManage.shtml",
+	 		saveUrl:"${pageContext.request.contextPath}/baseData/M/warehouseManage.shtml?type=C",
+	 		updateUrl:"${pageContext.request.contextPath}/baseData/M/warehouseManage.shtml?type=U" 
 	 	});
 	   
 	   function statusfm(value,row,index){
@@ -82,7 +82,7 @@
 	   // 修改状态操作
 	   function modifystatus(id,status){
 		   $.ajax({
-			   url:"${pageContext.request.contextPath}/baseData/M/warehouseManage.html?type=D",
+			   url:"${pageContext.request.contextPath}/baseData/M/warehouseManage.shtml?type=D",
 			   data:{
 				   id:id,
 				   wareflag:status

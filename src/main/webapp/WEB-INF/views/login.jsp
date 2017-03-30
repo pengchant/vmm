@@ -155,7 +155,7 @@
     		});
     		
     		$('#ff').form({
-    		    url:"${pageContext.request.contextPath}/users/login.html", 
+    		    url:"${pageContext.request.contextPath}/users/login.shtml", 
     		    success:function(data){   
     		       data = JSON.parse(data);    		      
     		       try{
@@ -169,7 +169,7 @@
         		    	   if(hisurl!=null&&hisurl.length>0){
         		    		   window.location.href="${pageContext.request.contextPath}"+hisurl;
         		    	   }else{
-        		    		   window.location.href="${pageContext.request.contextPath}/index/main.html";
+        		    		   window.location.href="${pageContext.request.contextPath}/index/main.shtml";
         		    	   }        		    	   
         		       }
     		       }catch(e){

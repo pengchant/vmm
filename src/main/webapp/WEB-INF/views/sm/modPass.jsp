@@ -62,7 +62,7 @@
 	 	 $.messager.confirm("操作提示","是否确定修改密码?",function(r){
 	 		 if(r){
 	 			$('#passfm').form('submit', {
-	 			 	url: "<%=request.getContextPath()%>/base/modiPass.html",
+	 			 	url: "<%=request.getContextPath()%>/base/modiPass.shtml",
 	 			 	onSubmit: function(){
 	 			 		var isValid = $(this).form('validate'); 
 	 			 		return isValid;	 

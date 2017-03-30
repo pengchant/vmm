@@ -7,7 +7,7 @@
     <div region="center" border="false">
         <table fit="true" id="dg" class="easyui-datagrid" title="库存管理" iconCls="icon-shield"
                toolbar="#tb" idField="id"
-               url="${pageContext.request.contextPath}/inventory/queryStorage.html"
+               url="${pageContext.request.contextPath}/inventory/queryStorage.shtml"
                rownumbers="true" singleSelect="true" pagination="true"
                fitColumn="true">
             <thead>
@@ -90,7 +90,7 @@
     			if (r){ 
     				// 修改的操作
     				$.ajax({
-    					url:"${pageContext.request.contextPath}/inventory/updatePrice.html",
+    					url:"${pageContext.request.contextPath}/inventory/updatePrice.shtml",
     					type:"POST",
     					dataType:"json",
     					data:{

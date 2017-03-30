@@ -27,7 +27,7 @@
         <div region="center" border="false">
             <table fit="true" id="dg" class="easyui-datagrid" title="维修领料" iconCls="icon-comment_edit"
                    toolbar="#tb" idField="id"
-                   data-options="pageSize:20,url:'${pageContext.request.contextPath}/vehicle/queryAllPickingRows.html'"
+                   data-options="pageSize:20,url:'${pageContext.request.contextPath}/vehicle/queryAllPickingRows.shtml'"
                    rownumbers="true" fitColumns="true" singleSelect="true" pagination="true">
                 <thead>
                 <tr> 
@@ -134,7 +134,12 @@
     	// 领取状态
     	function pickingformatter(value,row,index){
     		if(value=="-1"){
-    			return "采购中";
+    			let data = $("#dg").datagrid("getRows")[index]; 
+    			if(data.registedspecnum<=data.inventory){
+    				return　"待领取";
+    			}else{
+    				return "采购中";
+    			}
     		}else{
     			return value;
     		}
@@ -196,7 +201,7 @@
                        	// 实际能领取的数量
                        	let num = regNum - hasPicked; 
                        	$.ajax({
-                       		url:"${pageContext.request.contextPath}/vehicle/pickingPart.html",
+                       		url:"${pageContext.request.contextPath}/vehicle/pickingPart.shtml",
                        		type:"post",
                        		dataType:"json",
                        		data:partPickingView
@@ -247,7 +252,7 @@
             });
         	
         	$("#dgPKHistory").datagrid({
-                url:"${pageContext.request.contextPath}/vehicle/queryAllPicked.html",
+                url:"${pageContext.request.contextPath}/vehicle/queryAllPicked.shtml",
         	    columns:[[
         	        {field:'partname',align:'center',title:'零件名',width:100},
         	        {field:'reciamount',align:'center',title:'领取数量',width:100},

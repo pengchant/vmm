@@ -81,7 +81,7 @@
 <div region="center"  border="false">
     <div class="easyui-tabs" fit="true" id="tt">
         <div title="首页" data-options="iconCls:'icon-application_home'">
-			<iframe  style="width:100%;height:100%;border:none;" src="<%=request.getContextPath()%>/index/dis.html?url=/fm/reportStatistics.jsp"></iframe>
+			<iframe  style="width:100%;height:100%;border:none;" src="<%=request.getContextPath()%>/index/dis.shtml?url=/fm/reportStatistics.jsp"></iframe>
         </div>
     </div>
 </div>
@@ -104,7 +104,7 @@ background:url(${pageContext.request.contextPath}/img/banner-jkrz.jpg);line-heig
 	function exit(){
 		$.messager.confirm('确认', '你好,${loginbean.username}!你确定要退出系统登录吗?', function(r){
 			if (r){
-				window.location.href="${pageContext.request.contextPath}/users/${loginbean.accountnumber}/logout.html"
+				window.location.href="${pageContext.request.contextPath}/users/${loginbean.accountnumber}/logout.shtml"
 			}
 		});
 	}
@@ -125,7 +125,7 @@ background:url(${pageContext.request.contextPath}/img/banner-jkrz.jpg);line-heig
             if ($('#tt').tabs('exists', title)){
                 $('#tt').tabs('select', title);
             } else {
-                var content = '<iframe scrolling="auto"  frameborder="0"  src="${pageContext.request.contextPath}/index/dis.html?url='+url+'" style="width:100%;height:100%;margin-bottom:-3px;"></iframe>';
+                var content = '<iframe scrolling="auto"  frameborder="0"  src="${pageContext.request.contextPath}/index/dis.shtml?url='+url+'" style="width:100%;height:100%;margin-bottom:-3px;"></iframe>';
                 $('#tt').tabs('add',{
                     title:title,
                     content:content,
