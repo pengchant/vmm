@@ -37,8 +37,19 @@
 	window.history.forward();
 	window.onbeforeunload=function (){ 
 	}
+	
+	document.onkeydown=keyDownSearch;  
+    
+    function keyDownSearch(e) {    
+        // 兼容FF和IE和Opera    
+        var theEvent = e || window.event;    
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;    
+        if (code == 13) {    
+        	$("#submitbtn").click();
+        }    
+    }  
 </script>
-<%@include file="public/headertop.jsp" %>
+</head>
 <!-- 进入资源文件 -->
 <body>
 	<%-- 读取cookie --%>
