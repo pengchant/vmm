@@ -37,7 +37,8 @@
       #{specifications,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{partflag,jdbcType=CHAR}, 
       #{supplierid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.javaweb.entity.Part">
+  <insert id="insertSelective" parameterType="com.javaweb.entity.Part" 
+  useGeneratedKeys="true" keyProperty="id">
     insert into part
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -153,7 +154,7 @@
   
   <!-- 查询零件信息 -->
   <select id="selectParts" resultType="com.javaweb.views.PartsInfo">
-	 SELECT
+	SELECT
 		p.partnumbering,
 		p.id AS partid,
 		p.partname,
@@ -165,11 +166,18 @@
 		s.contacts,
 		s.contactInfo,
 		p.salesprice,
-		p.partflag
+		p.partflag,
+		w.warehouseName,
+		g.detaillocation,
+		g.purchaser,
+		g.jobnumber,
+		g.storagetime
 	FROM
 		part AS p
 	JOIN partcategory AS c ON (p.partcategoryid = c.id)
 	JOIN supplier AS s ON (s.id = p.supplierid)
+  	JOIN partstorage as g ON (p.id = g.partid)
+  	JOIN warehouse as w ON (g.warehouseid = w.id)
 	<where>
 		p.partflag = '1'
 		<if test="keyworld!=null and keyworld!=''">

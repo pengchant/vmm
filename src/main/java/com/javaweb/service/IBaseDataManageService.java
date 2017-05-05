@@ -3,9 +3,12 @@ package com.javaweb.service;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hsmf.datatypes.StoragePropertiesChunk;
 
 import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Part;
 import com.javaweb.entity.Partcategory;
+import com.javaweb.entity.Partstorage;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
@@ -164,5 +167,32 @@ public interface IBaseDataManageService {
 	 * @return
 	 */
 	boolean modifyWarehouse(Warehouse warehouse,String type);
+	
+	/**
+	 * 查询所有零件的类别
+	 * @return
+	 */
+	List<Partcategory> queryAllPartCategory();
+	 
+	/**
+	 * 查询所有的仓库
+	 * @return
+	 */
+	List<Warehouse> queryAllWareHouse();
+	
+	/**
+	 * 添加零件存储
+	 * @param part
+	 * @param partstorage
+	 * @return
+	 */
+	boolean addPartStorage(Part part,Partstorage partstorage);
+	
+	/**
+	 * 删除零件
+	 * @param partid
+	 * @return
+	 */
+	boolean delPart(String partid);
 	
 }

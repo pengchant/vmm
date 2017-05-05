@@ -31,6 +31,53 @@ public class PartsInfo {
 
 	private String partflag;
 
+	private String warehouseName;
+
+	private String detaillocation;
+	private String purchaser;
+	private String jobnumber;
+	private String storagetime;
+
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
+	}
+
+	public String getDetaillocation() {
+		return detaillocation;
+	}
+
+	public void setDetaillocation(String detaillocation) {
+		this.detaillocation = detaillocation;
+	}
+
+	public String getPurchaser() {
+		return purchaser;
+	}
+
+	public void setPurchaser(String purchaser) {
+		this.purchaser = purchaser;
+	}
+
+	public String getJobnumber() {
+		return jobnumber;
+	}
+
+	public void setJobnumber(String jobnumber) {
+		this.jobnumber = jobnumber;
+	}
+
+	public String getStoragetime() {
+		return storagetime;
+	}
+
+	public void setStoragetime(String storagetime) {
+		this.storagetime = storagetime;
+	}
+
 	public String getPartnumbering() {
 		return partnumbering;
 	}

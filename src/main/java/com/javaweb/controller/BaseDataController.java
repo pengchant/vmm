@@ -1,11 +1,13 @@
 package com.javaweb.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Null;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.tools.ant.taskdefs.condition.And;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
@@ -14,20 +16,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Part;
 import com.javaweb.entity.Partcategory;
+import com.javaweb.entity.Partstorage;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
 import com.javaweb.entity.Warehouse;
 import com.javaweb.service.impl.ServiceFactory;
-import com.javaweb.utils.BaseController; 
+import com.javaweb.utils.BaseController;
+import com.javaweb.utils.MyWebUtils;
 import com.javaweb.utils.XLS;
 import com.javaweb.views.CustomerView;
+import com.javaweb.views.LoginBean;
 
 /**
  * 基础数据管理的控制器
@@ -41,7 +51,25 @@ import com.javaweb.views.CustomerView;
 public class BaseDataController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BaseDataController.class);
-
+	
+	/**
+	 * 零件信息
+	 */
+	@InitBinder("part")    
+    public void initBinderPart(WebDataBinder binder) {    
+            binder.setFieldDefaultPrefix("part.");    
+    }    
+	
+	/**
+	 * 
+	 * 零件存储
+	 * 
+	 */
+	@InitBinder("storage")    
+    public void initBinderPartStorage(WebDataBinder binder) {    
+            binder.setFieldDefaultPrefix("storage.");    
+    }  
+   
 	@Autowired
 	private ServiceFactory serviceFactory;
 
@@ -287,6 +315,71 @@ public class BaseDataController extends BaseController {
 			return flag?responseSuccess(null):responseFail("操作失败，请稍后重试!");
 		}
 		return responseFail("系统暂时无法提供该服务，请稍后重试!");
+	}
+	
+	/**
+	 * 查询零件的类别
+	 * @return
+	 */
+	@RequestMapping("/searchLJCategory")
+	@ResponseBody
+	public String searchLJCategory() {
+		return responseArraySuccess(serviceFactory.getBaseDataManageService().queryAllPartCategory());
+	}
+	
+	/**
+	 * 查询供应商的信息
+	 * @return
+	 */
+	@RequestMapping("/searchSuppliers")
+	@ResponseBody
+	public String searchSuppliers() {
+		return responseArraySuccess(serviceFactory.getBaseDataManageService().queryAllSupplier());
+	}
+	
+	/**
+	 * 查询所有供应商的信息
+	 * @return
+	 */
+	@RequestMapping("/searchWareHouse")
+	@ResponseBody
+	public String searchWareHouse() {
+		return responseArraySuccess(serviceFactory.getBaseDataManageService().queryAllWareHouse());
+	}
+	
+	/**
+	 * 零件入库
+	 * @return
+	 */
+	@RequestMapping("/storagePart")
+	@ResponseBody
+	public String storagePart(@ModelAttribute("part") Part part,@ModelAttribute("storage") Partstorage storage,HttpServletRequest request) {
+		// 设置part的值为1
+		part.setPartflag("1");
+		// 设置零件存储表的信息
+	    storage.setStoragetime(new Date());
+	    LoginBean loginBean = MyWebUtils.getCurrentUser(request);
+	    if(loginBean!=null){
+	    	storage.setPurchaser(loginBean.getUsername());
+		    storage.setJobnumber(loginBean.getJobnumber());		    
+	    }
+	    // 调用service添加
+	    boolean flag = serviceFactory.getBaseDataManageService().addPartStorage(part, storage);	    
+		return flag?(responseSuccess(null)):(responseFail("添加失败!"));
+	}
+	 
+	/**
+	 * 删除零件
+	 * @return
+	 */
+	@RequestMapping("/delPart")
+	@ResponseBody
+	public String delPart(String partid) {
+		boolean flag = false;
+		if(StringUtils.isNotBlank(partid)){
+			flag = serviceFactory.getBaseDataManageService().delPart(partid);
+		}
+		return flag?responseSuccess(null):responseFail("删除失败");
 	}
 
 }

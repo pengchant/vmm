@@ -41,7 +41,7 @@
 	   		<div class="mypanel-body">
 	   			<table>
 	   				<tr>
-	   					<td><img src="<%=request.getContextPath()%>/img/author.png" style="width:110px;height:150px;"/></td>
+	   					<td><img src="<%=request.getContextPath()%>/img/author.jpg" style="width:160px;height:150px;"/></td>
 	   					<td>
 	   						<div style="padding-left:20px;width:800px;display:inline-block;"> 
 				   				姓名:陈鹏<br/>

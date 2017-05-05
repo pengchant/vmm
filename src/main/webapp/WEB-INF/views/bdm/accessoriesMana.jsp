@@ -6,95 +6,201 @@
 <body style="padding:5px;">
 <div class="easyui-layout" fit="true" border="false">
     <div region="center" border="false"> 
-    	<table id="dg" title="配件类别管理" fit="true"
-		  toolbar="#toolbar" idField="id" rownumbers="true" fitColumns="true" pagination="true"
-		  singleSelect="true"
-		  pageSize="20">
-		  	<thead>
-		  		<tr>
-		  			<th align="center" field="numbering" width="50" editor="{type:'validatebox',options:{required:true}}">零件类别编号</th>
-		  			<th align="center" field="partcategory" width="50" editor="{type:'validatebox',options:{required:true}}">零件类别名称</th>
-		  			<th align="center" field="partcatflag" width="50" formatter="statusfm">标记</th>
-		  			<th align="center" field="op" width="50" formatter="opfm">操作</th>
-		  		</tr>
-		  	</thead>
-		  </table>
-		  <div id="toolbar" style="padding:3px;">
-		  	<span>项目状态: </span>
-            <select id="cc" class="easyui-combobox" name="dept" style="width:150px;height:26px;">
-		       <option value="1">有效</option>
-		       <option value="0">已删除</option> 
-		    </select> 
-		    <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">查询</a>
-		  	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow');">新建</a> 
-			<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">取消</a>
-		  </div>
-    </div>
-    <div region="south" style="height:10px;" border="false">
+    	 <%--分页展示材料的信息 --%>
+		 <table id="ttPart" class="easyui-datagrid" fit="true" border="true"
+		        data-options="singleSelect:true,rownumbers:true"
+				url="${pageContext.request.contextPath}/vehicle/queryAllParts.shtml"
+			    iconCls="icon-save" 
+			    pageSize="20"
+				toolbar="#tbPart" pagination="true">
+			<thead>
+				<tr> 
+					<th field="partnumbering" align="center" hidden="true" width="100">零件系统编号</th>
+					<th field="partid" align="center" width="100" hidden="true">零件编号</th>
+					<th field="partname" align="center" width="120" >零件名称</th>				 
+					<th field="catenumbering" align="center" width="130" hidden="true" >零件类别编号</th>
+					<th field="categoryid" align="center" width="130" hidden="true">类别编号</th>
+					<th field="partcategory" align="center" width="130" >零件类别</th>
+		  			<th field="specifications" align="center" width="50">规格</th>
+		  			<th field="supplierName" align="center" width="170" >供应商名称</th>
+		  			<th field="contacts" align="center" width="100" >联系人</th>	  			 
+		  			<th field="contactinfo" width="120" align="center">联系方式</th> 	  	
+		  			<th field="salesprice" width="80" align="center">销售价</th> 	
+		  			<th field="warehouseName" width="80" align="center">仓库名称</th> 
+		  			<th field="detaillocation" width="120" align="center">详细地址</th> 
+		  			<th field="purchaser" width="80" align="center">采购人</th> 
+		  			<th field="jobnumber" width="80" align="center">工号</th>
+		  			<th field="storagetime" width="80" align="center">录入时间</th>  
+		  			<th field="partflag" width="80" align="center" hidden="true">零件标记</th> 	 
+		  			<th field="op" width="80" align="center" 
+		  			data-options="formatter:myformatter" >操作</th> 
+				</tr>
+			</thead> 
+		</table> 
+		<%-- 工具栏 --%>
+		<div id="tbPart" style="padding:3px"> 
+			<span>输入关键字查询</span>
+			<input id="partname" class="easyui-textbox" prompt="请输入零件名称" style="width:200px;height:30px;"/>
+			<a href="#" class="easyui-linkbutton" onclick="doSearch()" iconCls="icon-search">查询</a>
+			<a href="#" class="easyui-linkbutton" onclick="doCreate()" iconCls="icon-add">添加</a>
+			<a href="#" class="easyui-linkbutton" onclick="javascript:$('#ttPart').datagrid('reload');" iconCls="icon-reload">刷新</a>			
+		</div>
+		<%-- 工具栏搜索js部分 --%>
+		<script type="text/javascript">
+			// 模糊查询
+			function doSearch(){
+				// 获取带查询关键字
+				let key = $("#partname").textbox("getValue"); 
+				// 开始查询
+				$('#ttPart').datagrid('load',{
+					q:key
+				});
+			} 		
+		</script>
 		
+		 <%-- 维修项目模态框 --%> 
+		<div id="dlgmainitem" class="easyui-dialog"
+			style="width: 400px; height: 370px; padding: 10px 40px" closed="true"
+			buttons="#dlg-buttons" modal="true">  
+			<form id="fmmainitem" method="post"> 
+				<table class="mytb"> 
+					<tr>
+						<td>零件类别</td>
+						<td> 
+							<input id="part.partcategoryid" class="easyui-combobox" prompt="请选择零件类别" name="part.partcategoryid"
+    						data-options="valueField:'id',textField:'partcategory',url:'<%=request.getContextPath() %>/baseData/searchLJCategory.shtml'" validateOnCreate="false" required="true"  style="width:200px;height:30px;"/>							　
+						</td>
+					</tr>
+					<tr>
+						<td>零件名称</td>
+						<td> 
+							<input id="part.partname" name="part.partname"  class="easyui-textbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" />
+						</td>
+					</tr>
+					<tr>
+						<td>零件规格</td>
+						<td> 
+							<input id="part.specifications" name="part.specifications"  class="easyui-textbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" />
+						</td>
+					</tr>
+					<tr>
+						<td>零件价格</td>
+						<td> 
+							<input id="part.purchaseprice" name="part.purchaseprice" type="text" class="easyui-numberbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" value="0" data-options="min:0,precision:2">
+						</td>
+					</tr>
+					<tr>
+						<td>销售价格</td>
+						<td> 
+							<input id="part.salesprice" name="part.salesprice" type="text" class="easyui-numberbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" value="0" data-options="min:0,precision:2">
+						</td>
+					</tr>
+					<tr>
+						<td>零件备注</td>
+						<td> 
+							<input id="part.remarks" name="part.remarks"  class="easyui-textbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" />
+						</td>
+					</tr>
+					<tr>
+						<td>供应商</td>
+						<td> 
+							<input id="part.supplierid" class="easyui-combobox" name="part.supplierid" prompt="请选择供应商"
+    						data-options="valueField:'id',textField:'suppliername',url:'<%=request.getContextPath() %>/baseData/searchSuppliers.shtml'" validateOnCreate="false" required="true"  style="width:200px;height:30px;"/>							　
+						</td>
+					</tr>
+					<tr>
+						<td>仓库</td>
+						<td> 
+						   <input id="storage.warehouseid" class="easyui-combobox" name="storage.warehouseid" prompt="请选择仓库"
+    						data-options="valueField:'id',textField:'warehousename',url:'<%=request.getContextPath() %>/baseData/searchWareHouse.shtml'" validateOnCreate="false" required="true"  style="width:200px;height:30px;"/>							　
+						</td>
+					</tr>
+					<tr>
+						<td>详细位置</td>
+						<td> 
+							<input id="storage.detaillocation" name="storage.detaillocation"  class="easyui-textbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" />
+						</td>
+					</tr>	
+					<tr>
+						<td>库存量</td>
+						<td> 
+							<input id="storage.inventory" name="storage.inventory" type="text" class="easyui-numberbox" validateOnCreate="false" required="true"  style="width:200px;height:30px;" value="0" data-options="min:0,precision:0">						 
+						</td>
+					</tr>				 		
+				</table>
+			</form>
+		</div>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+				onclick="saveMainitem()">保存</a> <a href="#" class="easyui-linkbutton"
+				iconCls="icon-cancel" onclick="javascript:$('#dlgmainitem').dialog('close')">取消</a>
+		</div>
+		<%-- 配件添加结束 --%>
+    </div>
+    <div region="south" style="height:10px;" border="false">		
     </div>  
     <script type="text/javascript">      	
-    
-	   $("#dg").edatagrid({
-	 		url:"${pageContext.request.contextPath}/baseData/S/partCategoryManage.shtml",
-	 		saveUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=C",
-	 		updateUrl:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=U" 
-	 	});
-	   
-	   function statusfm(value,row,index){
-		   if(value=="1"){
-		   		return "<label style='color:green;'>有效</label>";
-		   }else{
-			   return "<label style='color:red;'>无效</label>";
-		   }
-	   }
-	   
-	   // 格式化操作
-	   function opfm(value,row,index){
-		   if(row.partcatflag=="1"){
-			   return "<button onclick='del("+index+")' style='cursor:pointer;border:none;border-radius:2px;background:red;color:white;'>删除</button>";
-		   }else{
-			   return "<button onclick='rel("+index+")' style='cursor:pointer;border:none;border-radius:2px;background:orange;color:white;'>还原</button>";
-		   }
-	   }	   
-	   
-	   // 查询
-	   function doSearch(){
-		   $("#dg").datagrid("load",{ 
-			   status:$("#cc").combobox("getValue")
-	  		});
-	   }
-	   
-	   // del操作
-	   function del(index){
-		   let row = $("#dg").datagrid("getRows")[index];
-		   modifystatus(row.id,"0");
-	   }
-	   
-	   // rel操作
-	   function rel(index){
-		   let row = $("#dg").datagrid("getRows")[index];
-		   modifystatus(row.id,"1");
-	   }
-	   
-	   // 修改状态操作
-	   function modifystatus(id,status){
-		   $.ajax({
-			   url:"${pageContext.request.contextPath}/baseData/M/partCategoryManage.shtml?type=D",
-			   data:{
-				   id:id,
-				   partcatflag:status
-			   },
-			   dataType:"json",
-			   type:"post"
-		   }).done(function(data){
-			   if(data.isError){
-				   $.messager.alert("操作提示","操作失败!","info");
-			   }
-			   $("#dg").datagrid("reload");
-		   });
-	   }
+     	// 打开添加零件的模态框
+     	function doCreate(){
+     		$("#dlgmainitem").dialog("open").dialog("setTitle","添加零件信息");
+     	}
+     	
+     	// 保存
+     	function saveMainitem(){
+     		$.messager.progress();  
+	  		$('#fmmainitem').form('submit', {
+	  			url:"<%=request.getContextPath()%>/baseData/storagePart.shtml",
+	  			onSubmit: function(){
+	  				var isValid = $(this).form('validate');
+	  				if (!isValid){
+	  					$.messager.progress('close');	 
+	  				}
+	  				return isValid;	 
+	  			},
+	  			success: function(data){
+	  				if(!data.isError){
+	  					$.messager.alert("操作提示","操作成功!","info");
+	  				}else{
+	  					$.messager.alert("操作提示","操作失败!","info");
+	  				}
+	  				$("#dlgmainitem").dialog('close');    			 
+	  				$.messager.progress('close'); 
+	  				$("#ttPart").datagrid("reload");
+	  				// 充值form
+	  				$("#fmmainitem").form("reset");
+	  			}
+	  		})
+     	}
+     	
+     	// 格式化
+     	function myformatter(value,row,index){
+     		return '<a href="javascript:void(0);" style="color:blue;" onclick="del('+row.partid+')">删除</a>';
+     	}
+     	
+     	// 删除
+     	function del(partid){     		 
+     		 $.messager.confirm("操作提示","是否确认删除?",function(r){
+        		 if(r){ 
+                    $.ajax({
+                    	url:"<%=request.getContextPath()%>/baseData/delPart.shtml",
+                    	type:"post",
+                    	data:{
+                    		partid:partid
+                    	},
+                    	dataType:"json"
+                    }).done(function(data){
+                    	// 判断
+                    	if(!data.isError){
+    	  					$.messager.alert("操作提示","操作成功!","info");
+    	  					// 重新加载
+    	  					$("#ttPart").datagrid("reload");
+    	  				}else{
+    	  					$.messager.alert("操作提示","操作失败!","info");
+    	  				}
+                    });
+        		 }
+        	 });
+     	}
     </script>
 </div>
 </body>

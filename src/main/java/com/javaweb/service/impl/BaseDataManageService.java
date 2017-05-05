@@ -15,7 +15,9 @@ import com.github.pagehelper.PageHelper;
 import com.javaweb.dao.DaoFactory;
 import com.javaweb.entity.Customer;
 import com.javaweb.entity.Mainitem;
+import com.javaweb.entity.Part;
 import com.javaweb.entity.Partcategory;
+import com.javaweb.entity.Partstorage;
 import com.javaweb.entity.Permission;
 import com.javaweb.entity.Projcategory;
 import com.javaweb.entity.Supplier;
@@ -298,6 +300,66 @@ public class BaseDataManageService implements IBaseDataManageService {
 					flag = daoFactory.getWarehouseMapper().updateByPrimaryKeySelective(wh)>0;
 				}
 			}
+		}
+		return flag;
+	}
+
+	/**
+	 * 查询所有零件的类别
+	 */
+	@Override
+	public List<Partcategory> queryAllPartCategory() {		 
+		return daoFactory.getPartcategoryMapper().selectAllPartCategory("");
+	}
+
+	/**
+	 * 查询所有的仓库
+	 */
+	@Override
+	public List<Warehouse> queryAllWareHouse() {		 
+		return daoFactory.getWarehouseMapper().selectAllWarehouse("");
+	}
+
+	/**
+	 * 添加零件存储的信息
+	 */
+	@Override
+	public boolean addPartStorage(Part part, Partstorage partstorage) {
+		boolean flag = false;
+		if(part!=null&&partstorage!=null){
+			try {
+				// 添加零件的信息
+				int partid = daoFactory.getPartMapper().insertSelective(part);
+				// partstorage 设置partid
+				partstorage.setPartid(part.getId());
+				logger.info("======>零件存储返回的零件的编号为："+part.getId());
+				// 添加零件存储的信息
+				daoFactory.getPartstorageMapper().insertSelective(partstorage);
+				flag = true;
+			} catch (Exception e) {
+				logger.info("添加材料信息有误...");				
+			}
+		}
+		return flag;
+	}
+
+	/**
+	 * 删除零件
+	 */
+	@Override
+	public boolean delPart(String partid) {
+		boolean flag = false;
+		try {
+			// 查询
+			Part part = daoFactory.getPartMapper().selectByPrimaryKey(Integer.valueOf(partid));
+			if(part!=null){
+				part.setPartflag("0");
+				// 更新数据库
+				daoFactory.getPartMapper().updateByPrimaryKeySelective(part);
+				flag = true;
+			}
+		} catch (Exception e) {
+			logger.info("删除零件信息异常!");
 		}
 		return flag;
 	} 
